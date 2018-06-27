@@ -206,7 +206,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
             $widget_class_name = get_class($control['callback'][0]);
             return $widget_class_name;
         }
-        
+
         /**
          * @param $widget_id
          * @return bool|string
