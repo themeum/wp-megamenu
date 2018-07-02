@@ -1,11 +1,9 @@
 <?php
-
 /**
  * Class WP_MegaMenu_Export_Import
  *
  */
 if ( ! class_exists('WP_MegaMenu_Export_Import')){
-
 	class WP_MegaMenu_Export_Import{
 
 		public static function init(){
@@ -18,25 +16,34 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 			add_action('admin_init', array($this, 'wpmm_import_menu'));
 		}
 
+		/**
+		 * Export the Menu
+		 */
 		function export_wp_megamenu_nav_menu(){
 			global $wpdb;
 			if ( ! isset($_GET['action']) || $_GET['action'] !== 'wp_megamenu_nav_export'){
 				return;
 			}
 
-			$nav_menu_id = (int) sanitize_text_field($_GET['menu']);
+			$nav_menu_id = isset( $_REQUEST['menu'] ) ? (int) $_REQUEST['menu'] : 0;
+			if ( ! $nav_menu_id){
+				$nav_menu_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
+			}
+
+			if ( ! $nav_menu_id){
+				return;
+			}
+
 			$term = get_term($nav_menu_id);
 
 			$nav_item_posts = array();
 			$testing_ids = array();
 			$query_term_relationships = $wpdb->get_results("select * from {$wpdb->term_relationships} WHERE term_taxonomy_id = {$nav_menu_id} ");
 			if (is_array($query_term_relationships) && count($query_term_relationships)){
-
 				//echo '<pre>';
 				//die(print_r($query_term_relationships));
 
 				foreach ($query_term_relationships as $relationship){
-
 					$object = get_post($relationship->object_id, ARRAY_A);
 
 					$post_key_only = array('ID','post_author', 'post_content', 'post_title', 'post_excerpt','post_status', 'post_type');
@@ -54,33 +61,29 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 
 								//Get origin post from '_menu_item_object_id' meta
 								$origin_post = get_post($mvalue->meta_value, ARRAY_A);
-
 								$testing_ids[] = $mvalue->meta_value;
 
-								$origin_object_post = array_intersect_key($origin_post, array_flip($post_key_only));
-								$origin_object_post['postmeta'] = array();
-								$nav_item_posts['origin_posts'][$mvalue->meta_value] = $origin_object_post;
+								if (is_array($origin_post) && count($origin_post)){
+									$origin_object_post = array_intersect_key($origin_post, array_flip($post_key_only));
+									$origin_object_post['postmeta'] = array();
+									$nav_item_posts['origin_posts'][$mvalue->meta_value] = $origin_object_post;
+								}
 							}
-
 						}
 						$object_post['postmeta'] = $post_meta;
 					}
 					$nav_item_posts[] = $object_post;
-
 					//die(print_r($object_post));
 				}
 			}
 
 			$widgets_options = get_option('sidebars_widgets');
-			$calender_widget = get_option('widget_calendar');
-
-
 			global $wp_registered_widget_controls;
+			$widgets = array();
 
 			if (isset( $widgets_options['wpmm'])){
 				$wpbb_sidebar_widgets = $widgets_options['wpmm'];
 				$widgets['sidebars'] = array('wpmm' => $wpbb_sidebar_widgets );
-
 
 				foreach ($wpbb_sidebar_widgets as $saved_widget_id){
 					if (isset($wp_registered_widget_controls[$saved_widget_id]) && isset
@@ -92,22 +95,10 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 						$get_widget = get_option($widget_option_name);
 						$widget_incremental_id = str_replace($id_base.'-', '', $saved_widget_id );
 
-
-
 						$widgets['widgets_item'][$widget_option_name][$widget_incremental_id] = $get_widget[$widget_incremental_id];
-
-						//print_r($get_widget);
-						//echo $widget_option_name . '<br />';
 					}
-
 				}
-
-
 			}
-
-			//print_r($widgets);
-			//print_r($calender_widget);
-			//die();
 
 			$nav = array(
 				'site_url'  => site_url(),
@@ -131,12 +122,9 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 				'widgets'   => $widgets,
 			);
 
-			//echo '<pre>';
-			//die(print_r($nav));
-
 			$file_name = 'wp-megamenu-nav-'.$nav_menu_id.'.txt';
 			$handle = fopen($file_name, "w");
-			fwrite($handle, serialize($nav));
+			fwrite($handle, base64_encode(serialize($nav)) );
 			fclose($handle);
 
 			header('Content-Type: application/octet-stream');
@@ -149,22 +137,35 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 			exit();
 		}
 
+		function sample_admin_notice__success() {
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Menu has been imported successfully', 'wp-megamenu' ); ?></p>
+			</div>
+			<?php
+		}
 
-
+		/*
+		 * Import menu from the exported file
+		 */
 		function wpmm_import_menu(){
 			global $wpdb;
 			require_once( ABSPATH . 'wp-admin/includes/widgets.php' );
 
 			if ( isset( $_POST['wpmmm_import_menu_nonce_field'] ) && wp_verify_nonce( $_POST['wpmmm_import_menu_nonce_field'], 'wpmmm_import_menu_action' )) {
 				$uploaded_file = $_FILES['wpmm_import_menu_file'];
+
 				if ( $uploaded_file['error'] == 0 ) {
 					$wp_check_filetype = wp_check_filetype( $uploaded_file['name']);
 					if ( ! empty($wp_check_filetype['ext']) && strtolower($wp_check_filetype['ext']) === 'txt') {
 
 						$serilized_data = file_get_contents($uploaded_file['tmp_name']);
-						if (wpmm_is_serialized($serilized_data)) {
+						$serilized_data = trim($serilized_data);
+
+
+						if (wpmm_is_serialized(base64_decode($serilized_data))) {
 							$site_url = site_url();
-							$post_data = unserialize($serilized_data);
+							$post_data = unserialize(base64_decode($serilized_data));
 							$import_site_url = $post_data['site_url'];
 
 							$post_data = json_decode(str_replace($import_site_url, $site_url, json_encode($post_data)));
@@ -205,11 +206,6 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 									update_option($widget_option_name, $widgets_data['widgets_item'][$widget_option_name]);
 									//die(print_r($widgets_data['widgets_item'][$widget_option_name]));
 								}
-								//var_dump(next_widget_id_number('calendar'));
-
-								//echo '<pre>';
-								//print_r($widgets_options);
-								//die(print_r($widgets_data));
 							}
 
 							//Insert Term
@@ -295,8 +291,11 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 
 							}
 
+							add_action( 'admin_notices', array($this, 'sample_admin_notice__success') );
+
 						}
 					}
+
 
 				}
 			}

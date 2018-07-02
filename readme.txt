@@ -172,5 +172,8 @@ A. Yes, it’s fully free.
 = 1.1.7 [10/04/18] =
 * Fixed     :  Disable the Mega Menu for mobile devices.
 
+= 1.1.8 [02/07/18] =
+* Added     :  Menu Import and Export Feature
+
 == Upgrade Notice ==
 Nothing here
