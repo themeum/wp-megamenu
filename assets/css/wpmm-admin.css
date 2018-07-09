@@ -1483,3 +1483,23 @@ input.wpmm_theme_title{
 }
 
 
+/**
+Manual Integration Code
+ */
+.integration-code-row{
+    display: block;
+    margin-bottom: 10px !important;
+    min-height: 35px;
+}
+.integration-code-row span, .integration-code-row code {
+    font-size: 12px;
+}
+.integration-code-row span {
+    display: inline-block;
+    width: 100px;
+}
+
+.integration-code-row code{
+    border-left: 2px solid #4E90E2;
+    padding: 10px;
+}

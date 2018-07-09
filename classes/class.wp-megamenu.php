@@ -420,7 +420,9 @@ function overrite_functions_wp_megamenu($args){
 		if ($theme_id){
 			$wpmm_wrap_class = "wp-megamenu-wrap {$sticky_class} {$menu_layout_class} {$menu_custom_class} ";
 		}
-//die(print_row($args));
+
+		//echo '<pre>';
+		//die(print_row($args));
 		return $argunets = array(
 			'menu'              => $args['menu'],
 			'theme_location'    => $args['theme_location'],
@@ -513,3 +515,134 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
 		}
 	}
 }
+
+
+/**
+ * @param array $args
+ *
+ * @return array
+ */
+function wp_megamenu_nav_args($args = array()){
+	if ( ! function_exists('wpmm_theme_by_selected_nav_id')){
+		include WPMM_DIR.'classes/wp_megamenu_functions.php';
+	}
+
+	//Get Nav term id || Nav theme id by Location
+	$locations = get_nav_menu_locations();
+	$theme_id = null;
+	$menu_object = false;
+	$theme_location = false;
+	$menu_id = '';
+	if ( isset($args['theme_location'] ) && ! empty($locations[ $args['theme_location'] ])){
+		$menu_id = $locations[ $args['theme_location'] ] ;
+		$menu_object = wp_get_nav_menu_object($menu_id);
+		$theme_id = wpmm_theme_by_selected_nav_id($menu_object->term_id);
+
+		$theme_location = $args['theme_location'];
+	}else if ( isset($args['menu'])){
+		$menu_id =  $args['menu'];
+		$menu_object = wp_get_nav_menu_object($args['menu']);
+		if ($menu_object){
+			$theme_id = wpmm_theme_by_selected_nav_id($menu_object->term_id);
+		}
+	}
+
+	if ( ! $menu_object){
+		return array();
+	}
+
+	$sticky_class = '';
+	$menu_layout_class = '';
+	$menu_custom_class = '';
+	$brand_logo = '';
+	$logo_width = '';
+	$logo_height = '';
+	$search_form = '';
+	$toggle_btn_open_text = __('MENU', 'wp-megamenu');
+
+	if ($theme_id){
+		if (get_wpmm_theme_option('enable_sticky_menu', $theme_id) == 'true'){
+			$sticky_class = 'wpmm-sticky';
+		}
+		$menu_layout = get_wpmm_theme_option('menu_layout', $theme_id);
+		if ($menu_layout){
+			$menu_layout_class = " wpmm-{$menu_layout} ";
+		}
+
+		$menu_custom_class = get_wpmm_theme_option('wpmm_class', $theme_id);
+
+		$brand_logo = get_wpmm_theme_option('brand_logo', $theme_id);
+
+		$brand_logo_width = get_wpmm_theme_option('brand_logo_width', $theme_id);
+		$brand_logo_height = get_wpmm_theme_option('brand_logo_height', $theme_id);
+		if ( ! empty($brand_logo_width)){
+			$logo_width = wpmm_unit_to_int($brand_logo_width);
+			$logo_width = " width='{$logo_width}px' ";
+		}
+		if ( ! empty($brand_logo_height)){
+			$logo_height = wpmm_unit_to_int($brand_logo_height);
+			$logo_height = " height='{$logo_height}px' ";
+		}
+
+		$enable_search_bar = get_wpmm_theme_option('enable_search_bar', $theme_id);
+		if( $enable_search_bar == 'true' ){
+			$search_form .= '<form class="wpmm-search-form" action="'.esc_url( home_url( "/" ) ).'">';
+			$search_form .= '<input type="text" placeholder="'.__("Search","wp-megamenu").'..." name="s">';
+			$search_form .= '</form>';
+		}
+
+		$toggle_btn_open_text = get_wpmm_theme_option('toggle_btn_open_text', $theme_id);
+
+		do_action('wpmm_before_nav_theme_activate', $theme_id);
+	}
+
+
+	$container = 'nav';
+	$config_container = get_wpmm_option('container_tag');
+	if ($config_container == 'div'){
+		$container = $config_container;
+	}
+
+	$home_url = '';
+	$brand_logo_wrap = '';
+	if (! empty($brand_logo)){
+		$home_url = esc_url( home_url( '/' ) );
+		$brand_logo_wrap = "<div class='wpmm_brand_logo_wrap'><a href='{$home_url}'> <img src='{$brand_logo}' {$logo_width} {$logo_height}/> </a> </div>";
+	}
+
+	$wpmm_on_mobile = '';
+	$disable_wpmm_on_mobile = get_wpmm_option('disable_wpmm_on_mobile');
+
+	if ($disable_wpmm_on_mobile != true) {
+		$wpmm_on_mobile = '<a href="javascript:;" class="wpmm_mobile_menu_btn"><i class="fa fa-bars"></i> '.$toggle_btn_open_text.'</a>';
+	}
+
+	$item_wrap = '<div class="wpmm-fullwidth-wrap"></div><div class="wpmm-nav-wrap wpmm-main-wrap-' .'">' .$wpmm_on_mobile.' '.$brand_logo_wrap.'<ul id="%1$s" class="%2$s">%3$s</ul>'.$search_form.'</div>';
+
+	$wpmm_wrap_class = '';
+	if ($theme_id){
+		$wpmm_wrap_class = "wp-megamenu-wrap {$sticky_class} {$menu_layout_class} {$menu_custom_class} ";
+	}
+	$menu_object = wp_get_nav_menu_object($menu_id);
+	$container_class = $theme_location ? $theme_location : $menu_object->slug;
+
+	$args['menu'] = $menu_object;
+
+	if ($theme_location){
+		$args['theme_location'] = $theme_location;
+	}
+
+	$args['container'] = $container;
+	$args['container_id'] = 'wp-megamenu-'.$menu_object->slug;
+	$args['container_class'] = $wpmm_wrap_class;
+	$args['menu_class'] = 'wp-megamenu';
+	$args['echo'] = true;
+	$args['fallback_cb'] = 'wp_page_menu';
+	$args['items_wrap'] = $item_wrap;
+	$args['depth'] = 0;
+	$args['walker'] = new wp_megamenu();
+
+	return $args;
+}
+
+//die(print_r(wp_megamenu_nav_args()));

@@ -141,6 +141,83 @@
                             </td>
                         </tr>
 
+
+                        <tr class="wpmm-field wpmm-field-group">
+                            <th>
+			                    <?php _e('Manual Integration Code', 'wp-megamenu'); ?>
+                            </th>
+                            <td>
+
+                                <h3><?php _e('Integration code by nav menu', 'wp-megamenu'); ?></h3>
+
+                                <a href="javascript:;" class="nav-integration-code-by-slug">Show by slug</a>,
+                                <a href="javascript:;" class="nav-integration-code-by-id">Show by ID</a>
+
+                                <?php
+                                $navs = wp_get_nav_menus();
+
+                                if (is_array($navs) && count($navs)){
+                                    foreach ($navs as $nav){
+
+                                        echo '<div class="wp-megamenu-integration-code integration-code-by-id">';
+
+                                        echo "<h4>{$nav->name}</h4>";
+                                        echo "<p class='integration-code-row'> <span>PHP</span>  <code> &lt;?php wp_megamenu(array('menu' => '{$nav->term_id}')); ?&gt;
+ </code> 
+</p>";
+                                        echo "<p class='integration-code-row'> <span>SHORTCODE</span> <code> [wp_megamenu menu=\"{$nav->term_id}\"] </code> </p>";
+
+                                        echo '</div>';
+
+
+	                                    echo '<div class="wp-megamenu-integration-code integration-code-by-slug" style="display: none;">';
+	                                    echo "<h4>{$nav->name}</h4>";
+	                                    echo "<p class='integration-code-row'> <span>PHP</span>  <code> &lt;?php wp_megamenu(array('menu' => '{$nav->slug}')); ?&gt;
+ </code> 
+</p>";
+	                                    echo "<p class='integration-code-row'> <span>SHORTCODE</span> <code> [wp_megamenu menu=\"{$nav->slug}\"] </code> </p>";
+
+	                                    echo '</div>';
+
+                                    }
+                                }
+
+                                //print_row($navs);
+
+                                ?>
+
+
+
+                                <h3><?php _e('Integration code by theme location', 'wp-megamenu'); ?></h3>
+
+
+                                <?php
+                                $nav_location = get_registered_nav_menus();
+
+                                if (is_array($nav_location) && count($nav_location)){
+                                    foreach ( $nav_location as $nav_key => $nav){
+
+                                        echo "<h4>{$nav}</h4>";
+
+	                                    echo '<div class="wp-megamenu-integration-code">';
+	                                    echo "<p class='integration-code-row'> <span>PHP</span>  <code> &lt;?php wp_megamenu(array('theme_location' => '{$nav_key}')); ?&gt;
+ </code> 
+</p>";
+	                                    echo "<p class='integration-code-row'> <span>SHORTCODE</span> <code> [wp_megamenu theme_location=\"{$nav_key}\"] </code> </p>";
+
+	                                    echo '</div>';
+
+
+                                    }
+                                }
+                                ?>
+
+
+                            </td>
+                        </tr>
+
+
+
                     </table>
                 </div>
 
@@ -158,7 +235,6 @@
 
     </form>
 </div>
-
 
 <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>

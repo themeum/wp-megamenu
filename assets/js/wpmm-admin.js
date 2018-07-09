@@ -742,7 +742,17 @@
         button_selector = $(this);
         button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_field').val('');
         button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_preview_wrap').html('');
-    })
+    });
 
+
+
+    $(document).on('click', '.nav-integration-code-by-slug', function (e) {
+        $('.integration-code-by-id').hide();
+        $('.integration-code-by-slug').show();
+    });
+    $(document).on('click', '.nav-integration-code-by-id', function (e) {
+        $('.integration-code-by-id').show();
+        $('.integration-code-by-slug').hide();
+    });
 
 })(jQuery);

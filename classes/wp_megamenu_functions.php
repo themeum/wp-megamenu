@@ -191,16 +191,17 @@ if ( ! function_exists('wpmm_default_theme_id')){
 if ( ! function_exists('wpmm_theme_by_selected_nav_id')){
     function wpmm_theme_by_selected_nav_id($nav_or_term_id){
         $selected_nav_theme = get_term_meta($nav_or_term_id, 'wpmm_nav_options', true);
+	    //var_dump($selected_nav_theme);
 
         $selected_theme_id = null;
         if ( ! empty($selected_nav_theme)){
             $selected_nav_theme = maybe_unserialize($selected_nav_theme);
             $selected_theme_id = (int) $selected_nav_theme['theme_id'];
         }
-
+/*
         if ($selected_theme_id === null){
 	        $selected_theme_id = wpmm_default_theme_id();
-        }
+        }*/
 
         return $selected_theme_id;
     }
@@ -1408,3 +1409,52 @@ if ( ! function_exists('get_wpmm_option_input_checkmark')){
 		return 0;
 	}
 }
+
+
+
+/**
+ * @param string $menu_id
+ * @param array $args
+ *
+ * @return false|string|void
+ */
+
+if ( ! function_exists('wp_megamenu')) {
+	function wp_megamenu( $args = array() ) {
+		$args = wp_megamenu_nav_args( $args );
+		if ( ! empty($args)){
+			return wp_nav_menu( $args );
+		}
+		return '';
+	}
+}
+
+/**
+ * @param $atts
+ *
+ * @return string
+ *
+ *
+ */
+function wp_megamenu_shortcode( $atts ) {
+	$atts = shortcode_atts( array(
+		'menu' => '',
+	), $atts, 'wp_megamenu' );
+	ob_start();
+
+	$args = array();
+	if ( ! empty($atts['menu'])){
+		$args['menu'] = $atts['menu'];
+	}
+
+	if ( ! empty($atts['theme_location'])){
+		$args['theme_location'] = $atts['theme_location'];
+	}
+
+	if ( ! empty($atts['menu'])){
+		wp_megamenu($args);
+	}
+	$return = ob_get_clean();
+	return $return;
+}
+add_shortcode( 'wp_megamenu', 'wp_megamenu_shortcode' );
