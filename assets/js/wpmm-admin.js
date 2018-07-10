@@ -744,8 +744,6 @@
         button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_preview_wrap').html('');
     });
 
-
-
     $(document).on('click', '.nav-integration-code-by-slug', function (e) {
         $('.integration-code-by-id').hide();
         $('.integration-code-by-slug').show();
@@ -754,5 +752,4 @@
         $('.integration-code-by-id').show();
         $('.integration-code-by-slug').hide();
     });
-
 })(jQuery);

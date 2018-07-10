@@ -521,6 +521,8 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
  * @param array $args
  *
  * @return array
+ *
+ * @since 1.1.9
  */
 function wp_megamenu_nav_args($args = array()){
 	if ( ! function_exists('wpmm_theme_by_selected_nav_id')){
