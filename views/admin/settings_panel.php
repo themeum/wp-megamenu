@@ -54,9 +54,7 @@
                                 <?php _e('CSS Output Location', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <?php
-                                $css_output_location = get_wpmm_option('css_output_location');
-                                ?>
+                                <?php $css_output_location = get_wpmm_option('css_output_location'); ?>
 
                                 <select name="wpmm_options[css_output_location]">
                                     <option value="filesystem" <?php selected($css_output_location, 'filesystem'); ?> ><?php _e('File System', 'wp-megamenu'); ?></option>
@@ -120,6 +118,36 @@
                                 </label>
 
                                 <p class="field-description"><?php _e('If your theme already supports Font-awesome icon css, then unload this form here.', 'wp-megamenu'); ?></p>
+
+                            </td>
+                        </tr>
+
+                        <tr class="wpmm-field wpmm-field-group">
+                            <th>
+                                <?php _e('Load Icofont css in theme', 'wp-megamenu'); ?>
+                            </th>
+
+                            <td>
+                                <?php $enable_icofont = get_wpmm_option('enable_icofont');
+                                if (empty($enable_icofont)){
+                                    $enable_icofont = 'enable';
+                                }
+                                ?>
+                                <label>
+                                    <input type="radio" name="wpmm_options[enable_icofont]" value="enable" <?php
+                                    checked($enable_icofont, 'enable')
+                                    ?> /> <?php _e('Load Icofont Icon css'); ?>
+                                </label>
+
+                                <br />
+
+                                <label>
+                                    <input type="radio" name="wpmm_options[enable_icofont]" value="disable" <?php
+                                    checked($enable_icofont, 'disable')
+                                    ?> /> <?php _e('Disable Icofont Icon css'); ?>
+                                </label>
+
+                                <p class="field-description"><?php _e('If your theme already supports Icofont icon css, then unload this form here.', 'wp-megamenu'); ?></p>
 
                             </td>
                         </tr>
@@ -192,24 +220,24 @@
 
 
                                 <?php
-                                $nav_location = get_registered_nav_menus();
+                                    $nav_location = get_registered_nav_menus();
 
-                                if (is_array($nav_location) && count($nav_location)){
-                                    foreach ( $nav_location as $nav_key => $nav){
+                                    if (is_array($nav_location) && count($nav_location)){
+                                        foreach ( $nav_location as $nav_key => $nav){
 
-                                        echo "<h4>{$nav}</h4>";
+                                            echo "<h4>{$nav}</h4>";
 
-	                                    echo '<div class="wp-megamenu-integration-code">';
-	                                    echo "<p class='integration-code-row'> <span>PHP</span>  <code> &lt;?php wp_megamenu(array('theme_location' => '{$nav_key}')); ?&gt;
- </code> 
-</p>";
-	                                    echo "<p class='integration-code-row'> <span>SHORTCODE</span> <code> [wp_megamenu theme_location=\"{$nav_key}\"] </code> </p>";
+    	                                    echo '<div class="wp-megamenu-integration-code">';
+    	                                    echo "<p class='integration-code-row'> <span>PHP</span>  <code> &lt;?php wp_megamenu(array('theme_location' => '{$nav_key}')); ?&gt;
+     </code> 
+    </p>";
+    	                                    echo "<p class='integration-code-row'> <span>SHORTCODE</span> <code> [wp_megamenu theme_location=\"{$nav_key}\"] </code> </p>";
 
-	                                    echo '</div>';
+    	                                    echo '</div>';
 
 
+                                        }
                                     }
-                                }
                                 ?>
 
 

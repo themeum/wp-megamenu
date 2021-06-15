@@ -3,9 +3,8 @@
 if ( ! function_exists('wpmm_get_theme_location')){
     function wpmm_get_theme_location(){
         $locations = get_registered_nav_menus();
-
         $menus = get_nav_menu_locations();
-
+        
         foreach( $locations as $key => $location_name ){
             if( isset( $menus[$key] ) && $menus[$key] ){
                 $locations[$key].= ' <span class="wpmm-assigned"><strong>( ' . wp_get_nav_menu_object( $menus[$key] )->name .' )</strong></span>';
@@ -61,16 +60,17 @@ if ( ! function_exists('wpmm_item_settings_input')){
 }
 
 if ( ! function_exists('wpmm_get_item_settings')){
-    function wpmm_get_item_settings($menu_item_id = 0, $field_name = null ) {
+    function wpmm_get_item_settings($menu_item_id = 0, $field_name = null, $default = false ) {
         if ($menu_item_id && $field_name){
             $get_menu_settings = maybe_unserialize(get_post_meta($menu_item_id, 'wpmm_layout', true));
             if ( isset($get_menu_settings['options'][$field_name])){
                 return $get_menu_settings['options'][$field_name];
             }
         }
-        return false;
+        return $default;
     }
 }
+
 
 /**
  * @param $key
@@ -1234,6 +1234,12 @@ if ( ! function_exists('wpmm_font_awesome')) {
     }
 }
 
+if(!function_exists('wpmm_icofont')){
+    function wpmm_icofont() {
+        return array("angry-monster","bathtub","bird-wings","bow","castle","circuit","crown-king","crown-queen","dart","disability-race","diving-goggle","eye-open","flora-flower","flora","gift-box","halloween-pumpkin","hand-power","hand-thunder","king-monster","love","magician-hat","native-american","owl-look","phoenix","blogger","bootstrap","brightkite","cloudapp","concrete5","delicious","designbump","designfloat","deviantart","digg","dotcms","dribbble","dribble","dropbox","ebuddy","ello","ember","envato","evernote","facebook-messenger","facebook","feedburner","flikr","folkd","foursquare","friendfeed","ghost","github","gnome","google-buzz","google-hangouts","google-map","google-plus","google-talk","hype-machine","instagram","kakaotalk","kickstarter","kik","kiwibox","line-messenger","line","linkedin","linux-mint","live-messenger","livejournal","magento","meetme","meetup","mixx","newsvine","nimbuss","odnoklassniki","opencart","oscommerce","pandora","photobucket","picasa","pinterest","prestashop","qik","qq","readernaut","reddit","renren","rss","shopify","silverstripe","skype","slack","slashdot","slidshare","smugmug","snapchat","soundcloud","spotify","stack-exchange","stack-overflow","steam","stumbleupon","tagged","technorati","telegram","tinder","trello","tumblr","twitch","twitter","typo3","ubercart","viber","viddler","vimeo","vine","virb","virtuemart","vk","wechat","weibo","whatsapp","xing","yahoo","yelp","youku","youtube","zencart","badminton-birdie","baseball","baseballer","basketball-hoop","basketball","billiard-ball","boot-alt-1","boot-alt-2","boot","bowling-alt","bowling","canoe","cheer-leader","climbing","corner","field-alt","field","football-alt","football-american","football","foul","goal-keeper","goal","golf-alt","golf-bag","golf-cart","golf-field","golf","golfer","helmet","hockey-alt","hockey","ice-skate","jersey-alt","jersey","jumping","kick","leg","match-review","medal-sport","offside","olympic-logo","olympic","padding","penalty-card","racer","racing-car","racing-flag-alt","racing-flag","racings-wheel","referee","refree-jersey","result-sport","rugby-ball","rugby-player","rugby","runner-alt-1","runner-alt-2","runner","score-board","skiing-man","skydiving-goggles","snow-mobile","steering","stopwatch","substitute","swimmer","table-tennis","team-alt","team","tennis-player","tennis","tracking","trophy-alt","trophy","volleyball-alt","volleyball-fire","volleyball","water-bottle","whistle-alt","whistle","win-trophy","align-center","align-left","align-right","all-caps","bold","brush","clip-board","code-alt","color-bucket","color-picker","copy-invert","copy","cut","delete-alt","edit-alt","eraser-alt","font","heading","indent","italic-alt","italic","justify-all","justify-center","justify-left","justify-right","link-broken","outdent","paper-clip","paragraph","pin","printer","redo","rotation","save","small-cap","strike-through","sub-listing","subscript","superscript","table","text-height","text-width","trash","underline","undo","air-balloon","airplane-alt","airplane","articulated-truck","auto-mobile","auto-rickshaw","bicycle-alt-1","bicycle-alt-2","bicycle","bus-alt-1","bus-alt-2","bus-alt-3","bus","cab","cable-car","car-alt-1","car-alt-2","car-alt-3","car-alt-4","car","delivery-time","fast-delivery","fire-truck-alt","fire-truck","free-delivery","helicopter","motor-bike-alt","motor-bike","motor-biker","oil-truck","rickshaw","rocket-alt-1","rocket-alt-2","rocket","sail-boat-alt-1","sail-boat-alt-2","sail-boat","scooter","sea-plane","ship-alt","ship","speed-boat","taxi","tractor","train-line","train-steam","tram","truck-alt","truck-loaded","truck","van-alt","van","yacht","5-star-hotel","air-ticket","beach-bed","beach","camping-vest","direction-sign","hill-side","hill","hotel","island-alt","island","sandals-female","sandals-male","travelling","breakdown","celsius","clouds","cloudy","dust","eclipse","fahrenheit","forest-fire","full-night","full-sunny","hail-night","hail-rainy-night","hail-rainy-sunny","hail-rainy","hail-sunny","hail-thunder-night","hail-thunder-sunny","hail-thunder","hail","hill-night","hill-sunny","hurricane","meteor","night","rainy-night","rainy-sunny","rainy-thunder","rainy","snow-alt","snow-flake","snow-temp","snow","snowy-hail","snowy-night-hail","snowy-night-rainy","snowy-night","snowy-rainy","snowy-sunny-hail","snowy-sunny-rainy","snowy-sunny","snowy-thunder-night","snowy-thunder-sunny","snowy-thunder","snowy-windy-night","snowy-windy-sunny","snowy-windy","snowy","sun-alt","sun-rise","sun-set","sun","sunny-day-temp","sunny","thunder-light","tornado","umbrella-alt","umbrella","volcano","wave","wind-scale-0","wind-scale-1","wind-scale-10","wind-scale-11","wind-scale-12","wind-scale-2","wind-scale-3","wind-scale-4","wind-scale-5","wind-scale-6","wind-scale-7","wind-scale-8","wind-scale-9","wind-waves","wind","windy-hail","windy-night","windy-raining","windy-sunny","windy-thunder-raining","windy-thunder","windy","addons","address-book","adjust","alarm","anchor","archive","at","attachment","audio","automation","badge","bag-alt","bag","ban","bar-code","bars","basket","battery-empty","battery-full","battery-half","battery-low","beaker","beard","bed","bell","beverage","bill","bin","binary","binoculars","bluetooth","bomb","book-mark","box","briefcase","broken","bucket","bucket1","bucket2","bug","building","bulb-alt","bullet","bullhorn","bullseye","calendar","camera-alt","camera","card","cart-alt","cart","cc","charging","chat","check-alt","check-circled","check","checked","children-care","clip","clock-time","close-circled","close-line-circled","close-line-squared-alt","close-line-squared","close-line","close-squared-alt","close-squared","close","cloud-download","cloud-refresh","cloud-upload","cloud","code-not-allowed","code","comment","compass-alt","compass","computer","connection","console","contacts","contrast","copyright","credit-card","crop","crown","cube","cubes","dashboard-web","dashboard","data","database-add","database-locked","database-remove","database","delete","diamond","dice-multiple","dice","disc","diskette","document-folder","download-alt","download","downloaded","drag","drag1","drag2","drag3","earth","ebook","edit","eject","email","envelope-open","envelope","eraser","error","excavator","exchange","exclamation-circle","exclamation-square","exclamation-tringle","exclamation","exit","expand","external-link","external","eye-alt","eye-blocked","eye-dropper","eye","favourite","fax","file-fill","film","filter","fire-alt","fire-burn","fire","flag-alt-1","flag-alt-2","flag","flame-torch","flash-light","flash","flask","focus","folder-open","folder","foot-print","garbage","gear-alt","gear","gears","gift","glass","globe","graffiti","grocery","hand","hanger","hard-disk","heart-alt","heart","history","home","horn","hour-glass","id","image","inbox","infinite","info-circle","info-square","info","institution","interface","invisible","jacket","jar","jewlery","karate","key-hole","key","label","lamp","layers","layout","leaf","leaflet","learn","lego","lens","letter","letterbox","library","license","life-bouy","life-buoy","life-jacket","life-ring","light-bulb","lighter","lightning-ray","like","line-height","link-alt","link","list","listening","listine-dots","listing-box","listing-number","live-support","location-arrow","location-pin","lock","login","logout","lollipop","long-drive","look","loop","luggage","lunch","lungs","magic-alt","magic","magnet","mail-box","mail","male","map-pins","map","maximize","measure","medicine","mega-phone","megaphone-alt","megaphone","memorial","memory-card","mic-mute","mic","military","mill","minus-circle","minus-square","minus","mobile-phone","molecule","money","moon","mop","muffin","mustache","navigation-menu","navigation","network-tower","network","news","newspaper","no-smoking","not-allowed","notebook","notepad","notification","numbered","opposite","optic","options","package","page","paint","paper-plane","paperclip","papers","pay","penguin-linux","pestle","phone-circle","phone","picture","pine","pixels","plugin","plus-circle","plus-square","plus","polygonal","power","price","print","puzzle","qr-code","queen","question-circle","question-square","question","quote-left","quote-right","random","recycle","refresh","repair","reply-all","reply","resize","responsive","retweet","road","robot","royal","rss-feed","safety","sale-discount","satellite","send-mail","server","settings-alt","settings","share-alt","share-boxed","share","shield","shopping-cart","sign-in","sign-out","signal","site-map","smart-phone","soccer","sort-alt","sort","space","spanner","speech-comments","speed-meter","spinner-alt-1","spinner-alt-2","spinner-alt-3","spinner-alt-4","spinner-alt-5","spinner-alt-6","spinner","spreadsheet","square","ssl-security","star-alt-1","star-alt-2","star","street-view","support-faq","tack-pin","tag","tags","tasks-alt","tasks","telephone","telescope","terminal","thumbs-down","thumbs-up","tick-boxed","tick-mark","ticket","tie","toggle-off","toggle-on","tools-alt-2","tools","touch","traffic-light","transparent","tree","unique-idea","unlock","unlocked","upload-alt","upload","usb-drive","usb","vector-path","verification-check","wall-clock","wall","wallet","warning-alt","warning","water-drop","web","wheelchair","wifi-alt","wifi","world","zigzag","zipped");
+    }
+}
+
 if ( ! function_exists('wpmm_dropdown_indicator_icon')) {
     function wpmm_dropdown_indicator_icon()
     {
@@ -1257,6 +1263,7 @@ if ( ! function_exists('wpmm_dropdown_indicator_icon')) {
         return $icon;
     }
 }
+
 
 /**
  * @param $value
@@ -1458,3 +1465,65 @@ function wp_megamenu_shortcode( $atts ) {
 	return $return;
 }
 add_shortcode( 'wp_megamenu', 'wp_megamenu_shortcode' );
+
+
+
+add_filter( 'plugin_row_meta', 'custom_plugin_row_meta', 10, 2 );
+
+function custom_plugin_row_meta( $links, $file ) {
+    if ( strpos( $file, 'wp-megamenu.php' ) !== false ) {
+        $new_links = array(
+            'wppb_docs' =>  '<a href="https://www.themeum.com/docs/wp-mega-menu-introduction/" target="_blank">'.__('Docs', 'wp-megamenu').'</a>',
+            'wppb_support' =>  '<a href="https://www.themeum.com/support-forums/" target="_blank">'.__('Free Support', 'wp-megamenu').'</a>'
+        );
+
+        $links = array_merge( $links, $new_links );
+    }
+
+    return $links;
+}
+add_filter( 'plugin_action_links_' . WPMM_BASENAME, 'plugin_action_links_callback');
+
+function plugin_action_links_callback ( $links ) {
+    $wpmm_upgrade_link = array();
+    if(!defined('WPMM_PRO_VERSION')){
+        $wpmm_upgrade_link = array(
+            'wpmm_pro' => '<a href="https://www.themeum.com/product/wp-megamenu/#pricing?utm_source=wp_mm&utm_medium=wordpress_dashboard&utm_campaign=go_premium" target="_blank"><span style="color: #39a700eb; font-weight: bold;">'.__('Upgrade to Pro', 'wp-megamenu').'</span></a>'
+        );
+    }
+    $wpmm_upgrade_link['wpmm_settings'] = '<a href="'. menu_page_url('wp_megamenu', false) .'">'. __('Settings', 'wp-megamenu') .'</a>';
+    return array_merge( $wpmm_upgrade_link, $links);
+}
+add_action( 'admin_menu', 'wpmm_add_admin_menu', 502 );
+
+ function wpmm_add_admin_menu(){
+    $is_pro_activated = is_plugin_active('wp-megamenu-pro/wp-megamenu-pro.php');
+    if ( ! $is_pro_activated ){
+        add_submenu_page( 'wp_megamenu', __( 'Go Premium', 'wp-megamenu' ), __( '<span class="dashicons dashicons-awards wppb-go-premium-star"></span> Go Premium', 'wp-megamenu' ), 'manage_options', 'wpmm-go-premium', 'wppb_go_premium_page' );
+    }
+}
+
+add_action( 'admin_init', 'wpmm_go_premium_page' );
+ function wpmm_go_premium_page(){
+    if ( empty( $_GET['page'] ) ) {
+        return;
+    }
+    if ( 'wpmm-go-premium' === $_GET['page'] ) {
+        wp_redirect( 'https://www.themeum.com/product/wp-megamenu/#pricing?utm_source=wp_mm&utm_medium=wordpress_sidebar&utm_campaign=go_premium' );
+        die();
+    }
+}
+
+add_action("wp_ajax_wpmm_rating_notice", "wpmm_rating_notice");
+function wpmm_rating_notice(){
+    if ( !wp_verify_nonce( $_REQUEST['wpmm_nonce'], "wpmm_check_security")) {
+        exit("Unauthorized");
+    }
+    $type = isset($_POST['wpmm_notice_action']) ? $_POST['wpmm_notice_action'] : '';
+    $time = strtotime(date('Y-m-d') . '+ 10 days');
+    if($type == 'dismiss'){
+        $time = strtotime(date('Y-m-d') . '+ 1900 days');
+    }
+    update_option( 'wpmm_rating_notice_remove', $time );
+    return;
+}

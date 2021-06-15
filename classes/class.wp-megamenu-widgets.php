@@ -74,9 +74,9 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                 <input type='hidden' name='_wpnonce'  value='<?php echo $nonce ?>' />
                 <div class='widget-content'>
                     <?php
-                    if ( is_callable( $control['callback'] ) ) {
-                        call_user_func_array( $control['callback'], $control['params'] );
-                    }
+                        if ( is_callable( $control['callback'] ) ) {
+                            call_user_func_array( $control['callback'], $control['params'] );
+                        }
                     ?>
 
                     <div class='widget-controls'>
@@ -84,14 +84,14 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                         <a class='close' href='#close'><?php _e('Close', 'wp-megamenu'); ?></a>
                     </div>
 
-                    <?php
-                    submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false );
-                    ?>
+                    <?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
+
+                    <?php //submit_icons_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
                     <div class="clear"></div>
                 </div>
             </form>
             <?php
-        }
+        } 
 
         /**
          * get all registere available widget
@@ -116,8 +116,10 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          * Show a widget output in the menu
          */
         public function show_widget( $id ) {
+            
+            error_reporting('E_ALL & ~E_NOTICE');
             global $wp_registered_widgets;
-
+            
             $params = array_merge(
                 array( array_merge( array( 'widget_id' => $id, 'widget_name' => $wp_registered_widgets[$id]['name'] ) ) ),
                 (array) $wp_registered_widgets[$id]['params']
@@ -303,8 +305,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                 </div>
 
                 <div class="widget-inner widget-inside">
-                    <?php
-                    $this->show_wpmm_widget_form($widget_id); ?>
+                    <?php $this->show_wpmm_widget_form($widget_id); ?>
                 </div>
 
             </div>
@@ -335,6 +336,9 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          * Save or update a widget
          */
         public function wpmm_save_widget(){
+            if(! current_user_can('administrator')) {
+                return;
+            }
             check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
             $id_base = sanitize_text_field( $_POST['id_base'] );
@@ -355,6 +359,9 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          */
 
         public function wpmm_delete_widget(){
+            if(! current_user_can('administrator')) {
+                return;
+            }
             check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
             $id_base = sanitize_text_field( $_POST['id_base'] );
@@ -541,6 +548,9 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          * Delete Row
          */
         public function wpmm_delete_row(){
+            if(! current_user_can('administrator')) {
+                return;
+            }
             check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
             $menu_item_id   = (int) sanitize_text_field($_POST['menu_item_id']);

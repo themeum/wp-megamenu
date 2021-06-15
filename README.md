@@ -3,7 +3,7 @@ Contributors: themeum
 Tags: wp-megamenu, megamenu, mega menu, navigation, responsive menu, menu, builder, menu builder, drag and drop, wordpress mega menu, dropdown menu, free mega menu
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
-Tested up to: 4.8
+Tested up to: 5.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

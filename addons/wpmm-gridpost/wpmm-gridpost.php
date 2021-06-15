@@ -11,8 +11,8 @@ class wpmm_grid_posts_widget extends WP_Widget{
     }
 
     /*-------------------------------------------------------
-     *				Front-end display of widget
-     *-------------------------------------------------------*/
+    *				Front-end display of widget
+    *-------------------------------------------------------- */
     function widget($args, $instance)
     {
         extract($args);
@@ -70,12 +70,14 @@ class wpmm_grid_posts_widget extends WP_Widget{
                     $catName = __('All Post','wp-megamenu');
                     if( $value != 'allpost' ){
                         $catObj = get_category_by_slug( $value );
-                        $catName = $catObj->name;
+                        if(isset($catObj->name)){
+                            $catName = $catObj->name;
+                        }
                     }
-                    if( $i==1 ){
-                        $output .='<li class="active"><a href="#">'.$catName.'</a></li>';
+                    if( $value=='allpost' ){
+                        $output .='<li class="active"><a href="javascript:void(0)">'.$catName.'</a></li>';
                     }else{
-                        $output .='<li class=""><a href="#">'.$catName.'</a></li>';
+                        $output .='<li class=""><a href="'. get_category_link($catObj->term_id) .'">'.$catName.'</a></li>';
                     }
                     $i++;
                 }
@@ -137,9 +139,9 @@ class wpmm_grid_posts_widget extends WP_Widget{
                         $output .= '</div>'; //wpmm-grid-post-addons
 
                         if( $instance['show_nav'] == 'on' ){
-                            $output .= '<span data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$value.'" data-current="1" ata-oderby="'.$instance["order_by"].'" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
+                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$value.'" data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
                             $var = ($data->max_num_pages == 1)? 'disablebtn' : '';
-                            $output .= '<span data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$value.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
+                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$value.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
                         }
                     }
                     $output .='</div>';
@@ -208,9 +210,9 @@ class wpmm_grid_posts_widget extends WP_Widget{
                     if ( ! empty($instance['category'])){
                         $data_category = implode(',',$instance['category']);
                     }
-                    $output .= '<span data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$data_category.'" data-current="1" ata-oderby="'.$instance["order_by"].'" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
+                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$data_category.'" data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
                     $var = ($data->max_num_pages == 1)? 'disablebtn' : '';
-                    $output .= '<span data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$data_category.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
+                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.$instance['show_category'].'" data-type="post" data-category="'.$data_category.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
                 }
             }
         }
@@ -290,7 +292,7 @@ class wpmm_grid_posts_widget extends WP_Widget{
                 }
             }
             if(!empty($instance['category'])){
-                $category = $instance['category'];
+                $category = (array) $instance['category'];
             } else {
                 $category = array( 'allpost' );
             }
@@ -336,7 +338,7 @@ class wpmm_grid_posts_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e('Post Count', 'wp-megamenu'); ?></label>
+            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e('Post Count (Per page)', 'wp-megamenu'); ?></label>
             <input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo $instance['count']; ?>" style="width:100%;" />
         </p>
 
@@ -370,14 +372,18 @@ class wpmm_grid_posts_widget extends WP_Widget{
 function wpmm_postgrid_scripts() {
     wp_enqueue_style( 'postgrid_css', WPMM_URL .'addons/wpmm-gridpost/wpmm-gridpost.css', WPMM_VER, true );
     wp_enqueue_script( 'postgrid-style', WPMM_URL .'addons/wpmm-gridpost/wpmm-gridpost.js', WPMM_VER, true );
-    wp_localize_script( 'postgrid-style', 'postgrid_ajax_load', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+    wp_localize_script( 'postgrid-style', 'postgrid_ajax_load', array( 
+        'ajax_url'          => admin_url( 'admin-ajax.php' ),
+        'redirecturl'       => home_url('/'),
+    ) );
 }
 add_action( 'wp_enqueue_scripts', 'wpmm_postgrid_scripts' );
 
 
+
 /*-----------------------------------------------------
- * 				popular post
-*----------------------------------------------------*/
+* 				popular post
+*------------------------------------------------------ */
 
 function wpmm_set_postgrid_views($postID) {
     $count_key = 'wpmm_postgrid_views';
@@ -416,6 +422,7 @@ function gridpost_load_more_posts_cb(){
     $type 		= sanitize_text_field( $_POST['type'] );
     $showcat 	= sanitize_text_field( $_POST['showcat'] );
     $category 	= sanitize_text_field( $_POST['category'] );
+    $count 	    = sanitize_text_field( $_POST['count'] );
 
     if ( strpos($category, ',') !== false ) {
         $category 	= explode( ',',$category );
@@ -425,12 +432,17 @@ function gridpost_load_more_posts_cb(){
 
     global $post;
     $output = '';
-    $post_type = 'post';
-    if( $type == 'woocommerce' ){ $post_type = 'product'; }
+
+    if( $type == 'post' ){ 
+        $post_type = 'post'; 
+    }elseif ($type == 'woocommerce') { 
+        $post_type = 'product';
+    }
+
     if ( $oderby == 'popular') {
         $args = array(
             'post_type'			=> $post_type,
-            'posts_per_page' 	=> str_replace( 'col','',$column ),
+            'posts_per_page' 	=> esc_attr($count),
             'meta_key' 			=> 'wpmm_postgrid_views',
             'orderby' 			=> 'meta_value_num',
             'order' 			=> 'DESC',
@@ -440,7 +452,7 @@ function gridpost_load_more_posts_cb(){
     } else {
         $args = array(
             'post_type'			=> $post_type,
-            'posts_per_page' 	=> str_replace( 'col','',$column ),
+            'posts_per_page' 	=> esc_attr($count),
             'order' 			=> 'DESC',
             'post_status' 		=> 'publish',
             'paged' 			=> $current
@@ -448,8 +460,9 @@ function gridpost_load_more_posts_cb(){
     }
 
     if( $category ){
-        $cat_slug = 'category';
+        if( $type == 'post' ){ $cat_slug = 'category'; }
         if( $type == 'woocommerce' ){ $cat_slug = 'product_cat'; }
+
         $cat_data = array();
         $cat_data['relation'] = 'AND';
         if( !in_array( 'allpost', $category ) ){
@@ -490,7 +503,7 @@ function gridpost_load_more_posts_cb(){
             $output .= '<span class="post-in-image">';
             if( $type == 'woocommerce' ){
                 $var = get_the_term_list( get_the_ID(), 'product_cat' );
-                if( !is_wp_error($var) ){
+                if( !is_wp_error($var) && $showcat == 'on' ){
                     $output .= $var;
                 }
             } else {
@@ -523,4 +536,7 @@ function gridpost_load_more_posts_cb(){
     die( $output );
 }
 
-require_once plugin_dir_path( __FILE__ ).'wpmm-grid-woocommerce.php';
+# If Woocommerce is active.
+if ( class_exists( 'WooCommerce' ) ) {
+    require_once plugin_dir_path( __FILE__ ).'wpmm-grid-woocommerce.php';
+}

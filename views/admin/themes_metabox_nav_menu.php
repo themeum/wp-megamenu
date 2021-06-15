@@ -95,8 +95,8 @@ if ( ! empty($selected_nav_theme)){
     </div>
     <p class="button-controls wp-clearfix">
         <span class="add-to-menu">
-            <a href="<?php echo add_query_arg( array('action' => 'wp_megamenu_nav_export')); ?>" class="button button-primary menu-save" style="margin-right: 20px;" ><?php _e('Export Menu', 'wp-megamenu'); ?> </a>
-
+            <a href="<?php echo add_query_arg( array('action' => 'wp_megamenu_nav_export')); ?>" class="button button-primary menu-save" style="margin-right: 20px;" ><?php _e('Export Mega Menu', 'wp-megamenu'); ?> </a>
+            <?php wp_nonce_field( 'wpmmm_nav_export_action', 'wpmmm_nav_export_nonce_field' ) ?>
             <input type="submit"  class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e('Save', 'wp-megamenu'); ?>" name="save_wpmm_theme_nav" id="save_wpmm_theme_nav" />
         </span>
     </p>

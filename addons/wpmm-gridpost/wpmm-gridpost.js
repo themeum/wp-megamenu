@@ -11,8 +11,9 @@ jQuery(document).ready(function($){'use strict';
             type 		= $that.data('type'),
             current 	= $that.attr('data-current'),
             category	= $that.data('category'),
-            total 		= $that.data('total');
-        
+            total 		= $that.data('total'),
+            count 		= $that.data('count');
+
 
         if( $that.hasClass('wpmm-right') ){
         	current = parseInt(current) + 1;
@@ -42,7 +43,7 @@ jQuery(document).ready(function($){'use strict';
 		$.ajax({
 			url: wpmm_object.ajax_url,
 			type: 'POST',
-			data: { action: 'gridpost_load_more_posts', oderby: oderby, column: column, current: current, category: category, type: type, showcat: showcat },
+			data: { action: 'gridpost_load_more_posts', oderby: oderby, column: column, current: current, category: category, type: type, showcat: showcat, count: count },
 			beforeSend: function(){
 				$that.parent().find( ".wpmm-grid-post-addons" ).addClass('spinwarp').append( '<div class="spinners"></div>' );
 			}
@@ -70,7 +71,7 @@ jQuery(document).ready(function($){'use strict';
 				$(this).addClass('active');
 				$($tabs[index]).addClass('active');
 			});
-			$(this).on('click', function(event){ event.preventDefault(); });
+			// $(this).on('click', function(event){ event.preventDefault(); });
 		});
 	});
 

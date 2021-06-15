@@ -59,6 +59,16 @@
 
     });
 
+
+    // Get all menu item with class
+    var MenuChild  = $('#menu-to-edit').children('li.menu-item');
+        menu_id = $('input#menu').val();
+    MenuChild.each(function(){
+        var id = parseInt($(this).attr('id').match(/[0-9]+/)[0], 10);
+        var depth = $(this).attr('class').match(/\menu-item-depth-(\d+)\b/)[1];
+        ajax_request_load_menu_item_settings(id, depth, menu_id);
+    });
+
     function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
         $.ajax({
             type: 'POST',
@@ -108,7 +118,19 @@
                     add_wpmm_events_to_widget($(this));
                 });
 
+                wpmm_widget_search();
             }
+        });
+    }
+
+    function wpmm_widget_search() {
+        var wpmmWidgetSearch = $('#wpmm_widget_search input'),
+            wmmDraggableWidgetLists = $('.wmmDraggableWidgetLists');
+        wpmmWidgetSearch.on('keyup change paste', function () {
+            var wpmmWidgetSearchVal = $(this).val().toLowerCase();
+            wmmDraggableWidgetLists.find('.draggableWidget').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().includes(wpmmWidgetSearchVal));
+            });
         });
     }
 
@@ -403,6 +425,14 @@
             $('.wpmmDraggableWidgetArea').removeClass('disabled');
             //$('.wpmm-widget-lists').removeClass('disabled');
             $('.wpmmWidgetListLi').show();
+
+            //Force enabling MegaMenu Right now
+            $wpmm_is_enabled = $('input.wpmm_is_enabled');
+            if ( ! $wpmm_is_enabled.is(':checked') ){
+                $('input.wpmm_is_enabled').prop('checked', true);
+                $('#save_wpmm_theme_nav').trigger('click');
+            }
+
         }else{
             menu_type = 'wpmm_dropdown_menu';
             $('.wpmmDraggableWidgetArea').addClass('disabled');
@@ -723,7 +753,7 @@
             // We set multiple to false so only get one image from the uploader
             attachment = file_frame.state().get('selection').first().toJSON();
             // Do something with attachment.id and/or attachment.url here
-            button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_preview_wrap').html('<img' + ' src="'+attachment.url+'" class="wpmm_upload_image_preview" />');
+            button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_preview_wrap').html('<img' + ' src="'+attachment.url+'" class="wpmm_upload_image_preview" /><a href="javascript:;" class="wpmm_img_delete"><i class="fa fa-trash-o"></i></a>');
             //$( '#image_attachment_id' ).val( attachment.id );
             button_selector.closest('div.wpmm-image-upload-wrap').find('.wpmm_upload_image_field').val(attachment.url);
             // Restore the main post ID
@@ -752,4 +782,47 @@
         $('.integration-code-by-id').show();
         $('.integration-code-by-slug').hide();
     });
+
+
+    $('.add_item').on('click', function (e) {
+        e.preventDefault();
+        var form_parent = $(this).closest('.form_parent');
+        var form_item = form_parent.find('.form_item').last().clone();
+        form_item.insertBefore($(this));
+        remove_item();
+    });
+
+    function remove_item() {
+        $('.remove_item').on('click', function (e) {
+            e.preventDefault();
+            if ($('.form_parent').children().length > 3){
+                $(this).closest('.form_item').remove();
+            }
+        });
+    }
+
+    remove_item();
+
+    /*
+     * Remove Review notice permanently
+     */
+
+    $('.wpmm-remove-rating-notice').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: "wpmm_rating_notice",
+                wpmm_nonce: wpmm.wpmm_nonce,
+                wpmm_notice_action: $(this).data('type')
+            },
+            success: function (response) {
+                console.log(response);
+                $('.wpmm-review-notice').remove();
+            }
+        });
+    });
+
+
+
 })(jQuery);

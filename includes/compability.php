@@ -13,6 +13,17 @@ function wpmm_css_compatibility(){
         $style .= 'display: block;';
         $style .= '}';
     }
+
+    if($theme_name === 'storefront'){
+        $style .= "
+            .main-navigation ul ul, .secondary-navigation ul ul{float: none}
+            .main-navigation ul.menu ul li a, .main-navigation ul.nav-menu ul li a{padding: 0}
+            .handheld-navigation, .main-navigation div.menu>ul:not(.nav-menu), .nav-menu{overflow: visible}
+            .wp-megamenu-wrap .wpmm-nav-wrap::after, .wp-megamenu-wrap .wpmm-nav-wrap::before{content: '';display: table;clear: both;}
+            
+        ";
+    }
+
     $style .= '</style>';
     echo $style;
 }

@@ -62,7 +62,7 @@ $widgets = $widgets_manager->get_all_registered_widget();
             <label id="wpmm_stress_row_width_label" style="display: <?php echo ($menu_strees_row ===
             'wpmm-strees-row' || $menu_strees_row === 'wpmm-strees-default' ) ? 'inline-block': 'none'; ?>;">
                 <?php _e('Width', 'wp-megamenu'); ?>
-                <input id="wpmm_stress_row_width" type="text" name="wpmm_stress_row_width" size="10" value="<?php echo $item_strees_row_width; ?>" placeholder="<?php _e('ex: 1170px', 'wp-megamenu'); ?>" />
+                <input id="wpmm_stress_row_width" type="number" name="wpmm_stress_row_width" size="10" value="<?php echo $item_strees_row_width; ?>" placeholder="<?php _e('ex: 1170', 'wp-megamenu'); ?>" />
             </label>
 
             <!--<label>
@@ -76,7 +76,6 @@ $widgets = $widgets_manager->get_all_registered_widget();
         </div>-->
 
     </div>
-
     <a href="javascript:;" class="wpmm-isp-close-btn"><i class="fa fa-window-close"></i> </a>
     <a href="javascript:;" class="wpmm-saving-indecator" style="display: none;"><?php _e('Saving...', 'wp-megamenu'); ?></a>
     <div class="clear"></div>
@@ -97,6 +96,9 @@ $widgets = $widgets_manager->get_all_registered_widget();
                     <ul class="wpmm-widget-lists">
                         <li><?php _e('Widgets', 'wp-megamenu'); ?></li>
                         <li>
+                            <div id="wpmm_widget_search">
+                                <input type="text" placeholder="Search Here">
+                            </div>
                             <div class="wmmDraggableWidgetLists innerLi">
                                 <?php
                                 if (count($widgets)){
@@ -127,8 +129,8 @@ $widgets = $widgets_manager->get_all_registered_widget();
                          * Get layout
                          */
                         echo '<div id="wpmm_item_layout_wrap">';
-                        if ( count($wpmm_layout['layout']) ){
-                            foreach ($wpmm_layout['layout'] as $layout_key => $layout_value){
+                        if ( ! empty( $wpmm_layout['layout'] ) && count( $wpmm_layout['layout'] ) ) {
+                            foreach ($wpmm_layout['layout'] as $layout_key => $layout_value) {
                                 echo '<div class="wpmm-row" data-row-id="'.$layout_key.'">';
 
                                 echo '<div class="wpmm-row-actions">';
@@ -136,9 +138,11 @@ $widgets = $widgets_manager->get_all_registered_widget();
                                     echo '<p class="wpmm-row-right"> <span class="wpmmRowDeleteIcon"><i class="fa fa-trash-o"></i> </span>  </p>';
                                 echo '<div class="clear"></div>';
                                 echo '</div>';
-
+                                if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
                                 foreach ($layout_value['row'] as $col_key => $layout_col){
-                                    echo '<div class="wpmm-col wpmm-col-'.$layout_col['col'].'" data-col-id="'.$col_key.'">';
+                                    $layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
+
+                                    echo '<div class="wpmm-col wpmm-col-'. $layout_columns .'" data-col-id="'.$col_key.'">';
 
                                     echo '<div class="wpmm-item-wrap">';
                                         echo '<div class="wpmm-column-actions">';
@@ -159,6 +163,7 @@ $widgets = $widgets_manager->get_all_registered_widget();
                                     echo '</div>';
 
                                     echo '</div>';
+                                    }
                                 }
                                 echo '</div>';
                             }
@@ -203,31 +208,38 @@ $widgets = $widgets_manager->get_all_registered_widget();
 
             <form method="post" action="options.php" class="wpmm_item_options_form">
                 <?php //wp_nonce_field('wpmm_nonce_action','wpmm_nonce_field'); ?>
-
+ 
                 <table class="wpmm-item-options">
 
                     <?php if ($menu_item_depth == 0){ ?>
-                    <tr>
-                        <td><?php _e('Upload Background Image', 'wp-megamenu'); ?></td>
-                        <td>
-                            <div class="wpmm-image-upload-wrap">
-                                <?php $brand_logo = wpmm_get_item_settings($menu_item_id, 'menu_bg_image'); ?>
-                                <input type="button" class="wpmm_upload_image_button button" value="<?php _e( 'Upload image', 'wp-megamenu' ); ?>" /> <br />
-                                <div class="wpmm_upload_image_preview_wrap">
-                                    <?php
-                                    if ( ! empty($brand_logo)){
-                                        echo '<img src="'.$brand_logo.'" class="wpmm_upload_image_preview" >';
-                                        echo '<a href="javascript:;" class="wpmm_img_delete"><i class="fa fa-trash-o"></i> </a>';
-                                    }
-                                    ?>
+                        <tr>
+                            <td><?php _e('Upload Background Image', 'wp-megamenu'); ?></td>
+                            <td>
+                                <div class="wpmm-image-upload-wrap">
+                                    <?php $brand_logo = wpmm_get_item_settings($menu_item_id, 'menu_bg_image'); ?>
+                                    <input type="button" class="wpmm_upload_image_button button" value="<?php _e( 'Upload image', 'wp-megamenu' ); ?>" /> <br />
+                                    <div class="wpmm_upload_image_preview_wrap">
+                                        <?php
+                                            if ( ! empty($brand_logo)){
+                                                echo '<img src="'.$brand_logo.'" class="wpmm_upload_image_preview" >';
+                                                echo '<a href="javascript:;" class="wpmm_img_delete"><i class="fa fa-trash-o"></i> </a>';
+                                            }
+                                        ?>
+                                    </div>
+                                    <input type="text" class="wpmm_upload_image_field" name="options[menu_bg_image]" value="<?php echo $brand_logo; ?>" />
+                                    <p class="field-description"><?php _e('Menu background image', 'wp-megamenu'); ?></p>
                                 </div>
-                                <input type="text" class="wpmm_upload_image_field" name="options[menu_bg_image]" value="<?php echo $brand_logo; ?>" />
-                                <p class="field-description"><?php _e('Menu background image', 'wp-megamenu'); ?></p>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     <?php } ?>
 
+                    <tr>
+                        <td><?php _e('Logged in only', 'wp-megamenu'); ?></td>
+                        <td>
+                            <input name="options[logged_in_only]" value="false" type="checkbox" <?php checked
+                            (wpmm_get_item_settings($menu_item_id, 'logged_in_only'), 'false' ) ?> >
+                        </td>
+                    </tr>
 
                     <tr>
                         <td><?php _e('Hide Text', 'wp-megamenu'); ?></td>
@@ -299,16 +311,12 @@ $widgets = $widgets_manager->get_all_registered_widget();
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr class="badge_text_style wpmm-field wpmm-field-group gap">
                         <td><?php _e('Badge Text', 'wp-megamenu'); ?></td>
                         <td>
-
                             <input type="text" name="options[badge_text]" value="<?php echo wpmm_get_item_settings($menu_item_id, 'badge_text'); ?>" placeholder="<?php _e('Badge Text', 'wp-megamenu'); ?>">
-
                             <select name="options[badge_style]">
-                                <option value=""><?php _e('Select Style', 'wp-megamenu'); ?></option>
-                                <option value="default" <?php selected
-                                (wpmm_get_item_settings($menu_item_id, 'badge_style'), 'default' ) ?> ><?php _e('Default', 'wp-megamenu'); ?></option>
+                                <option value="default" <?php selected(wpmm_get_item_settings($menu_item_id, 'badge_style'), 'default' ) ?> ><?php _e('Default', 'wp-megamenu'); ?></option>
                                 <option value="primary" <?php selected(wpmm_get_item_settings($menu_item_id, 'badge_style'), 'primary' ) ?> ><?php _e('Primary', 'wp-megamenu'); ?></option>
                                 <option value="success" <?php selected(wpmm_get_item_settings($menu_item_id, 'badge_style'), 'success' ) ?> ><?php _e('Success', 'wp-megamenu'); ?></option>
                                 <option value="info" <?php selected(wpmm_get_item_settings($menu_item_id, 'badge_style'), 'info' ) ?> ><?php _e('Info', 'wp-megamenu'); ?></option>
@@ -318,6 +326,287 @@ $widgets = $widgets_manager->get_all_registered_widget();
                         </td>
                     </tr>
 
+                    <?php if ($menu_item_depth == 0){ ?> 
+                        <tr class="wpmm-field wpmm-field-group">
+                            <td><br><?php _e('Padding', 'wp-megamenu'); ?></td>
+                            <td>
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <?php 
+                                            $wp_megamenu_submenu_menu_padding_top = wpmm_get_item_settings($menu_item_id,'wp_megamenu_submenu_menu_padding_top');
+                                            if( ! $wp_megamenu_submenu_menu_padding_top){ $wp_megamenu_submenu_menu_padding_top = ''; } 
+                                        ?>
+                                        <input type='text' name='options[wp_megamenu_submenu_menu_padding_top]' value="<?php echo $wp_megamenu_submenu_menu_padding_top; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $wp_megamenu_submenu_menu_padding_right = wpmm_get_item_settings($menu_item_id,'wp_megamenu_submenu_menu_padding_right');
+                                            if( ! $wp_megamenu_submenu_menu_padding_right){ $wp_megamenu_submenu_menu_padding_right = ''; }
+                                        ?>
+                                        <input type='text' name='options[wp_megamenu_submenu_menu_padding_right]' value="<?php echo $wp_megamenu_submenu_menu_padding_right; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $wp_megamenu_submenu_menu_padding_bottom = wpmm_get_item_settings($menu_item_id,'wp_megamenu_submenu_menu_padding_bottom');
+                                            if( ! $wp_megamenu_submenu_menu_padding_bottom){ $wp_megamenu_submenu_menu_padding_bottom = ''; }
+                                        ?>
+                                        <input type='text' name='options[wp_megamenu_submenu_menu_padding_bottom]' value="<?php echo $wp_megamenu_submenu_menu_padding_bottom; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $wp_megamenu_submenu_menu_padding_left = wpmm_get_item_settings($menu_item_id,'wp_megamenu_submenu_menu_padding_left');
+                                            if( ! $wp_megamenu_submenu_menu_padding_left){
+                                                $wp_megamenu_submenu_menu_padding_left = '';
+                                            }
+                                        ?>
+                                        <input type='text' name='options[wp_megamenu_submenu_menu_padding_left]' value="<?php echo $wp_megamenu_submenu_menu_padding_left; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <p class="field-description"><?php _e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- Margin -->
+                        <tr class="wpmm-field wpmm-field-group">
+                            <td><br><?php _e('Margin', 'wp-megamenu'); ?></td>
+                            <td>
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <?php 
+                                            $single_menu_margin_top = wpmm_get_item_settings($menu_item_id,'single_menu_margin_top');
+                                            if( ! $single_menu_margin_top){ $single_menu_margin_top = ''; } 
+                                        ?>
+                                        <input type='text' name='options[single_menu_margin_top]' value="<?php echo $single_menu_margin_top; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_margin_right = wpmm_get_item_settings($menu_item_id,'single_menu_margin_right');
+                                            if( ! $single_menu_margin_right){ $single_menu_margin_right = ''; }
+                                        ?>
+                                        <input type='text' name='options[single_menu_margin_right]' value="<?php echo $single_menu_margin_right; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_margin_bottom = wpmm_get_item_settings($menu_item_id,'single_menu_margin_bottom');
+                                            if( ! $single_menu_margin_bottom){ $single_menu_margin_bottom = ''; }
+                                        ?>
+                                        <input type='text' name='options[single_menu_margin_bottom]' value="<?php echo $single_menu_margin_bottom; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_margin_left = wpmm_get_item_settings($menu_item_id,'single_menu_margin_left');
+                                            if( ! $single_menu_margin_left){
+                                                $single_menu_margin_left = '';
+                                            }
+                                        ?>
+                                        <input type='text' name='options[single_menu_margin_left]' value="<?php echo $single_menu_margin_left; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <p class="field-description"><?php _e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
+                            </td>
+                        </tr>
+
+                    <?php } ?>
+
+
+                    <!-- upload icons -->
+                    <tr>
+                        <td><?php _e('Upload/Choose Icon', 'wp-megamenu'); ?></td>
+
+
+                        <?php if (function_exists('wpmm_pro_init')){ ?>
+                            <td>
+                                <div class="wpmm-image-upload-wrap">
+                                    <?php $menu_icon = wpmm_get_item_settings($menu_item_id, 'menu_icon_image'); ?>
+                                    <input type="button" class="wpmm_upload_image_button button" value="<?php _e( 'Upload image', 'wp-megamenu' ); ?>" /> <br />
+                                    <div class="wpmm_upload_image_preview_wrap">
+                                        <?php
+                                            if ( ! empty($menu_icon)) {
+                                                echo '<img src="'.$menu_icon.'" class="wpmm_upload_image_preview" >';
+                                                echo '<a href="javascript:;" class="wpmm_img_delete"><i class="fa fa-trash-o"></i> </a>';
+                                            }
+                                        ?>
+                                    </div>
+                                    <input type="hidden" class="wpmm_upload_image_field" name="options[menu_icon_image]" value="<?php echo $menu_icon; ?>" />
+                                    <p class="field-description"><?php _e('Menu icon upload', 'wp-megamenu'); ?></p>
+                                </div>
+                            </td>
+                        <?php } else { ?>
+                            <td class="wpmm-pro-install">
+                                <div class="wpmm-image-upload-wrap">
+                                    <input type="button" class="wpmm_upload_image_go_pro button" value="<?php _e( 'Upload image', 'wp-megamenu' ); ?>" />
+                                    <a href="https://www.themeum.com/product/wp-megamenu/#pricing?utm_source=wp_mm&utm_medium=wordpress_sidebar&utm_campaign=go_premium" target="_blank">Go Premium</a>
+                                </div>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                                
+                             
+                    <?php if ($menu_item_depth != 0){ ?>
+                        <tr class="wpmm-field item-font-color">
+                            <td>
+                                <?php _e('Font Color', 'wp-megamenu'); ?>
+                            </td>
+                            <td>
+                                <input type="text" name="options[single_item_text_color]" value="<?php echo wpmm_get_item_settings($menu_item_id, 'single_item_text_color'); ?>" class="wpmmColorPicker" data-alpha="true" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><?php _e('Font Size', 'wp-megamenu'); ?></td>
+                            <td>
+                                <input type="text" name="options[single_menu_font_size]" value="<?php echo wpmm_get_item_settings($menu_item_id, 'single_menu_font_size'); ?>" placeholder="<?php _e('e.g: 14', 'wp-megamenu'); ?>">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><?php _e('Font weight', 'wp-megamenu'); ?></td>
+                            <td>
+                                <select name="options[single_menu_font_weight]">
+                                    <option value="300" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '300' ) ?> ><?php _e('300', 'wp-megamenu'); ?></option>
+                                    <option value="400" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '400' ) ?> ><?php _e('400', 'wp-megamenu'); ?></option>
+                                    <option value="500" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '500' ) ?> ><?php _e('500', 'wp-megamenu'); ?></option>
+                                    <option value="600" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '600' ) ?> ><?php _e('600', 'wp-megamenu'); ?></option>
+                                    <option value="700" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '700' ) ?> ><?php _e('700', 'wp-megamenu'); ?></option>
+                                    <option value="800" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '800' ) ?> ><?php _e('800', 'wp-megamenu'); ?></option>
+                                    <option value="900" <?php selected
+                                    (wpmm_get_item_settings($menu_item_id, 'single_menu_font_weight'), '900' ) ?> ><?php _e('900', 'wp-megamenu'); ?></option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><?php _e('Line Height', 'wp-megamenu'); ?></td>
+                            <td>
+                                <input type="text" name="options[single_menu_line_height]" value="<?php echo wpmm_get_item_settings($menu_item_id, 'single_menu_line_height'); ?>" placeholder="<?php _e('e.g: 20', 'wp-megamenu'); ?>">
+                            </td>
+                        </tr>
+
+                        <tr class="badge_text_style">
+                            <td>
+                                <?php _e('Item Border Separator', 'wp-megamenu'); ?>
+                            </td>
+                            <td>
+                                <label>
+                                    <input type='text' name='options[single_menu_item_border_separator_width]' value="<?php echo wpmm_get_item_settings( $menu_item_id, 'single_menu_item_border_separator_width' ); ?>" placeholder="1px" />
+                                </label>
+                                
+                                <label>
+                                    <select name="options[single_menu_item_border_separator_type]">
+                                        <?php $single_menu_item_border_separator_type =  wpmm_get_item_settings($menu_item_id, 'single_menu_item_border_separator_type' ); ?>
+                                        <option value="none" <?php selected($single_menu_item_border_separator_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
+                                        <option value="solid" <?php selected($single_menu_item_border_separator_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
+                                        <option value="dashed" <?php selected($single_menu_item_border_separator_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
+                                        <option value="dotted" <?php selected($single_menu_item_border_separator_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
+                                        <option value="double" <?php selected($single_menu_item_border_separator_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
+                                        <option value="groove" <?php selected($single_menu_item_border_separator_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
+                                        <option value="ridge" <?php selected($single_menu_item_border_separator_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
+                                        <option value="inset" <?php selected($single_menu_item_border_separator_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
+                                        <option value="outset" <?php selected($single_menu_item_border_separator_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                    </select>    
+                                </label>
+                            
+                                <label>
+                                    <input type="text" name="options[single_menu_item_border_separator_color]" value="<?php echo wpmm_get_item_settings($menu_item_id, 'single_menu_item_border_separator_color'); ?>" class="wpmmColorPicker" data-alpha="true" />
+                                </label>
+
+                                <p class="field-description"> <?php _e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
+                            </td>
+                        </tr>
+
+                        <!-- Single Item Padding -->
+                        <tr class="wpmm-field wpmm-field-group">
+                            <td><br><?php _e('Padding', 'wp-megamenu'); ?></td>
+                            <td>
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <?php 
+                                            $single_menu_padding_top = wpmm_get_item_settings($menu_item_id,'single_menu_padding_top');
+                                            if( ! $single_menu_padding_top){ $single_menu_padding_top = ''; } 
+                                        ?>
+                                        <input type='text' name='options[single_menu_padding_top]' value="<?php echo $single_menu_padding_top; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_padding_right = wpmm_get_item_settings($menu_item_id,'single_menu_padding_right');
+                                            if( ! $single_menu_padding_right){ $single_menu_padding_right = ''; }
+                                        ?>
+                                        <input type='text' name='options[single_menu_padding_right]' value="<?php echo $single_menu_padding_right; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_padding_bottom = wpmm_get_item_settings($menu_item_id,'single_menu_padding_bottom');
+                                            if( ! $single_menu_padding_bottom){ $single_menu_padding_bottom = '0'; }
+                                        ?>
+                                        <input type='text' name='options[single_menu_padding_bottom]' value="<?php echo $single_menu_padding_bottom; ?>" placeholder="0px" />
+                                    </label>
+                                </div> 
+
+                                <div class="wpmm_theme_arrow_segment">
+                                    <label>
+                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <?php
+                                            $single_menu_padding_left = wpmm_get_item_settings($menu_item_id,'single_menu_padding_left');
+                                            if( ! $single_menu_padding_left){
+                                                $single_menu_padding_left = '';
+                                            }
+                                        ?>
+                                        <input type='text' name='options[single_menu_padding_left]' value="<?php echo $single_menu_padding_left; ?>" placeholder="0px" />
+                                    </label>
+                                </div>
+
+                                <p class="field-description"><?php _e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+
+                    <?php do_action('menu_item_settings', $menu_item_id); ?>
                     <tr>
                         <td>&af;</td>
                         <td class="wpmm-save-btn"><?php submit_button(); ?></td>
@@ -337,6 +626,12 @@ $widgets = $widgets_manager->get_all_registered_widget();
                         <ul>
                             <li><a href="#icons-tabs-1"><?php _e('Dashicons', 'wp-megamenu'); ?></a></li>
                             <li><a href="#icons-tabs-2"><?php _e('Font Awesome', 'wp-megamenu'); ?></a></li>
+                            <li><a href="#icons-tabs-3"><?php _e('IcoFont', 'wp-megamenu'); ?></a></li>
+                            <!-- <li>
+                                <a href="#icons-tabs-4">
+                                    <?php //_e('Upload Icons', 'wp-megamenu'); ?>
+                                </a>
+                            </li> -->
                         </ul>
                     </div>
 
@@ -354,40 +649,54 @@ $widgets = $widgets_manager->get_all_registered_widget();
 
                     <div id="icons-tabs-1">
                         <?php
-                        $dashicons = wpmm_dashicons();
-
-                        $current_icon = '';
-                        if ( ! empty($get_menu_settings['options']['icon'])){
-                            $current_icon = $get_menu_settings['options']['icon'];
-                        }
-                        echo "<a href='javascript:;' class='wpmm-icons' data-icon='' title=''>&nbsp;</a>";
-                        foreach ($dashicons as $dikey => $diname){
-                            $selected_icon = ($current_icon == 'dashicons '.$dikey) ? 'wpmm-icon-selected' :'';
-                            echo "<a href='javascript:;' class='wpmm-icons {$selected_icon} ' data-icon='dashicons {$dikey}' title='{$diname}'>
-                            <i class='dashicons {$dikey}'></i></a>";
-                        }
+                            $dashicons = wpmm_dashicons();
+                            $current_icon = '';
+                            if ( ! empty($get_menu_settings['options']['icon'])){
+                                $current_icon = $get_menu_settings['options']['icon'];
+                            }
+                            echo "<a href='javascript:;' class='wpmm-icons' data-icon='' title=''>&nbsp;</a>";
+                            foreach ($dashicons as $dikey => $diname){
+                                $selected_icon = ($current_icon == 'dashicons '.$dikey) ? 'wpmm-icon-selected' :'';
+                                echo "<a href='javascript:;' class='wpmm-icons {$selected_icon} ' data-icon='dashicons {$dikey}' title='{$diname}'>
+                                <i class='dashicons {$dikey}'></i></a>";
+                            }
                         ?>
                     </div>
 
                     <div id="icons-tabs-2">
                         <?php
-                        $font_awesome = wpmm_font_awesome();
+                            $font_awesome = wpmm_font_awesome();
 
-                        $current_icon = '';
-                        if ( ! empty($get_menu_settings['options']['icon'])){
-                            $current_icon = $get_menu_settings['options']['icon'];
-                        }
-                        echo "<a href='javascript:;' class='wpmm-icons' data-icon='' title=''>&nbsp;</a>";
-                        foreach ($font_awesome as $dikey => $diname){
-                            $selected_icon = ($current_icon == 'fa '.$diname) ? 'wpmm-icon-selected' :'';
-                            echo "<a href='javascript:;' class='wpmm-icons {$selected_icon} ' data-icon='fa {$diname}' title='{$diname}'>
-                            <i class='fa {$diname}'></i></a>";
-                        }
+                            $current_icon = '';
+                            if ( ! empty($get_menu_settings['options']['icon'])){
+                                $current_icon = $get_menu_settings['options']['icon'];
+                            }
+                            echo "<a href='javascript:;' class='wpmm-icons' data-icon='' title=''>&nbsp;</a>";
+                            foreach ($font_awesome as $dikey => $diname){
+                                $selected_icon = ($current_icon == 'fa '.$diname) ? 'wpmm-icon-selected' :'';
+                                echo "<a href='javascript:;' class='wpmm-icons {$selected_icon} ' data-icon='fa {$diname}' title='{$diname}'>
+                                <i class='fa {$diname}'></i></a>";
+                            }
                         ?>
                     </div>
 
-                </div>
+                    <div id="icons-tabs-3">
+                        <?php 
+                            $icofont = wpmm_icofont();
+                            $current_icon = '';
+                            if ( ! empty($get_menu_settings['options']['icon'])){
+                                $current_icon = $get_menu_settings['options']['icon'];
+                            }
+                            echo "<a href='javascript:;' class='wpmm-icons' data-icon='' title=''>&nbsp;</a>";
+                            foreach ($icofont as $diname) {
+                                $selected_icon = ($current_icon == 'icofont-'.$diname) ? 'wpmm-icon-selected' :'';
+                                echo "<a href='javascript:;' class='wpmm-icons {$selected_icon} ' data-icon='icofont-{$diname}' title='{$diname}'>
+                                <i class='icofont-{$diname}'></i></a>";
+                            }
+                        ?>
+                    </div> <!-- #icons-tabs-3 -->
 
+                </div>
             </div>
 
 
