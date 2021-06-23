@@ -78,10 +78,13 @@ if ( ! class_exists('wp_megamenu_themes')) {
 
         public function export_theme(){
 
-            if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) && ! wp_verify_nonce( $_POST['wpmmm_save_new_theme_nonce_field'], 'wpmmm_save_new_theme_action' ) ){
-				return;
+            $wpmmm_save_new_theme_nonce_field = isset($_POST['wpmmm_save_new_theme_nonce_field']) ? $_POST['wpmmm_save_new_theme_nonce_field'] : false;
+
+            if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) && ! wp_verify_nonce( $wpmmm_save_new_theme_nonce_field, 'wpmmm_save_new_theme_action' ) ){
+                wp_die('Sorry, you are not allowed to access this page.');
 			}
             if ( ! empty($_GET['action']) && $_GET['action'] === 'export_wpmm_theme' && ! empty($_GET['theme_id'])){
+                
                 $theme_id =  (int) $_GET['theme_id'];
                 $theme = get_post($theme_id);
                 if ($theme){

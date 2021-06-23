@@ -22,8 +22,10 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 		function export_wp_megamenu_nav_menu(){
 			global $wpdb;
 			
-			if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) && ! wp_verify_nonce( $_POST['wpmmm_nav_export_nonce_field'], 'wpmmm_nav_export_action' ) ){
-				return;
+			$wpmmm_nav_export_nonce_field = isset($_POST['wpmmm_nav_export_nonce_field']) ? $_POST['wpmmm_nav_export_nonce_field'] : false;
+
+			if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) && ! wp_verify_nonce( $wpmmm_nav_export_nonce_field, 'wpmmm_nav_export_action' ) ){
+                wp_die('Sorry, you are not allowed to access this page.');
 			}
 			
 			if ( ! isset($_GET['action']) || $_GET['action'] !== 'wp_megamenu_nav_export'){
