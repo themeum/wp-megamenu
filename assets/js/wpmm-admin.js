@@ -823,6 +823,66 @@
         });
     });
 
+    /*
+     * Export Current Mega Menu Theme 
+     */
+    function download_to_txt(filename, text) {
+      var element = document.createElement("a");
+      element.setAttribute(
+        "href",
+        "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+      );
+      element.setAttribute("download", filename);
+
+      element.style.display = "none";
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+    }
+    
+    /*
+     * Export Current Mega Menu Theme 
+     */
+
+    $(".export-wpmm-theme").on("click", function (e) {
+      e.preventDefault();
+      var theme_name = $(this).data("theme_name");
+      $.ajax({
+        type: "POST",
+        url: ajaxurl,
+        data: {
+          action: "export_wpmm_theme",
+          theme_id: $(this).data("theme_id"),
+          wpmmm_save_new_theme_nonce_field: wpmm.wpmm_nonce,
+        },
+        success: function (response) {
+            download_to_txt(theme_name, response);
+        },
+      });
+    });
+
+    /*
+     * Export Mega Menu  
+     */
+    $(".wp-megamenu-nav-export").on("click", function (e) {
+      e.preventDefault();
+
+      var theme_name = $('[name="selected_theme"]:checked').data("title");
+
+      $.ajax({
+        type: "POST",
+        url: ajaxurl,
+        data: {
+          action: "export_wp_megamenu_nav_menu",
+          wpmmm_nav_export_nonce_field: wpmm.wpmm_nonce,
+        },
+        success: function (response) {
+          download_to_txt(theme_name, response);
+        },
+      });
+    });
 
 
 })(jQuery);

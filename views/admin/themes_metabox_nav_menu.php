@@ -12,6 +12,10 @@ $selected_theme_id = null;
 if ( ! empty($selected_nav_theme)){
 	$selected_theme_id = (int) $selected_nav_theme['theme_id'];
 }
+
+$wpmm_theme_title =  get_wpmm_theme_option('wpmm_theme_title', $selected_theme_id);
+$wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $selected_theme_id);
+
 ?>
 <div id="wpmm_themes" class="wpmm_themes_div">
     <div class="wpmm_themes_metabox_content">
@@ -71,13 +75,13 @@ if ( ! empty($selected_nav_theme)){
 
 					if ( $query->have_posts() ) {
 						echo '<ul>';
-						echo "<li> <label class='menu-item-title' > " . __( 'Disable Theme', 'wp-megamenu' ) . " <input type='radio' value='0' name='selected_theme' " . checked( 0, $selected_theme_id, false ) . " />  </label> </li> ";
+						echo "<li> <label class='menu-item-title' > " . __( 'Disable Theme', 'wp-megamenu' ) . " <input data-title='Disable-Theme' type='radio' value='0' name='selected_theme' " . checked( 0, $selected_theme_id, false ) . " />  </label> </li> ";
 						while ( $query->have_posts() ): $query->the_post();
 							?>
                             <li>
                                 <label class="menu-item-title">
 									<?php echo get_the_title(); ?>
-                                    <input type="radio" value="<?php echo get_the_ID(); ?>" name="selected_theme" <?php checked(get_the_ID(), $selected_theme_id); ?> />
+                                    <input type="radio" data-title="<?php echo get_the_title(); ?>" value="<?php echo get_the_ID(); ?>" name="selected_theme" <?php checked(get_the_ID(), $selected_theme_id); ?> />
                                 </label>
                             </li>
 							<?php
@@ -95,7 +99,7 @@ if ( ! empty($selected_nav_theme)){
     </div>
     <p class="button-controls wp-clearfix">
         <span class="add-to-menu">
-            <a href="<?php echo add_query_arg( array('action' => 'wp_megamenu_nav_export')); ?>" class="button button-primary menu-save" style="margin-right: 20px;" ><?php _e('Export Mega Menu', 'wp-megamenu'); ?> </a>
+            <a href="<?php echo add_query_arg( array('action' => 'wp_megamenu_nav_export')); ?>" class="button button-primary menu-save wp-megamenu-nav-export" style="margin-right: 20px;" ><?php _e('Export Mega Menu', 'wp-megamenu'); ?> </a>
             <?php wp_nonce_field( 'wpmmm_nav_export_action', 'wpmmm_nav_export_nonce_field' ) ?>
             <input type="submit"  class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e('Save', 'wp-megamenu'); ?>" name="save_wpmm_theme_nav" id="save_wpmm_theme_nav" />
         </span>
