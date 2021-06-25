@@ -96,6 +96,9 @@ if ( ! function_exists('get_wpmm_theme_option')){
                 if ($key === 'wpmm_theme_title'){
                     return $post->post_title;
                 }
+                if ($key === 'wpmm_theme_name'){
+                    return $post->post_name;
+                }
                 return null;
             }
         }else{
@@ -1527,3 +1530,8 @@ function wpmm_rating_notice(){
     update_option( 'wpmm_rating_notice_remove', $time );
     return;
 }
+
+// add_action("wp_ajax_export_wpmm_theme", "export_wpmm_theme");
+// function export_wpmm_theme(){
+//     print_r($_REQUEST);
+// }

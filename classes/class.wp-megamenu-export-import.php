@@ -12,7 +12,7 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 		}
 
 		public function __construct() {
-			add_action('admin_init', array($this, 'export_wp_megamenu_nav_menu'));
+			add_action('wp_ajax_export_wp_megamenu_nav_menu', array($this, 'export_wp_megamenu_nav_menu'));
 			add_action('admin_init', array($this, 'wpmm_import_menu'));
 		}
 
@@ -21,14 +21,14 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 		 */
 		function export_wp_megamenu_nav_menu(){
 			global $wpdb;
-			
+
 			$wpmmm_nav_export_nonce_field = isset($_POST['wpmmm_nav_export_nonce_field']) ? $_POST['wpmmm_nav_export_nonce_field'] : false;
 
-			if(! current_user_can('administrator') || ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) || ! wp_verify_nonce( $wpmmm_nav_export_nonce_field, 'wpmmm_nav_export_action' ) ){
+			if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) && ! wp_verify_nonce( $wpmmm_nav_export_nonce_field, 'wpmmm_nav_export_action' ) ){
                 return;
 			}
 			
-			if ( ! isset($_GET['action']) || $_GET['action'] !== 'wp_megamenu_nav_export'){
+			if ( ! isset($_POST['action']) || $_POST['action'] !== 'export_wp_megamenu_nav_menu'){
 				return;
 			}
 
@@ -47,8 +47,6 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 			$testing_ids = array();
 			$query_term_relationships = $wpdb->get_results("select * from {$wpdb->term_relationships} WHERE term_taxonomy_id = {$nav_menu_id} ");
 			if (is_array($query_term_relationships) && count($query_term_relationships)){
-				//echo '<pre>';
-				//die(print_r($query_term_relationships));
 
 				foreach ($query_term_relationships as $relationship){
 					$object = get_post($relationship->object_id, ARRAY_A);

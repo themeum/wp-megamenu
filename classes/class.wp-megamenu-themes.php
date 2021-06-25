@@ -19,7 +19,7 @@ if ( ! class_exists('wp_megamenu_themes')) {
          */
         public function __construct(){
             add_action('admin_init', array($this, 'save_new_themes'));
-            add_action('admin_init', array($this, 'export_theme'));
+            add_action('wp_ajax_export_wpmm_theme', array($this, 'export_wpmm_theme'));
             add_action('admin_init', array($this, 'import_theme'));
 
             //add_filter( 'nav_menu_meta_box_object', array($this, 'add_metabox_to_nav_menu_settings'), 10, 1);
@@ -76,16 +76,17 @@ if ( ! class_exists('wp_megamenu_themes')) {
             }
         }
 
-        public function export_theme(){
+        public function export_wpmm_theme(){
             
             $wpmmm_save_new_theme_nonce_field = isset($_POST['wpmmm_save_new_theme_nonce_field']) ? $_POST['wpmmm_save_new_theme_nonce_field'] : false;
 
-            if(! current_user_can('administrator') || ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) || ! wp_verify_nonce( $wpmmm_save_new_theme_nonce_field, 'wpmmm_save_new_theme_action' ) ){
+            if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) && ! wp_verify_nonce( $wpmmm_save_new_theme_nonce_field, 'wpmmm_save_new_theme_action' ) ){
                 return;
 			}
-            if ( ! empty($_GET['action']) && $_GET['action'] === 'export_wpmm_theme' && ! empty($_GET['theme_id'])){
+
+            if ( ! empty($_POST['action']) && $_POST['action'] === 'export_wpmm_theme' && ! empty($_POST['theme_id'])){
                 
-                $theme_id =  (int) $_GET['theme_id'];
+                $theme_id =  (int) $_POST['theme_id'];
                 $theme = get_post($theme_id);
                 if ($theme){
                     $export_content = array(

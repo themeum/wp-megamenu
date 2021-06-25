@@ -4,6 +4,8 @@ if ( ! empty($_GET['theme_id'])){
 }else{
     $theme_id = 0;
 }
+$wpmm_theme_title =  get_wpmm_theme_option('wpmm_theme_title', $theme_id);
+$wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 ?>
 
 <form method="post" action="">
@@ -64,7 +66,6 @@ if ( ! empty($_GET['theme_id'])){
                             </th>
 
                             <td>
-                                <?php $wpmm_theme_title =  get_wpmm_theme_option('wpmm_theme_title', $theme_id);?>
                                 <input type="text" name="wpmm_theme_title" class="wpmm_theme_title" value="<?php echo $wpmm_theme_title; ?>" required="required" placeholder="<?php _e('Theme title', 'wp-megamenu');
                                 ?>" />
                             </td>
@@ -3819,7 +3820,7 @@ if ( ! empty($_GET['theme_id'])){
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <a class="wpmm-btn wpmm-btn-primary" href="<?php echo add_query_arg(array('action' => 'export_wpmm_theme')) ?>"> <?php _e('Export', 'wp-megamenu')
+                                <a class="wpmm-btn wpmm-btn-primary export-wpmm-theme" data-theme_id="<?=$theme_id?>" data-theme_name="<?=$wpmm_theme_title?>" href="<?php echo add_query_arg(array('action' => 'export_wpmm_theme')) ?>"> <?php _e('Export', 'wp-megamenu')
                                     ; ?> </a>
                             </th>
                         </tr>
