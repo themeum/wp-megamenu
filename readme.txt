@@ -4,7 +4,7 @@ Tags: wp-megamenu, megamenu, mega menu, navigation, responsive menu, menu, build
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.7.2
-Stable tag:  1.3.9
+Stable tag:  1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,11 @@ A. There are two versions of WP Mega Menu. One is free and another is Pro. The P
 7. Single Menu Settings
 
 == Changelog ==
+
+= 1.4.0 [June 25, 2021]
+
+Update: Updated the Import and Export features
+Update: Security Update
 
 = 1.3.9 [June 23, 2021]
 
