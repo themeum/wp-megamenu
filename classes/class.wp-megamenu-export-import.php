@@ -24,24 +24,24 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 
 			$wpmmm_nav_export_nonce_field = isset($_POST['wpmmm_nav_export_nonce_field']) ? $_POST['wpmmm_nav_export_nonce_field'] : false;
 
-			if(! current_user_can('administrator') && ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) && ! wp_verify_nonce( $wpmmm_nav_export_nonce_field, 'wpmmm_nav_export_action' ) ){
+			if (! current_user_can( 'administrator' ) || ! isset( $_POST['wpmmm_nav_export_nonce_field'] ) || ! wp_verify_nonce( $wpmmm_nav_export_nonce_field, 'wpmmm_nav_export_action' ) ) {
                 return;
 			}
 			
-			if ( ! isset($_POST['action']) || $_POST['action'] !== 'export_wp_megamenu_nav_menu'){
+			if ( ! isset( $_POST['action'] ) || $_POST['action'] !== 'export_wp_megamenu_nav_menu' ) {
 				return;
 			}
 
 			$nav_menu_id = isset( $_REQUEST['menu'] ) ? (int) $_REQUEST['menu'] : 0;
-			if ( ! $nav_menu_id){
+			if ( ! $nav_menu_id ) {
 				$nav_menu_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
 			}
 
-			if ( ! $nav_menu_id){
+			if ( ! $nav_menu_id ) {
 				return;
 			}
 
-			$term = get_term($nav_menu_id);
+			$term = get_term( $nav_menu_id );
 
 			$nav_item_posts = array();
 			$testing_ids = array();

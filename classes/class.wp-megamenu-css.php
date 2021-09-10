@@ -1333,16 +1333,16 @@ if ( ! class_exists('wp_megamenu_css')) {
         /**
          * Render css to wp head
          */
-        public function render_css(){
-            $css_output_location = get_wpmm_option('css_output_location');
-            if ($css_output_location == 'filesystem'){
+        public function render_css() {
+            $css_output_location = get_wpmm_option( 'css_output_location' );
+            if ( $css_output_location == 'filesystem' ) {
                 return;
             }
             $style = '<style type="text/css">';
             $style .= $this->css();
             $style .= '</style>';
 
-            echo $style;
+            echo wp_kses_post( $style );
         }
 
         /**

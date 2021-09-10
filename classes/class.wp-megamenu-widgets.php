@@ -63,14 +63,14 @@ if ( ! class_exists('wp_megamenu_widgets')) {
             global $wp_registered_widget_controls;
 
             $id_base = $this->wpmm_get_id_base_for_widget_id( $widget_id );
-            $control = $wp_registered_widget_controls[$widget_id];
-            $nonce = wp_create_nonce('megamenu_save_widget_' . $widget_id);
+            $control = $wp_registered_widget_controls[ $widget_id ];
+            $nonce = wp_create_nonce( 'megamenu_save_widget_' . $widget_id );
             ?>
 
             <form method='post'  class="wpmm_widget_save_form">
-                <input type="hidden" name="widget-id" class="widget-id" value="<?php echo $widget_id ?>" />
-                <input type='hidden' name='id_base'   class="id_base" value='<?php echo $id_base; ?>' />
-                <input type='hidden' name='widget_id' value='<?php echo $widget_id ?>' />
+                <input type="hidden" name="widget-id" class="widget-id" value="<?php esc_attr_e( $widget_id ); ?>" />
+                <input type='hidden' name='id_base'   class="id_base" value='<?php esc_attr_e( $id_base ); ?>' />
+                <input type='hidden' name='widget_id' value='<?php esc_attr_e( $widget_id ); ?>' />
                 <input type='hidden' name='_wpnonce'  value='<?php echo $nonce ?>' />
                 <div class='widget-content'>
                     <?php
@@ -80,8 +80,8 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                     ?>
 
                     <div class='widget-controls'>
-                        <a class='delete' href='#delete'><?php _e('Delete', 'wp-megamenu'); ?></a> |
-                        <a class='close' href='#close'><?php _e('Close', 'wp-megamenu'); ?></a>
+                        <a class='delete' href='#delete'><?php _e( 'Delete', 'wp-megamenu' ); ?></a> |
+                        <a class='close' href='#close'><?php _e( 'Close', 'wp-megamenu' ); ?></a>
                     </div>
 
                     <?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
