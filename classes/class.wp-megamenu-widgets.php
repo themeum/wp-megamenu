@@ -288,8 +288,8 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          */
         public function widget_items($widget_id, $menu_item_id, $widget_key_id = 0){
             ?>
-            <div id="widget-<?php echo $widget_id; ?>" class="widget"  data-item-key-id="<?php
-            echo $widget_key_id; ?>">
+            <div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget"  data-item-key-id="<?php
+            esc_attr_e( $widget_key_id ); ?>">
                 <div class="widget-top">
 
                     <div class="widget-title-action">

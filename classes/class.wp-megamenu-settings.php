@@ -35,8 +35,14 @@ if ( ! class_exists('WP_MegaMenu_Settings')){
 				if (! empty($_POST['wpmm_options'])){
 					$options = $_POST['wpmm_options'];
 
+					foreach ( $options as $key => $value ) {
+						if ( 'disable_wpmm_on_mobile' !== $key ) {
+							$options[ $key ] = wpmm_sanitize_settings_options( $key );
+						}
+					}
+
 					//Getting checkmark value
-					$options['disable_wpmm_on_mobile'] = get_wpmm_option_input_checkmark('disable_wpmm_on_mobile');
+					$options['disable_wpmm_on_mobile'] = get_wpmm_option_input_checkmark( 'disable_wpmm_on_mobile' );
 
 					$wpmm_option = array_merge($get_wpmm_option, $options);
 					$wpmm_option = apply_filters('update_wpmm_settings', $wpmm_option);

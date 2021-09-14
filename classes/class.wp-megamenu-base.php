@@ -796,34 +796,6 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 			//die(print_r($get_layout, true));
 			$update = update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
-			
-			/* $get_menu_settings = get_post_meta($menu_item_id, 'wpmm_layout', true);
-			if ( count($get_layout['layout']) ){
-				foreach ($get_layout['layout'] as $layout_key => $layout_value){
-					echo '<div class="wpmm-row" data-row-id="'.$layout_key.'">';
-					foreach ($layout_value['row'] as $col_key => $layout_col){
-						echo '<div class="wpmm-col wpmm-col-'.$layout_col['col'].'" data-col-id="'.$col_key.'">';
-
-						echo '<div class="wpmm-item-wrap">';
-						echo '<p>'.__('Drop here', 'wp-megamenu').'</p>';
-
-						foreach ($layout_col['items'] as $key => $value){
-							if ($value['item_type'] == 'widget'){
-								wp_megamenu_widgets()->widget_items($value['widget_id'], $get_menu_settings, $key);
-							}else{
-								wp_megamenu_widgets()->menu_items($value, $key);
-							}
-						}
-
-						echo '</div>';
-						echo '</div>';
-					}
-					echo '</div>';
-				}
-			}*/
-
-			//die();
-			//wp_send_json_success(__('Layout has been updated'));
 		}
 
 		public function wpmm_generate_css(){
@@ -980,7 +952,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 					} 
 				}
 				$style .= '</style>';
-				echo $style;
+				echo wp_kses_post( sanitize_textarea_field( $style ) );
 			}
 		}
 	}

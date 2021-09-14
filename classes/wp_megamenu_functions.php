@@ -1414,10 +1414,21 @@ if ( ! function_exists('get_wpmm_option_input_checkmark')){
 	function get_wpmm_option_input_checkmark($input = null){
 
 		if ( ! empty($_POST['wpmm_options'][$input])){
-			return $_POST['wpmm_options'][$input];
+			return sanitize_text_field( $_POST['wpmm_options'][$input] );
 		}
 		return 0;
 	}
+}
+
+/**
+ * Sanitize settings options
+ */
+function wpmm_sanitize_settings_options( $input ) {
+    if ( ! empty( $_POST['wpmm_options'][$input] ) ) {
+        return sanitize_text_field( $_POST['wpmm_options'][$input] );
+    }
+
+    return '';
 }
 
 
@@ -1522,7 +1533,7 @@ function wpmm_rating_notice(){
     if ( !wp_verify_nonce( $_REQUEST['wpmm_nonce'], "wpmm_check_security")) {
         exit("Unauthorized");
     }
-    $type = isset($_POST['wpmm_notice_action']) ? $_POST['wpmm_notice_action'] : '';
+    $type = isset($_POST['wpmm_notice_action']) ? sanitize_text_field( $_POST['wpmm_notice_action'] ) : '';
     $time = strtotime(date('Y-m-d') . '+ 10 days');
     if($type == 'dismiss'){
         $time = strtotime(date('Y-m-d') . '+ 1900 days');
