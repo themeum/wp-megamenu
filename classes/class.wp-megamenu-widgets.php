@@ -320,10 +320,10 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          */
         public function menu_items( $menu_item, $widget_key_id = 0){
             ?>
-            <div id="widget-<?php echo $menu_item['ID']; ?>" class="widget"  data-item-key-id="<?php echo $widget_key_id; ?>">
+            <div id="widget-<?php esc_attr_e( $menu_item['ID'] ); ?>" class="widget"  data-item-key-id="<?php esc_attr_e( $widget_key_id ); ?>">
                 <div class="widget-top">
                     <div class="widget-title ui-sortable-handle">
-                        <h3><?php echo $menu_item['title']; ?></h3>
+                        <h3><?php esc_html_e( $menu_item['title'] ); ?></h3>
                     </div>
                 </div>
             </div>

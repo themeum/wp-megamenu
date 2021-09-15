@@ -77,9 +77,9 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
                         }
                     }
                     if( $value== 'allpost' ){
-                        $output .='<li class="active"><a href="javascript:void(0)">'.$catName.'</a></li>';
+                        $output .='<li class="active"><a href="javascript:void(0)">'.esc_html( $catName ).'</a></li>';
                     }else{
-                        $output .='<li class=""><a href="'. get_category_link($catObj->term_id) .'">'.$catName.'</a></li>';
+                        $output .='<li class=""><a href="'. get_category_link($catObj->term_id) .'">'.esc_html( $catName ).'</a></li>';
                     }
                     $i++;
                 }
@@ -147,9 +147,9 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
                         $output .= '</div>'; //wpmm-grid-post-addons
 
                         if( $instance['show_nav'] == 'on' ){
-                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.$instance['show_category'].'" data-type="woocommerce" data-category="'.$value.'" data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
+                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.esc_attr( $instance['show_category'] ).'" data-type="woocommerce" data-category="'.esc_attr( $value ).'" data-current="1" data-oderby="'.esc_attr( $instance["order_by"] ).'" data-column="'.esc_attr( $no_column ).'"  data-total="'.esc_attr( $data->max_num_pages ).'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
                             $var = ($data->max_num_pages == 1)? 'disablebtn' : '';
-                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.$instance['show_category'].'" data-type="woocommerce" data-category="'.$value.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
+                            $output .= '<span data-count="'.esc_attr($count).'"  data-showcat="'.esc_attr( $instance['show_category'] ).'" data-type="woocommerce" data-category="'.esc_attr( $value ).'"  data-current="1" data-oderby="'.esc_attr( $instance["order_by"] ).'" data-column="'.esc_attr( $no_column ).'"  data-total="'.esc_attr( $data->max_num_pages ).'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.esc_attr( $var ).'"></span>';
                         }
                     }
                     $output .='</div>';
@@ -223,9 +223,9 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
                     if ( ! empty($instance['category'])){
                         $data_category = implode(',',$instance['category']);
                     }
-                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.$instance['show_category'].'" data-type="woocommerce" data-category="'.$data_category.'" data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
+                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.esc_attr( $instance['show_category'] ).'" data-type="woocommerce" data-category="'.esc_attr( $data_category ).'" data-current="1" data-oderby="'.esc_attr( $instance["order_by"] ).'" data-column="'.esc_attr( $no_column ).'"  data-total="'.esc_attr( $data->max_num_pages ).'" class="dashicons dashicons-arrow-left-alt2 wpmm-left wpmm-gridcontrol-left disablebtn"></span>';
                     $var = ($data->max_num_pages == 1)? 'disablebtn' : '';
-                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.$instance['show_category'].'" data-type="woocommerce" data-category="'.$data_category.'"  data-current="1" data-oderby="'.$instance["order_by"].'" data-column="'.$no_column.'"  data-total="'.$data->max_num_pages.'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.$var.'"></span>';
+                    $output .= '<span data-count="'.esc_attr($count).'" data-showcat="'.esc_attr( $instance['show_category'] ).'" data-type="woocommerce" data-category="'.esc_attr( $data_category ).'"  data-current="1" data-oderby="'.esc_attr( $instance["order_by"] ).'" data-column="'.esc_attr( $no_column ).'"  data-total="'.esc_attr( $data->max_num_pages ).'" class="dashicons dashicons-arrow-right-alt2 wpmm-right wpmm-gridcontrol-right '.esc_attr( $var ).'"></span>';
                 }
             }
         }
@@ -265,12 +265,12 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
         $instance = wp_parse_args( (array) $instance, $defaults );
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e('Widget Title', 'wp-megamenu'); ?></label>
-            <input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e('Widget Title', 'wp-megamenu'); ?></label>
+            <input id="<?php esc_attr_e( $this->get_field_id( 'title' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'title' ) ); ?>" value="<?php esc_attr_e( $instance['title'] ); ?>" style="width:100%;" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php esc_html_e('Ordered By', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'order_by' ) ); ?>"><?php esc_html_e('Ordered By', 'wp-megamenu'); ?></label>
             <?php
             $options = array(
                 'popular'   => 'Popular',
@@ -278,7 +278,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
             );
             if(isset($instance['order_by'])) $order_by = $instance['order_by'];
             ?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'order_by' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'order_by' ) ); ?>">
                 <?php
                 $op = '<option value="%s"%s>%s</option>';
                 foreach ($options as $key=>$value ) {
@@ -293,7 +293,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php esc_html_e('Select Category', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'category' ) ); ?>"><?php esc_html_e('Select Category', 'wp-megamenu'); ?></label>
             <?php
             $options = array();
             $options['allpost'] = 'All Category';
@@ -309,7 +309,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
                 $category = array( 'allpost' );
             }
             ?>
-            <select multiple class="widefat" id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>[]">
+            <select multiple class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'category' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'category' ) ); ?>[]">
                 <?php
                 $op = '<option value="%s"%s>%s</option>';
                 foreach ($options as $key=>$value ) {
@@ -324,7 +324,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'no_column' ); ?>"><?php esc_html_e('Number of Column', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'no_column' ) ); ?>"><?php esc_html_e('Number of Column', 'wp-megamenu'); ?></label>
             <?php
             $options = array(
                 'col1'  => 'Column 1',
@@ -335,7 +335,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
             );
             if(isset($instance['no_column'])) $no_column = $instance['no_column'];
             ?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'no_column' ); ?>" name="<?php echo $this->get_field_name( 'no_column' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'no_column' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'no_column' ) ); ?>">
                 <?php
                 $op = '<option value="%s"%s>%s</option>';
 
@@ -350,26 +350,26 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e('Post Count (Per page)', 'wp-megamenu'); ?></label>
-            <input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo $instance['count']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e('Post Count (Per page)', 'wp-megamenu'); ?></label>
+            <input id="<?php esc_attr_e( $this->get_field_id( 'count' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'count' ) ); ?>" value="<?php esc_attr_e( $instance['count'] ); ?>" style="width:100%;" />
         </p>
 
         <?php $show_category = isset( $instance['show_category'] ) ? (bool) $instance['show_category'] : false; ?>
         <p>
-            <input class="checkbox" type="checkbox"<?php checked( $show_category ); ?> id="<?php echo $this->get_field_id( 'show_category' ); ?>" name="<?php echo $this->get_field_name( 'show_category' ); ?>" />
-            <label for="<?php echo $this->get_field_id( 'show_category' ); ?>"><?php _e( 'Show Category on the Post?' ); ?></label>
+            <input class="checkbox" type="checkbox"<?php checked( $show_category ); ?> id="<?php esc_attr_e( $this->get_field_id( 'show_category' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'show_category' ) ); ?>" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'show_category' ) ); ?>"><?php esc_html_e( 'Show Category on the Post?' ); ?></label>
         </p>
 
         <?php $show_nav = isset( $instance['show_nav'] ) ? (bool) $instance['show_nav'] : false; ?>
         <p>
-            <input class="checkbox" type="checkbox"<?php checked( $show_nav ); ?> id="<?php echo $this->get_field_id( 'show_nav' ); ?>" name="<?php echo $this->get_field_name( 'show_nav' ); ?>" />
-            <label for="<?php echo $this->get_field_id( 'show_nav' ); ?>"><?php _e( 'Show Navigation on the Post?' ); ?></label>
+            <input class="checkbox" type="checkbox"<?php checked( $show_nav ); ?> id="<?php esc_attr_e( $this->get_field_id( 'show_nav' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'show_nav' ) ); ?>" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'show_nav' ) ); ?>"><?php esc_html_e( 'Show Navigation on the Post?' ); ?></label>
         </p>
 
         <?php $show_cat = isset( $instance['show_cat'] ) ? (bool) $instance['show_cat'] : false; ?>
         <p>
-            <input class="checkbox" type="checkbox"<?php checked( $show_cat ); ?> id="<?php echo $this->get_field_id( 'show_cat' ); ?>" name="<?php echo $this->get_field_name( 'show_cat' ); ?>" />
-            <label for="<?php echo $this->get_field_id( 'show_cat' ); ?>"><?php _e( 'Show Left Category on the Widget?' ); ?></label>
+            <input class="checkbox" type="checkbox"<?php checked( $show_cat ); ?> id="<?php esc_attr_e( $this->get_field_id( 'show_cat' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'show_cat' ) ); ?>" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'show_cat' ) ); ?>"><?php esc_html_e( 'Show Left Category on the Widget?' ); ?></label>
         </p>
 
         <?php

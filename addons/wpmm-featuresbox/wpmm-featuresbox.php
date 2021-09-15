@@ -95,19 +95,19 @@ class wpmm_featuresbox_widget extends WP_Widget{
 		$output .='<div class="wpmm-feature-box">';
 		switch ( $layout ) {
 			case 'wpmmlayout1':
-				$output .='<div class="wpmm-feature-item '.$layout.' '.$box_align.'">';
+				$output .='<div class="wpmm-feature-item '.esc_attr( $layout ).' '.esc_attr( $box_align) .'">';
 				$output .='<div class="wpmm-feature-item">';
 				if ( isset($featureicon) && !empty($featureicon) ) {
-					$output .='<i class="fa '.$featureicon.'" '.$iconstyle.'></i>';
+					$output .='<i class="fa '.esc_attr( $featureicon ).'" '.esc_attr( $iconstyle ).'></i>';
 				}
 				if (isset($featuretitle)) {
-					$output .='<h4 class="wpmm-feature-title" '.$titlestyle.'>'.$featuretitle.'</h4>';
+					$output .='<h4 class="wpmm-feature-title" '.esc_attr( $titlestyle ).'>'.esc_html( $featuretitle ).'</h4>';
 				}
 				if (isset($featuredesc)) {
-					$output .='<div class="wpmm-feature-desc" '.$descstyle.'>'.$featuredesc.'</div>';
+					$output .='<div class="wpmm-feature-desc" '.esc_attr( $descstyle ).'>'.esc_html( $featuredesc ).'</div>';
 				}
 				if (isset($featurebtnurl) && !empty($featurebtnurl) ) {
-					$output     .= '<a data-hover-color="'.esc_attr($featurebtnhcolor).'" data-hover-bg-color="'.esc_attr($featurebtnhbgcolor).'" class="wpmm-featurebox-hcolor wpmm-featurebox-btn '.$btn_size .'" href="'.$featurebtnurl.'" '.$btnstyle.'>' . $featurebtntext . '</a>';
+					$output     .= '<a data-hover-color="'.esc_attr( $featurebtnhcolor ).'" data-hover-bg-color="'.esc_attr( $featurebtnhbgcolor ).'" class="wpmm-featurebox-hcolor wpmm-featurebox-btn '.esc_attr( $btn_size ) .'" href="'.esc_url( $featurebtnurl ).'" '.esc_attr( $btnstyle ).'>' . esc_html( $featurebtntext ) . '</a>';
 				}
 				$output .='</div>';
 				$output .='</div>';
@@ -183,11 +183,11 @@ class wpmm_featuresbox_widget extends WP_Widget{
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		?>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e('Widget Title', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e('Widget Title', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'title' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'title' ) ); ?>" value="<?php esc_attr_e( $instance['title'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'box_layout' ); ?>"><?php esc_html_e('Select Layout', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'box_layout' ) ); ?>"><?php esc_html_e('Select Layout', 'wp-megamenu'); ?></label>
 			<?php
 			$options = array(
 				'wpmmlayout1' 	=> 'Layout 1',
@@ -195,7 +195,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
 			);
 			if(isset($instance['box_layout'])) $box_layout = $instance['box_layout'];
 			?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'box_layout' ); ?>" name="<?php echo $this->get_field_name( 'box_layout' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'box_layout' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'box_layout' ) ); ?>">
 				<?php
 				$op = '<option value="%s"%s>%s</option>';
 
@@ -211,7 +211,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'box_align' ); ?>"><?php esc_html_e('Alignment', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'box_align' ) ); ?>"><?php esc_html_e('Alignment', 'wp-megamenu'); ?></label>
 			<?php
 			$options = array(
 				'wpmmtextleft' 		=> 'Left',
@@ -220,7 +220,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
 			);
 			if(isset($instance['box_align'])) $box_align = $instance['box_align'];
 			?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'box_align' ); ?>" name="<?php echo $this->get_field_name( 'box_align' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'box_align' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'box_align' ) ); ?>">
 				<?php
 				$op = '<option value="%s"%s>%s</option>';
 
@@ -236,40 +236,40 @@ class wpmm_featuresbox_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_icon' ); ?>"><?php esc_html_e('Select Icon', 'wp-megamenu'); ?></label>
-            <select id="<?php echo $this->get_field_id( 'feature_icon' ); ?>" class="wpmm-select2" name="<?php echo $this->get_field_name( 'feature_icon' ); ?>" >
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_icon' ) ); ?>"><?php esc_html_e('Select Icon', 'wp-megamenu'); ?></label>
+            <select id="<?php esc_attr_e( $this->get_field_id( 'feature_icon' ) ); ?>" class="wpmm-select2" name="<?php esc_attr_e( $this->get_field_name( 'feature_icon' ) ); ?>" >
 				<?php
 				$font_awesome = wpmm_font_awesome();
 				foreach ($font_awesome as $icon_key => $icon_value){
 					echo '<option value=""> '.__('None', 'wp-megamenu').' </option>';
-					echo '<option '.selected( $instance['feature_icon'], $icon_value).' value="'.$icon_value.'" selec data-icon="'.$icon_value.'">'.str_replace('fa-', '', $icon_value).'</option>';
+					echo '<option '.selected( $instance['feature_icon'], $icon_value).' value="'.esc_attr( $icon_value ).'" selec data-icon="'.esc_attr( $icon_value ).'">'.str_replace( 'fa-', '', esc_html( $icon_value ) ).'</option>';
 				}
 				?>
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_title' ); ?>"><?php esc_html_e('Feature Title', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_title' ); ?>" name="<?php echo $this->get_field_name( 'feature_title' ); ?>" value="<?php echo $instance['feature_title']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_title' ) ); ?>"><?php esc_html_e('Feature Title', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_title' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_title' ) ); ?>" value="<?php esc_attr_e( $instance['feature_title'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_desc' ); ?>"><?php esc_html_e('Feature Description', 'wp-megamenu'); ?></label>
-            <textarea id="<?php echo $this->get_field_id( 'feature_desc' ); ?>" rows="5" name="<?php echo $this->get_field_name( 'feature_desc' ); ?>" style="width:100%;"><?php echo $instance['feature_desc']; ?></textarea>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_desc' ) ); ?>"><?php esc_html_e('Feature Description', 'wp-megamenu'); ?></label>
+            <textarea id="<?php esc_attr_e( $this->get_field_id( 'feature_desc' ) ); ?>" rows="5" name="<?php esc_attr_e( $this->get_field_name( 'feature_desc' ) ); ?>" style="width:100%;"><?php esc_html_e( $instance['feature_desc'] ); ?></textarea>
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_text' ); ?>"><?php esc_html_e('Button Text', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_btn_text' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_text' ); ?>" value="<?php echo $instance['feature_btn_text']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_text' ) ); ?>"><?php esc_html_e('Button Text', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_text' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_text' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_text'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_url' ); ?>"><?php esc_html_e('Button Link', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_btn_url' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_url' ); ?>" value="<?php echo $instance['feature_btn_url']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_url' ) ); ?>"><?php esc_html_e('Button Link', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_url' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_url' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_url'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_style' ); ?>"><?php esc_html_e('Feature Style', 'wp-megamenu'); ?></label></p>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_style' ) ); ?>"><?php esc_html_e('Feature Style', 'wp-megamenu'); ?></label></p>
         <hr/>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'title_text_transform' ); ?>"><?php esc_html_e('Title Text Transform', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'title_text_transform' ) ); ?>"><?php esc_html_e('Title Text Transform', 'wp-megamenu'); ?></label>
 			<?php
 			$options = array(
 				'uppercase'   => 'UPPERCASE',
@@ -281,8 +281,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
 				$title_text_transform = $instance['title_text_transform'];
 			}
 			?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'title_text_transform' ); ?>" name="<?php echo
-			$this->get_field_name( 'title_text_transform' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'title_text_transform' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'title_text_transform' ) ); ?>">
 				<?php
 				$op = '<option value="%s"%s>%s</option>';
 				foreach ($options as $key => $value ) {
@@ -297,7 +296,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'btn_size' ); ?>"><?php esc_html_e('Button Size', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'btn_size' ) ); ?>"><?php esc_html_e('Button Size', 'wp-megamenu'); ?></label>
 			<?php
 			$options = array(
 				'wpmmbtnsize_s'   => 'Small',
@@ -306,7 +305,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
 			);
 			if(isset($instance['btn_size'])) $btn_size = $instance['btn_size'];
 			?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'btn_size' ); ?>" name="<?php echo $this->get_field_name( 'btn_size' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'btn_size' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'btn_size' ) ); ?>">
 				<?php
 				$op = '<option value="%s"%s>%s</option>';
 
@@ -322,19 +321,19 @@ class wpmm_featuresbox_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_icon_size' ); ?>"><?php esc_html_e('Iocn Font Size Ex. 20px', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_icon_size' ); ?>" name="<?php echo $this->get_field_name( 'feature_icon_size' ); ?>" value="<?php echo $instance['feature_icon_size']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_icon_size' ) ); ?>"><?php esc_html_e('Iocn Font Size Ex. 20px', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_icon_size' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_icon_size' ) ); ?>" value="<?php esc_attr_e( $instance['feature_icon_size'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_title_size' ); ?>"><?php esc_html_e('Title Font Size Ex. 18px', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_title_size' ); ?>" name="<?php echo $this->get_field_name( 'feature_title_size' ); ?>" value="<?php echo $instance['feature_title_size']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_title_size' ) ); ?>"><?php esc_html_e('Title Font Size Ex. 18px', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_title_size' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_title_size' ) ); ?>" value="<?php esc_attr_e( $instance['feature_title_size'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_title_margin' ); ?>"><?php esc_html_e('Title Margin Ex. 10px 10px 10px 10px', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_title_margin' ); ?>" name="<?php echo $this->get_field_name( 'feature_title_margin' ); ?>" value="<?php echo $instance['feature_title_margin']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_title_margin' ) ); ?>"><?php esc_html_e('Title Margin Ex. 10px 10px 10px 10px', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_title_margin' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_title_margin' ) ); ?>" value="<?php esc_attr_e( $instance['feature_title_margin'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title_weight' ); ?>"><?php esc_html_e('Title font weight', 'wp-megamenu'); ?></label>
+            <label for="<?php esc_attr_e( $this->get_field_id( 'title_weight' ) ); ?>"><?php esc_html_e('Title font weight', 'wp-megamenu'); ?></label>
 			<?php
 			$weightoptions = array(
 				'300'   => '300',
@@ -346,7 +345,7 @@ class wpmm_featuresbox_widget extends WP_Widget{
 			);
 			if(isset($instance['title_weight'])) $title_weight = $instance['title_weight'];
 			?>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'title_weight' ); ?>" name="<?php echo $this->get_field_name( 'title_weight' ); ?>">
+            <select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'title_weight' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'title_weight' ) ); ?>">
 				<?php
 				$weightop = '<option value="%s"%s>%s</option>';
 
@@ -362,37 +361,36 @@ class wpmm_featuresbox_widget extends WP_Widget{
             </select>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_desc_size' ); ?>"><?php esc_html_e('Description Font Size Ex. 14px', 'wp-megamenu'); ?></label>
-            <input type="text" class="widefat" id="<?php echo $this->get_field_id( 'feature_desc_size' ); ?>" name="<?php echo $this->get_field_name( 'feature_desc_size' ); ?>" value="<?php echo $instance['feature_desc_size']; ?>" style="width:100%;" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_desc_size' ) ); ?>"><?php esc_html_e('Description Font Size Ex. 14px', 'wp-megamenu'); ?></label>
+            <input type="text" class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'feature_desc_size' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_desc_size' ) ); ?>" value="<?php esc_attr_e( $instance['feature_desc_size'] ); ?>" style="width:100%;" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_icon_color' ); ?>"><?php esc_html_e('Icon Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_icon_color' ); ?>"  name="<?php echo
-			$this->get_field_name( 'feature_icon_color' ); ?>" value="<?php echo $instance['feature_icon_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_icon_color' ) ); ?>"><?php esc_html_e('Icon Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_icon_color' ) ); ?>"  name="<?php esc_attr_e( $this->get_field_name( 'feature_icon_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_icon_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_title_color' ); ?>"><?php esc_html_e('Title Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_title_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_title_color' ); ?>" value="<?php echo $instance['feature_title_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_title_color' ) ); ?>"><?php esc_html_e('Title Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_title_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_title_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_title_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_desc_color' ); ?>"><?php esc_html_e('Description Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_desc_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_desc_color' ); ?>" value="<?php echo $instance['feature_desc_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_desc_color' ) ); ?>"><?php esc_html_e('Description Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_desc_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_desc_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_desc_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_color' ); ?>"><?php esc_html_e('Button Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_btn_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_color' ); ?>" value="<?php echo $instance['feature_btn_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_color' ) ); ?>"><?php esc_html_e('Button Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_bg_color' ); ?>"><?php esc_html_e('Button Background Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_btn_bg_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_bg_color' ); ?>" value="<?php echo $instance['feature_btn_bg_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_bg_color' ) ); ?>"><?php esc_html_e('Button Background Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_bg_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_bg_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_bg_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_h_color' ); ?>"><?php esc_html_e('Button Hover Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_btn_h_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_h_color' ); ?>" value="<?php echo $instance['feature_btn_h_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_h_color' ) ); ?>"><?php esc_html_e('Button Hover Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_h_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_h_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_h_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'feature_btn_h_bg_color' ); ?>"><?php esc_html_e('Button Hover Background Color', 'wp-megamenu'); ?></label>
-            <input type="text" id="<?php echo $this->get_field_id( 'feature_btn_h_bg_color' ); ?>" name="<?php echo $this->get_field_name( 'feature_btn_h_bg_color' ); ?>" value="<?php echo $instance['feature_btn_h_bg_color']; ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
+            <label for="<?php esc_attr_e( $this->get_field_id( 'feature_btn_h_bg_color' ) ); ?>"><?php esc_html_e('Button Hover Background Color', 'wp-megamenu'); ?></label>
+            <input type="text" id="<?php esc_attr_e( $this->get_field_id( 'feature_btn_h_bg_color' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'feature_btn_h_bg_color' ) ); ?>" value="<?php esc_attr_e( $instance['feature_btn_h_bg_color'] ); ?>" style="width:100%;"  class="wpmmColorPicker" data-alpha="true" />
         </p>
 		<?php
 	}
