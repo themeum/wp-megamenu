@@ -720,10 +720,6 @@ function overrite_functions_wp_megamenu($args){
 				'walker'               => new wp_megamenu()
 			);
 
-			// echo '<pre>';
-			// print_r($argunets);
-			// echo '</pre>';
-
 		}
 
 

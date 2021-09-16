@@ -190,18 +190,12 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 								$widgets_options = get_option('sidebars_widgets');
 
 								foreach ($widgets_in_sidebar as $widget_id){
-									//echo $widget_id.'<br />';
+									
 									$saved_widget_id = substr($widget_id, strrpos($widget_id, '-')+1);
 									$widget_based_id = substr($widget_id, 0, strrpos($widget_id, '-'));
 									$next_widget_id = next_widget_id_number($widget_based_id);
-
-									//echo $widget_based_id.'<br />';
-									//$calender_widget = get_option('widget_calendar');
-									//echo $widget_based_id.'-'.$next_widget_id.'<br />';
-
-									//if (! in_array($widget_id, $widgets_options['wpmm'])){
+			
 									$widgets_options['wpmm'][] = $widget_based_id.'-'.$next_widget_id;
-									//}
 
 									update_option('sidebars_widgets', $widgets_options);
 									$widget_option_name = "widget_".$widget_based_id;
@@ -226,9 +220,6 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 							if (is_array($post_data->posts) && count($post_data->posts)){
 								$previous_and_new_post_ids = array();
 								$parent_item_ids = array();
-
-								//echo '<pre>';
-								//die(print_r($post_data->posts));
 
 								foreach ($post_data->posts as $post){
 

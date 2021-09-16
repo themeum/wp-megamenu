@@ -300,7 +300,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
 
                     </div>
                     <div class="widget-title">
-                        <h3><?php echo $this->wpmm_get_widget_name_by_widget_id($widget_id); ?><span class="in-widget-title"></span></h3>
+                        <h3><?php esc_html_e( $this->wpmm_get_widget_name_by_widget_id($widget_id) ); ?><span class="in-widget-title"></span></h3>
                     </div>
                 </div>
 
