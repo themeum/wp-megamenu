@@ -55,12 +55,12 @@ if ( ! class_exists('wp_megamenu_base')) {
             $current_time = time();
             if($current_time > $notice_time){ ?>
                     <div class="notice notice-success wpmm-review-notice">
-                        <h3><?php _e('Thank you for using "WP Mega Menu!!"', 'wp-megamenu'); ?></h3>
-                        <p><?php _e( 'Kindly show us some support by giving WP Mega Menu a 5 star rating. ⭐⭐⭐⭐⭐', 'wp-megamenu' ); ?></p>
+                        <h3><?php esc_html_e('Thank you for using "WP Mega Menu!!"', 'wp-megamenu'); ?></h3>
+                        <p><?php esc_html_e( 'Kindly show us some support by giving WP Mega Menu a 5 star rating. ⭐⭐⭐⭐⭐', 'wp-megamenu' ); ?></p>
                         <div class="wpmm-review-notice-button-group">
-                            <a target="_blank" href="https://wordpress.org/support/plugin/wp-megamenu/reviews/?filter=5"><span>🤩</span><?php _e(' Sure Thing', 'wp-megamenu') ?></a>
-                            <a class="wpmm-remove-rating-notice" data-type="remind" href="#"><span>👏</span><?php _e(' Remind Later', 'wp-megamenu'); ?></a>
-                            <a class="wpmm-remove-rating-notice" data-type="dismiss" href="#"><span>😞</span><?php _e(' Please don\'t show this again', 'wp-megamenu'); ?></a>
+                            <a target="_blank" href="https://wordpress.org/support/plugin/wp-megamenu/reviews/?filter=5"><span>🤩</span><?php esc_html_e(' Sure Thing', 'wp-megamenu') ?></a>
+                            <a class="wpmm-remove-rating-notice" data-type="remind" href="#"><span>👏</span><?php esc_html_e(' Remind Later', 'wp-megamenu'); ?></a>
+                            <a class="wpmm-remove-rating-notice" data-type="dismiss" href="#"><span>😞</span><?php esc_html_e(' Please don\'t show this again', 'wp-megamenu'); ?></a>
                         </div>
                     </div>
                 <?php

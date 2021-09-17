@@ -145,7 +145,7 @@ if ( ! class_exists('WP_MegaMenu_Export_Import')){
 		function sample_admin_notice__success() {
 			?>
 			<div class="notice notice-success is-dismissible">
-				<p><?php _e( 'Menu has been imported successfully', 'wp-megamenu' ); ?></p>
+				<p><?php esc_html_e( 'Menu has been imported successfully', 'wp-megamenu' ); ?></p>
 			</div>
 			<?php
 		}

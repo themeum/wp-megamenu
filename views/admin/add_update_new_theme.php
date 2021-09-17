@@ -1101,7 +1101,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
                                     <input type="text" name="wpmm_theme_option[top_level_item_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('top_level_item_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
                                 <p class="field-description"> <?php esc_html_e('Set border width and color.', 'wp-megamenu'); ?></p>
@@ -1116,7 +1116,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top Width', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $top_level_item_hover_border_width = get_wpmm_theme_option('top_level_item_hover_border_width', $theme_id);
@@ -1384,7 +1384,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropwodn_menu_radius_bottom_right = get_wpmm_theme_option('dropwodn_menu_radius_bottom_right', $theme_id);
@@ -1392,56 +1392,56 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropwodn_menu_radius_bottom_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropwodn_menu_radius_bottom_right]' value="<?php echo $dropwodn_menu_radius_bottom_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropwodn_menu_radius_bottom_right]' value="<?php esc_attr_e( $dropwodn_menu_radius_bottom_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
-                                <p class="field-description"><?php _e('Set a border radius on the dropdown menu.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set a border radius on the dropdown menu.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu Border', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu Border', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
                                         <?php
                                         $dropdown_menu_border_width = get_wpmm_theme_option('dropdown_menu_border_width', $theme_id);
                                         if( ! $dropdown_menu_border_width){
                                             $dropdown_menu_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_menu_border_width]' value="<?php echo $dropdown_menu_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_menu_border_width]' value="<?php esc_attr_e( $dropdown_menu_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[dropdown_menu_border_type]">
                                             <?php
                                                 $dropdown_menu_border_type = get_wpmm_theme_option('dropdown_menu_border_type', $theme_id);
                                             ?>
-                                            <option value="none" <?php selected($dropdown_menu_border_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option> <option value="solid" <?php selected($dropdown_menu_border_type, 'solid') ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($dropdown_menu_border_type, 'dashed') ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($dropdown_menu_border_type, 'dotted') ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($dropdown_menu_border_type, 'double') ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($dropdown_menu_border_type, 'groove') ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($dropdown_menu_border_type, 'ridge') ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($dropdown_menu_border_type, 'inset') ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($dropdown_menu_border_type, 'outset') ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($dropdown_menu_border_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option> <option value="solid" <?php selected($dropdown_menu_border_type, 'solid') ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($dropdown_menu_border_type, 'dashed') ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($dropdown_menu_border_type, 'dotted') ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($dropdown_menu_border_type, 'double') ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($dropdown_menu_border_type, 'groove') ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($dropdown_menu_border_type, 'ridge') ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($dropdown_menu_border_type, 'inset') ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($dropdown_menu_border_type, 'outset') ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[dropdown_menu_border_color]" value="<?php echo get_wpmm_theme_option('dropdown_menu_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[dropdown_menu_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('dropdown_menu_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
@@ -1454,18 +1454,18 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Sub Menu Items', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Sub Menu Items', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Text', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Text', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Font', 'wp-megamenu'); ?></span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font', 'wp-megamenu'); ?></span>
 
                                         <?php
                                         $google_fonts = wpmm_get_google_fonts();
@@ -1473,11 +1473,11 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $theme_id);
                                         ?>
                                         <select name="wpmm_theme_option[dropdown_submenu_item_text_font]" class="select2">
-                                            <option value=""><?php _e('Select font', 'wp-megamenu'); ?></option>
+                                            <option value=""><?php esc_html_e('Select font', 'wp-megamenu'); ?></option>
                                             <?php
                                             foreach ($google_fonts as $font){
                                                 $is_top_lavel_font_selected = ($top_lavel_saved_font === $font) ? ' selected="selected" ':'';
-                                                echo "<option value='{$font}' {$is_top_lavel_font_selected} >{$font}</option>";
+                                                echo '<option value="' . esc_attr( $font ) .' " ' . $is_top_lavel_font_selected . '>' . esc_html( $font ) . '</option>';
                                             }
                                             ?>
                                         </select>
@@ -1495,8 +1495,8 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Color', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_color]" value="<?php echo $dropdown_submenu_item_text_color; ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Color', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_color]" value="<?php esc_attr_e( $dropdown_submenu_item_text_color ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
@@ -1507,27 +1507,27 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Hover Color', 'wp-megamenu'); ?> </span>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_hover_color]" value="<?php echo $dropdown_submenu_item_text_hover_color; ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Hover Color', 'wp-megamenu'); ?> </span>
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_hover_color]" value="<?php esc_attr_e( $dropdown_submenu_item_text_hover_color ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Font Size', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font Size', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_item_text_font_size = get_wpmm_theme_option('dropdown_submenu_item_text_font_size', $theme_id);
                                         if( ! $dropdown_submenu_item_text_font_size){
                                             $dropdown_submenu_item_text_font_size = '12px';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_font_size]" value="<?php echo $dropdown_submenu_item_text_font_size; ?>" placeholder="0px" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_font_size]" value="<?php esc_attr_e( $dropdown_submenu_item_text_font_size ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Font Weight', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Font Weight', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_item_text_font_weight = get_wpmm_theme_option('dropdown_submenu_item_text_font_weight', $theme_id);
                                         if( ! $dropdown_submenu_item_text_font_weight){
@@ -1535,56 +1535,56 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <select name="wpmm_theme_option[dropdown_submenu_item_text_font_weight]">
-                                            <option value="normal" <?php selected($dropdown_submenu_item_text_font_weight, 'normal') ?> > <?php _e('Normal', 'wp-megamenu'); ?> </option>
-                                            <option value="bold" <?php selected($dropdown_submenu_item_text_font_weight, 'bold') ?> > <?php _e('Bold', 'wp-megamenu'); ?> </option>
-                                            <option value="bolder" <?php selected($dropdown_submenu_item_text_font_weight, 'bolder') ?> > <?php _e('Bolder', 'wp-megamenu'); ?> </option>
-                                            <option value="lighter" <?php selected($dropdown_submenu_item_text_font_weight, 'lighter') ?> > <?php _e('Lighter', 'wp-megamenu'); ?> </option>
-                                            <option value="100" <?php selected($dropdown_submenu_item_text_font_weight, '100') ?> > <?php _e('100', 'wp-megamenu'); ?> </option>
-                                            <option value="200" <?php selected($dropdown_submenu_item_text_font_weight, '200') ?> > <?php _e('200', 'wp-megamenu'); ?> </option>
-                                            <option value="300" <?php selected($dropdown_submenu_item_text_font_weight, '300') ?> > <?php _e('300', 'wp-megamenu'); ?> </option>
-                                            <option value="400" <?php selected($dropdown_submenu_item_text_font_weight, '400') ?> > <?php _e('400', 'wp-megamenu'); ?> </option>
-                                            <option value="500" <?php selected($dropdown_submenu_item_text_font_weight, '500') ?> > <?php _e('500', 'wp-megamenu'); ?> </option>
-                                            <option value="600" <?php selected($dropdown_submenu_item_text_font_weight, '600') ?> > <?php _e('600', 'wp-megamenu'); ?> </option>
-                                            <option value="700" <?php selected($dropdown_submenu_item_text_font_weight, '700') ?> > <?php _e('700', 'wp-megamenu'); ?> </option>
-                                            <option value="800" <?php selected($dropdown_submenu_item_text_font_weight, '800') ?> > <?php _e('800', 'wp-megamenu'); ?> </option>
-                                            <option value="900" <?php selected($dropdown_submenu_item_text_font_weight, '900') ?> > <?php _e('900', 'wp-megamenu'); ?> </option>
+                                            <option value="normal" <?php selected($dropdown_submenu_item_text_font_weight, 'normal') ?> > <?php esc_html_e('Normal', 'wp-megamenu'); ?> </option>
+                                            <option value="bold" <?php selected($dropdown_submenu_item_text_font_weight, 'bold') ?> > <?php esc_html_e('Bold', 'wp-megamenu'); ?> </option>
+                                            <option value="bolder" <?php selected($dropdown_submenu_item_text_font_weight, 'bolder') ?> > <?php esc_html_e('Bolder', 'wp-megamenu'); ?> </option>
+                                            <option value="lighter" <?php selected($dropdown_submenu_item_text_font_weight, 'lighter') ?> > <?php esc_html_e('Lighter', 'wp-megamenu'); ?> </option>
+                                            <option value="100" <?php selected($dropdown_submenu_item_text_font_weight, '100') ?> > <?php esc_html_e('100', 'wp-megamenu'); ?> </option>
+                                            <option value="200" <?php selected($dropdown_submenu_item_text_font_weight, '200') ?> > <?php esc_html_e('200', 'wp-megamenu'); ?> </option>
+                                            <option value="300" <?php selected($dropdown_submenu_item_text_font_weight, '300') ?> > <?php esc_html_e('300', 'wp-megamenu'); ?> </option>
+                                            <option value="400" <?php selected($dropdown_submenu_item_text_font_weight, '400') ?> > <?php esc_html_e('400', 'wp-megamenu'); ?> </option>
+                                            <option value="500" <?php selected($dropdown_submenu_item_text_font_weight, '500') ?> > <?php esc_html_e('500', 'wp-megamenu'); ?> </option>
+                                            <option value="600" <?php selected($dropdown_submenu_item_text_font_weight, '600') ?> > <?php esc_html_e('600', 'wp-megamenu'); ?> </option>
+                                            <option value="700" <?php selected($dropdown_submenu_item_text_font_weight, '700') ?> > <?php esc_html_e('700', 'wp-megamenu'); ?> </option>
+                                            <option value="800" <?php selected($dropdown_submenu_item_text_font_weight, '800') ?> > <?php esc_html_e('800', 'wp-megamenu'); ?> </option>
+                                            <option value="900" <?php selected($dropdown_submenu_item_text_font_weight, '900') ?> > <?php esc_html_e('900', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Line Height', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Line Height', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_item_text_line_height = get_wpmm_theme_option('dropdown_submenu_item_text_line_height', $theme_id);
                                         if( ! $dropdown_submenu_item_text_line_height){
                                             $dropdown_submenu_item_text_line_height = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_line_height]" value="<?php echo $dropdown_submenu_item_text_line_height; ?>" data-alpha="true" placeholder="0px" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_line_height]" value="<?php esc_attr_e( $dropdown_submenu_item_text_line_height ); ?>" data-alpha="true" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Text Transform', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Text Transform', 'wp-megamenu'); ?> </span>
                                         <select name="wpmm_theme_option[dropdown_submenu_item_text_transform]">
                                             <?php
                                                 $dropdown_submenu_item_text_transform = get_wpmm_theme_option('dropdown_submenu_item_text_transform', $theme_id);
                                             ?>
-                                            <option value="none" <?php selected($dropdown_submenu_item_text_transform, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="inherit" <?php selected($dropdown_submenu_item_text_transform, 'inherit') ?> > <?php _e('Inherit', 'wp-megamenu'); ?> </option>
-                                            <option value="uppercase" <?php selected($dropdown_submenu_item_text_transform, 'uppercase') ?> > <?php _e('Uppercase', 'wp-megamenu');
+                                            <option value="none" <?php selected($dropdown_submenu_item_text_transform, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="inherit" <?php selected($dropdown_submenu_item_text_transform, 'inherit') ?> > <?php esc_html_e('Inherit', 'wp-megamenu'); ?> </option>
+                                            <option value="uppercase" <?php selected($dropdown_submenu_item_text_transform, 'uppercase') ?> > <?php esc_html_e('Uppercase', 'wp-megamenu');
                                                 ?> </option>
-                                            <option value="lowercase" <?php selected($dropdown_submenu_item_text_transform, 'lowercase') ?> > <?php _e('Lowercase', 'wp-megamenu'); ?> </option>
-                                            <option value="capitalize" <?php selected($dropdown_submenu_item_text_transform, 'capitalize') ?> > <?php _e('Capitalize', 'wp-megamenu'); ?> </option>
+                                            <option value="lowercase" <?php selected($dropdown_submenu_item_text_transform, 'lowercase') ?> > <?php esc_html_e('Lowercase', 'wp-megamenu'); ?> </option>
+                                            <option value="capitalize" <?php selected($dropdown_submenu_item_text_transform, 'capitalize') ?> > <?php esc_html_e('Capitalize', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Letter Spacing', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Letter Spacing', 'wp-megamenu'); ?> </span>
 
                                         <?php
                                         $dropdown_submenu_item_text_letter_spacing = get_wpmm_theme_option('dropdown_submenu_item_text_letter_spacing', $theme_id);
@@ -1592,7 +1592,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_text_letter_spacing = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_letter_spacing]" value="<?php echo $dropdown_submenu_item_text_letter_spacing; ?>" data-alpha="true" placeholder="0px" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_item_text_letter_spacing]" value="<?php esc_attr_e( $dropdown_submenu_item_text_letter_spacing ); ?>" data-alpha="true" placeholder="0px" />
                                     </label>
                                 </div>
 
@@ -1602,7 +1602,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('First Item', 'wp-megamenu'); ?>
+                                <?php esc_html_e('First Item', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <?php $dropdown_submenu_first_item_text_color = get_wpmm_theme_option('dropdown_submenu_first_item_text_color', $theme_id);
@@ -1612,8 +1612,8 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Color', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_color]" value="<?php echo $dropdown_submenu_first_item_text_color; ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Color', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_color]" value="<?php esc_attr_e( $dropdown_submenu_first_item_text_color ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
@@ -1624,27 +1624,27 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Hover Color', 'wp-megamenu'); ?> </span>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_hover_color]" value="<?php echo $dropdown_submenu_first_item_text_hover_color; ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Hover Color', 'wp-megamenu'); ?> </span>
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_hover_color]" value="<?php esc_attr_e( $dropdown_submenu_first_item_text_hover_color ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Font Size', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font Size', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_first_item_text_font_size = get_wpmm_theme_option('dropdown_submenu_first_item_text_font_size', $theme_id);
                                         if (!$dropdown_submenu_first_item_text_font_size) {
                                             $dropdown_submenu_first_item_text_font_size = '12px';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_font_size]" value="<?php echo $dropdown_submenu_first_item_text_font_size; ?>" placeholder="0px" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_font_size]" value="<?php esc_attr_e( $dropdown_submenu_first_item_text_font_size ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Font Weight', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Font Weight', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_first_item_text_font_weight = get_wpmm_theme_option('dropdown_submenu_first_item_text_font_weight', $theme_id);
                                         if (!$dropdown_submenu_first_item_text_font_weight) {
@@ -1652,53 +1652,53 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <select name="wpmm_theme_option[dropdown_submenu_first_item_text_font_weight]">
-                                            <option value="normal" <?php selected($dropdown_submenu_first_item_text_font_weight, 'normal') ?> > <?php _e('Normal', 'wp-megamenu'); ?> </option>
-                                            <option value="bold" <?php selected($dropdown_submenu_first_item_text_font_weight, 'bold') ?> > <?php _e('Bold', 'wp-megamenu'); ?> </option>
-                                            <option value="bolder" <?php selected($dropdown_submenu_first_item_text_font_weight, 'bolder') ?> > <?php _e('Bolder', 'wp-megamenu'); ?> </option>
-                                            <option value="lighter" <?php selected($dropdown_submenu_first_item_text_font_weight, 'lighter') ?> > <?php _e('Lighter', 'wp-megamenu'); ?> </option>
-                                            <option value="100" <?php selected($dropdown_submenu_first_item_text_font_weight, '100') ?> > <?php _e('100', 'wp-megamenu'); ?> </option>
-                                            <option value="200" <?php selected($dropdown_submenu_first_item_text_font_weight, '200') ?> > <?php _e('200', 'wp-megamenu'); ?> </option>
-                                            <option value="300" <?php selected($dropdown_submenu_first_item_text_font_weight, '300') ?> > <?php _e('300', 'wp-megamenu'); ?> </option>
-                                            <option value="400" <?php selected($dropdown_submenu_first_item_text_font_weight, '400') ?> > <?php _e('400', 'wp-megamenu'); ?> </option>
-                                            <option value="500" <?php selected($dropdown_submenu_first_item_text_font_weight, '500') ?> > <?php _e('500', 'wp-megamenu'); ?> </option>
-                                            <option value="600" <?php selected($dropdown_submenu_first_item_text_font_weight, '600') ?> > <?php _e('600', 'wp-megamenu'); ?> </option>
-                                            <option value="700" <?php selected($dropdown_submenu_first_item_text_font_weight, '700') ?> > <?php _e('700', 'wp-megamenu'); ?> </option>
-                                            <option value="800" <?php selected($dropdown_submenu_first_item_text_font_weight, '800') ?> > <?php _e('800', 'wp-megamenu'); ?> </option>
-                                            <option value="900" <?php selected($dropdown_submenu_first_item_text_font_weight, '900') ?> > <?php _e('900', 'wp-megamenu'); ?> </option>
+                                            <option value="normal" <?php selected($dropdown_submenu_first_item_text_font_weight, 'normal') ?> > <?php esc_html_e('Normal', 'wp-megamenu'); ?> </option>
+                                            <option value="bold" <?php selected($dropdown_submenu_first_item_text_font_weight, 'bold') ?> > <?php esc_html_e('Bold', 'wp-megamenu'); ?> </option>
+                                            <option value="bolder" <?php selected($dropdown_submenu_first_item_text_font_weight, 'bolder') ?> > <?php esc_html_e('Bolder', 'wp-megamenu'); ?> </option>
+                                            <option value="lighter" <?php selected($dropdown_submenu_first_item_text_font_weight, 'lighter') ?> > <?php esc_html_e('Lighter', 'wp-megamenu'); ?> </option>
+                                            <option value="100" <?php selected($dropdown_submenu_first_item_text_font_weight, '100') ?> > <?php esc_html_e('100', 'wp-megamenu'); ?> </option>
+                                            <option value="200" <?php selected($dropdown_submenu_first_item_text_font_weight, '200') ?> > <?php esc_html_e('200', 'wp-megamenu'); ?> </option>
+                                            <option value="300" <?php selected($dropdown_submenu_first_item_text_font_weight, '300') ?> > <?php esc_html_e('300', 'wp-megamenu'); ?> </option>
+                                            <option value="400" <?php selected($dropdown_submenu_first_item_text_font_weight, '400') ?> > <?php esc_html_e('400', 'wp-megamenu'); ?> </option>
+                                            <option value="500" <?php selected($dropdown_submenu_first_item_text_font_weight, '500') ?> > <?php esc_html_e('500', 'wp-megamenu'); ?> </option>
+                                            <option value="600" <?php selected($dropdown_submenu_first_item_text_font_weight, '600') ?> > <?php esc_html_e('600', 'wp-megamenu'); ?> </option>
+                                            <option value="700" <?php selected($dropdown_submenu_first_item_text_font_weight, '700') ?> > <?php esc_html_e('700', 'wp-megamenu'); ?> </option>
+                                            <option value="800" <?php selected($dropdown_submenu_first_item_text_font_weight, '800') ?> > <?php esc_html_e('800', 'wp-megamenu'); ?> </option>
+                                            <option value="900" <?php selected($dropdown_submenu_first_item_text_font_weight, '900') ?> > <?php esc_html_e('900', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Line Height', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Line Height', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $dropdown_submenu_first_item_text_line_height = get_wpmm_theme_option('dropdown_submenu_first_item_text_line_height', $theme_id);
                                         if (!$dropdown_submenu_first_item_text_line_height) {
                                             $dropdown_submenu_first_item_text_line_height = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_line_height]" value="<?php echo $dropdown_submenu_first_item_text_line_height; ?>" data-alpha="true" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_line_height]" value="<?php esc_attr_e( $dropdown_submenu_first_item_text_line_height ); ?>" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Text Transform', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Text Transform', 'wp-megamenu'); ?> </span>
                                         <select name="wpmm_theme_option[dropdown_submenu_first_item_text_transform]">
                                             <?php $dropdown_submenu_first_item_text_transform =  get_wpmm_theme_option('dropdown_submenu_first_item_text_transform', $theme_id)?>
-                                            <option value="none" <?php selected($dropdown_submenu_item_text_transform, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="inherit" <?php selected($dropdown_submenu_item_text_transform, 'inherit') ?> > <?php _e('Inherit', 'wp-megamenu'); ?> </option>
-                                            <option value="uppercase" <?php selected($dropdown_submenu_first_item_text_transform, 'uppercase') ?> > <?php _e('Uppercase', 'wp-megamenu'); ?> </option>
-                                            <option value="lowercase" <?php selected($dropdown_submenu_first_item_text_transform, 'lowercase') ?> > <?php _e('Lowercase', 'wp-megamenu'); ?> </option>
-                                            <option value="capitalize" <?php selected($dropdown_submenu_first_item_text_transform, 'capitalize') ?> > <?php _e('Capitalize', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($dropdown_submenu_item_text_transform, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="inherit" <?php selected($dropdown_submenu_item_text_transform, 'inherit') ?> > <?php esc_html_e('Inherit', 'wp-megamenu'); ?> </option>
+                                            <option value="uppercase" <?php selected($dropdown_submenu_first_item_text_transform, 'uppercase') ?> > <?php esc_html_e('Uppercase', 'wp-megamenu'); ?> </option>
+                                            <option value="lowercase" <?php selected($dropdown_submenu_first_item_text_transform, 'lowercase') ?> > <?php esc_html_e('Lowercase', 'wp-megamenu'); ?> </option>
+                                            <option value="capitalize" <?php selected($dropdown_submenu_first_item_text_transform, 'capitalize') ?> > <?php esc_html_e('Capitalize', 'wp-megamenu'); ?> </option>
                                         </sele ct>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Letter Spacing', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Letter Spacing', 'wp-megamenu'); ?> </span>
 
                                         <?php
                                         $dropdown_submenu_first_item_text_letter_spacing = get_wpmm_theme_option('dropdown_submenu_first_item_text_letter_spacing', $theme_id);
@@ -1706,7 +1706,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_first_item_text_letter_spacing = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_letter_spacing]" value="<?php echo $dropdown_submenu_first_item_text_letter_spacing; ?>" data-alpha="true" />
+                                        <input type="text" name="wpmm_theme_option[dropdown_submenu_first_item_text_letter_spacing]" value="<?php esc_attr_e( $dropdown_submenu_first_item_text_letter_spacing ); ?>" data-alpha="true" />
                                     </label>
                                 </div>
 
@@ -1715,7 +1715,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Background Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Background Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <?php $dropdown_submenu_item_bg_color = get_wpmm_theme_option('dropdown_submenu_item_bg_color', $theme_id);
@@ -1724,14 +1724,14 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 }
                                 ?>
 
-                                <input type="text" name="wpmm_theme_option[dropdown_submenu_item_bg_color]" value="<?php echo $dropdown_submenu_item_bg_color; ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set item background color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[dropdown_submenu_item_bg_color]" value="<?php esc_attr_e( $dropdown_submenu_item_bg_color ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set item background color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Background Hover Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Background Hover Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <?php $dropdown_submenu_item_bg_hover_color = get_wpmm_theme_option('dropdown_submenu_item_bg_hover_color', $theme_id);
@@ -1740,20 +1740,20 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 }
                                 ?>
 
-                                <input type="text" name="wpmm_theme_option[dropdown_submenu_item_bg_hover_color]" value="<?php echo $dropdown_submenu_item_bg_hover_color; ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set item background hover color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[dropdown_submenu_item_bg_hover_color]" value="<?php esc_attr_e( $dropdown_submenu_item_bg_hover_color ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set item background hover color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Padding', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Padding', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_padding_top = get_wpmm_theme_option('dropdown_submenu_item_padding_top', $theme_id);
@@ -1761,13 +1761,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_padding_top = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_top]' value="<?php echo $dropdown_submenu_item_padding_top; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_top]' value="<?php esc_attr_e( $dropdown_submenu_item_padding_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_padding_right = get_wpmm_theme_option('dropdown_submenu_item_padding_right', $theme_id);
@@ -1775,13 +1775,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_padding_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_right]' value="<?php echo $dropdown_submenu_item_padding_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_right]' value="<?php esc_attr_e( $dropdown_submenu_item_padding_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_padding_bottom = get_wpmm_theme_option('dropdown_submenu_item_padding_bottom', $theme_id);
@@ -1789,13 +1789,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_padding_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_bottom]' value="<?php echo $dropdown_submenu_item_padding_bottom; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_bottom]' value="<?php esc_attr_e( $dropdown_submenu_item_padding_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_padding_left = get_wpmm_theme_option('dropdown_submenu_item_padding_left', $theme_id);
@@ -1803,22 +1803,22 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_padding_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_left]' value="<?php echo $dropdown_submenu_item_padding_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_padding_left]' value="<?php esc_attr_e( $dropdown_submenu_item_padding_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Margin', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Margin', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_margin_top = get_wpmm_theme_option('dropdown_submenu_item_margin_top', $theme_id);
@@ -1826,13 +1826,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_margin_top = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_top]' value="<?php echo $dropdown_submenu_item_margin_top; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_top]' value="<?php esc_attr_e( $dropdown_submenu_item_margin_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_margin_right = get_wpmm_theme_option('dropdown_submenu_item_margin_right', $theme_id);
@@ -1840,13 +1840,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_margin_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_right]' value="<?php echo $dropdown_submenu_item_margin_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_right]' value="<?php esc_attr_e( $dropdown_submenu_item_margin_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_margin_bottom = get_wpmm_theme_option('dropdown_submenu_item_margin_bottom', $theme_id);
@@ -1854,13 +1854,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_margin_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_bottom]' value="<?php echo $dropdown_submenu_item_margin_bottom; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_bottom]' value="<?php esc_attr_e( $dropdown_submenu_item_margin_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_margin_left = get_wpmm_theme_option('dropdown_submenu_item_margin_left', $theme_id);
@@ -1868,66 +1868,66 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_margin_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_left]' value="<?php echo $dropdown_submenu_item_margin_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_margin_left]' value="<?php esc_attr_e( $dropdown_submenu_item_margin_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set margin to menu bar.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set margin to menu bar.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Border', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Border', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
                                         <?php
                                         $dropdown_submenu_item_border_width = get_wpmm_theme_option('dropdown_submenu_item_border_width', $theme_id);
                                         if( ! $dropdown_submenu_item_border_width){
                                             $dropdown_submenu_item_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_border_width]' value="<?php echo $dropdown_submenu_item_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_border_width]' value="<?php esc_attr_e( $dropdown_submenu_item_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[dropdown_submenu_item_border_type]">
                                             <?php $dropdown_submenu_item_border_type =  get_wpmm_theme_option('dropdown_submenu_item_border_type', $theme_id); ?>
-                                            <option value="none" <?php selected($dropdown_submenu_item_border_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($dropdown_submenu_item_border_type, 'solid') ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($dropdown_submenu_item_border_type, 'dashed') ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($dropdown_submenu_item_border_type, 'dotted') ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($dropdown_submenu_item_border_type, 'double') ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($dropdown_submenu_item_border_type, 'groove') ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($dropdown_submenu_item_border_type, 'ridge') ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($dropdown_submenu_item_border_type, 'inset') ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($dropdown_submenu_item_border_type, 'outset') ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($dropdown_submenu_item_border_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($dropdown_submenu_item_border_type, 'solid') ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($dropdown_submenu_item_border_type, 'dashed') ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($dropdown_submenu_item_border_type, 'dotted') ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($dropdown_submenu_item_border_type, 'double') ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($dropdown_submenu_item_border_type, 'groove') ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($dropdown_submenu_item_border_type, 'ridge') ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($dropdown_submenu_item_border_type, 'inset') ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($dropdown_submenu_item_border_type, 'outset') ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[dropdown_submenu_item_border_color]" value="<?php echo get_wpmm_theme_option('dropdown_submenu_item_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[dropdown_submenu_item_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('dropdown_submenu_item_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Border Hover', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Border Hover', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $dropdown_submenu_item_hover_border_width = get_wpmm_theme_option('dropdown_submenu_item_hover_border_width',
@@ -1936,44 +1936,44 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $dropdown_submenu_item_hover_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_hover_border_width]' value="<?php echo $dropdown_submenu_item_hover_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[dropdown_submenu_item_hover_border_width]' value="<?php esc_attr_e( $dropdown_submenu_item_hover_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[dropdown_submenu_item_hover_border_type]">
                                             <?php $dropdown_submenu_item_hover_border_type =  get_wpmm_theme_option('dropdown_submenu_item_hover_border_type', $theme_id); ?>
-                                            <option value="none" <?php selected($dropdown_submenu_item_hover_border_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($dropdown_submenu_item_hover_border_type, 'solid') ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($dropdown_submenu_item_hover_border_type, 'dashed') ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($dropdown_submenu_item_hover_border_type, 'dotted') ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($dropdown_submenu_item_hover_border_type, 'double') ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($dropdown_submenu_item_hover_border_type, 'groove') ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($dropdown_submenu_item_hover_border_type, 'ridge') ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($dropdown_submenu_item_hover_border_type, 'inset') ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($dropdown_submenu_item_hover_border_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($dropdown_submenu_item_hover_border_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($dropdown_submenu_item_hover_border_type, 'solid') ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($dropdown_submenu_item_hover_border_type, 'dashed') ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($dropdown_submenu_item_hover_border_type, 'dotted') ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($dropdown_submenu_item_hover_border_type, 'double') ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($dropdown_submenu_item_hover_border_type, 'groove') ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($dropdown_submenu_item_hover_border_type, 'ridge') ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($dropdown_submenu_item_hover_border_type, 'inset') ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($dropdown_submenu_item_hover_border_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[dropdown_submenu_item_hover_border_color]" value="<?php echo get_wpmm_theme_option('dropdown_submenu_item_hover_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[dropdown_submenu_item_hover_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('dropdown_submenu_item_hover_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set hover border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set hover border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('First Item Margin', 'wp-megamenu'); ?>
+                                <?php esc_html_e('First Item Margin', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_first_item_margin_top = get_wpmm_theme_option('widgets_first_item_margin_top',
@@ -1982,14 +1982,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_first_item_margin_top = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_top]' value="<?php
-                                        echo $widgets_first_item_margin_top; ?>" />
+                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_top]' value="<?php esc_attr_e( $widgets_first_item_margin_top ); ?>" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_first_item_margin_right = get_wpmm_theme_option('widgets_first_item_margin_right',
@@ -1998,13 +1997,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_first_item_margin_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_right]' value="<?php echo $widgets_first_item_margin_right; ?>" />
+                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_right]' value="<?php esc_attr_e( $widgets_first_item_margin_right ); ?>" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_first_item_margin_bottom = get_wpmm_theme_option('widgets_first_item_margin_bottom',
@@ -2013,13 +2012,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_first_item_margin_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_bottom]' value="<?php echo $widgets_first_item_margin_bottom; ?>" />
+                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_bottom]' value="<?php esc_attr_e( $widgets_first_item_margin_bottom ); ?>" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_first_item_margin_left = get_wpmm_theme_option('widgets_first_item_margin_left',
@@ -2028,106 +2027,96 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_first_item_margin_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_left]' value="<?php echo $widgets_first_item_margin_left; ?>" />
+                                        <input type='text' name='wpmm_theme_option[widgets_first_item_margin_left]' value="<?php esc_attr_e( $widgets_first_item_margin_left ); ?>" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set margin to widgets.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set margin to widgets.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('First Item Border Separator', 'wp-megamenu'); ?>
+                                <?php esc_html_e('First Item Border Separator', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
-                                        <input type='text' name='wpmm_theme_option[submenu_first_item_border_separator_width]' value="<?php echo get_wpmm_theme_option('submenu_first_item_border_separator_width',
-                                            $theme_id); ?>" placeholder="1px" />
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
+                                        <input type='text' name='wpmm_theme_option[submenu_first_item_border_separator_width]' value="<?php esc_attr_e( get_wpmm_theme_option('submenu_first_item_border_separator_width', $theme_id) ); ?>" placeholder="1px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[submenu_first_item_border_separator_type]">
                                             <?php $submenu_first_item_border_separator_type =  get_wpmm_theme_option('submenu_first_item_border_separator_type', $theme_id); ?>
-                                         <option value="none" <?php selected($submenu_first_item_border_separator_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($submenu_first_item_border_separator_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($submenu_first_item_border_separator_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($submenu_first_item_border_separator_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($submenu_first_item_border_separator_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($submenu_first_item_border_separator_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($submenu_first_item_border_separator_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($submenu_first_item_border_separator_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($submenu_first_item_border_separator_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                         <option value="none" <?php selected($submenu_first_item_border_separator_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($submenu_first_item_border_separator_type, 'solid'); ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($submenu_first_item_border_separator_type, 'dashed'); ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($submenu_first_item_border_separator_type, 'dotted'); ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($submenu_first_item_border_separator_type, 'double'); ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($submenu_first_item_border_separator_type, 'groove'); ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($submenu_first_item_border_separator_type, 'ridge'); ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($submenu_first_item_border_separator_type, 'inset'); ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($submenu_first_item_border_separator_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[submenu_first_item_border_separator_color]" value="<?php echo get_wpmm_theme_option('submenu_first_item_border_separator_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[submenu_first_item_border_separator_color]" value="<?php esc_attr_e( get_wpmm_theme_option('submenu_first_item_border_separator_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <!-- Icon Color -->
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Icon Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Icon Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[submenu_first_item_icon_color]" value="<?php echo get_wpmm_theme_option('submenu_first_item_icon_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[submenu_first_item_icon_color]" value="<?php esc_attr_e( get_wpmm_theme_option('submenu_first_item_icon_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set Color, ex. <strong>#dddddd</strong>', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set Color, ex. <strong>#dddddd</strong>', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <!-- Icon Font Size -->
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Icon Font Size', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Icon Font Size', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <label>
-                                    <p><?php _e('Font Size', 'wp-megamenu'); ?></p>
-                                    <input type='text' name='wpmm_theme_option[submenu_first_item_icon_fontsize]' value="<?php echo get_wpmm_theme_option('submenu_first_item_icon_fontsize',
-                                            $theme_id); ?>" placeholder="16px" />
+                                    <p><?php esc_html_e('Font Size', 'wp-megamenu'); ?></p>
+                                    <input type='text' name='wpmm_theme_option[submenu_first_item_icon_fontsize]' value="<?php esc_attr_e( get_wpmm_theme_option('submenu_first_item_icon_fontsize', $theme_id) ); ?>" placeholder="16px" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set Font Size, ex. <strong>16px</strong>', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set Font Size, ex. <strong>16px</strong>', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
-
-
-
-
-
                     </table>
-
                 </div>
                 <div id="tabs-7">
-
-
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Mega Menu', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Mega Menu', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Background Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Background Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[megamenu_bg_color]" value="<?php echo get_wpmm_theme_option('megamenu_bg_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set Mega Menu background color.', 'wp-megamenu');
+                                <input type="text" name="wpmm_theme_option[megamenu_bg_color]" value="<?php esc_attr_e( get_wpmm_theme_option('megamenu_bg_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set Mega Menu background color.', 'wp-megamenu');
                                     ?></p>
                             </td>
                         </tr>
@@ -2135,7 +2124,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Mega Menu Width', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Mega Menu Width', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
@@ -2146,20 +2135,20 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                     $mega_menu_width = '100%';
                                 }
                                 ?>
-                                <input type="text" name="wpmm_theme_option[mega_menu_width]" value="<?php echo $mega_menu_width; ?>" placeholder="0px" />
-                                <p class="field-description"><?php _e('Set the width of Mega Menu, ex: 100% or 800px', 'wp-megamenu');
+                                <input type="text" name="wpmm_theme_option[mega_menu_width]" value="<?php esc_attr_e( $mega_menu_width ); ?>" placeholder="0px" />
+                                <p class="field-description"><?php esc_html_e('Set the width of Mega Menu, ex: 100% or 800px', 'wp-megamenu');
                                     ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Inner Padding', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Inner Padding', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_padding_top = get_wpmm_theme_option('megamenu_padding_top',
@@ -2169,13 +2158,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_padding_top]'
-                                               value="<?php echo $megamenu_padding_top; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_padding_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_padding_right = get_wpmm_theme_option('megamenu_padding_right',
@@ -2185,13 +2174,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_padding_right]'
-                                               value="<?php echo $megamenu_padding_right; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_padding_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_padding_bottom = get_wpmm_theme_option('megamenu_padding_bottom',
@@ -2201,13 +2190,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_padding_bottom]'
-                                               value="<?php echo $megamenu_padding_bottom; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_padding_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_padding_left = get_wpmm_theme_option('megamenu_padding_left',
@@ -2217,23 +2206,23 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_padding_left]'
-                                               value="<?php echo $megamenu_padding_left; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_padding_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set padding to menu bar.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Border Radius', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Border Radius', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_border_radius_top_left = get_wpmm_theme_option('megamenu_border_radius_top_left',
@@ -2242,13 +2231,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_border_radius_top_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_border_radius_top_left]' value="<?php echo $megamenu_border_radius_top_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_border_radius_top_left]' value="<?php esc_attr_e( $megamenu_border_radius_top_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_radius_top_right = get_wpmm_theme_option('megamenu_radius_top_right',
@@ -2257,13 +2246,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_radius_top_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_radius_top_right]' value="<?php echo $megamenu_radius_top_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_radius_top_right]' value="<?php esc_attr_e( $megamenu_radius_top_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_radius_bottom_left = get_wpmm_theme_option('megamenu_radius_bottom_left',
@@ -2272,13 +2261,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_radius_bottom_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_radius_bottom_left]' value="<?php echo$megamenu_radius_bottom_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_radius_bottom_left]' value="<?php esc_attr_e( $megamenu_radius_bottom_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_radius_bottom_right = get_wpmm_theme_option('megamenu_radius_bottom_right',
@@ -2287,21 +2276,21 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_radius_bottom_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_radius_bottom_right]' value="<?php echo $megamenu_radius_bottom_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_radius_bottom_right]' value="<?php esc_attr_e( $megamenu_radius_bottom_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
-                                <p class="field-description"><?php _e('Set a border radius on the menu bar.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set a border radius on the menu bar.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Border', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Border', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_menu_border_width = get_wpmm_theme_option('megamenu_menu_border_width',
@@ -2310,83 +2299,82 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_menu_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_menu_border_width]' value="<?php echo $megamenu_menu_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_menu_border_width]' value="<?php esc_attr_e( $megamenu_menu_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[megamenu_menu_border_type]">
                                             <?php $megamenu_menu_border_type =  get_wpmm_theme_option('megamenu_menu_border_type', $theme_id); ?>
-                                            <option value="none" <?php selected($megamenu_menu_border_type, 'none'); ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($megamenu_menu_border_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($megamenu_menu_border_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($megamenu_menu_border_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($megamenu_menu_border_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($megamenu_menu_border_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($megamenu_menu_border_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($megamenu_menu_border_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($megamenu_menu_border_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($megamenu_menu_border_type, 'none'); ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($megamenu_menu_border_type, 'solid'); ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($megamenu_menu_border_type, 'dashed'); ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($megamenu_menu_border_type, 'dotted'); ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($megamenu_menu_border_type, 'double'); ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($megamenu_menu_border_type, 'groove'); ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($megamenu_menu_border_type, 'ridge'); ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($megamenu_menu_border_type, 'inset'); ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($megamenu_menu_border_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[megamenu_menu_border_color]" value="<?php echo get_wpmm_theme_option('megamenu_menu_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[megamenu_menu_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('megamenu_menu_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Border Separator', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Border Separator', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
-                                        <input type='text' name='wpmm_theme_option[megamenu_menu_border_separator_width]' value="<?php echo get_wpmm_theme_option('megamenu_menu_border_separator_width',
-                                            $theme_id); ?>" placeholder="1px" />
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
+                                        <input type='text' name='wpmm_theme_option[megamenu_menu_border_separator_width]' value="<?php esc_attr_e( get_wpmm_theme_option('megamenu_menu_border_separator_width', $theme_id) ); ?>" placeholder="1px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[megamenu_menu_border_separator_type]">
                                             <?php $megamenu_menu_border_separator_type =  get_wpmm_theme_option('megamenu_menu_border_separator_type', $theme_id);?>
-                                            <option value="solid" <?php selected($megamenu_menu_border_separator_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($megamenu_menu_border_separator_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($megamenu_menu_border_separator_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($megamenu_menu_border_separator_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($megamenu_menu_border_separator_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($megamenu_menu_border_separator_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($megamenu_menu_border_separator_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($megamenu_menu_border_separator_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($megamenu_menu_border_separator_type, 'solid'); ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($megamenu_menu_border_separator_type, 'dashed'); ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($megamenu_menu_border_separator_type, 'dotted'); ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($megamenu_menu_border_separator_type, 'double'); ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($megamenu_menu_border_separator_type, 'groove'); ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($megamenu_menu_border_separator_type, 'ridge'); ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($megamenu_menu_border_separator_type, 'inset'); ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($megamenu_menu_border_separator_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[megamenu_menu_border_separator_color]" value="<?php echo get_wpmm_theme_option('megamenu_menu_border_separator_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[megamenu_menu_border_separator_color]" value="<?php esc_attr_e( get_wpmm_theme_option('megamenu_menu_border_separator_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Box Shadow', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Box Shadow', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('h-shadow', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('h-shadow', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_boxshadow_top = get_wpmm_theme_option('megamenu_boxshadow_top',
@@ -2395,13 +2383,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_boxshadow_top = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_boxshadow_top]' value="<?php echo $megamenu_boxshadow_top; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_boxshadow_top]' value="<?php esc_attr_e( $megamenu_boxshadow_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('v-shadow', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('v-shadow', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_boxshadow_right = get_wpmm_theme_option('megamenu_boxshadow_right',
@@ -2411,13 +2399,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_boxshadow_right]'
-                                               value="<?php echo $megamenu_boxshadow_right; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_boxshadow_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('blur', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('blur', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_boxshadow_bottom = get_wpmm_theme_option('megamenu_boxshadow_bottom',
@@ -2426,13 +2414,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $megamenu_boxshadow_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[megamenu_boxshadow_bottom]' value="<?php echo $megamenu_boxshadow_bottom; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[megamenu_boxshadow_bottom]' value="<?php esc_attr_e( $megamenu_boxshadow_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('spread', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('spread', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $megamenu_boxshadow_left = get_wpmm_theme_option('megamenu_boxshadow_left',
@@ -2442,49 +2430,43 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[megamenu_boxshadow_left]'
-                                               value="<?php echo $megamenu_boxshadow_left; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $megamenu_boxshadow_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
-                                <input type="text" name="wpmm_theme_option[megamenu_boxshadow_color]" value="<?php echo get_wpmm_theme_option('megamenu_boxshadow_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set box shadow around Mega Menu.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[megamenu_boxshadow_color]" value="<?php esc_attr_e( get_wpmm_theme_option('megamenu_boxshadow_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set box shadow around Mega Menu.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
-
-
-
-
                     </table>
-
                 </div>
                 <div id="tabs-8">
-
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Widgets', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Widgets', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Heading Typography', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Heading Typography', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Color', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_color]" value="<?php echo get_wpmm_theme_option('widgets_heading_text_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Color', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widgets_heading_text_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Hover Color', 'wp-megamenu'); ?> </span>
-                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_hover_color]" value="<?php echo get_wpmm_theme_option('widgets_heading_text_hover_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Hover Color', 'wp-megamenu'); ?> </span>
+                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_hover_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widgets_heading_text_hover_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Font Size', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font Size', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $widgets_heading_text_font_size = get_wpmm_theme_option('widgets_heading_text_font_size',
                                             $theme_id);
@@ -2492,13 +2474,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_heading_text_font_size = '14px';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_font_size]" value="<?php echo $widgets_heading_text_font_size; ?>" data-alpha="true" placeholder="14px"/>
+                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_font_size]" value="<?php esc_attr_e( $widgets_heading_text_font_size ); ?>" data-alpha="true" placeholder="14px"/>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Font Weight', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Font Weight', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $widgets_heading_text_font_weight = get_wpmm_theme_option('widgets_heading_text_font_weight',
                                             $theme_id);
@@ -2507,26 +2489,26 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <select name="wpmm_theme_option[widgets_heading_text_font_weight]">
-                                            <option value="normal" <?php selected($widgets_heading_text_font_weight, 'normal') ?> > <?php _e('Normal', 'wp-megamenu'); ?> </option>
-                                            <option value="bold" <?php selected($widgets_heading_text_font_weight, 'bold') ?> > <?php _e('Bold', 'wp-megamenu'); ?> </option>
-                                            <option value="bolder" <?php selected($widgets_heading_text_font_weight, 'bolder') ?> > <?php _e('Bolder', 'wp-megamenu'); ?> </option>
-                                            <option value="lighter" <?php selected($widgets_heading_text_font_weight, 'lighter') ?> > <?php _e('Lighter', 'wp-megamenu'); ?> </option>
-                                            <option value="100" <?php selected($widgets_heading_text_font_weight, '100') ?> > <?php _e('100', 'wp-megamenu'); ?> </option>
-                                            <option value="200" <?php selected($widgets_heading_text_font_weight, '200') ?> > <?php _e('200', 'wp-megamenu'); ?> </option>
-                                            <option value="300" <?php selected($widgets_heading_text_font_weight, '300') ?> > <?php _e('300', 'wp-megamenu'); ?> </option>
-                                            <option value="400" <?php selected($widgets_heading_text_font_weight, '400') ?> > <?php _e('400', 'wp-megamenu'); ?> </option>
-                                            <option value="500" <?php selected($widgets_heading_text_font_weight, '500') ?> > <?php _e('500', 'wp-megamenu'); ?> </option>
-                                            <option value="600" <?php selected($widgets_heading_text_font_weight, '600') ?> > <?php _e('600', 'wp-megamenu'); ?> </option>
-                                            <option value="700" <?php selected($widgets_heading_text_font_weight, '700') ?> > <?php _e('700', 'wp-megamenu'); ?> </option>
-                                            <option value="800" <?php selected($widgets_heading_text_font_weight, '800') ?> > <?php _e('800', 'wp-megamenu'); ?> </option>
-                                            <option value="900" <?php selected($widgets_heading_text_font_weight, '900') ?> > <?php _e('900', 'wp-megamenu'); ?> </option>
+                                            <option value="normal" <?php selected($widgets_heading_text_font_weight, 'normal') ?> > <?php esc_html_e('Normal', 'wp-megamenu'); ?> </option>
+                                            <option value="bold" <?php selected($widgets_heading_text_font_weight, 'bold') ?> > <?php esc_html_e('Bold', 'wp-megamenu'); ?> </option>
+                                            <option value="bolder" <?php selected($widgets_heading_text_font_weight, 'bolder') ?> > <?php esc_html_e('Bolder', 'wp-megamenu'); ?> </option>
+                                            <option value="lighter" <?php selected($widgets_heading_text_font_weight, 'lighter') ?> > <?php esc_html_e('Lighter', 'wp-megamenu'); ?> </option>
+                                            <option value="100" <?php selected($widgets_heading_text_font_weight, '100') ?> > <?php esc_html_e('100', 'wp-megamenu'); ?> </option>
+                                            <option value="200" <?php selected($widgets_heading_text_font_weight, '200') ?> > <?php esc_html_e('200', 'wp-megamenu'); ?> </option>
+                                            <option value="300" <?php selected($widgets_heading_text_font_weight, '300') ?> > <?php esc_html_e('300', 'wp-megamenu'); ?> </option>
+                                            <option value="400" <?php selected($widgets_heading_text_font_weight, '400') ?> > <?php esc_html_e('400', 'wp-megamenu'); ?> </option>
+                                            <option value="500" <?php selected($widgets_heading_text_font_weight, '500') ?> > <?php esc_html_e('500', 'wp-megamenu'); ?> </option>
+                                            <option value="600" <?php selected($widgets_heading_text_font_weight, '600') ?> > <?php esc_html_e('600', 'wp-megamenu'); ?> </option>
+                                            <option value="700" <?php selected($widgets_heading_text_font_weight, '700') ?> > <?php esc_html_e('700', 'wp-megamenu'); ?> </option>
+                                            <option value="800" <?php selected($widgets_heading_text_font_weight, '800') ?> > <?php esc_html_e('800', 'wp-megamenu'); ?> </option>
+                                            <option value="900" <?php selected($widgets_heading_text_font_weight, '900') ?> > <?php esc_html_e('900', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Line Height', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Line Height', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $widgets_heading_text_line_height = get_wpmm_theme_option('widgets_heading_text_line_height',
                                             $theme_id);
@@ -2534,20 +2516,20 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_heading_text_line_height = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_line_height]" value="<?php echo $widgets_heading_text_line_height; ?>" data-alpha="true" placeholder="24px"/>
+                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_line_height]" value="<?php esc_attr_e( $widgets_heading_text_line_height ); ?>" data-alpha="true" placeholder="24px"/>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Text Transform', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Text Transform', 'wp-megamenu'); ?> </span>
                                         <select name="wpmm_theme_option[widgets_heading_text_transform]">
                                             <?php $widgets_heading_text_transform =  get_wpmm_theme_option('widgets_heading_text_transform', $theme_id);?>
-                                            <option value="none" <?php selected($widgets_heading_text_transform, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="inherit" <?php selected($widgets_heading_text_transform, 'inherit') ?> > <?php _e('Inherit', 'wp-megamenu'); ?> </option>
-                                            <option value="uppercase" <?php selected($widgets_heading_text_transform, 'uppercase') ?> > <?php _e('Uppercase', 'wp-megamenu'); ?> </option>
-                                            <option value="lowercase" <?php selected($widgets_heading_text_transform, 'lowercase') ?> > <?php _e('Lowercase', 'wp-megamenu'); ?> </option>
-                                            <option value="capitalize" <?php selected($widgets_heading_text_transform, 'capitalize') ?> > <?php _e('Capitalize', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($widgets_heading_text_transform, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="inherit" <?php selected($widgets_heading_text_transform, 'inherit') ?> > <?php esc_html_e('Inherit', 'wp-megamenu'); ?> </option>
+                                            <option value="uppercase" <?php selected($widgets_heading_text_transform, 'uppercase') ?> > <?php esc_html_e('Uppercase', 'wp-megamenu'); ?> </option>
+                                            <option value="lowercase" <?php selected($widgets_heading_text_transform, 'lowercase') ?> > <?php esc_html_e('Lowercase', 'wp-megamenu'); ?> </option>
+                                            <option value="capitalize" <?php selected($widgets_heading_text_transform, 'capitalize') ?> > <?php esc_html_e('Capitalize', 'wp-megamenu'); ?> </option>
                                         </select>
 
                                     </label>
@@ -2555,7 +2537,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Letter Spacing', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Letter Spacing', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $widgets_heading_text_letter_spacing = get_wpmm_theme_option('widgets_heading_text_letter_spacing',
                                             $theme_id);
@@ -2563,46 +2545,45 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_heading_text_letter_spacing = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_letter_spacing]" value="<?php echo $widgets_heading_text_letter_spacing; ?>" data-alpha="true" placeholder="0px" />
+                                        <input type="text" name="wpmm_theme_option[widgets_heading_text_letter_spacing]" value="<?php esc_attr_e( $widgets_heading_text_letter_spacing ); ?>" data-alpha="true" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
-                                        <input type='text' name='wpmm_theme_option[widget_first_item_border_separator_width]' value="<?php echo get_wpmm_theme_option('widget_first_item_border_separator_width',
-                                            $theme_id); ?>" placeholder="1px" />
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
+                                        <input type='text' name='wpmm_theme_option[widget_first_item_border_separator_width]' value="<?php esc_attr_e( get_wpmm_theme_option('widget_first_item_border_separator_width', $theme_id) ); ?>" placeholder="1px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[widget_first_item_border_separator_type]">
                                             <?php $widget_first_item_border_separator_type =  get_wpmm_theme_option('widget_first_item_border_separator_type', $theme_id);?>
-                                         <option value="none" <?php selected($widget_first_item_border_separator_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($widget_first_item_border_separator_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($widget_first_item_border_separator_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($widget_first_item_border_separator_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($widget_first_item_border_separator_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($widget_first_item_border_separator_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($widget_first_item_border_separator_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($widget_first_item_border_separator_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($widget_first_item_border_separator_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                         <option value="none" <?php selected($widget_first_item_border_separator_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($widget_first_item_border_separator_type, 'solid'); ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($widget_first_item_border_separator_type, 'dashed'); ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($widget_first_item_border_separator_type, 'dotted'); ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($widget_first_item_border_separator_type, 'double'); ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($widget_first_item_border_separator_type, 'groove'); ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($widget_first_item_border_separator_type, 'ridge'); ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($widget_first_item_border_separator_type, 'inset'); ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($widget_first_item_border_separator_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[widget_first_item_border_separator_color]" value="<?php echo get_wpmm_theme_option('widget_first_item_border_separator_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[widget_first_item_border_separator_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widget_first_item_border_separator_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border separator width and color, ex. <strong>1px solid #dddddd</strong>', 'wp-megamenu'); ?></p>
 
 
                                   <div class="wpmm_theme_arrow_segment">
                                         <label>
-                                            <p><?php _e('Margin Top', 'wp-megamenu'); ?></p>
+                                            <p><?php esc_html_e('Margin Top', 'wp-megamenu'); ?></p>
 
                                             <?php
                                             $widgets_heading_margin_top = get_wpmm_theme_option('widgets_heading_margin_top',
@@ -2612,13 +2593,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             }
                                             ?>
                                             <input type='text' name='wpmm_theme_option[widgets_heading_margin_top]' value="<?php
-                                            echo $widgets_heading_margin_top; ?>" placeholder="0px" />
+                                            esc_attr_e( $widgets_heading_margin_top ); ?>" placeholder="0px" />
                                         </label>
                                     </div>
 
                                     <div class="wpmm_theme_arrow_segment">
                                         <label>
-                                            <p><?php _e('Margin Right', 'wp-megamenu'); ?></p>
+                                            <p><?php esc_html_e('Margin Right', 'wp-megamenu'); ?></p>
 
                                             <?php
                                             $widgets_heading_margin_right = get_wpmm_theme_option('widgets_heading_margin_right',
@@ -2628,13 +2609,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             }
                                             ?>
                                             <input type='text' name='wpmm_theme_option[widgets_heading_margin_right]'
-                                                   value="<?php echo $widgets_heading_margin_right; ?>" placeholder="0px" />
+                                                   value="<?php esc_attr_e( $widgets_heading_margin_right ); ?>" placeholder="0px" />
                                         </label>
                                     </div>
 
                                     <div class="wpmm_theme_arrow_segment">
                                         <label>
-                                            <p><?php _e('Margin Bottom', 'wp-megamenu'); ?></p>
+                                            <p><?php esc_html_e('Margin Bottom', 'wp-megamenu'); ?></p>
                                             <?php
                                             $widgets_heading_margin_bottom = get_wpmm_theme_option('widgets_heading_margin_bottom',
                                                 $theme_id);
@@ -2643,13 +2624,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             }
                                             ?>
                                             <input type='text' name='wpmm_theme_option[widgets_heading_margin_bottom]'
-                                                   value="<?php echo $widgets_heading_margin_bottom; ?>" placeholder="0px" />
+                                                   value="<?php esc_attr_e( $widgets_heading_margin_bottom ); ?>" placeholder="0px" />
                                         </label>
                                     </div>
 
                                     <div class="wpmm_theme_arrow_segment">
                                         <label>
-                                            <p><?php _e('Margin Left', 'wp-megamenu'); ?></p>
+                                            <p><?php esc_html_e('Margin Left', 'wp-megamenu'); ?></p>
 
 
                                             <?php
@@ -2659,11 +2640,11 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                                 $widgets_heading_margin_left = '';
                                             }
                                             ?>
-                                            <input type='text' name='wpmm_theme_option[widgets_heading_margin_left]' value="<?php echo $widgets_heading_margin_left; ?>" placeholder="0px" />
+                                            <input type='text' name='wpmm_theme_option[widgets_heading_margin_left]' value="<?php esc_attr_e( $widgets_heading_margin_left ); ?>" placeholder="0px" />
                                         </label>
                                     </div>
 
-                                    <p class="field-description"><?php _e('Set margin to widgets.', 'wp-megamenu'); ?></p>
+                                    <p class="field-description"><?php esc_html_e('Set margin to widgets.', 'wp-megamenu'); ?></p>
 
 
                             </td>
@@ -2671,13 +2652,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Padding', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Padding', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_padding_top = get_wpmm_theme_option('widgets_padding_top',
@@ -2687,13 +2668,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[widgets_padding_top]' value="<?php
-                                        echo $widgets_padding_top; ?>" placeholder="0px" />
+                                        esc_attr_e( $widgets_padding_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_padding_right = get_wpmm_theme_option('widgets_padding_right',
@@ -2703,13 +2684,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[widgets_padding_right]'
-                                               value="<?php echo $widgets_padding_right; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $widgets_padding_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
                                         <?php
                                         $widgets_padding_bottom = get_wpmm_theme_option('widgets_padding_bottom',
                                             $theme_id);
@@ -2718,13 +2699,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[widgets_padding_bottom]'
-                                               value="<?php echo $widgets_padding_bottom; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $widgets_padding_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
 
                                         <?php
@@ -2734,22 +2715,22 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_padding_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_padding_left]' value="<?php echo $widgets_padding_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_padding_left]' value="<?php esc_attr_e( $widgets_padding_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set padding to widgets.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set padding to widgets.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Margin', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Margin', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_margin_top = get_wpmm_theme_option('widgets_margin_top',
@@ -2759,13 +2740,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[widgets_margin_top]' value="<?php
-                                        echo $widgets_margin_top; ?>" placeholder="0px" />
+                                        esc_attr_e( $widgets_margin_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_margin_right = get_wpmm_theme_option('widgets_margin_right',
@@ -2774,13 +2755,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_margin_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_margin_right]' value="<?php echo $widgets_margin_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_margin_right]' value="<?php esc_attr_e( $widgets_margin_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_margin_bottom = get_wpmm_theme_option('widgets_margin_bottom',
@@ -2789,13 +2770,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_margin_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_margin_bottom]' value="<?php echo $widgets_margin_bottom; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_margin_bottom]' value="<?php esc_attr_e( $widgets_margin_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_margin_left = get_wpmm_theme_option('widgets_margin_left',
@@ -2804,22 +2785,22 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_margin_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_margin_left]' value="<?php echo $widgets_margin_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_margin_left]' value="<?php esc_attr_e( $widgets_margin_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set margin to widgets.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set margin to widgets.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Border', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Border', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_border_width = get_wpmm_theme_option('widgets_border_width',
@@ -2828,44 +2809,44 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_border_width]' value="<?php echo $widgets_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_border_width]' value="<?php esc_attr_e( $widgets_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[widgets_border_type]">
                                             <?php $widgets_border_type = get_wpmm_theme_option('widgets_border_type', $theme_id); ?>
-                                            <option value="none" <?php selected($widgets_border_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($widgets_border_type, 'solid') ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed"  <?php selected($widgets_border_type, 'dashed') ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($widgets_border_type, 'dotted') ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($widgets_border_type, 'double') ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($widgets_border_type, 'groove') ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($widgets_border_type, 'ridge') ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($widgets_border_type, 'inset') ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($widgets_border_type, 'outset') ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($widgets_border_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($widgets_border_type, 'solid') ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed"  <?php selected($widgets_border_type, 'dashed') ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($widgets_border_type, 'dotted') ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($widgets_border_type, 'double') ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($widgets_border_type, 'groove') ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($widgets_border_type, 'ridge') ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($widgets_border_type, 'inset') ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($widgets_border_type, 'outset') ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[widgets_border_color]" value="<?php echo get_wpmm_theme_option('widgets_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[widgets_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widgets_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Item Border Hover', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Item Border Hover', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Width', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Width', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $widgets_hover_border_width = get_wpmm_theme_option('widgets_hover_border_width', $theme_id);
@@ -2873,45 +2854,45 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $widgets_hover_border_width = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[widgets_hover_border_width]' value="<?php echo $widgets_hover_border_width; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[widgets_hover_border_width]' value="<?php esc_attr_e( $widgets_hover_border_width ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Type', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Type', 'wp-megamenu'); ?></p>
                                         <select name="wpmm_theme_option[widgets_hover_border_type]">
                                             <?php
                                                 $widgets_hover_border_type = get_wpmm_theme_option('widgets_hover_border_type', $theme_id);
                                             ?>
-                                            <option value="none" <?php selected($widgets_hover_border_type, 'none'); ?> > <?php _e('None', 'wp-megamenu'); ?> </option>
-                                            <option value="solid" <?php selected($widgets_hover_border_type, 'solid'); ?> > <?php _e('Solid', 'wp-megamenu'); ?> </option>
-                                            <option value="dashed" <?php selected($widgets_hover_border_type, 'dashed'); ?> > <?php _e('Dashed', 'wp-megamenu'); ?> </option>
-                                            <option value="dotted" <?php selected($widgets_hover_border_type, 'dotted'); ?> > <?php _e('Dotted', 'wp-megamenu'); ?> </option>
-                                            <option value="double" <?php selected($widgets_hover_border_type, 'double'); ?> > <?php _e('Double', 'wp-megamenu'); ?> </option>
-                                            <option value="groove" <?php selected($widgets_hover_border_type, 'groove'); ?> > <?php _e('Groove', 'wp-megamenu'); ?> </option>
-                                            <option value="ridge" <?php selected($widgets_hover_border_type, 'ridge'); ?> > <?php _e('Ridge', 'wp-megamenu'); ?> </option>
-                                            <option value="inset" <?php selected($widgets_hover_border_type, 'inset'); ?> > <?php _e('Inset', 'wp-megamenu'); ?> </option>
-                                            <option value="outset" <?php selected($widgets_hover_border_type, 'outset'); ?> > <?php _e('Outset', 'wp-megamenu'); ?> </option>
+                                            <option value="none" <?php selected($widgets_hover_border_type, 'none'); ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option>
+                                            <option value="solid" <?php selected($widgets_hover_border_type, 'solid'); ?> > <?php esc_html_e('Solid', 'wp-megamenu'); ?> </option>
+                                            <option value="dashed" <?php selected($widgets_hover_border_type, 'dashed'); ?> > <?php esc_html_e('Dashed', 'wp-megamenu'); ?> </option>
+                                            <option value="dotted" <?php selected($widgets_hover_border_type, 'dotted'); ?> > <?php esc_html_e('Dotted', 'wp-megamenu'); ?> </option>
+                                            <option value="double" <?php selected($widgets_hover_border_type, 'double'); ?> > <?php esc_html_e('Double', 'wp-megamenu'); ?> </option>
+                                            <option value="groove" <?php selected($widgets_hover_border_type, 'groove'); ?> > <?php esc_html_e('Groove', 'wp-megamenu'); ?> </option>
+                                            <option value="ridge" <?php selected($widgets_hover_border_type, 'ridge'); ?> > <?php esc_html_e('Ridge', 'wp-megamenu'); ?> </option>
+                                            <option value="inset" <?php selected($widgets_hover_border_type, 'inset'); ?> > <?php esc_html_e('Inset', 'wp-megamenu'); ?> </option>
+                                            <option value="outset" <?php selected($widgets_hover_border_type, 'outset'); ?> > <?php esc_html_e('Outset', 'wp-megamenu'); ?> </option>
                                         </select>
                                     </label>
                                 </div>
                                 <label>
-                                    <p><?php _e('Color', 'wp-megamenu'); ?></p>
-                                    <input type="text" name="wpmm_theme_option[widgets_hover_border_color]" value="<?php echo get_wpmm_theme_option('widgets_hover_border_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                    <p><?php esc_html_e('Color', 'wp-megamenu'); ?></p>
+                                    <input type="text" name="wpmm_theme_option[widgets_hover_border_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widgets_hover_border_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                 </label>
 
-                                <p class="field-description"> <?php _e('Set hover border width and color.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"> <?php esc_html_e('Set hover border width and color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Content Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Content Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[widgets_content_color]" value="<?php echo get_wpmm_theme_option('widgets_content_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"> <?php _e('Set widget content color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[widgets_content_color]" value="<?php esc_attr_e( get_wpmm_theme_option('widgets_content_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"> <?php esc_html_e('Set widget content color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
@@ -2923,12 +2904,12 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Mobile Menu', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Mobile Menu', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Toggle Button Settings', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Toggle Button Settings', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
@@ -2940,14 +2921,14 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Toggle Bar Align', 'wp-megamenu');
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Toggle Bar Align', 'wp-megamenu');
                                             ?></span>
 
                                         <select name="wpmm_theme_option[toggle_bar_alignment]">
-                                            <option value="right" <?php selected($toggle_bar_alignment, 'right') ?> ><?php _e('Right') ?> </option>
+                                            <option value="right" <?php selected($toggle_bar_alignment, 'right') ?> ><?php esc_html_e('Right') ?> </option>
                                             <option value="center" <?php selected($toggle_bar_alignment, 'center')
-                                            ?>><?php _e('Center') ?> </option>
-                                            <option value="left" <?php selected($toggle_bar_alignment, 'left') ?>><?php _e('Left') ?> </option>
+                                            ?>><?php esc_html_e('Center') ?> </option>
+                                            <option value="left" <?php selected($toggle_bar_alignment, 'left') ?>><?php esc_html_e('Left') ?> </option>
                                         </select>
                                     </label>
                                 </div>
@@ -2955,8 +2936,8 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 <?php $toggle_btn_open_text = get_wpmm_theme_option('toggle_btn_open_text', $theme_id); ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Menu Text', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[toggle_btn_open_text]" value="<?php echo $toggle_btn_open_text; ?>" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Menu Text', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[toggle_btn_open_text]" value="<?php esc_attr_e( $toggle_btn_open_text ); ?>" />
                                     </label>
                                 </div>
 
@@ -2968,26 +2949,26 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                 ?>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Show Close Icon', 'wp-megamenu'); ?></span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Show Close Icon', 'wp-megamenu'); ?></span>
                                         <select name="wpmm_theme_option[toggle_bar_close_icon]">
-                                            <option value="true" <?php selected($toggle_bar_close_icon, 'true') ?> ><?php _e('Yes') ?> </option>
-                                            <option value="false" <?php selected($toggle_bar_close_icon, 'false') ?>><?php _e('No') ?> </option>
+                                            <option value="true" <?php selected($toggle_bar_close_icon, 'true') ?> ><?php esc_html_e('Yes') ?> </option>
+                                            <option value="false" <?php selected($toggle_bar_close_icon, 'false') ?>><?php esc_html_e('No') ?> </option>
                                         </select>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Text Color', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[toggle_btn_text_color]" value="<?php echo get_wpmm_theme_option('toggle_btn_text_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Text Color', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[toggle_btn_text_color]" value="<?php esc_attr_e( get_wpmm_theme_option('toggle_btn_text_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Text Hover Color', 'wp-megamenu'); ?></span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Text Hover Color', 'wp-megamenu'); ?></span>
                                         <input type="text" name="wpmm_theme_option[toggle_btn_text_hover_color]"
-                                               value="<?php echo get_wpmm_theme_option('toggle_btn_text_hover_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
+                                               value="<?php esc_attr_e( get_wpmm_theme_option('toggle_btn_text_hover_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
                                     </label>
                                 </div>
 
@@ -3000,15 +2981,15 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $toggle_bar_font_size = '25px';
                                         }
                                         ?>
-                                        <span class="wpmm_labe_text"><?php _e('Font Size', 'wp-megamenu'); ?></span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font Size', 'wp-megamenu'); ?></span>
                                         <input type="text" name="wpmm_theme_option[toggle_bar_font_size]" value="<?php
-                                        echo $toggle_bar_font_size; ?>"  placeholder="16px" />
+                                        esc_attr_e( $toggle_bar_font_size ); ?>"  placeholder="16px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Margin top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Margin top', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $togglebar_margin_top = get_wpmm_theme_option('togglebar_margin_top',
@@ -3018,12 +2999,12 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[togglebar_margin_top]'
-                                               value="<?php echo $togglebar_margin_top; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $togglebar_margin_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>                                
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Margin Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Margin Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $togglebar_margin_right = get_wpmm_theme_option('togglebar_margin_right',
@@ -3033,12 +3014,12 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[togglebar_margin_right]'
-                                               value="<?php echo $togglebar_margin_right; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $togglebar_margin_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>                                
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Margin Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Margin Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $togglebar_margin_bottom = get_wpmm_theme_option('togglebar_margin_bottom',
@@ -3048,12 +3029,12 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[togglebar_margin_bottom]'
-                                               value="<?php echo $togglebar_margin_bottom; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $togglebar_margin_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>                                
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Margin Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Margin Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $togglebar_margin_left = get_wpmm_theme_option('togglebar_margin_left',
@@ -3063,24 +3044,24 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <input type='text' name='wpmm_theme_option[togglebar_margin_left]'
-                                               value="<?php echo $togglebar_margin_left; ?>" placeholder="0px" />
+                                               value="<?php esc_attr_e( $togglebar_margin_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Background Color', 'wp-megamenu'); ?></span>
-                                        <input type="text" name="wpmm_theme_option[toggle_bar_bg]" value="<?php echo get_wpmm_theme_option('toggle_bar_bg', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                        <p class="field-description"><?php _e('Set the background color for toggle bar.','wp-megamenu'); ?></p>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Background Color', 'wp-megamenu'); ?></span>
+                                        <input type="text" name="wpmm_theme_option[toggle_bar_bg]" value="<?php esc_attr_e( get_wpmm_theme_option('toggle_bar_bg', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                        <p class="field-description"><?php esc_html_e('Set the background color for toggle bar.','wp-megamenu'); ?></p>
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Background Hover Color', 'wp-megamenu');
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Background Hover Color', 'wp-megamenu');
                                             ?></span>
-                                        <input type="text" name="wpmm_theme_option[toggle_bar_hover_bg]" value="<?php echo get_wpmm_theme_option('toggle_bar_hover_bg', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                        <p class="field-description"><?php _e('Set the hover background color for toggle bar.','wp-megamenu'); ?></p>
+                                        <input type="text" name="wpmm_theme_option[toggle_bar_hover_bg]" value="<?php esc_attr_e( get_wpmm_theme_option('toggle_bar_hover_bg', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                        <p class="field-description"><?php esc_html_e('Set the hover background color for toggle bar.','wp-megamenu'); ?></p>
                                     </label>
                                 </div>
                             </td>
@@ -3088,25 +3069,25 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('First Level Item', 'wp-megamenu'); ?>
+                                <?php esc_html_e('First Level Item', 'wp-megamenu'); ?>
                             </th>
                             <td>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"><?php _e('Font Size', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"><?php esc_html_e('Font Size', 'wp-megamenu'); ?> </span>
                                         <?php
                                         $mobile_item_text_font_size = get_wpmm_theme_option('mobile_item_text_font_size', $theme_id);
                                         if( ! $mobile_item_text_font_size){
                                             $mobile_item_text_font_size = '14px';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[mobile_item_text_font_size]" value="<?php echo $mobile_item_text_font_size; ?>" data-alpha="true" placeholder="14px" />
+                                        <input type="text" name="wpmm_theme_option[mobile_item_text_font_size]" value="<?php esc_attr_e( $mobile_item_text_font_size ); ?>" data-alpha="true" placeholder="14px" />
                                     </label>
                                 </div>
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Font Weight', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Font Weight', 'wp-megamenu'); ?> </span>
 
                                         <?php
                                         $mobile_item_text_font_weight = get_wpmm_theme_option('mobile_item_text_font_weight', $theme_id);
@@ -3115,19 +3096,19 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
                                         <select name="wpmm_theme_option[mobile_item_text_font_weight]">
-                                            <option value="normal" <?php selected($mobile_item_text_font_weight, 'normal') ?> > <?php _e('Normal', 'wp-megamenu'); ?> </option>
-                                            <option value="bold" <?php selected($mobile_item_text_font_weight, 'bold') ?> > <?php _e('Bold', 'wp-megamenu'); ?> </option>
-                                            <option value="bolder" <?php selected($mobile_item_text_font_weight, 'bolder') ?> > <?php _e('Bolder', 'wp-megamenu'); ?> </option>
-                                            <option value="lighter" <?php selected($mobile_item_text_font_weight, 'lighter') ?> > <?php _e('Lighter', 'wp-megamenu'); ?> </option>
-                                            <option value="100" <?php selected($mobile_item_text_font_weight, '100') ?> > <?php _e('100', 'wp-megamenu'); ?> </option>
-                                            <option value="200" <?php selected($mobile_item_text_font_weight, '200') ?> > <?php _e('200', 'wp-megamenu'); ?> </option>
-                                            <option value="300" <?php selected($mobile_item_text_font_weight, '300') ?> > <?php _e('300', 'wp-megamenu'); ?> </option>
-                                            <option value="400" <?php selected($mobile_item_text_font_weight, '400') ?> > <?php _e('400', 'wp-megamenu'); ?> </option>
-                                            <option value="500" <?php selected($mobile_item_text_font_weight, '500') ?> > <?php _e('500', 'wp-megamenu'); ?> </option>
-                                            <option value="600" <?php selected($mobile_item_text_font_weight, '600') ?> > <?php _e('600', 'wp-megamenu'); ?> </option>
-                                            <option value="700" <?php selected($mobile_item_text_font_weight, '700') ?> > <?php _e('700', 'wp-megamenu'); ?> </option>
-                                            <option value="800" <?php selected($mobile_item_text_font_weight, '800') ?> > <?php _e('800', 'wp-megamenu'); ?> </option>
-                                            <option value="900" <?php selected($mobile_item_text_font_weight, '900') ?> > <?php _e('900', 'wp-megamenu'); ?> </option>
+                                            <option value="normal" <?php selected($mobile_item_text_font_weight, 'normal') ?> > <?php esc_html_e('Normal', 'wp-megamenu'); ?> </option>
+                                            <option value="bold" <?php selected($mobile_item_text_font_weight, 'bold') ?> > <?php esc_html_e('Bold', 'wp-megamenu'); ?> </option>
+                                            <option value="bolder" <?php selected($mobile_item_text_font_weight, 'bolder') ?> > <?php esc_html_e('Bolder', 'wp-megamenu'); ?> </option>
+                                            <option value="lighter" <?php selected($mobile_item_text_font_weight, 'lighter') ?> > <?php esc_html_e('Lighter', 'wp-megamenu'); ?> </option>
+                                            <option value="100" <?php selected($mobile_item_text_font_weight, '100') ?> > <?php esc_html_e('100', 'wp-megamenu'); ?> </option>
+                                            <option value="200" <?php selected($mobile_item_text_font_weight, '200') ?> > <?php esc_html_e('200', 'wp-megamenu'); ?> </option>
+                                            <option value="300" <?php selected($mobile_item_text_font_weight, '300') ?> > <?php esc_html_e('300', 'wp-megamenu'); ?> </option>
+                                            <option value="400" <?php selected($mobile_item_text_font_weight, '400') ?> > <?php esc_html_e('400', 'wp-megamenu'); ?> </option>
+                                            <option value="500" <?php selected($mobile_item_text_font_weight, '500') ?> > <?php esc_html_e('500', 'wp-megamenu'); ?> </option>
+                                            <option value="600" <?php selected($mobile_item_text_font_weight, '600') ?> > <?php esc_html_e('600', 'wp-megamenu'); ?> </option>
+                                            <option value="700" <?php selected($mobile_item_text_font_weight, '700') ?> > <?php esc_html_e('700', 'wp-megamenu'); ?> </option>
+                                            <option value="800" <?php selected($mobile_item_text_font_weight, '800') ?> > <?php esc_html_e('800', 'wp-megamenu'); ?> </option>
+                                            <option value="900" <?php selected($mobile_item_text_font_weight, '900') ?> > <?php esc_html_e('900', 'wp-megamenu'); ?> </option>
                                         </select>
 
                                     </label>
@@ -3135,7 +3116,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Line Height', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Line Height', 'wp-megamenu'); ?> </span>
 
                                         <?php
                                         $mobile_item_text_line_height = get_wpmm_theme_option('mobile_item_text_line_height', $theme_id);
@@ -3143,19 +3124,19 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_item_text_line_height = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[mobile_item_text_line_height]" value="<?php echo $mobile_item_text_line_height; ?>" data-alpha="true" placeholder="24px" />
+                                        <input type="text" name="wpmm_theme_option[mobile_item_text_line_height]" value="<?php esc_attr_e( $mobile_item_text_line_height ); ?>" data-alpha="true" placeholder="24px" />
                                     </label>
                                 </div>
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Text Transform', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Text Transform', 'wp-megamenu'); ?> </span>
 
                                         <select name="wpmm_theme_option[mobile_item_text_transform]">
                                             <?php $mobile_item_text_transform = get_wpmm_theme_option('mobile_item_text_transform', $theme_id); ?>
-                                            <option value="uppercase" <?php selected($mobile_item_text_transform, 'uppercase') ?> > <?php _e('Uppercase', 'wp-megamenu'); ?> </option>
-                                            <option value="lowercase" <?php selected($mobile_item_text_transform, 'lowercase') ?> > <?php _e('Lowercase', 'wp-megamenu'); ?> </option>
-                                            <option value="capitalize" <?php selected($mobile_item_text_transform, 'capitalize') ?> > <?php _e('Capitalize', 'wp-megamenu'); ?> </option>
+                                            <option value="uppercase" <?php selected($mobile_item_text_transform, 'uppercase') ?> > <?php esc_html_e('Uppercase', 'wp-megamenu'); ?> </option>
+                                            <option value="lowercase" <?php selected($mobile_item_text_transform, 'lowercase') ?> > <?php esc_html_e('Lowercase', 'wp-megamenu'); ?> </option>
+                                            <option value="capitalize" <?php selected($mobile_item_text_transform, 'capitalize') ?> > <?php esc_html_e('Capitalize', 'wp-megamenu'); ?> </option>
                                         </select>
 
                                     </label>
@@ -3163,7 +3144,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                                 <div>
                                     <label class="text_and_input">
-                                        <span class="wpmm_labe_text"> <?php _e('Letter Spacing', 'wp-megamenu'); ?> </span>
+                                        <span class="wpmm_labe_text"> <?php esc_html_e('Letter Spacing', 'wp-megamenu'); ?> </span>
 
                                         <?php
                                         $mobile_item_text_letter_spacing = get_wpmm_theme_option('mobile_item_text_letter_spacing', $theme_id);
@@ -3171,7 +3152,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_item_text_letter_spacing = '';
                                         }
                                         ?>
-                                        <input type="text" name="wpmm_theme_option[mobile_item_text_letter_spacing]" value="<?php echo $mobile_item_text_letter_spacing; ?>" data-alpha="true" placeholder="0px"/>
+                                        <input type="text" name="wpmm_theme_option[mobile_item_text_letter_spacing]" value="<?php esc_attr_e( $mobile_item_text_letter_spacing ); ?>" data-alpha="true" placeholder="0px"/>
                                     </label>
                                 </div>
                             </td>
@@ -3179,28 +3160,28 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu item Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu item Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[mobile_menu_item_color]" value="<?php echo get_wpmm_theme_option('mobile_menu_item_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set menu item color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[mobile_menu_item_color]" value="<?php esc_attr_e( get_wpmm_theme_option('mobile_menu_item_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set menu item color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu Item Hover Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu Item Hover Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[mobile_menu_item_hover_color]" value="<?php echo get_wpmm_theme_option('mobile_menu_item_hover_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set menu item hover color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[mobile_menu_item_hover_color]" value="<?php esc_attr_e( get_wpmm_theme_option('mobile_menu_item_hover_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set menu item hover color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu Item Padding', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu Item Padding', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
@@ -3211,14 +3192,14 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_menu_item_padding_top = '';
                                         }
                                         ?>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_top]' value="<?php echo $mobile_menu_item_padding_top; ?>" placeholder="5px" />
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_top]' value="<?php esc_attr_e( $mobile_menu_item_padding_top ); ?>" placeholder="5px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_padding_right = get_wpmm_theme_option('mobile_menu_item_padding_right', $theme_id);
@@ -3227,13 +3208,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
 
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_right]' value="<?php echo $mobile_menu_item_padding_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_right]' value="<?php esc_attr_e( $mobile_menu_item_padding_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_padding_bottom = get_wpmm_theme_option('mobile_menu_item_padding_bottom', $theme_id);
@@ -3242,13 +3223,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
 
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_bottom]' value="<?php echo $mobile_menu_item_padding_bottom; ?>" placeholder="5px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_bottom]' value="<?php esc_attr_e( $mobile_menu_item_padding_bottom ); ?>" placeholder="5px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_padding_left = get_wpmm_theme_option('mobile_menu_item_padding_left', $theme_id);
@@ -3257,35 +3238,35 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                         }
                                         ?>
 
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_left]' value="<?php echo $mobile_menu_item_padding_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_padding_left]' value="<?php esc_attr_e( $mobile_menu_item_padding_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set padding for mobile menu item.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set padding for mobile menu item.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu Item Margin', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu Item Margin', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Top', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Top', 'wp-megamenu'); ?></p>
                                         <?php
                                         $mobile_menu_item_margin_top = get_wpmm_theme_option('mobile_menu_item_margin_top', $theme_id);
                                         if( ! $mobile_menu_item_margin_top){
                                             $mobile_menu_item_margin_top = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_top]' value="<?php echo $mobile_menu_item_margin_top; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_top]' value="<?php esc_attr_e( $mobile_menu_item_margin_top ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Right', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Right', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_margin_right = get_wpmm_theme_option('mobile_menu_item_margin_right', $theme_id);
@@ -3293,13 +3274,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_menu_item_margin_right = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_right]' value="<?php echo $mobile_menu_item_margin_right; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_right]' value="<?php esc_attr_e( $mobile_menu_item_margin_right ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Bottom', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Bottom', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_margin_bottom = get_wpmm_theme_option('mobile_menu_item_margin_bottom', $theme_id);
@@ -3307,13 +3288,13 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_menu_item_margin_bottom = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_bottom]' value="<?php echo $mobile_menu_item_margin_bottom; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_bottom]' value="<?php esc_attr_e( $mobile_menu_item_margin_bottom ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
                                 <div class="wpmm_theme_arrow_segment">
                                     <label>
-                                        <p><?php _e('Left', 'wp-megamenu'); ?></p>
+                                        <p><?php esc_html_e('Left', 'wp-megamenu'); ?></p>
 
                                         <?php
                                         $mobile_menu_item_margin_left = get_wpmm_theme_option('mobile_menu_item_margin_left', $theme_id);
@@ -3321,29 +3302,29 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             $mobile_menu_item_margin_left = '';
                                         }
                                         ?>
-                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_left]' value="<?php echo $mobile_menu_item_margin_left; ?>" placeholder="0px" />
+                                        <input type='text' name='wpmm_theme_option[mobile_menu_item_margin_left]' value="<?php esc_attr_e( $mobile_menu_item_margin_left ); ?>" placeholder="0px" />
                                     </label>
                                 </div>
 
-                                <p class="field-description"><?php _e('Set margin for mobile menu.', 'wp-megamenu'); ?></p>
+                                <p class="field-description"><?php esc_html_e('Set margin for mobile menu.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Menu Background', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Menu Background', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <table>
                                     <tr>
 
                                         <td>
-                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg]" value="<?php echo get_wpmm_theme_option('mobile_menu_bg', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                            <p class="field-description"><?php _e('Set the menu background color.', 'wp-megamenu'); ?></p>
+                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg]" value="<?php esc_attr_e( get_wpmm_theme_option('mobile_menu_bg', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                            <p class="field-description"><?php esc_html_e('Set the menu background color.', 'wp-megamenu'); ?></p>
                                         </td>
                                         <td>
-                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg_2]" value="<?php echo get_wpmm_theme_option('mobile_menu_bg_2', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                            <p class="field-description"><?php _e('Set the second color for gradient.', 'wp-megamenu'); ?></p>
+                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg_2]" value="<?php esc_attr_e( get_wpmm_theme_option('mobile_menu_bg_2', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                            <p class="field-description"><?php esc_html_e('Set the second color for gradient.', 'wp-megamenu'); ?></p>
                                         </td>
 
 
@@ -3354,8 +3335,8 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                             }
                                         ?>
                                         <td>
-                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg_gradient_angle]" value="<?php echo $mobile_menu_bg_gradient_angle; ?>" placeholder="-90" />
-                                            <p class="field-description"><?php _e('Set Gradient angle, value must be -360-360', 'wp-megamenu'); ?></p>
+                                            <input type="text" name="wpmm_theme_option[mobile_menu_bg_gradient_angle]" value="<?php esc_attr_e( $mobile_menu_bg_gradient_angle ); ?>" placeholder="-90" />
+                                            <p class="field-description"><?php esc_html_e('Set Gradient angle, value must be -360-360', 'wp-megamenu'); ?></p>
                                         </td>
                                     </tr>
                                 </table>
@@ -3368,37 +3349,37 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                 <div id="tabs-11">
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Custom CSS and JavaScript', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Custom CSS and JavaScript', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Add a Class', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Add a Class', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[wpmm_class]" value="<?php echo get_wpmm_theme_option('wpmm_class', $theme_id); ?>" />
-                                <p class="field-description"><?php _e('This class will be added to the menu nav bar. Example: ', 'wp-megamenu');
+                                <input type="text" name="wpmm_theme_option[wpmm_class]" value="<?php esc_attr_e( get_wpmm_theme_option('wpmm_class', $theme_id) ); ?>" />
+                                <p class="field-description"><?php esc_html_e('This class will be added to the menu nav bar. Example: ', 'wp-megamenu');
                                     echo '<strong>'.htmlentities(' <nav class="wp-megamenu"></nav>').'</strong>'; ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Custom CSS', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Custom CSS', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <textarea name="wpmm_theme_option[custom_css]" rows="10" cols="50"><?php echo get_wpmm_theme_option('custom_css', $theme_id) ?></textarea>
-                                <p class="field-description"><?php _e('Implement custom CSS in the Mega Menu.', 'wp-megamenu'); ?></p>
+                                <textarea name="wpmm_theme_option[custom_css]" rows="10" cols="50"><?php esc_html_e( get_wpmm_theme_option('custom_css', $theme_id) ); ?></textarea>
+                                <p class="field-description"><?php esc_html_e('Implement custom CSS in the Mega Menu.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Custom JS', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Custom JS', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <textarea name="wpmm_theme_option[custom_js]" rows="10" cols="50"><?php echo get_wpmm_theme_option('custom_js', $theme_id) ?></textarea>
-                                <p class="field-description"><?php _e('Implement custom JS in the Mega Menu.', 'wp-megamenu'); ?></p>
+                                <textarea name="wpmm_theme_option[custom_js]" rows="10" cols="50"><?php esc_html_e( get_wpmm_theme_option('custom_js', $theme_id) ); ?></textarea>
+                                <p class="field-description"><?php esc_html_e('Implement custom JS in the Mega Menu.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
                     </table>
@@ -3414,51 +3395,51 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Enable Social Links', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Enable Social Links', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <?php $enable_social_links = get_wpmm_theme_option('enable_social_links', $theme_id); ?>
-                                <label> <input type='checkbox' name='wpmm_theme_option[enable_social_links]' value='true' <?php checked($enable_social_links, 'true'); ?> /> <?php _e('Enable/Disable', 'wp-megamenu'); ?>
+                                <label> <input type='checkbox' name='wpmm_theme_option[enable_social_links]' value='true' <?php checked($enable_social_links, 'true'); ?> /> <?php esc_html_e('Enable/Disable', 'wp-megamenu'); ?>
                                 </label>
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Target', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Target', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <select name="wpmm_theme_option[social_links_target]" >
                                     <?php $social_links_target = get_wpmm_theme_option('social_links_target', $theme_id); ?>
-                                    <option value="_blank" <?php selected($social_links_target, '_blank'); ?> ><?php _e('Open New Tab', 'wp-megamenu') ?></option>
-                                    <option value="_self" <?php selected($social_links_target, '_self'); ?> ><?php _e('Open Self Tab', 'wp-megamenu') ?></option>
+                                    <option value="_blank" <?php selected($social_links_target, '_blank'); ?> ><?php esc_html_e('Open New Tab', 'wp-megamenu') ?></option>
+                                    <option value="_self" <?php selected($social_links_target, '_self'); ?> ><?php esc_html_e('Open Self Tab', 'wp-megamenu') ?></option>
                                 </select>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Social Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Social Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[social_color]" value="<?php echo get_wpmm_theme_option('social_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set social color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[social_color]" value="<?php esc_attr_e( get_wpmm_theme_option('social_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set social color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Social Hover Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Social Hover Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[social_hover_color]" value="<?php echo get_wpmm_theme_option('social_hover_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set social hover color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[social_hover_color]" value="<?php esc_attr_e( get_wpmm_theme_option('social_hover_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set social hover color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
                         <tr class="wpmm-field-group wpmm-repeatable-item">
                             <th>
-                                <?php _e('Social Icons', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Social Icons', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <div class="form_parent">
@@ -3486,7 +3467,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                                         type="text" 
                                                         name="wpmm_theme_option[social_icon][icon][]" 
                                                         placeholder="fa fa-facebook"
-                                                        value="<?php echo $icon; ?>"
+                                                        value="<?php esc_attr_e( $icon ); ?>"
                                                     />
                                                 </label>
                                                 <label>
@@ -3494,10 +3475,10 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                                         type="text" 
                                                         name="wpmm_theme_option[social_icon][url][]" 
                                                         placeholder="https://fb.com/username" 
-                                                        value="<?php echo $wpmm_social_icon['url'][$icon_index]; ?>"
+                                                        value="<?php esc_attr_e( $wpmm_social_icon['url'][$icon_index] ); ?>"
                                                     />
                                                 </label>
-                                                <a class="remove_item" href="#"><?php _e('Remove', 'wp-megamenu'); ?></a>
+                                                <a class="remove_item" href="#"><?php esc_html_e('Remove', 'wp-megamenu'); ?></a>
                                             </div>
 
                                         <?php
@@ -3524,14 +3505,14 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                                                         value=""
                                                     />
                                                 </label>
-                                                <a class="remove_item" href="#"><?php _e('Remove', 'wp-megamenu'); ?></a>
+                                                <a class="remove_item" href="#"><?php esc_html_e('Remove', 'wp-megamenu'); ?></a>
                                             </div>
                                         <?php
 
                                     }
 
                                     ?>
-                                    <a href="#" class="add_item"><?php _e('Add More', 'wp-megamenu'); ?></a>
+                                    <a href="#" class="add_item"><?php esc_html_e('Add More', 'wp-megamenu'); ?></a>
 
                                 </div>
                                 
@@ -3545,222 +3526,222 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                     <!-- for old version -->
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Social Links', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Social Links', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Enable Social Links', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Enable Social Links', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <?php $enable_social_links =  get_wpmm_theme_option('enable_social_links', $theme_id); ?>
-                                <label> <input type='checkbox' name='wpmm_theme_option[enable_social_links]' value='true' <?php checked($enable_social_links, 'true'); ?> /> <?php _e('Enable/Disable', 'wp-megamenu'); ?>
+                                <label> <input type='checkbox' name='wpmm_theme_option[enable_social_links]' value='true' <?php checked($enable_social_links, 'true'); ?> /> <?php esc_html_e('Enable/Disable', 'wp-megamenu'); ?>
                                 </label>
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Target', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Target', 'wp-megamenu'); ?>
                             </th>
                             <td>
                                 <select name="wpmm_theme_option[social_links_target]" >
                                     <?php $social_links_target = get_wpmm_theme_option('social_links_target', $theme_id); ?>
-                                    <option value="_blank" <?php selected($social_links_target, '_blank'); ?> ><?php _e('Open New Tab', 'wp-megamenu') ?></option>
-                                    <option value="_self" <?php selected($social_links_target, '_self'); ?> ><?php _e('Open Self Tab', 'wp-megamenu') ?></option>
+                                    <option value="_blank" <?php selected($social_links_target, '_blank'); ?> ><?php esc_html_e('Open New Tab', 'wp-megamenu') ?></option>
+                                    <option value="_self" <?php selected($social_links_target, '_self'); ?> ><?php esc_html_e('Open Self Tab', 'wp-megamenu') ?></option>
                                 </select>
                             </td>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Social Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Social Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[social_color]" value="<?php echo get_wpmm_theme_option('social_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set social color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[social_color]" value="<?php esc_attr_e( get_wpmm_theme_option('social_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set social color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <?php _e('Social Hover Color', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Social Hover Color', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <input type="text" name="wpmm_theme_option[social_hover_color]" value="<?php echo get_wpmm_theme_option('social_hover_color', $theme_id); ?>" class="color-picker" data-alpha="true" />
-                                <p class="field-description"><?php _e('Set social hover color.', 'wp-megamenu'); ?></p>
+                                <input type="text" name="wpmm_theme_option[social_hover_color]" value="<?php esc_attr_e( get_wpmm_theme_option('social_hover_color', $theme_id) ); ?>" class="color-picker" data-alpha="true" />
+                                <p class="field-description"><?php esc_html_e('Set social hover color.', 'wp-megamenu'); ?></p>
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Facebook', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Facebook', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-facebook"></i> <input type="text" name="wpmm_theme_option[social_links_facebook]" value="<?php echo get_wpmm_theme_option('social_links_facebook', $theme_id); ?>" />
+                                <i class="fa fa-facebook"></i> <input type="text" name="wpmm_theme_option[social_links_facebook]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_facebook', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Twitter', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Twitter', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-twitter"></i> <input type="text" name="wpmm_theme_option[social_links_twitter]" value="<?php echo get_wpmm_theme_option('social_links_twitter', $theme_id); ?>" />
+                                <i class="fa fa-twitter"></i> <input type="text" name="wpmm_theme_option[social_links_twitter]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_twitter', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                <?php _e('Google +', 'wp-megamenu'); ?>
+                                <?php esc_html_e('Google +', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-google-plus"></i> <input type="text" name="wpmm_theme_option[social_links_gplus]" value="<?php echo get_wpmm_theme_option('social_links_gplus', $theme_id); ?>" />
+                                <i class="fa fa-google-plus"></i> <input type="text" name="wpmm_theme_option[social_links_gplus]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_gplus', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Instagram', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Instagram', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-instagram"></i> <input type="text" name="wpmm_theme_option[social_links_instagram]" value="<?php echo get_wpmm_theme_option('social_links_instagram', $theme_id); ?>" />
+                                <i class="fa fa-instagram"></i> <input type="text" name="wpmm_theme_option[social_links_instagram]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_instagram', $theme_id) ); ?>" />
                             </td>
                         </tr>                        
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Linked In', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Linked In', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-linkedin"></i> <input type="text" name="wpmm_theme_option[social_links_linkedin]" value="<?php echo get_wpmm_theme_option('social_links_linkedin', $theme_id); ?>" />
+                                <i class="fa fa-linkedin"></i> <input type="text" name="wpmm_theme_option[social_links_linkedin]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_linkedin', $theme_id) ); ?>" />
                             </td>
                         </tr>                        
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Pinterest', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Pinterest', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-pinterest"></i> <input type="text" name="wpmm_theme_option[social_links_pinterest]" value="<?php echo get_wpmm_theme_option('social_links_pinterest', $theme_id); ?>" />
+                                <i class="fa fa-pinterest"></i> <input type="text" name="wpmm_theme_option[social_links_pinterest]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_pinterest', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Youtube', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Youtube', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-youtube"></i> <input type="text" name="wpmm_theme_option[social_links_youtube]" value="<?php echo get_wpmm_theme_option('social_links_youtube', $theme_id); ?>" />
+                                <i class="fa fa-youtube"></i> <input type="text" name="wpmm_theme_option[social_links_youtube]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_youtube', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Dribbble', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Dribbble', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-dribbble"></i><input type="text" name="wpmm_theme_option[social_links_dribbble]" value="<?php echo get_wpmm_theme_option('social_links_dribbble', $theme_id); ?>" />
+                                <i class="fa fa-dribbble"></i><input type="text" name="wpmm_theme_option[social_links_dribbble]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_dribbble', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Behance', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Behance', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-behance"></i><input type="text" name="wpmm_theme_option[social_links_behance]" value="<?php echo get_wpmm_theme_option('social_links_behance', $theme_id); ?>" />
+                                <i class="fa fa-behance"></i><input type="text" name="wpmm_theme_option[social_links_behance]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_behance', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Digg', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Digg', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-digg"></i><input type="text" name="wpmm_theme_option[social_links_digg]" value="<?php echo get_wpmm_theme_option('social_links_digg', $theme_id); ?>" />
+                                <i class="fa fa-digg"></i><input type="text" name="wpmm_theme_option[social_links_digg]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_digg', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Vimeo', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Vimeo', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-vimeo"></i><input type="text" name="wpmm_theme_option[social_links_vimeo]" value="<?php echo get_wpmm_theme_option('social_links_vimeo', $theme_id); ?>" />
+                                <i class="fa fa-vimeo"></i><input type="text" name="wpmm_theme_option[social_links_vimeo]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_vimeo', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('stumbleupon', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('stumbleupon', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-stumbleupon"></i><input type="text" name="wpmm_theme_option[social_links_stumbleupon]" value="<?php echo get_wpmm_theme_option('social_links_stumbleupon', $theme_id); ?>" />
+                                <i class="fa fa-stumbleupon"></i><input type="text" name="wpmm_theme_option[social_links_stumbleupon]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_stumbleupon', $theme_id) ); ?>" />
                             </td>
                         </tr>                        
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Reddit', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Reddit', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-reddit"></i><input type="text" name="wpmm_theme_option[social_links_reddit]" value="<?php echo get_wpmm_theme_option('social_links_reddit', $theme_id); ?>" />
+                                <i class="fa fa-reddit"></i><input type="text" name="wpmm_theme_option[social_links_reddit]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_reddit', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Delicious', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Delicious', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-delicious"></i><input type="text" name="wpmm_theme_option[social_links_delicious]" value="<?php echo get_wpmm_theme_option('social_links_delicious', $theme_id); ?>" />
+                                <i class="fa fa-delicious"></i><input type="text" name="wpmm_theme_option[social_links_delicious]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_delicious', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Skype', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Skype', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-skype"></i><input type="text" name="wpmm_theme_option[social_links_skype]" value="<?php echo get_wpmm_theme_option('social_links_skype', $theme_id); ?>" />
+                                <i class="fa fa-skype"></i><input type="text" name="wpmm_theme_option[social_links_skype]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_skype', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Github', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Github', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-github"></i><input type="text" name="wpmm_theme_option[social_links_github]" value="<?php echo get_wpmm_theme_option('social_links_github', $theme_id); ?>" />
+                                <i class="fa fa-github"></i><input type="text" name="wpmm_theme_option[social_links_github]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_github', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('amazon', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('amazon', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-amazon"></i><input type="text" name="wpmm_theme_option[social_links_amazon]" value="<?php echo get_wpmm_theme_option('social_links_amazon', $theme_id); ?>" />
+                                <i class="fa fa-amazon"></i><input type="text" name="wpmm_theme_option[social_links_amazon]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_amazon', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('WhatsApp', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('WhatsApp', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-whatsapp"></i><input type="text" name="wpmm_theme_option[social_links_whatsapp]" value="<?php echo get_wpmm_theme_option('social_links_whatsapp', $theme_id); ?>" />
+                                <i class="fa fa-whatsapp"></i><input type="text" name="wpmm_theme_option[social_links_whatsapp]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_whatsapp', $theme_id) ); ?>" />
                             </td>
                         </tr>                        
 
                         <tr class=" wpmm-field-group">
                             <th>
-                                    <?php _e('Soundcloud', 'wp-megamenu'); ?>
+                                    <?php esc_html_e('Soundcloud', 'wp-megamenu'); ?>
                             </th>
                             <td>
-                                <i class="fa fa-soundcloud"></i><input type="text" name="wpmm_theme_option[social_links_soundcloud]" value="<?php echo get_wpmm_theme_option('social_links_soundcloud', $theme_id); ?>" />
+                                <i class="fa fa-soundcloud"></i><input type="text" name="wpmm_theme_option[social_links_soundcloud]" value="<?php esc_attr_e( get_wpmm_theme_option('social_links_soundcloud', $theme_id) ); ?>" />
                             </td>
                         </tr>
 
@@ -3771,28 +3752,24 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                 ?>
 
                 </div>
-
-
-
-
                 <div id="tabs-13">
                     <table class="form-table wpmm-option-table wpmm-main-setting-table animation-list">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Select Animation', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Select Animation', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <td>
                                     <select name="wpmm_theme_option[animation_type]">
                                         <?php $animation_type = get_wpmm_theme_option('animation_type', $theme_id); ?>
-                                        <option value="none" <?php selected($animation_type, 'none') ?> > <?php _e('None', 'wp-megamenu'); ?> </option> <option value="pulse" <?php selected($animation_type, 'pulse') ?> > <?php _e('Pulse', 'wp-megamenu'); ?> </option>
-                                        <option value="fadein" <?php selected($animation_type, 'fadein') ?> > <?php _e('FadeIn', 'wp-megamenu'); ?> </option>
-                                        <option value="fadeindown" <?php selected($animation_type, 'fadeindown') ?> > <?php _e('FadeInDown', 'wp-megamenu'); ?> </option>
-                                        <option value="fadeinup" <?php selected($animation_type, 'fadeinup') ?> > <?php _e('FadeInUp', 'wp-megamenu'); ?> </option>
-                                        <option value="ZoomIn" <?php selected($animation_type, 'ZoomIn') ?> > <?php _e('ZoomIn', 'wp-megamenu'); ?> </option>
-                                        <option value="slideindown" <?php selected($animation_type, 'slideindown') ?> > <?php _e('SlideInDown', 'wp-megamenu'); ?> </option>
-                                        <option value="slideinup" <?php selected($animation_type, 'slideinup') ?> > <?php _e('SlideInUp', 'wp-megamenu'); ?> </option>
-                                        <option value="flipinx" <?php selected($animation_type, 'flipinx') ?> > <?php _e('FlipInX', 'wp-megamenu'); ?> </option>
+                                        <option value="none" <?php selected($animation_type, 'none') ?> > <?php esc_html_e('None', 'wp-megamenu'); ?> </option> <option value="pulse" <?php selected($animation_type, 'pulse') ?> > <?php esc_html_e('Pulse', 'wp-megamenu'); ?> </option>
+                                        <option value="fadein" <?php selected($animation_type, 'fadein') ?> > <?php esc_html_e('FadeIn', 'wp-megamenu'); ?> </option>
+                                        <option value="fadeindown" <?php selected($animation_type, 'fadeindown') ?> > <?php esc_html_e('FadeInDown', 'wp-megamenu'); ?> </option>
+                                        <option value="fadeinup" <?php selected($animation_type, 'fadeinup') ?> > <?php esc_html_e('FadeInUp', 'wp-megamenu'); ?> </option>
+                                        <option value="ZoomIn" <?php selected($animation_type, 'ZoomIn') ?> > <?php esc_html_e('ZoomIn', 'wp-megamenu'); ?> </option>
+                                        <option value="slideindown" <?php selected($animation_type, 'slideindown') ?> > <?php esc_html_e('SlideInDown', 'wp-megamenu'); ?> </option>
+                                        <option value="slideinup" <?php selected($animation_type, 'slideinup') ?> > <?php esc_html_e('SlideInUp', 'wp-megamenu'); ?> </option>
+                                        <option value="flipinx" <?php selected($animation_type, 'flipinx') ?> > <?php esc_html_e('FlipInX', 'wp-megamenu'); ?> </option>
                                     </select>
                             </td>
                         </tr>
@@ -3807,13 +3784,12 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
                 <div id="tabs-14">
                     <table class="form-table wpmm-option-table wpmm-main-setting-table">
                         <tr class="wpmm-fields-header wpmm-field-group wpmm-table-divider">
-                            <th colspan="2"> <?php _e('Export Current Mega Menu Theme', 'wp-megamenu'); ?> </th>
+                            <th colspan="2"> <?php esc_html_e('Export Current Mega Menu Theme', 'wp-megamenu'); ?> </th>
                         </tr>
 
                         <tr class="wpmm-field wpmm-field-group">
                             <th>
-                                <a class="wpmm-btn wpmm-btn-primary export-wpmm-theme" data-theme_id="<?=$theme_id?>" data-theme_name="<?=$wpmm_theme_title?>" href="<?php echo add_query_arg(array('action' => 'export_wpmm_theme')) ?>"> <?php _e('Export', 'wp-megamenu')
-                                    ; ?> </a>
+                                <a class="wpmm-btn wpmm-btn-primary export-wpmm-theme" data-theme_id="<?php esc_attr_e( $theme_id ); ?>" data-theme_name="<?php esc_attr_e( $wpmm_theme_title ); ?>" href="<?php echo esc_url( add_query_arg( array( 'action' => 'export_wpmm_theme' ) ) ); ?>"> <?php esc_html_e('Export', 'wp-megamenu'); ?> </a>
                             </th>
                         </tr>
 
@@ -3829,7 +3805,7 @@ $wpmm_theme_name =  get_wpmm_theme_option('wpmm_theme_name', $theme_id);
             <?php
             if ($theme_id){
                 echo '<input type="hidden" name="wpmm_theme_type" value="edit_theme" />';
-                echo '<input type="hidden" name="wpmm_theme_id" value="'.$theme_id.'" />';
+                echo '<input type="hidden" name="wpmm_theme_id" value="'. esc_attr( $theme_id ) .'" />';
             }else{
                 echo '<input type="hidden" name="wpmm_theme_type" value="new_theme" />';
             }

@@ -12,10 +12,10 @@ $query = new WP_Query($post_args);
 
     <div class="wpmm-theme-head clearfix">
         <div class="left">
-            <?php _e('Mega Menu Themes', 'wp-megamenu'); ?>
+            <?php esc_html_e('Mega Menu Themes', 'wp-megamenu'); ?>
         </div>
         <div class="right">
-            <a class="page-title-action" href="<?php echo admin_url('admin.php?page=wp_megamenu_themes&section=add_theme'); ?>"><?php _e('Create New Theme', 'wp-megamenu'); ?></a>
+            <a class="page-title-action" href="<?php echo esc_url( admin_url('admin.php?page=wp_megamenu_themes&section=add_theme') ); ?>"><?php esc_html_e('Create New Theme', 'wp-megamenu'); ?></a>
         </div>
     </div>
     
@@ -31,14 +31,14 @@ $query = new WP_Query($post_args);
 
                     <tr class="wpmm-field wpmm-field-group wpmm-theme-list-tr">
                         <th>
-                            <a href="<?php echo admin_url('admin.php?page=wp_megamenu_themes&section=add_theme&theme_id='.get_the_ID()); ?>">
-                                <?php the_title(); ?>
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wp_megamenu_themes&section=add_theme&theme_id=' . get_the_ID() ) ); ?>">
+                                <?php esc_html( the_title() ); ?>
                             </a>
                         </th>
                         <td class="text-right">
-                            <a class="btn-edit" href="<?php echo admin_url('admin.php?page=wp_megamenu_themes&section=add_theme&theme_id='.get_the_ID()); ?>"> <i class="dashicons dashicons-edit"></i> </a>
+                            <a class="btn-edit" href="<?php echo esc_url( admin_url( 'admin.php?page=wp_megamenu_themes&section=add_theme&theme_id=' . get_the_ID() ) ); ?>"> <i class="dashicons dashicons-edit"></i> </a>
 
-                            <a class="btn-close deleteWpmmTheme" href="javascript:;" data-id="<?php the_ID(); ?>"> <i class="dashicons
+                            <a class="btn-close deleteWpmmTheme" href="javascript:;" data-id="<?php esc_attr( the_ID() ); ?>"> <i class="dashicons
     dashicons-trash"></i> </a>
                         </td>
 
@@ -62,7 +62,7 @@ $query = new WP_Query($post_args);
                             <input type="file" name="wpmm_theme_import_file" />
                             
                             <?php wp_nonce_field( 'wpmmm_import_theme_action', 'wpmmm_import_theme_nonce_field' ) ?>
-                            <input name="submit" id="submit" class="button button-primary" value="<?php _e('Import Theme', 'wp-megamenu') ?>" type="submit">
+                            <input name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Import Theme', 'wp-megamenu') ?>" type="submit">
 
                         </label>
                     </p>
@@ -82,13 +82,11 @@ $query = new WP_Query($post_args);
                             <input type="file" name="wpmm_import_menu_file" />
                             
 							<?php wp_nonce_field( 'wpmmm_import_menu_action', 'wpmmm_import_menu_nonce_field' ) ?>
-                            <input name="submit" id="submit" class="button button-primary" value="<?php _e('Import Menu', 'wp-megamenu') ?>" type="submit">
+                            <input name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Import Menu', 'wp-megamenu') ?>" type="submit">
                         </label>
                     </p>
                 </div>
             </div>
         </form>
     </div>
-
-
 </div>

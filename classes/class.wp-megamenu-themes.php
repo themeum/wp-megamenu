@@ -138,7 +138,7 @@ if ( ! class_exists('wp_megamenu_themes')) {
         public function theme_upload_error(){
             ?>
             <div class="notice notice-error is-dismissible">
-                <p><?php _e( 'Woops! Something went wrong, there a issue with your uploaded file', 'wp-megamenu' );
+                <p><?php esc_html_e( 'Woops! Something went wrong, there a issue with your uploaded file', 'wp-megamenu' );
                     ?></p>
             </div>
             <?php
@@ -146,7 +146,7 @@ if ( ! class_exists('wp_megamenu_themes')) {
         public function theme_upload_success(){
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'Done! Theme imported', 'wp-megamenu' );
+                <p><?php esc_html_e( 'Done! Theme imported', 'wp-megamenu' );
                     ?></p>
             </div>
             <?php
@@ -155,14 +155,14 @@ if ( ! class_exists('wp_megamenu_themes')) {
         function wpmm_theme_added_notice__success() {
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'WP Megamenu theme has been added', 'wp-megamenu' ); ?></p>
+                <p><?php esc_html_e( 'WP Megamenu theme has been added', 'wp-megamenu' ); ?></p>
             </div>
             <?php
         }
         function wpmm_theme_updated_notice__success() {
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'WP Megamenu theme has been updated', 'wp-megamenu' ); ?></p>
+                <p><?php esc_html_e( 'WP Megamenu theme has been updated', 'wp-megamenu' ); ?></p>
             </div>
             <?php
         }
