@@ -80,7 +80,7 @@ if ( ! class_exists('wp_megamenu_themes')) {
             
             $wpmmm_save_new_theme_nonce_field = isset($_POST['wpmmm_save_new_theme_nonce_field']) ? $_POST['wpmmm_save_new_theme_nonce_field'] : false;
 
-            if ( ! current_user_can( 'administrator' ) || ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) || ! wp_verify_nonce( $wpmmm_save_new_theme_nonce_field, 'wpmmm_save_new_theme_action' ) ) {
+            if ( ! current_user_can( 'administrator' ) || ! isset( $_POST['wpmmm_save_new_theme_nonce_field'] ) || ! wp_verify_nonce( $wpmmm_save_new_theme_nonce_field, 'wpmm_check_security' ) ) {
                 return;
 			}
 
