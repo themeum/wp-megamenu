@@ -3,8 +3,8 @@ Contributors: themeum
 Tags: wp-megamenu, megamenu, mega menu, navigation, responsive menu, menu, builder, menu builder, drag and drop, wordpress mega menu, dropdown menu, free mega menu
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
-Tested up to: 5.7
-Stable tag: trunk
+Tested up to: 5.8
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,27 +17,26 @@ If you have been dreaming of building a stunning mega menu on your WordPress sit
 
 Here are the most notable features of WP Mega Menu plugin. If you need any further information, please feel free to contact us. Below are the best offerings of WP Mega Menu.
 
-  * Drag and drop menu builder panel.
-  * Widgets in menu.
-  * Multiple themes/skins option.
-  * Export/import themes
-  * Branding in logo
-  * Social icons
-  * Search bar in menu
-  * Menu labelling/badge, ex: hot, new, etc.
-  * Dashicons and Font Awesome icon support
-  * Stretch menu
-  * Responsive support
-  * Mobile menu support
-  * Menu background image
-  * Unlimited colors
-  * Google Fonts
-  * Unlimited options
+-   Drag and drop menu builder panel.
+-   Widgets in menu.
+-   Multiple themes/skins option.
+-   Export/import themes
+-   Branding in logo
+-   Social icons
+-   Search bar in menu
+-   Menu labelling/badge, ex: hot, new, etc.
+-   Dashicons and Font Awesome icon support
+-   Stretch menu
+-   Responsive support
+-   Mobile menu support
+-   Menu background image
+-   Unlimited colors
+-   Google Fonts
+-   Unlimited options
 
 = Plugin Demo =
 
-> [See Plugin Demo](http://demo.themeum.com/wordpress/wp-megamenu/)
-> [Plugin Documentation](https://www.themeum.com/docs/wp-mega-menu-introduction/)
+> [See Plugin Demo](http://demo.themeum.com/wordpress/wp-megamenu/) > [Plugin Documentation](https://www.themeum.com/docs/wp-mega-menu-introduction/)
 
 Please let us know your feedback, if you think something can be more awesome this plugin, we will added it.
 
@@ -66,6 +65,7 @@ A. Found a bug? Please let us know by posting on the support section of this plu
 A. Yes, it’s fully free.
 
 == Screenshots ==
+
 1. Drag and Drop Widget Menu Builder
 2. Global Settings
 3. Menu Theme Settings
@@ -74,6 +74,10 @@ A. Yes, it’s fully free.
 6. Single Menu Settings
 
 == Changelog ==
+
+= 1.4.2 =
+Fix: Theme export empty file issue
+Update: Security update
 
 = 1.0.0 =
 Initial version released

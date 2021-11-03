@@ -230,7 +230,7 @@ class wpmm_grid_woocommerce_widget extends WP_Widget{
             }
         }
 
-        echo $output;
+        echo wp_kses_post( $output );
         echo ! empty($args['after_widget']) ? $args['after_widget'] : '';
     }
 
