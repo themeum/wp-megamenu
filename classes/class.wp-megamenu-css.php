@@ -1342,7 +1342,7 @@ if ( ! class_exists('wp_megamenu_css')) {
             $style .= $this->css();
             $style .= '</style>';
 
-            echo wp_kses_post( $style );
+            echo wpmm_sanitize_inline_css_output( $style );
         }
 
         /**

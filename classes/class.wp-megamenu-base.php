@@ -402,7 +402,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 													$menu_item['ID'] 		= $widget_item['item_type'] == 'widget' ? $widget_key + $item->ID : $widget_item['ID'];
 													$menu_item['depth'] 	= 1;
 													$menu_item['classes'][] = "wpmm-type-widget";
-													$menu_item['description'] = $widget_item['description'];
+													$menu_item['description'] = isset( $widget_item['description'] ) ? $widget_item['description'] : '';
 												}else{
 													$menu_item['db_id'] = $widget_item['ID'];
 													$menu_item['classes'][] = "wpmm-type-item";
@@ -952,7 +952,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 					} 
 				}
 				$style .= '</style>';
-				echo wp_kses_post( sanitize_textarea_field( $style ) );
+				echo wpmm_sanitize_inline_css_output( $style );
 			}
 		}
 	}

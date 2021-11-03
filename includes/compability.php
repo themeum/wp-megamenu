@@ -25,5 +25,5 @@ function wpmm_css_compatibility(){
     }
 
     $style .= '</style>';
-    echo wp_kses_post( $style );
+    echo wpmm_sanitize_inline_css_output( $style );
 }

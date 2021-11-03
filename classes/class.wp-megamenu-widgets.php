@@ -115,7 +115,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          */
         public function show_widget( $id ) {
             
-            error_reporting('E_ALL & ~E_NOTICE');
+            //error_reporting('E_ALL & ~E_NOTICE');
             global $wp_registered_widgets;
             
             $params = array_merge(

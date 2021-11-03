@@ -1431,6 +1431,22 @@ function wpmm_sanitize_settings_options( $input ) {
     return '';
 }
 
+/**
+ * Sanitize inline css
+ * 
+ * @param string|mixed
+ * 
+ * @return string|mixed
+ */
+function wpmm_sanitize_inline_css_output( $style = null ) {
+    // Set the allowed tags.
+    $allowed_tags = array(
+        'style' => array(),
+    );
+    // Run through wp_kses to validate the tag(s) and then return it.
+    $sanitized_css = wp_kses( $style, $allowed_tags );
+    return $sanitized_css;
+}
 
 
 /**
