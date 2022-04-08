@@ -322,7 +322,7 @@
             }
         });
     });
-    $(document).on('click','.wpmm-isp-close-btn', function(e){
+    $(document).on('click','.wpmm-isp-close-btn, #wpmmSettingOverlay', function(e){
         e.preventDefault();
         $('.wp-megamenu-item-settins-wrap').hide();
         $('#wpmmSettingOverlay').hide();
@@ -824,7 +824,7 @@
     });
 
     /*
-     * Export Current Mega Menu Theme 
+     * Export Current Mega Menu Theme
      */
     function download_to_txt(filename, text) {
       var element = document.createElement("a");
@@ -841,9 +841,9 @@
 
       document.body.removeChild(element);
     }
-    
+
     /*
-     * Export Current Mega Menu Theme 
+     * Export Current Mega Menu Theme
      */
 
     $(".export-wpmm-theme").on("click", function (e) {
@@ -864,7 +864,7 @@
     });
 
     /*
-     * Export Mega Menu  
+     * Export Mega Menu
      */
     $(".wp-megamenu-nav-export").on("click", function (e) {
       e.preventDefault();

@@ -122,19 +122,19 @@ if ( ! class_exists('wp_megamenu_base')) {
 			if ( ! empty($enable_icofont) && $enable_icofont !== 'disable'){
 				wp_enqueue_style('wpmm_icofont_css', WPMM_URL .'assets/icofont/icofont.min.css', false, '1.0.1');
 			}
-			
+
 			wp_enqueue_style( 'wpmm_css', WPMM_URL .'assets/css/wpmm.css', array('dashicons'), WPMM_VER );
 			wp_enqueue_script( 'wpmm_js', WPMM_URL .'assets/js/wpmm.js', array('jquery'), WPMM_VER, true);
 
 	        // For Ajax URL
 	        wp_enqueue_script('wpmm_js');
-	        wp_localize_script( 'wpmm_js', 'ajax_objects', array( 
+	        wp_localize_script( 'wpmm_js', 'ajax_objects', array(
 	            'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 	            'redirecturl'       => home_url('/'),
 	            'loadingmessage'    => __('Sending user info, please wait...','patrios')
 	        ));
 
-	        
+
 
 			$responsive_breakpoint = get_wpmm_option('responsive_breakpoint');
 			if (empty($responsive_breakpoint)){
@@ -453,10 +453,10 @@ if ( ! class_exists('wp_megamenu_base')) {
                 $cta_btn_text = get_wpmm_theme_option('cta_btn_text', $theme_id);
                 $cta_btn_link = get_wpmm_theme_option('cta_btn_link', $theme_id);
 
-                $login_signup = get_wpmm_theme_option('login_signup', $theme_id);   
+                $login_signup = get_wpmm_theme_option('login_signup', $theme_id);
                 $enable_login_form = get_wpmm_theme_option('enable_login_form', $theme_id);
 
-                $enable_woocart = get_wpmm_theme_option('enable_woocart', $theme_id);   
+                $enable_woocart = get_wpmm_theme_option('enable_woocart', $theme_id);
 
                 if (function_exists('wpmm_pro_init')){
 	                # Woocart Button
@@ -582,7 +582,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 			$menu_item_id 		= sanitize_text_field($_POST['menu_item_id']);
 			$get_menu_settings 	= (array) maybe_unserialize(get_post_meta($menu_item_id, 'wpmm_layout', true));
- 
+
 			$get_menu_settings['options']['menu_icon_image']        = wpmm_item_settings_input('menu_icon_image');
 			$get_menu_settings['options']['menu_bg_image']          = wpmm_item_settings_input('menu_bg_image');
 			$get_menu_settings['options']['disable_link']           = wpmm_item_settings_input('disable_link');
@@ -805,7 +805,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 				$style = '<style type="text/css">';
 				foreach ($wpmm_layouts_option as $key => $value){
 					$options = maybe_unserialize($value->meta_value);
-					
+
 					if ( ! empty($options['options']['width'])){
 						$style .= ".wp-megamenu-item-{$value->post_id} > ul{ ";
 							$width = $options['options']['width'];
@@ -821,7 +821,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 
 					if ( ! empty($options['options']['strees_row_width'])) {
-						$style .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container 
+						$style .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
                         > ul.wp-megamenu-sub-menu { ';
 						$style .= "width: {$options['options']['strees_row_width']}px !important;";
 						$style .= '}';
@@ -832,7 +832,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 						$style .= "left: calc(100% - ".(intval($options['options']['strees_row_width']) / 2)."px - 20px) !important";
 						$style .= '}';
 					} else {
-						$style .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container 
+						$style .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
                         > ul.wp-megamenu-sub-menu { ';
 							$style .= "width: 100% !important;";
 						$style .= '}';
@@ -877,11 +877,11 @@ if ( ! class_exists('wp_megamenu_base')) {
 							$style .= "text-align: {$options['options']['item_align']} !important;";
 						}
 					$style .= "}";
-					
+
 
 					$style .= ".wpmm-nav-wrap .wp-megamenu>li>ul.wp-megamenu-sub-menu li#wp-megamenu-item-{$value->post_id}>a { ";
 						if ( ! empty( $options['options']['single_menu_item_border_separator_width'] ) && ! empty( $options['options']['single_menu_item_border_separator_type'] ) && ! empty( $options['options']['single_menu_item_border_separator_color'] )){
-							$style .= "border-bottom: {$options['options']['single_menu_item_border_separator_width']}px {$options['options']['single_menu_item_border_separator_type']} 
+							$style .= "border-bottom: {$options['options']['single_menu_item_border_separator_width']}px {$options['options']['single_menu_item_border_separator_type']}
 							{$options['options']['single_menu_item_border_separator_color']} !important;";
 						}
 					$style .= "}";
@@ -922,7 +922,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 					$style .= "}";
 
 
-					$style .= "#wp-megamenu-item-{$value->post_id}> .wp-megamenu-sub-menu { "; 
+					$style .= "#wp-megamenu-item-{$value->post_id}> .wp-megamenu-sub-menu { ";
 
 						if ( !empty($options['options']['wp_megamenu_submenu_menu_padding_top']) ) {
 							$style .= "padding-top: {$options['options']['wp_megamenu_submenu_menu_padding_top']}px !important;";
@@ -949,7 +949,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 						$style .= "background-repeat: no-repeat !important;";
 						$style .= "background-position: center !important;";
 						$style .= "}";
-					} 
+					}
 				}
 				$style .= '</style>';
 				echo wpmm_sanitize_inline_css_output( $style );
