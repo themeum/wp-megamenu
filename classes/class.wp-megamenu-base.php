@@ -106,6 +106,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 			wp_enqueue_style('wpmm_fontawesome_css_admin', WPMM_URL .'assets/font-awesome-4.7.0/css/font-awesome.min.css', false, '4.7.0');
 			wp_enqueue_style('wpmm_icofont_css_admin', WPMM_URL .'assets/icofont/icofont.min.css', false, '1.0.1');
 			wp_enqueue_style('wpmm_css_admin', WPMM_URL .'assets/css/wpmm-admin.css', false, WPMM_VER);
+			wp_enqueue_style('wpmm_css_admin_items', WPMM_URL .'assets/css/wpmm-admin-items.css', false, WPMM_VER);
 		}
 
 		public function wpneo_enqueue_frontend_script(){
@@ -302,6 +303,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 				update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
 			}
 
+			// include WPMM_DIR.'views/admin/item_settings_x.php';
 			include WPMM_DIR.'views/admin/item_settings.php';
 			die();
 		}
