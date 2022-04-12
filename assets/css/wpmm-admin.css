@@ -35,10 +35,9 @@ img{
 .wpmm-item-settings-content input[type=checkbox],
 .wpmm-theme-settings input[type=radio],
 .wpmm-theme-settings input[type=checkbox] {
-    border: 1px solid #E5E5E5;
+    border: 1px solid #8c8c8c;
     box-shadow: none;
     border-radius: 2px;
-    margin: 0 4px 0 0;
     padding: 0;
     width: 20px;
     height: 20px;
@@ -86,7 +85,7 @@ img{
     width: 200px;*/
 
     box-shadow: none;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #8c8c8c;
     border-radius: 2px;
     padding: 2px 15px;
    /* width: 164px;
@@ -125,7 +124,7 @@ img{
     line-height: 16px;
     height: 34px;
     box-shadow: none;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #8c8c8c;
     border-radius: 2px;
     margin-right: 10px;
     width: 200px;
@@ -1644,12 +1643,6 @@ Manual Integration Code
     padding: 0px 4px;
     margin-right: 6px;
     width: 90px;
-}
-
-
-.wp-core-ui select {
-    color: #32373c;
-    border-color: #f2f2f2;
 }
 
 .badge_text_style input[type="text"] {
