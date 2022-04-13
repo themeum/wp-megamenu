@@ -94,6 +94,8 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 			//wp_enqueue_script('jquery-ui-sortable');
 			wp_enqueue_script( 'wpmm_scripts_admin', WPMM_URL .'assets/js/wpmm-admin.js', array('jquery', 'jquery-ui-tabs', 'jquery-ui-sortable', 'jquery-ui-resizable', 'jquery-ui-droppable', 'wp-color-picker', 'jquery-ui-slider'), WPMM_VER, true);
+			//wp_enqueue_script('jquery-ui-sortable');
+			wp_enqueue_script( 'wpmm_scripts_items_admin', WPMM_URL .'assets/js/wpmm-items-admin.js', array('jquery', 'jquery-ui-tabs', 'jquery-ui-sortable', 'jquery-ui-resizable', 'jquery-ui-droppable', 'wp-color-picker', 'jquery-ui-slider'), WPMM_VER, true);
 
 			wp_localize_script('wpmm_scripts_admin', 'wpmm',
 				array(

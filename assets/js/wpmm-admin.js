@@ -31,7 +31,7 @@
     /**
      * Open item settings from bottom popup
      */
-    $('.wp_megamenu_lauch').click(function(e){
+    $('.wp_megamenu_lauch111').click(function(e){
         e.preventDefault();
         var menu_item = $(this).closest('li.menu-item');
         var menu_id = $('input#menu').val();
@@ -61,13 +61,13 @@
 
 
     // Get all menu item with class
-    var MenuChild  = $('#menu-to-edit').children('li.menu-item');
+    /* var MenuChild  = $('#menu-to-edit').children('li.menu-item');
         menu_id = $('input#menu').val();
     MenuChild.each(function(){
         var id = parseInt($(this).attr('id').match(/[0-9]+/)[0], 10);
         var depth = $(this).attr('class').match(/\menu-item-depth-(\d+)\b/)[1];
         ajax_request_load_menu_item_settings(id, depth, menu_id);
-    });
+    }); */
 
     function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
         $.ajax({
@@ -262,6 +262,14 @@
                 revertDuration: 0
             }).disableSelection();
 
+            $('#wpmm_layout_wrapper').sortable({
+                items: '.wpmm-layout-row',
+                placeholder: "drop-highlight",
+                update: function (event, ui) {
+                    console.log('layout updated', ui, event);
+                }
+            });
+            console.log('script loaded');
             $('#wpmm_item_layout_wrap').sortable({
                 items: '.wpmm-row',
                 handle: '.wpmmRowSortingIcon',
@@ -306,6 +314,8 @@
 
         }
     }
+
+
     $(document).on('click', '.wpmmRowDeleteIcon', function () {
         var button_clicked = $(this);
         var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
@@ -322,7 +332,7 @@
             }
         });
     });
-    $(document).on('click','.wpmm-isp-close-btn, #wpmmSettingOverlay', function(e){
+    $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
         e.preventDefault();
         $('.wp-megamenu-item-settins-wrap').hide();
         $('#wpmmSettingOverlay').hide();

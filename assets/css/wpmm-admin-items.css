@@ -1,4 +1,8 @@
 /* wpmm item input */
+.wpmm-item-grid {
+    display: grid;
+}
+/* wpmm item input */
 .wpmm-item-row {
     display: flex;
 }
@@ -15,6 +19,7 @@
     justify-content: space-between;
 }
 
+.wpmm-item-grow,
 .wpmm-item-row .wpmm-item-field {
     flex-grow: 1;
 }
@@ -277,17 +282,41 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 }
 
 .wpmm-column-layout svg {
-    fill: #2271b1;
+    fill: #3b434a;
 }
+
 .wpmm-add-slots {
     background: #fff;
     box-shadow: 0px 1px 20px 0px #22222254;
     padding: 20px;
     border-radius: 10px;
-    width: 500px;
+    width: 700px;
     display: none;
     margin: 20px auto 50px;
-    position: absolute;
     left: 0;
     right: 0;
+}
+
+.wpmm-column-layout-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    background: rgba(2, 11, 83, 0.2);
+    border: 1px solid transparent;
+    border-radius: 7px;
+    transition: background-color 400ms, border-color 400ms, box-shadow 400ms;
+}
+
+.wpmm-column-layout:hover .wpmm-column-layout-preview {
+    box-shadow: 0px 4px 4px rgba(115, 119, 155, 0.3);
+}
+
+.wpmm-column-layout:hover .wpmm-column-layout-preview,
+.wpmm-column-layout.active .wpmm-column-layout-preview {
+    background: rgba(51, 102, 255, 0.1);
+    border: 1px solid rgba(51, 102, 255, 0.14);
+}
+.wpmm-columns-layout .wpmm-item-grid{
+    grid-template-columns: auto auto auto auto;
 }
