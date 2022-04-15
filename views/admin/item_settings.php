@@ -289,9 +289,186 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 			<div class="wpmm-item-content">
 
 				<div id="wpmm_layout_wrapper" class="wpmm-item-wrapper">
-					<div class="wpmm-layout-row">sortable1</div>
-					<div class="wpmm-layout-row">sortable2</div>
-					<div class="wpmm-layout-row">sortable3</div>
+					<div class="wpmm-layout-row">
+						<div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
+							<div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
+								<i class="fa fa-sort wpmm-mr-2"></i>
+								<span>Row</span>
+							</div>
+							<div class="wpmm-row-toolbar-right">
+								<span class="wpmm-row-delete-icon">
+									<i class="fa fa-trash-o"></i>
+								</span>
+							</div>
+						</div>
+						<div class="wpmm-columns-container wpmm-item-row wpmm-gap-1">
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 1</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 2</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 3</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 4</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 5</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 6</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 7</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="wpmm-layout-row">
+						<div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
+							<div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
+								<i class="fa fa-sort wpmm-mr-2"></i>
+								<span>Row</span>
+							</div>
+							<div class="wpmm-row-toolbar-right">
+								<span class="wpmm-row-delete-icon">
+									<i class="fa fa-trash-o"></i>
+								</span>
+							</div>
+						</div>
+						<div class="wpmm-columns-container wpmm-item-row wpmm-gap-1">
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 1</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 2</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 3</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 4</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wpmm-item-col wpmm-item-col-4" data-rowid="2" data-columnid="1">
+								<div class="wpmm-column-contents-wrapper">
+									<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+										<span class="wpmm-col-sorting-icon">
+											<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+										</span>
+									</div>
+									<div class="wpmm-column-contents">
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 5</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 6</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
+											<span>Breadcrumbs 7</span>
+											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
+												<span class="fa fa-times-circle" aria-hidden="true"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 

@@ -178,6 +178,7 @@
                 }
             }).disableSelection();
 
+
             $(".draggableWidget").draggable({
                 connectToSortable: ".wpmm-item-wrap",
                 helper: "clone",
@@ -185,14 +186,39 @@
                 revertDuration: 0
             }).disableSelection();
 
+
+            /* wpmm new block */
+            $(".wpmm-column-contents").sortable({
+                connectWith: ".wpmm-column-contents",
+                items: " .wpmm-cell",
+                placeholder: "drop-highlight",
+                update: function (event, ui) {
+                    console.log('layout updated', ui, event);
+                }
+
+            }).disableSelection();
+
             $('#wpmm_layout_wrapper').sortable({
                 items: '.wpmm-layout-row',
+                handle: '.wpmm-row-sorting-icon',
                 placeholder: "drop-highlight",
                 update: function (event, ui) {
                     console.log('layout updated', ui, event);
                 }
             });
-            console.log('script loaded');
+
+
+            $('.wpmm-item-row').sortable({
+                items: '.wpmm-item-col',
+                handle: '.wpmm-col-sorting-icon',
+                placeholder: "drop-col-highlight",
+                update: function (event, ui) {
+                    console.log(ui);
+                }
+            });
+            /* wpmm new block */
+
+
 
             $('#wpmm_item_layout_wrap').sortable({
                 items: '.wpmm-row',
