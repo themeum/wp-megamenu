@@ -381,6 +381,9 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     box-shadow: 0px 2px 4px rgb(20 50 80 / 20%);
     border-radius: 5px;
 }
+.wpmm-column-contents{
+    min-height: 50px;
+}
 .wpmm-column-toolbar{
     padding: 10px 0;
 }
@@ -396,10 +399,33 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     background: #fafafa;
     border: 1px dashed #dedede;
     cursor: move;
+    transition: background-color 1000ms linear;
+}
+.wpmm-cell.ui-sortable-helper{
+    opacity: .9;
+    transform: scale(.7);
 }
 .wpmm-col-sorting-icon{
     cursor: ew-resize;
 }
 .wpmm-col-sorting-icon:active{
     cursor: grab;
+}
+.wpmm-btn-link{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.wpmm-add-new-item{
+    width: 100%;
+    border: 1px dashed #dedede;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    background: #fafafa;
+    transition: background-color 1000ms linear;
+}
+.wpmm-add-new-item:hover,
+.wpmm-cell:hover{
+    background: #fefefe;
 }

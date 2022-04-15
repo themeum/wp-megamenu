@@ -313,15 +313,20 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 1</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 2</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
+									</div>
+									<div class="wpmm-add-item-wrapper">
+										<button class="wpmm-add-new-item" title="Add Module">
+											<span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
+										</button>
 									</div>
 								</div>
 							</div>
@@ -336,13 +341,13 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 3</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 4</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 									</div>
@@ -359,19 +364,19 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 5</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 6</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 7</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 									</div>
@@ -403,13 +408,13 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 1</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 2</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 									</div>
@@ -426,13 +431,13 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 3</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 4</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 									</div>
@@ -449,19 +454,19 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 5</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 6</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 										<div class="wpmm-cell" data-rowid="2" data-columnid="1" data-cellid="1">
 											<span>Breadcrumbs 7</span>
 											<button class="wpmm-btn wpmm-btn-link wpmm-cell-remove">
-												<span class="fa fa-times-circle" aria-hidden="true"></span>
+												<span class="fa fa-caret-down" aria-hidden="true"></span>
 											</button>
 										</div>
 									</div>
