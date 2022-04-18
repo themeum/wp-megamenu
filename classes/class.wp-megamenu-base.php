@@ -29,6 +29,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 			add_action('admin_menu', array($this, 'wp_megamenu_admin_menus'));
 			add_action('admin_init', array( $this, 'register_settings' ) );
 			add_action('wp_ajax_wpmm_item_settings_load', array($this, 'wpmm_item_settings_load'));
+			add_action('wp_ajax_wpmm_item_widget_panel', array($this, 'wpmm_item_widget_panel'));
 			add_filter('wp_nav_menu_objects', array( $this, 'add_widgets_to_menu' ), 10, 2 );
 			add_filter('body_class', array($this, 'add_body_classes'), 10, 1);
 
@@ -225,6 +226,22 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 			// Return sanitized options
 			return $options;
+		}
+
+		/**
+		 * List WordPress Widgets.
+		 *
+		 * @return mixed
+		 */
+
+		public function wpmm_item_widget_panel() {
+			ob_start();
+			// wp_get_sidebars_widgets();
+
+			include WPMM_DIR.'views/admin/widget_list_modal.php';
+			$content = ob_get_clean();
+			echo $content;
+			die();
 		}
 
 		/**

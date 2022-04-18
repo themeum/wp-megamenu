@@ -55,7 +55,9 @@
 .wpmm-align-center {
     align-items: center;
 }
-
+.wpmm-grid-4{
+    grid-template-columns: auto auto auto auto;
+}
 .wpmm-gap-1 {
     gap: 1em;
 }
@@ -272,14 +274,18 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 }
 
 .wpmm-modal .wpmm-modal-body {
+    overflow: hidden;
+}
+.wpmm-modal .wpmm-option-content {
     flex-grow: 1;
     overflow: hidden;
     padding: 10px;
     display: flex;
     padding-right: 0;
+    height: 100%;
 }
 
-.wpmm-modal .wpmm-modal-body .wpmm-item-sidebar {
+.wpmm-modal .wpmm-option-content .wpmm-item-sidebar {
     background: #ffffff;
     padding: 16px;
     box-shadow: 0px 2px 4px rgb(20 50 80 / 20%);
@@ -289,7 +295,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     overflow: hidden scroll;
 }
 
-.wpmm-modal .wpmm-modal-body .wpmm-item-content {
+.wpmm-modal .wpmm-option-content .wpmm-item-content {
     flex-grow: 1;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -397,9 +403,9 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     margin-bottom: 10px;
     padding: 10px;
     background: #fafafa;
-    border: 1px dashed #dedede;
+    border: 2px dashed #dedede;
     cursor: move;
-    transition: background-color 1000ms linear;
+    transition: background-color 100ms linear;
 }
 .wpmm-cell.ui-sortable-helper{
     opacity: .9;
@@ -423,9 +429,37 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     cursor: pointer;
     padding: 10px;
     background: #fafafa;
-    transition: background-color 1000ms linear;
+    transition: background-color 100ms linear;
 }
 .wpmm-add-new-item:hover,
 .wpmm-cell:hover{
-    background: #fefefe;
+    background: #e9e9e9;
+}
+.wpmm-item-widget-panel {
+    position: absolute;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    box-shadow: 0px 24px 48px rgb(0 0 0 / 14%),
+        0px 9px 66px rgb(0 0 0 / 12%),
+        0px 11px 25px rgb(0 0 0 / 20%);
+    width: 1000px;
+    height: 500px;
+    z-index: 10000;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transition: all 300ms;
+}
+
+.wpmm-widget-items{
+    padding: 10px;
+    overflow-y: scroll;
+    height: 100%;
+    box-sizing: border-box;
+}
+.wpmm-widget-items .widget{
+    width: 100%;
+    margin-bottom: 0;
 }

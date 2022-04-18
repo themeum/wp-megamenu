@@ -172,7 +172,7 @@ if ( ! class_exists('wp_megamenu')) {
 					$wpmm_icon .= "</span>";
 				} else {
 					if (is_array($wpmm_item_settings) &&  ! empty($wpmm_item_settings['options']['icon'])){
-	                    
+
 	                    if ( ! empty($wpmm_item_settings['options']['icon_position'])){
 	                        $icon_position = 'wpmm-selected-icon-'.$wpmm_item_settings['options']['icon_position'];
 	                    }
@@ -279,7 +279,7 @@ if ( ! class_exists('wp_megamenu')) {
 					        $item_output .= sprintf('<span class="wpmm_item_description">%s</span>', esc_html($item->description));
 					    }
 	                }
-				    
+
                 $item_output .= '</a>';
 
 
@@ -297,20 +297,20 @@ if ( ! class_exists('wp_megamenu')) {
                 <form action='$home_url' method='get' role='search'>
                   	<div class='search-wrap'>
                     	<div class='search pull-right wpmm-top-search'>
-                        	<input type='text' value='$search_query' name='s' id='s' class='form-control' placeholder='$search_placholder' autocomplete='off' />	
+                        	<input type='text' value='$search_query' name='s' id='s' class='form-control' placeholder='$search_placholder' autocomplete='off' />
                     	</div>
                   	</div>
-                </form>  
+                </form>
             ";
 
             if ($enable_search_bar == 'true' && $depth == 0 && $item->type === 'wpmm_search_form') {
 	            $item_output = "
 	                <div class='wpmm-search-wrap'>
-	                    <a href='#' class='wpmm-search search-open-icon'><i class='fa fa-search'></i></a> 
+	                    <a href='#' class='wpmm-search search-open-icon'><i class='fa fa-search'></i></a>
 	                    <a href='#' class='wpmm-search search-close-icon'><i class='fa fa-times'></i></a>
 	                    <div class='wpmm-search-input-wrap'>
 	                        <div class='top-search-overlay'></div>
-	                        $search_form 
+	                        $search_form
 	                    </div>
 	                </div>
                 ";
@@ -394,7 +394,7 @@ if ( ! class_exists('wp_megamenu')) {
 								            </form>
 								        </div>
 
-								         
+
 								        <div class='img' style='background-image: url(". $theme_bg ."); background-size: cover;background-position: 50% 50%;'>
 								            <div class='img__text m--up'>
 								                <h2>Wanna Join?</h2>
@@ -417,9 +417,9 @@ if ( ! class_exists('wp_megamenu')) {
 					}
 				}
 
-				# Woocart. 
+				# Woocart.
 	            $enable_woocart 	= get_wpmm_theme_option('enable_woocart', $theme_id);
-				if ($enable_woocart == 'true' && $depth == 0 && $item->type === 'wpmm_woo_cart') {		
+				if ($enable_woocart == 'true' && $depth == 0 && $item->type === 'wpmm_woo_cart') {
 					if ( class_exists( 'WooCommerce' ) ) {
 						if( !is_cart() && !is_checkout()){
 							$item_output = "<div class='wpmm-menu-cart'>
@@ -427,9 +427,9 @@ if ( ! class_exists('wp_megamenu')) {
 									<div class='wpmm-widget-cart'>
 										".wpmm_header_cart_widgets()."
 									</div>
-								</div>	
+								</div>
 							";
-						} 
+						}
 					}
 				}
 			}
@@ -449,7 +449,7 @@ if ( ! class_exists('wp_megamenu')) {
 			// }
 
             $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
-            
+
 		}
 
 		//Overwrite display_element function to add has_children attribute. Not needed in >= Wordpress 3.4
@@ -501,7 +501,7 @@ if ( ! class_exists('wp_megamenu')) {
 			}
 			//end this element
 			$cb_args = array_merge(array(&$output, $element, $depth), $args);
-			$cb_args = 
+			$cb_args =
 
 			call_user_func_array(array(&$this, 'end_el'), $cb_args);
 		}
@@ -577,7 +577,7 @@ function overrite_functions_wp_megamenu($args){
 		do_action('wpmm_before_nav_theme_activate', $theme_id);
 	}
 
-	
+
 
 	/**
 	 * Backword Compatibility
@@ -618,8 +618,8 @@ function overrite_functions_wp_megamenu($args){
 			</div>
 
 
-			
-		    
+
+
 		';
 
 
@@ -627,7 +627,7 @@ function overrite_functions_wp_megamenu($args){
 		if ($theme_id){
 			$wpmm_wrap_class = "wp-megamenu-wrap {$sticky_class} {$menu_layout_class} {$menu_custom_class}";
 		}
-	
+
 
 		$argunets = array(
 			'menu'                 => $args['menu'],
@@ -735,6 +735,8 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
 			$html = '<div id="wpmmSettingOverlay" style="display: none;"></div><div class="wp-megamenu-item-settins-wrap" style="display: none;">';
 			$html .= '<div class="wpmm-item-settings-content">';
 			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '<div class="wpmm-item-widget-panel" style="display: none;">';
 			$html .= '</div>';
 			echo $html;
 		}

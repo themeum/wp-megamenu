@@ -24,8 +24,12 @@
 
         document.addEventListener('keydown', function (event) {
             if (event.keyCode === 27) {
+                if($('.wpmm-item-widget-panel').is(":visible")){
+                    $('.wpmm-item-widget-panel').hide();
+                }else{
                 $('.wp-megamenu-item-settins-wrap').hide();
-                $('#wpmmSettingOverlay').hide();
+                    $('#wpmmSettingOverlay').hide();
+                }
             }
         });
 
@@ -62,6 +66,37 @@
                 $('.wpmm-item-settings-content').html(response);
                 //settings shortable
                 initiate_sortable();
+
+            }
+        });
+    }
+
+
+
+    function ajax_request_widget_panel_as_menu_item() {
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: "wpmm_item_widget_panel",
+                wpmm_nonce: wpmm.wpmm_nonce
+            },
+            // cache: false,
+            beforeSend: function () {
+                // $('.wpmm-item-settings-content').html('<div class="wpmm-item-loading"></div>');
+            },
+            complete: function () {
+                //$('.wpmm-item-settings-content').empty();
+            },
+            success: function (response) {
+                console.log(response);
+                $('.wpmm-item-widget-panel').show().html(response);
+
+                $('.close-widget-modal').on('click', function (e) {
+                    if($('.wpmm-item-widget-panel').is(":visible")){
+                        $('.wpmm-item-widget-panel').hide();
+                    }
+                })
 
             }
         });
@@ -188,6 +223,13 @@
 
 
             /* wpmm new block */
+            $('.wpmm-add-new-item').on('click', function (e) {
+                e.preventDefault();
+                ajax_request_widget_panel_as_menu_item();
+            })
+            /* wpmm new block */
+
+
             $(".wpmm-column-contents").sortable({
                 connectWith: ".wpmm-column-contents",
                 items: " .wpmm-cell",
