@@ -24,10 +24,10 @@
 
         document.addEventListener('keydown', function (event) {
             if (event.keyCode === 27) {
-                if($('.wpmm-item-widget-panel').is(":visible")){
+                if ($('.wpmm-item-widget-panel').is(":visible")) {
                     $('.wpmm-item-widget-panel').hide();
-                }else{
-                $('.wp-megamenu-item-settins-wrap').hide();
+                } else {
+                    $('.wp-megamenu-item-settins-wrap').hide();
                     $('#wpmmSettingOverlay').hide();
                 }
             }
@@ -71,9 +71,32 @@
         });
     }
 
+    function search_widget_on_modal() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
 
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
 
-    function ajax_request_widget_panel_as_menu_item() {
+    /**
+     * Request for registered widgets to select as megamenu item.
+     *
+     * @return html
+     */
+    function ajax_request_widget_panel_to_select_menu_item() {
         $.ajax({
             type: 'POST',
             url: ajaxurl,
@@ -89,14 +112,39 @@
                 //$('.wpmm-item-settings-content').empty();
             },
             success: function (response) {
-                console.log(response);
                 $('.wpmm-item-widget-panel').show().html(response);
 
                 $('.close-widget-modal').on('click', function (e) {
-                    if($('.wpmm-item-widget-panel').is(":visible")){
+                    if ($('.wpmm-item-widget-panel').is(":visible")) {
                         $('.wpmm-item-widget-panel').hide();
                     }
                 })
+
+
+                input = document.getElementById('input_widget_name');
+                input.onkeyup = (e) => {
+                    var filter, ul, li, items_count_hidden, i, txtValue;
+                    filter = e.target.value.toUpperCase();
+                    ul = document.querySelector(".wpmm-widget-items .wpmm-item-grid");
+                    li = ul.querySelectorAll('.widget-select-item');
+                    no_item = document.querySelector('.no_item');
+
+                    // Loop through all list items, and hide those who don't match the search query
+                    for (i = 0; i < li.length; i++) {
+                        txtValue = li[i].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            li[i].style.display = "";
+                        } else {
+                            li[i].style.display = "none";
+                        }
+                    }
+                    
+                    items_count_hidden = Array.prototype.slice.call(li).reduce(function (a, b) {
+                        return a + (b.style.display != "none" ? 1 : 0)
+                    }, 0);
+                    no_item.style.display = items_count_hidden > 0 ? 'none' : 'block';
+
+                }
 
             }
         });
@@ -225,9 +273,8 @@
             /* wpmm new block */
             $('.wpmm-add-new-item').on('click', function (e) {
                 e.preventDefault();
-                ajax_request_widget_panel_as_menu_item();
+                ajax_request_widget_panel_to_select_menu_item();
             })
-            /* wpmm new block */
 
 
             $(".wpmm-column-contents").sortable({
@@ -235,7 +282,7 @@
                 items: " .wpmm-cell",
                 placeholder: "drop-highlight",
                 update: function (event, ui) {
-                    console.log('layout updated', ui, event);
+                    console.log('item updated');
                 }
 
             }).disableSelection();
@@ -245,7 +292,7 @@
                 handle: '.wpmm-row-sorting-icon',
                 placeholder: "drop-highlight",
                 update: function (event, ui) {
-                    console.log('layout updated', ui, event);
+                    console.log('layout updated');
                 }
             });
 
@@ -255,7 +302,7 @@
                 handle: '.wpmm-col-sorting-icon',
                 placeholder: "drop-col-highlight",
                 update: function (event, ui) {
-                    console.log(ui);
+                    console.log('column updated');
                 }
             });
             /* wpmm new block */
