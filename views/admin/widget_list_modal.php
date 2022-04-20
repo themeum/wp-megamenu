@@ -9,10 +9,10 @@
 			<div class="wpmm-modal-body">
 				<div class="wpmm-item-row wpmm-flex-column wpmm-h-100">
 
-					<div style="padding: 10px 10px 0;"><input id="input_widget_name" class="wpmm-form-control" type="search" placeholder="Search for widgets"></div>
+					<div class="widget_search"><input id="widget_search_field" class="wpmm-form-control" type="search" placeholder="Search for widgets"></div>
 
 					<div class="wpmm-widget-items">
-                        <div class="no_item" style="display: none;padding:10px">No Widget found</div>
+						<div class="no_item" style="display: none;padding:10px">No Widget found</div>
 						<div class="wpmm-item-grid wpmm-gap-1 wpmm-grid-4">
 							<!-- <pre> -->
 							<?php
@@ -29,7 +29,8 @@
 								<?php
 								if ( count( $widgets ) ) {
 									foreach ( $widgets as $key => $value ) {
-										echo '<div class="widget-select-item" data-widget-id-base="' . esc_attr( $value['id_base'] ) . '" data-type="outsideWidget"> ' . esc_html( $value['name'] ) . '</div>';
+                                        print_r($value);
+										echo '<div class="widget-list-item" data-widget-id-base="' . esc_attr( $value['id_base'] ) . '" data-type="outsideWidget"> ' . esc_html( $value['name'] ) . '</div>';
 									}
 								}
 								?>

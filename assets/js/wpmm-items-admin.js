@@ -1,5 +1,13 @@
 (function ($) {
 
+
+    /**
+     *
+     */
+    function load_row_layout() {
+        console.log('load layout');
+    }
+
     /**
      * Open item settings from bottom popup
      */
@@ -24,11 +32,13 @@
 
         document.addEventListener('keydown', function (event) {
             if (event.keyCode === 27) {
-                if ($('.wpmm-item-widget-panel').is(":visible")) {
-                    $('.wpmm-item-widget-panel').hide();
-                } else {
-                    $('.wp-megamenu-item-settins-wrap').hide();
-                    $('#wpmmSettingOverlay').hide();
+                if (!$('#widget_search_field').val()) {
+                    if ($('.wpmm-item-widget-panel').is(":visible")) {
+                        $('.wpmm-item-widget-panel').hide().html('');
+                    } else {
+                        $('.wp-megamenu-item-settins-wrap').hide();
+                        $('#wpmmSettingOverlay').hide();
+                    }
                 }
             }
         });
@@ -37,7 +47,7 @@
 
     var MenuChild = $('#menu-to-edit').children('li.menu-item');
     menu_id = $('input#menu').val();
-    MenuChild.each(function () {
+    MenuChild.on('click', function () {
         var id = parseInt($(this).attr('id').match(/[0-9]+/)[0], 10);
         var depth = $(this).attr('class').match(/\menu-item-depth-(\d+)\b/)[1];
         ajax_request_load_menu_item_settings(id, depth, menu_id);
@@ -66,29 +76,49 @@
                 $('.wpmm-item-settings-content').html(response);
                 //settings shortable
                 initiate_sortable();
+                initiate_actions_on_layout_modal();
 
             }
         });
     }
 
-    function search_widget_on_modal() {
-        // Declare variables
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('myInput');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName('li');
+    /**
+     * @return [type]
+     */
+    function initiate_actions_on_layout_modal() {
+        $('.wpmm-column-layout').on('click', function (e) {
+            load_row_layout();
+        })
+
+
+        $('.wpmm-add-row button').on('click', function (e) {
+            $('.wpmm-add-slots').slideToggle('fast');
+        })
+
+    }
+
+
+    function search_widget_on_modal(e) {
+        var filter, ul, li, items_count_hidden, i, txtValue;
+        filter = e.target.value.toUpperCase();
+        ul = document.querySelector(".wpmm-widget-items .wpmm-item-grid");
+        li = ul.querySelectorAll('.widget-list-item');
+        no_item = document.querySelector('.no_item');
 
         // Loop through all list items, and hide those who don't match the search query
         for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
+            txtValue = li[i].innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
             } else {
                 li[i].style.display = "none";
             }
         }
+
+        items_count_hidden = Array.prototype.slice.call(li).reduce(function (a, b) {
+            return a + (b.style.display != "none" ? 1 : 0)
+        }, 0);
+        no_item.style.display = items_count_hidden > 0 ? 'none' : 'block';
     }
 
     /**
@@ -113,39 +143,19 @@
             },
             success: function (response) {
                 $('.wpmm-item-widget-panel').show().html(response);
+                var widgetSearchField = document.getElementById('widget_search_field');
 
                 $('.close-widget-modal').on('click', function (e) {
                     if ($('.wpmm-item-widget-panel').is(":visible")) {
-                        $('.wpmm-item-widget-panel').hide();
+                        $('.wpmm-item-widget-panel').hide().html('');
                     }
                 })
 
-
-                input = document.getElementById('input_widget_name');
-                input.onkeyup = (e) => {
-                    var filter, ul, li, items_count_hidden, i, txtValue;
-                    filter = e.target.value.toUpperCase();
-                    ul = document.querySelector(".wpmm-widget-items .wpmm-item-grid");
-                    li = ul.querySelectorAll('.widget-select-item');
-                    no_item = document.querySelector('.no_item');
-
-                    // Loop through all list items, and hide those who don't match the search query
-                    for (i = 0; i < li.length; i++) {
-                        txtValue = li[i].innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            li[i].style.display = "";
-                        } else {
-                            li[i].style.display = "none";
-                        }
+                if (widgetSearchField) {
+                    widgetSearchField.onkeyup = (e) => {
+                        search_widget_on_modal(e);
                     }
-                    
-                    items_count_hidden = Array.prototype.slice.call(li).reduce(function (a, b) {
-                        return a + (b.style.display != "none" ? 1 : 0)
-                    }, 0);
-                    no_item.style.display = items_count_hidden > 0 ? 'none' : 'block';
-
                 }
-
             }
         });
     }
