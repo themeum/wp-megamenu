@@ -29,7 +29,7 @@
 								<?php
 								if ( count( $widgets ) ) {
 									foreach ( $widgets as $key => $value ) {
-                                        print_r($value);
+										print_r( $value );
 										echo '<div class="widget-list-item" data-widget-id-base="' . esc_attr( $value['id_base'] ) . '" data-type="outsideWidget"> ' . esc_html( $value['name'] ) . '</div>';
 									}
 								}

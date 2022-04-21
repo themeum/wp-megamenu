@@ -89,7 +89,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                 </div>
             </form>
             <?php
-        } 
+        }
 
         /**
          * get all registere available widget
@@ -114,10 +114,10 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          * Show a widget output in the menu
          */
         public function show_widget( $id ) {
-            
+
             //error_reporting('E_ALL & ~E_NOTICE');
             global $wp_registered_widgets;
-            
+
             $params = array_merge(
                 array( array_merge( array( 'widget_id' => $id, 'widget_name' => $wp_registered_widgets[$id]['name'] ) ) ),
                 (array) $wp_registered_widgets[$id]['params']
@@ -287,6 +287,39 @@ if ( ! class_exists('wp_megamenu_widgets')) {
         public function widget_items($widget_id, $menu_item_id, $widget_key_id = 0){
             ?>
             <div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget"  data-item-key-id="<?php
+            esc_attr_e( $widget_key_id ); ?>">
+                <div class="widget-top">
+
+                    <div class="widget-title-action">
+                        <button type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
+                            <span class="screen-reader-text"><?php printf( __( 'Edit widget: %s' ), $this->wpmm_get_widget_name_by_widget_id($widget_id) ); ?></span>
+                            <span class="toggle-indicator" aria-hidden="true"></span>
+                        </button>
+
+                    </div>
+                    <div class="widget-title">
+                        <h3><?php esc_html_e( $this->wpmm_get_widget_name_by_widget_id($widget_id) ); ?><span class="in-widget-title"></span></h3>
+                    </div>
+                </div>
+
+                <div class="widget-inner widget-inside">
+                    <?php $this->show_wpmm_widget_form($widget_id); ?>
+                </div>
+
+            </div>
+            <?php
+        }
+
+        /**
+         * @param $widget_id
+         * @param $menu_item_id
+         *
+         *
+         * Get widget item in item settings panel
+         */
+        public function widget_item($widget_id, $menu_item_id, $widget_key_id = 0){
+            ?>
+            <div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget wpmm-cell"  data-item-key-id="<?php
             esc_attr_e( $widget_key_id ); ?>">
                 <div class="widget-top">
 

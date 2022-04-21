@@ -4,7 +4,7 @@ if ( ! function_exists('wpmm_get_theme_location')){
     function wpmm_get_theme_location(){
         $locations = get_registered_nav_menus();
         $menus = get_nav_menu_locations();
-        
+
         foreach( $locations as $key => $location_name ){
             if( isset( $menus[$key] ) && $menus[$key] ){
                 $locations[$key].= ' <span class="wpmm-assigned"><strong>( ' . wp_get_nav_menu_object( $menus[$key] )->name .' )</strong></span>';
@@ -1433,9 +1433,9 @@ function wpmm_sanitize_settings_options( $input ) {
 
 /**
  * Sanitize inline css
- * 
+ *
  * @param string|mixed
- * 
+ *
  * @return string|mixed
  */
 function wpmm_sanitize_inline_css_output( $style = null ) {
@@ -1558,6 +1558,34 @@ function wpmm_rating_notice(){
     return;
 }
 
+if ( ! function_exists( 'pr' ) ) {
+	/**
+	 * Function to print_r
+	 *
+	 * @param  array $var
+	 * @return array
+	 */
+	function pr( $var ) {
+		$template = PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg' ? '<pre class="pr">%s</pre>' : "\n%s\n\n";
+		printf( $template, trim( print_r( $var, true ) ) );
+
+		return $var;
+	}
+}
+if ( ! function_exists( 'vd' ) ) {
+	/**
+	 * Function to var_dump
+	 *
+	 * @param  array $var .
+	 * @return array
+	 */
+	function vd( $var ) {
+		$template = PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg' ? '<pre class="pr">%s</pre>' : "\n%s\n\n";
+		printf( $template, trim( var_dump( $var, true ) ) );
+
+		return $var;
+	}
+}
 // add_action("wp_ajax_export_wpmm_theme", "export_wpmm_theme");
 // function export_wpmm_theme(){
 //     print_r($_REQUEST);

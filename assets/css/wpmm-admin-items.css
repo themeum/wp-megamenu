@@ -91,6 +91,10 @@
     text-align: center;
 }
 
+.pr {
+    height: 100%;
+    overflow: scroll;
+}
 /* input-group */
 .wpmm-input-group {
     position: relative;
@@ -411,7 +415,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     border-radius: 5px;
 }
 .wpmm-column-contents{
-    min-height: 50px;
+    min-height: 10px;
 }
 .wpmm-column-toolbar{
     padding: 10px 0;
@@ -420,15 +424,16 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     margin-bottom: 10px;
 }
 
-.wpmm-cell{
-    display: flex;
-    justify-content: space-between;
+.wpmm-item-settings-content .widget.wpmm-cell{
     margin-bottom: 10px;
-    padding: 10px;
     background: #fafafa;
     border: 1px dashed #dedede;
     cursor: move;
     transition: background-color 100ms linear;
+}
+.wpmm-item-settings-content .widget.wpmm-cell .widget-top{
+    background: transparent;
+    border: none;
 }
 .wpmm-cell.ui-sortable-helper{
     opacity: .9;
