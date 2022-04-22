@@ -61,7 +61,7 @@
 
 
     // Get all menu item with class
-    /* var MenuChild  = $('#menu-to-edit').children('li.menu-item');
+    /*var MenuChild  = $('#menu-to-edit').children('li.menu-item');
         menu_id = $('input#menu').val();
     MenuChild.each(function(){
         var id = parseInt($(this).attr('id').match(/[0-9]+/)[0], 10);

@@ -16,20 +16,13 @@
 						<div class="wpmm-item-grid wpmm-gap-1 wpmm-grid-4">
 							<!-- <pre> -->
 							<?php
-
 							// Widgets Manager
 							$widgets_manager = new wp_megamenu_widgets();
 							$widgets         = $widgets_manager->get_all_registered_widget();
-							// global $wp_registered_widgets;
-
-							// print_r($wp_registered_widgets);
-
-							// wp_list_widgets();
 							?>
 								<?php
 								if ( count( $widgets ) ) {
 									foreach ( $widgets as $key => $value ) {
-										print_r( $value );
 										echo '<div class="widget-list-item" data-widget-id-base="' . esc_attr( $value['id_base'] ) . '" data-type="outsideWidget"> ' . esc_html( $value['name'] ) . '</div>';
 									}
 								}

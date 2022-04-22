@@ -79,13 +79,15 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                         }
                     ?>
 
-                    <div class='widget-controls'>
-                        <a class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
-                        <a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
-                    </div>
+                    <div class="wpmm-item-row wpmm-space-between wpmm-align-center">
+                        <div class='widget-controls'>
+                            <a class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
+                            <a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
+                        </div>
 
-                    <?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
-                    <div class="clear"></div>
+                        <?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </form>
             <?php

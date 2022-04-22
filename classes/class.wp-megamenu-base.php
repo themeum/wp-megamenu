@@ -322,7 +322,6 @@ if ( ! class_exists('wp_megamenu_base')) {
 				update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
 			}
 
-			// include WPMM_DIR.'views/admin/item_settings_x.php';
 			include WPMM_DIR.'views/admin/item_settings.php';
 			die();
 		}

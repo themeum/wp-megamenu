@@ -8,43 +8,54 @@
     display: flex;
 }
 
-.wpmm-item-col-12{
+.wpmm-item-col-12 {
     width: 100%;
 }
-.wpmm-item-col-6{
+
+.wpmm-item-col-6 {
     width: 50%;
 }
-.wpmm-item-col-4{
+
+.wpmm-item-col-4 {
     width: 33.3333333%;
 }
-.wpmm-item-col-3{
+
+.wpmm-item-col-3 {
     width: 25%;
 }
-.wpmm-item-col-2{
+
+.wpmm-item-col-2 {
     width: 16.666666%;
 }
-.wpmm-item-col-5{
+
+.wpmm-item-col-5 {
     width: 37%;
 }
-.wpmm-item-col-7{
+
+.wpmm-item-col-7 {
     width: 57%;
 }
-.wpmm-item-col-8{
+
+.wpmm-item-col-8 {
     width: 66.666667%;
 }
-.wpmm-item-col-10{
+
+.wpmm-item-col-10 {
     width: 83.333333%;
 }
 
-.wpmm-flex-column{
+.wpmm-flex-column {
     flex-direction: column;
 }
+
 .wpmm-wrap {
     flex-wrap: wrap;
 }
-.wpmm-h-100{
+
+.wpmm-h-100 {
     height: 100%;
 }
+
 .wpmm-space-between {
     justify-content: space-between;
 }
@@ -57,9 +68,11 @@
 .wpmm-align-center {
     align-items: center;
 }
-.wpmm-grid-4{
+
+.wpmm-grid-4 {
     grid-template-columns: auto auto auto auto;
 }
+
 .wpmm-gap-1 {
     gap: 1em;
 }
@@ -95,11 +108,11 @@
     height: 100%;
     overflow: scroll;
 }
+
 /* input-group */
 .wpmm-input-group {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     align-items: stretch;
 }
 
@@ -201,7 +214,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 }
 
 .wpmm-form-switch {
-    padding-left: 2.5em;
+    padding-left: 0;
 }
 
 .wpmm-form-switch .wpmm-form-check-input {
@@ -230,6 +243,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     position: relative;
     color: #3c434a;
 }
+
 [type="button"].fa-close {
     background: none;
     border: 1px solid #555;
@@ -239,10 +253,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     width: 24px;
     transition: all 300ms;
 }
-[type="button"].fa-close:hover{
+
+[type="button"].fa-close:hover {
     color: #f00;
     border-color: #f00;
 }
+
 .wpmm-row-column input[type=number] {
     max-width: 60px;
 }
@@ -252,11 +268,18 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     padding-right: 5px;
 }
 
+.wpmm-modal .wpmm-item-sidebar input[type=color] {
+    max-width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
 .wpmm-modal .wpmm-item-sidebar input:not([type="checkbox"]),
 .wpmm-modal .wpmm-item-sidebar input[type=number],
 .wpmm-modal .wpmm-item-sidebar select {
     height: 30px;
     font-size: 13px;
+    width: 100%;
 }
 
 .wpmm-modal,
@@ -295,6 +318,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     overflow: hidden;
     height: 100%;
 }
+
 .wpmm-modal .wpmm-option-content {
     flex-grow: 1;
     overflow: hidden;
@@ -322,7 +346,13 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     padding-right: 20px;
 }
 
-.wpmm-modal-dialog {}
+.wpmm-item-content .widget-content {
+    padding: 1px 16px 16px;
+}
+
+.wpmm-item-content .widget-inside {
+    border: none;
+}
 
 .wpmm-ml-3 {
     margin-left: 1.5em;
@@ -331,13 +361,15 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 .wpmm-ml-5 {
     margin-left: 2em;
 }
-.wpmm-mr-2{
+
+.wpmm-mr-2 {
     margin-right: 0.5em;
 }
 
 /* content area css */
 .wpmm-add-row {
     margin-top: 40px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -390,67 +422,79 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 .wpmm-row-sorting-icon {
     cursor: ns-resize;
 }
-.wpmm-custom-layout{
+
+.wpmm-custom-layout {
     display: none;
 }
 
 /* .wpmm-layout-row:not(:first-child){
     margin-top: 20px;
 } */
-.wpmm-layout-row{
+.wpmm-layout-row {
     background: #fafafa;
     padding: 0 16px 20px;
     margin-bottom: 20px;
     box-shadow: 0px 2px 4px rgb(20 50 80 / 20%);
     border-radius: 5px;
 }
-.wpmm-row-toolbar{
+
+.wpmm-row-toolbar {
     padding: 10px 0;
 }
 
-.wpmm-column-contents-wrapper{
+.wpmm-column-contents-wrapper {
     background: #ffffff;
     padding: 0 10px 10px;
     box-shadow: 0px 2px 4px rgb(20 50 80 / 20%);
     border-radius: 5px;
 }
-.wpmm-column-contents{
+
+.wpmm-column-contents {
     min-height: 10px;
 }
-.wpmm-column-toolbar{
+
+.wpmm-column-toolbar {
     padding: 10px 0;
 }
-.drop-highlight{
+
+.drop-highlight {
     margin-bottom: 10px;
 }
 
-.wpmm-item-settings-content .widget.wpmm-cell{
+.wpmm-item-settings-content .widget.wpmm-cell {
     margin-bottom: 10px;
     background: #fafafa;
     border: 1px dashed #dedede;
-    cursor: move;
     transition: background-color 100ms linear;
 }
-.wpmm-item-settings-content .widget.wpmm-cell .widget-top{
+
+.wpmm-item-settings-content .widget.wpmm-cell .widget-top {
     background: transparent;
     border: none;
+    cursor: move;
+    user-select: none;
 }
-.wpmm-cell.ui-sortable-helper{
+
+.wpmm-cell.ui-sortable-helper {
     opacity: .9;
     transform: scale(.7);
 }
-.wpmm-col-sorting-icon{
+
+.wpmm-col-sorting-icon {
     cursor: ew-resize;
 }
-.wpmm-col-sorting-icon:active{
+
+.wpmm-col-sorting-icon:active {
     cursor: grab;
 }
-.wpmm-btn-link{
+
+.wpmm-btn-link {
     border: none;
     background: none;
     cursor: pointer;
 }
-.wpmm-add-new-item{
+
+.wpmm-add-new-item {
     width: 100%;
     border: 1px dashed #dedede;
     text-align: center;
@@ -459,10 +503,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     background: #fafafa;
     transition: background-color 100ms linear;
 }
+
 .wpmm-add-new-item:hover,
-.wpmm-cell:hover{
+.wpmm-cell:hover {
     background: #e9e9e9;
 }
+
 .wpmm-item-widget-panel {
     position: absolute;
     border: 1px solid #ccc;
@@ -480,21 +526,28 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     margin: auto;
     transition: all 300ms;
 }
+
+.wpmm-modal * {
+    box-sizing: border-box;
+}
+
 .wpmm-item-widget-panel .wpmm-modal .wpmm-modal-header {
     background: #ccc;
     padding: 16px;
 }
 
-.wpmm-widget-items{
+.wpmm-widget-items {
     padding: 10px 16px;
     overflow-y: scroll;
     height: 100%;
     box-sizing: border-box;
 }
-.wpmm-widget-items .widget{
+
+.wpmm-widget-items .widget {
     width: 100%;
     margin-bottom: 0;
 }
+
 .widget-list-item {
     box-shadow: 0 0 3px -1px #555;
     padding: 10px 20px;
@@ -503,19 +556,26 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     transition: all 300ms;
     border-radius: 5px;
 }
+
 .widget-list-item:hover {
     box-shadow: 0 0 5px -1px #555;
     background: #fafafa;
     text-shadow: 0 0 #555;
 }
+
 .widget-list-item:active {
     background: #eeeeee;
     transform: scale(.96);
-    user-select: none;
 }
-.widget_search{
+
+.widget_search {
     padding: 10px 16px 0;
 }
-.widget_search input[type=search]{
+
+.widget_search input[type=search] {
     border-color: #ccc;
+}
+
+.wpmm-modal .widget-controls .clear{
+    display: none;
 }

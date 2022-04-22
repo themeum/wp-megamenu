@@ -86,6 +86,83 @@
      * @return [type]
      */
     function initiate_actions_on_layout_modal() {
+        $('.widget-list-item').on('click', function (e) {
+            e.preventDefault();
+            //alert('Connected Receive first call');
+            /* wpmm_saving_indicator('show');
+            var from_item_index = ui.item.attr('data-item-key-id');
+
+            var item_order = $(this).sortable('toArray', { attribute: 'data-item-key-id' }).toString();
+            var last_index = item_order.split(',').pop();
+
+
+            var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
+
+            var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
+            var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
+
+            var from_row_id = parseInt(ui.sender.closest('.wpmm-row').data('row-id'));
+            var from_col_id = parseInt(ui.sender.closest('.wpmm-col').data('col-id'));
+
+            //outsideWidget drag to inside
+            if (ui.sender.attr('data-type') === 'outsideWidget') {
+                var reorder_item_type = ui.sender.attr('data-type');
+                var widget_base_id = ui.sender.attr('data-widget-id-base');
+
+                var data = {
+                    action: 'wpmm_drag_to_add_widget_item',
+                    menu_item_id: menu_item_id,
+                    item_order: item_order,
+                    row_id: row_id,
+                    col_id: col_id,
+
+                    type: 'connect',
+                    from_item_index: from_item_index,
+
+                    widget_base_id: widget_base_id,
+                    reorder_item_type: reorder_item_type,
+                    last_index: last_index
+                };
+
+                //Saving via post method in db
+                $.post(ajaxurl, data, function (response) {
+                    if (response.success) {
+                        var menu_id = $('input#menu').val();
+                        ajax_request_load_menu_item_settings(menu_item_id, 0, menu_id);
+                    }
+                    wpmm_saving_indicator('hide');
+                });
+
+            } else {
+                //rearrange inner widget or menu item
+                var from_item_order = ui.sender.sortable('toArray', { attribute: 'data-item-key-id' }).toString();
+
+                var data = {
+                    action: 'wpmm_reorder_items',
+                    menu_item_id: menu_item_id,
+                    item_order: item_order,
+                    row_id: row_id,
+                    col_id: col_id,
+
+                    type: 'connect',
+                    from_item_order: from_item_order,
+                    from_item_index: from_item_index,
+                    from_row_id: from_row_id,
+                    from_col_id: from_col_id
+                };
+
+
+                $.post(ajaxurl, data, function (response) {
+                    wpmm_saving_indicator('hide');
+                });
+            } */
+        });
+
+        $('.widget-form-open,.widget-controls a.close').on('click', function (e) {
+            e.preventDefault();
+            $(this).closest('.widget').find('.widget-inner').slideToggle('fast');
+        });
+
         $('.wpmm-column-layout').on('click', function (e) {
             load_row_layout();
         })
@@ -172,6 +249,7 @@
                 items: " .widget",
                 placeholder: "drop-highlight",
                 receive: function (event, ui) {
+                    console.log(ui);
                     //alert('Connected Receive first call');
                     wpmm_saving_indicator('show');
                     var from_item_index = ui.item.attr('data-item-key-id');
@@ -290,6 +368,7 @@
             $(".wpmm-column-contents").sortable({
                 connectWith: ".wpmm-column-contents",
                 items: " .wpmm-cell",
+                handle: '.widget-top',
                 placeholder: "drop-highlight",
                 update: function (event, ui) {
                     console.log('item updated');
