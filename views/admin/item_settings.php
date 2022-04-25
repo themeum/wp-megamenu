@@ -26,7 +26,6 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $widgets_manager = new wp_megamenu_widgets();
 $widgets         = $widgets_manager->get_all_registered_widget();
 // Get Menu Name
-// pr($wpmm_layout);
 ?>
 
 	<div class="wpmm-modal" tabindex="-1" role="dialog">
@@ -351,9 +350,9 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 
 
 						<div class="wpmm-add-row">
-							<button class="button-primary"><i class="fa fa-plus"></i> Add New Row</button>
+							<button class="select_layout button-primary"><i class="fa fa-plus"></i> Add New Row</button>
 						</div>
-						<div class="wpmm-add-slots" style="display: block;">
+						<div class="wpmm-add-slots" id="layout-modal" style="display: block;">
 							<div class="wpmm-columns-layout">
 								<div class="wpmm-item-grid wpmm-gap-1 wpmm-text-center">
 										<div class="wpmm-grid-item">

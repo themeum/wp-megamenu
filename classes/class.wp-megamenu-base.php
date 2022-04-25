@@ -29,6 +29,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 			add_action('admin_menu', array($this, 'wp_megamenu_admin_menus'));
 			add_action('admin_init', array( $this, 'register_settings' ) );
 			add_action('wp_ajax_wpmm_item_settings_load', array($this, 'wpmm_item_settings_load'));
+			add_action('wp_ajax_wpmm_item_row_load', array($this, 'wpmm_item_row_load'));
 			add_action('wp_ajax_wpmm_item_widget_panel', array($this, 'wpmm_item_widget_panel'));
 			add_filter('wp_nav_menu_objects', array( $this, 'add_widgets_to_menu' ), 10, 2 );
 			add_filter('body_class', array($this, 'add_body_classes'), 10, 1);
@@ -323,6 +324,88 @@ if ( ! class_exists('wp_megamenu_base')) {
 			}
 
 			include WPMM_DIR.'views/admin/item_settings.php';
+			die();
+		}
+
+		/**
+		 * Show settings menu
+		 */
+		public function wpmm_item_row_load(){
+			if(! current_user_can('administrator')) {
+                return;
+            }
+			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
+
+			$menu_item_id = (int) sanitize_text_field($_POST['menu_item_id']);
+			$menu_id = (int) sanitize_text_field($_POST['menu_id']);
+			$menu_item_depth = (int) sanitize_text_field($_POST['menu_item_depth']);
+
+			//We are working with top level menu
+			if ($menu_item_depth == 0) {
+				//Setting item settings in the menu
+				//Getting and setting sub menu in the wp MegaMenu
+
+				$get_layout = (array) get_post_meta($menu_item_id, 'wpmm_layout', true);
+				$array_menu = wp_get_nav_menu_items($menu_id);
+
+				if (empty($get_menu_settings['menu_type'])){
+					$get_menu_settings['menu_type'] = 'wpmm_dropdown_menu';
+				}
+
+				$new_menu_item_id = array();
+				$unique_items = array();
+				foreach ($array_menu as $m) {
+					if ($m->menu_item_parent && ($m->menu_item_parent == $menu_item_id)) {
+						$unique_items[$m->ID] = array('item_type' => 'menu_item', 'ID' => $m->ID, 'title' => $m->title, 'url' => $m->url, 'description' => $m->description, 'options' => array());
+						$new_menu_item_id[] = $m->ID;
+					}
+				}
+
+				//print_row($get_layout);
+				if (! empty($get_layout['layout'])){
+					foreach($get_layout['layout'] as $lkey => $all_layout){
+						if (count($all_layout['row'])){
+							foreach ($all_layout['row'] as $rkey => $cols){
+								//print_row($cols['items']);
+								foreach ($cols['items'] as $col_key => $col_item){
+									//print_row($col_item);
+									if ($col_item['item_type'] === 'menu_item'){
+										//print_row($unique_items[$col_item['ID']]['title']);
+										//print_row($unique_items['ID']['title']);
+										if (array_key_exists($col_item['ID'], $unique_items)){
+											//Assigning New name, if changed name of item
+											$get_layout['layout'][$lkey]['row'][$rkey]['items'][$col_key]['title'] = $unique_items[$col_item['ID']]['title'];
+											unset($unique_items[$col_item['ID']]);
+										}
+										if ( ! in_array($col_item['ID'], $new_menu_item_id)){
+											unset($get_layout['layout'][$lkey]['row'][$rkey]['items'][$col_key] );
+										}
+										//removing check, if not in array();
+									}
+								}
+							}
+						}
+					}
+				}
+
+				//die(print_row($get_layout));
+				if ( ! empty($unique_items)){
+					$firrst_row_key = wpmm_get_array_first_key($get_layout['layout']);
+					$first_col_key = wpmm_get_array_first_key($get_layout['layout'][$firrst_row_key]['row']);
+
+					if ( ! empty($get_layout['layout'][$firrst_row_key]['row'][$first_col_key]['items'])){
+						$get_layout['layout'][$firrst_row_key]['row'][$first_col_key]['items'] = array_merge($get_layout['layout'][$firrst_row_key]['row'][$first_col_key]['items'],
+							array_values($unique_items));
+					}else{
+						//$get_layout['layout'][0]['row'][0]['col'] = 12;
+						$get_layout['layout'][0]['row'][0]['items'] = array_values($unique_items);
+					}
+				}
+
+				update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
+			}
+
+			include WPMM_DIR.'views/admin/item_row.php';
 			die();
 		}
 
