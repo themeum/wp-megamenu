@@ -356,77 +356,77 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-columns-layout">
 								<div class="wpmm-item-grid wpmm-gap-1 wpmm-text-center">
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="12" class="layout12" data-layout="12" data-design="layout12">
+											<div class="wpmm-column-layout" data-layout="12" data-design="layout12">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="51" height="17" fill="none"><rect width="50.78" height="16.927" fill-opacity=".3" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">12</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="6+6">
+											<div class="wpmm-column-layout" data-layout="6,6" data-design="layout66">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="23.79" height="16.221" fill-opacity=".3" rx="2"></rect><rect width="23.79" height="16.221" fill-opacity=".7" rx="2"></rect><rect width="23.79" height="16.221" x="25.681" fill-opacity=".3" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">6+6</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="4+4+4">
+											<div class="wpmm-column-layout" data-layout="4,4,4" data-design="layout444">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="15.139" height="16.221" fill-opacity=".3" rx="2"></rect><rect width="15.139" height="16.221" x="17.302" fill-opacity=".3" rx="2"></rect><rect width="15.139" height="16.221" x="17.302" fill-opacity=".7" rx="2"></rect><rect width="15.139" height="16.221" x="34.605" fill-opacity=".3" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">4+4+4</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="3+3+3+3">
+											<div class="wpmm-column-layout" data-layout="3,3,3,3" data-design="layout3333">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="51" height="17" fill="none"><rect width="10.814" height="16.221" fill-opacity=".3" rx="2"></rect><rect width="10.814" height="16.221" x="12.974" fill-opacity=".3" rx="2"></rect><rect width="10.814" height="16.221" x="12.974" fill-opacity=".7" rx="2"></rect><rect width="10.814" height="16.221" x="25.95" fill-opacity=".3" rx="2"></rect><rect width="11.354" height="16.221" x="38.929" fill-opacity=".3" rx="2"></rect><rect width="11.354" height="16.221" x="38.929" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">3+3+3+3</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="4+8">
+											<div class="wpmm-column-layout" data-layout="4,8" data-design="layout48">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="15.139" height="16.221" fill-opacity=".3" rx="2"></rect><rect width="33" height="16" x="17" fill-opacity=".3" rx="2"></rect><rect width="33" height="16" x="17" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">4+8</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="3+9">
+											<div class="wpmm-column-layout" data-layout="3,9" data-design="layout39">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="10.814" height="16.221" fill-opacity=".7" rx="2"></rect><rect width="37" height="16" x="13" fill-opacity=".3" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">3+9</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="3+6+3">
+											<div class="wpmm-column-layout" data-layout="3,6,3" data-design="layout363">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="10.543" height="16.221" fill-opacity=".3" rx="2"></rect><rect width="11.084" height="16.221" x="38.659" fill-opacity=".3" rx="2"></rect><rect width="23.79" height="16.221" x="12.704" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">3+6+3</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="2+6+4">
+											<div class="wpmm-column-layout" data-layout="2,6,4" data-design="layout264">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="51" height="17" fill="none"><rect width="6.488" height="16.221" x=".143" fill-opacity=".7" rx="2"></rect><rect width="23.79" height="16.221" x="9" fill-opacity=".3" rx="2"></rect><rect width="15.139" height="16.221" x="35" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">2+6+4</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="2+10">
+											<div class="wpmm-column-layout" data-layout="2,10" data-design="layout210">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="6.488" height="16.221" x=".143" fill-opacity=".3" rx="2"></rect><rect width="41" height="16" x="9" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">2+10</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="5+7">
+											<div class="wpmm-column-layout" data-layout="5,7" data-design="layout57">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="28.927" height="16.221" x="20.653" fill-opacity=".7" rx="2"></rect><rect width="18.654" height="16.221" fill-opacity=".3" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">5+7</span>
 											</div>
 										</div>
 										<div class="wpmm-grid-item">
-											<div class="wpmm-column-layout" data-layout="2+3+7">
+											<div class="wpmm-column-layout" data-layout="2,3,7" data-design="layout237">
 												<div class="wpmm-column-layout-preview">
 													<svg xmlns="http://www.w3.org/2000/svg" width="50" height="17" fill="none"><rect width="6.488" height="16.221" x=".143" fill-opacity=".7" rx="2"></rect><rect width="10" height="16.221" x="8.7" fill-opacity=".3" rx="2"></rect><rect width="28.927" height="16.221" x="20.653" fill-opacity=".7" rx="2"></rect></svg>					</div>
 												<span class="wpmm-column-layout-name">2+3+7</span>

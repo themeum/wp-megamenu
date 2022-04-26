@@ -876,7 +876,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 					$col_data = array();
 				}
 			}
-
+// wp_send_json($layout_format);
 			//If this is first row, add top menu item here
 			if ($current_rows === 0) {
 				$menu_id = (int)sanitize_text_field($_POST['menu_id']);

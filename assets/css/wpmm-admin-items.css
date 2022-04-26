@@ -40,6 +40,10 @@
     width: 66.666667%;
 }
 
+.wpmm-item-col-9 {
+    width: 75%;
+}
+
 .wpmm-item-col-10 {
     width: 83.333333%;
 }
@@ -578,4 +582,28 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 
 .wpmm-modal .widget-controls .clear{
     display: none;
+}
+#wpmm_layout_wrapper {
+    position: relative;
+}
+#wpmm_layout_wrapper.loading:before {
+    content: 'Loading...';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#wpmm_layout_wrapper.loading:after {
+    content: '';
+    position: absolute;
+    background: rgb(0 0 0 / 20%);
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.wpmm-row-delete-icon{
+    cursor: pointer;
 }
