@@ -26,8 +26,9 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $widgets_manager = new wp_megamenu_widgets();
 $widgets         = $widgets_manager->get_all_registered_widget();
 // Get Menu Name
-// pr($wpmm_layout);
-?>
+pr($wpmm_layout);
+// pr((json_encode($wpmm_layout)));
+// ?>
 
 <?php
 if ( ! empty( $wpmm_layout['layout'] ) && count( $wpmm_layout['layout'] ) ) {

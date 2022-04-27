@@ -240,8 +240,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 			// wp_get_sidebars_widgets();
 
 			include WPMM_DIR.'views/admin/widget_list_modal.php';
-			$content = ob_get_clean();
-			echo $content;
+			echo ob_get_clean();
 			die();
 		}
 

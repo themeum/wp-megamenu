@@ -26,6 +26,7 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $widgets_manager = new wp_megamenu_widgets();
 $widgets         = $widgets_manager->get_all_registered_widget();
 // Get Menu Name
+// pr($wpmm_layout);
 ?>
 
 	<div class="wpmm-modal" tabindex="-1" role="dialog">
@@ -311,7 +312,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
 													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
 													?>
-											<div class="wpmm-item-col wpmm-item-col-<?php echo esc_attr( $layout_columns ); ?>" data-rowid="2" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+											<div class="wpmm-item-col wpmm-item-col-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="2" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">
 													<div class="wpmm-column-toolbar wpmm-column-drag-handler">
 														<span class="wpmm-col-sorting-icon">
@@ -455,7 +456,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 			<div class="wpmm-modal-footer wpmm-justify-end">
 				<button type="button" class="button-secondary close-modal" data-dismiss="wpmm-modal">Close</button>
 				<div class="wpmm-ml-3">
-					<button type="button" class="button-primary">Save changes</button>
+					<button type="button" class="button-primary wpmm-btn-spinner-">Save changes</button>
 				</div>
 			</div>
 		</div>

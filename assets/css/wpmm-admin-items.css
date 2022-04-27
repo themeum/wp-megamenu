@@ -580,12 +580,14 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     border-color: #ccc;
 }
 
-.wpmm-modal .widget-controls .clear{
+.wpmm-modal .widget-controls .clear {
     display: none;
 }
+
 #wpmm_layout_wrapper {
     position: relative;
 }
+
 #wpmm_layout_wrapper.loading:before {
     content: 'Loading...';
     position: absolute;
@@ -595,6 +597,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     justify-content: center;
     align-items: center;
 }
+
 #wpmm_layout_wrapper.loading:after {
     content: '';
     position: absolute;
@@ -604,6 +607,38 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     height: 100%;
     top: 0;
 }
-.wpmm-row-delete-icon{
+
+.wpmm-row-delete-icon {
     cursor: pointer;
+}
+
+@-webkit-keyframes spinner-border {
+    to {
+        transform: rotate(360deg)
+            /* rtl:ignore */
+        ;
+    }
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg)
+            /* rtl:ignore */
+        ;
+    }
+}
+
+.wpmm-btn-spinner:before {
+    content: '';
+    display: inline-block;
+    vertical-align: -.125em;
+    border: .25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: .75s linear infinite spinner-border;
+    animation: .75s linear infinite spinner-border;
+    width: .5rem;
+    height: .5rem;
+    border-width: .2em;
+    margin-right: 10px;
 }

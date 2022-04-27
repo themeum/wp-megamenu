@@ -4,6 +4,11 @@
     /**
      *
      */
+    function create_row_layout(element, menu_item_id) {
+
+        // console.log(element);
+
+    }
     function load_row_layout(element, menu_item_id) {
 
         var layout_selector = element;
@@ -127,8 +132,8 @@
                         $('#wpmm_layout_wrapper').removeClass('loading');
                     }, 100)
 
-                    $('#layout-modal').hide();
-                },3000)
+                    $('#layout-modal').hide('fast');
+                }, 3000)
                 //settings shortable
                 wpmm_delete_any_row();
                 initiate_sortable();
@@ -234,8 +239,33 @@
         });
 
         $('.wpmm-column-layout').on('click', function (e) {
-            $('#wpmm_layout_wrapper').addClass('loading');
-            load_row_layout($(this),menu_item_id);
+            // $('#wpmm_layout_wrapper').addClass('loading');
+            let wpmm_layout = document.getElementById('wpmm_layout_wrapper');
+            console.log(wpmm_layout);
+            let wpmm_rows = wpmm_layout && wpmm_layout.querySelectorAll('.wpmm-layout-row');
+            let layout_array = [];
+            layout_array.layout = [];
+            layout_array.layout.row = [];
+            layout_array.layout.row.column = [];
+            wpmm_rows.forEach((row, i) => {
+                let row_columns = row && row.querySelectorAll('.wpmm-item-col');
+                row_columns.forEach((col) => {
+                    layout_array.layout.row[row.dataset.rowId] = col;
+                })
+                layout_array.layout.row[row.dataset.rowId] = row_columns;
+            });
+
+            console.log(layout_array);
+            // console.log(wpmm_rows);
+
+
+
+
+
+
+            // console.log(wpmm_layout);
+            create_row_layout($(this), menu_item_id);
+            // load_row_layout($(this),menu_item_id);
         })
 
 
@@ -317,11 +347,11 @@
      * Select Widget as menu item
      */
     function wpmm_add_new_item() {
-            /* wpmm new block */
-            $('.wpmm-add-new-item').on('click', function (e) {
-                e.preventDefault();
-                ajax_request_widget_panel_to_select_menu_item();
-            })
+        /* wpmm new block */
+        $('.wpmm-add-new-item').on('click', function (e) {
+            e.preventDefault();
+            ajax_request_widget_panel_to_select_menu_item();
+        })
     }
 
     /**
@@ -339,7 +369,7 @@
                 wpmm_nonce: wpmm.wpmm_nonce
             };
             $.post(ajaxurl, data, function (response) {
-                if (response.success){
+                if (response.success) {
                     button_clicked.closest('.wpmm-layout-row').remove();
                 }
             });
