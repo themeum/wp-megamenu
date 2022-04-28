@@ -4,30 +4,48 @@
     /**
      *
      */
-    function create_row_layout(element, menu_item_id) {
+    function create_row_layout(element, layout_array) {
 
-        // console.log(element);
+        let column_ui = '';
+        layout_array.forEach(col => {
+            let colNum = col.column;
+            column_ui += `
+                <div class="wpmm-item-col wpmm-item-col-${colNum}" data-col="${colNum}" data-rowid="2" data-col-id="0">
+                    <div class="wpmm-column-contents-wrapper">
+                        <div class="wpmm-column-toolbar wpmm-column-drag-handler">
+                            <span class="wpmm-col-sorting-icon ui-sortable-handle">
+                                <i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+                            </span>
+                        </div>
+                        <div class="wpmm-column-contents ui-sortable">
+                        </div>
+                        <div class="wpmm-add-item-wrapper">
+                            <button class="wpmm-add-new-item" title="Add Module">
+                                <span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        })
+        rowLayout = `
+        <div class="wpmm-layout-row" data-row-id="1">
+            <div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align ui-sortable">
+                <div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
+                    <i class="fa fa-sort wpmm-mr-2"></i>
+                    <span>Row</span>
+                </div>
+                <div class="wpmm-row-toolbar-right">
+                    <span class="wpmm-row-delete-icon">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="wpmm-columns-container wpmm-item-row wpmm-gap-1 ui-sortable">
+                ${column_ui}
+            </div>
+        </div>`;
+        $('#wpmm_layout_wrapper').append(rowLayout);
 
-    }
-    function load_row_layout(element, menu_item_id) {
-
-        var layout_selector = element;
-        // var menu_item_id = parseInt($('#layout-modal').attr('data-menu-item-id'));
-        var menu_id = $('input#menu').val();
-
-        //var layout_design = $('#'+$(this).data('design')).html();
-        var layout_format = element.data('layout');
-        var layout_name = element.data('design');
-        var current_rows = $('#wpmm_layout_wrapper .wpmm-layout-row').length;
-
-        //$('.item-widgets-wrap').html(layout_design);
-        $.post(ajaxurl, { action: 'wpmm_save_layout', layout_format: layout_format, layout_name: layout_name, menu_item_id: menu_item_id, current_rows: current_rows, menu_id: menu_id, wpmm_nonce: wpmm.wpmm_nonce }, function (response) {
-            //$('#wpmm_item_layout_wrap').html(response);
-            ajax_request_load_menu_item_row(menu_item_id, 0, menu_id);
-            //initiate_sortable();
-
-            // layout_selector.closest('#layout-modal').hide();
-        });
     }
 
     /**
@@ -149,7 +167,7 @@
     function initiate_actions_on_layout_modal(menu_item_id) {
         $('.widget-list-item').on('click', function (e) {
             e.preventDefault();
-            //alert('Connected Receive first call');
+
             wpmm_saving_indicator('show');
             var from_item_index = ui.item.attr('data-item-key-id');
 
@@ -239,41 +257,45 @@
         });
 
         $('.wpmm-column-layout').on('click', function (e) {
-            // $('#wpmm_layout_wrapper').addClass('loading');
-            let wpmm_layout = document.getElementById('wpmm_layout_wrapper');
-            console.log(wpmm_layout);
-            let wpmm_rows = wpmm_layout && wpmm_layout.querySelectorAll('.wpmm-layout-row');
-            let layout_array = [];
-            layout_array.layout = [];
-            layout_array.layout.row = [];
-            layout_array.layout.row.column = [];
-            wpmm_rows.forEach((row, i) => {
-                let row_columns = row && row.querySelectorAll('.wpmm-item-col');
-                row_columns.forEach((col) => {
-                    layout_array.layout.row[row.dataset.rowId] = col;
+
+
+            layout = document.getElementById('wpmm_layout_wrapper');
+            rows = layout && layout.querySelectorAll('.wpmm-layout-row');
+            layout_array = [];
+            rows.forEach(row => {
+                cols = row.querySelectorAll('.wpmm-item-col')
+                colsArr = []
+                cols.forEach(col => {
+                    colsArr.push({
+                        id: col.dataset.colId,
+                        column: col.dataset.col
+                    })
                 })
-                layout_array.layout.row[row.dataset.rowId] = row_columns;
+                layout_array.push({
+                    columns: colsArr
+                })
             });
-
-            console.log(layout_array);
-            // console.log(wpmm_rows);
+            layout_array.push({ columns });
 
 
+            newLayout = $(this).data('layout');
+            newLayoutArr = ('string' === typeof newLayout) ? newLayout.split(',') : [newLayout];
 
+            columns = [];
+            newLayoutArr.forEach((col, i) => {
+                columns.push({
+                    id: i,
+                    column: col
+                })
+            })
 
-
-
-            // console.log(wpmm_layout);
-            create_row_layout($(this), menu_item_id);
-            // load_row_layout($(this),menu_item_id);
+            create_row_layout($(this), columns);
+            wpmm_add_new_item();
         })
 
 
-        // $(document).off('.select_layout').on('click', '.select_layout', function (e) {
         $('.select_layout').on('click', function (e) {
-            // console.log(menu_item_id);
             $('#layout-modal').attr('data-menu-item-id', menu_item_id).slideDown('fast');
-            // $('.wpmm-add-slots').slideToggle('fast');
         });
 
     }
