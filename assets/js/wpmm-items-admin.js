@@ -13,11 +13,11 @@
                 <div class="wpmm-item-col wpmm-item-col-${colNum}" data-col="${colNum}" data-rowid="2" data-col-id="0">
                     <div class="wpmm-column-contents-wrapper">
                         <div class="wpmm-column-toolbar wpmm-column-drag-handler">
-                            <span class="wpmm-col-sorting-icon ui-sortable-handle">
+                            <span class="wpmm-col-sorting-icon">
                                 <i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
                             </span>
                         </div>
-                        <div class="wpmm-column-contents ui-sortable">
+                        <div class="wpmm-column-contents">
                         </div>
                         <div class="wpmm-add-item-wrapper">
                             <button class="wpmm-add-new-item" title="Add Module">
@@ -29,7 +29,7 @@
         })
         rowLayout = `
         <div class="wpmm-layout-row" data-row-id="1">
-            <div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align ui-sortable">
+            <div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
                 <div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
                     <i class="fa fa-sort wpmm-mr-2"></i>
                     <span>Row</span>
@@ -40,7 +40,7 @@
                     </span>
                 </div>
             </div>
-            <div class="wpmm-columns-container wpmm-item-row wpmm-gap-1 ui-sortable">
+            <div class="wpmm-columns-container wpmm-item-row wpmm-gap-1">
                 ${column_ui}
             </div>
         </div>`;
