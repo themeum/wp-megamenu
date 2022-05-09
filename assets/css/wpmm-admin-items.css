@@ -7,7 +7,9 @@
 .wpmm-item-row {
     display: flex;
 }
-
+.wpmm-item-col{
+    width: var(--col-width);
+}
 .wpmm-item-col-12 {
     width: 100%;
 }
@@ -337,7 +339,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     padding: 16px;
     box-shadow: 0px 2px 4px rgb(20 50 80 / 20%);
     border-radius: 5px;
-    width: 230px;
+    width: 300px;
     margin-right: 10px;
     overflow: hidden scroll;
 }

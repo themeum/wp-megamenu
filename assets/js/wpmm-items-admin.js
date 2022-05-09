@@ -4,13 +4,17 @@
     /**
      *
      */
-    function create_row_layout(element, layout_array) {
-
+    function create_row_layout(layout, layout_array, column_count) {
+console.log(layout_array.length);
+        col_gap = 1/layout_array.length;
         let column_ui = '';
-        layout_array.forEach(col => {
+        layout_array.forEach((col, index) => {
             let colNum = col.column;
+            colWidthX = colNum * 100 / column_count;
+            console.log(colWidthX);
+            colWidth = colNum * 10;
             column_ui += `
-                <div class="wpmm-item-col wpmm-item-col-${colNum}" data-col="${colNum}" data-rowid="2" data-col-id="0">
+                <div class="wpmm-item-col wpmm-item-${colNum}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colNum}" data-rowid="2" data-col-id="${index}">
                     <div class="wpmm-column-contents-wrapper">
                         <div class="wpmm-column-toolbar wpmm-column-drag-handler">
                             <span class="wpmm-col-sorting-icon">
@@ -40,12 +44,11 @@
                     </span>
                 </div>
             </div>
-            <div class="wpmm-columns-container wpmm-item-row wpmm-gap-1">
+            <div class="wpmm-columns-container wpmm-item-row wpmm-wrap wpmm-gap-1">
                 ${column_ui}
             </div>
         </div>`;
-        $('#wpmm_layout_wrapper').append(rowLayout);
-
+        layout.insertAdjacentHTML('beforeend', rowLayout);
     }
 
     /**
@@ -256,40 +259,64 @@
             $(this).closest('.widget').find('.widget-inner').slideToggle('fast');
         });
 
-        $('.wpmm-column-layout').on('click', function (e) {
+        $('.wpmm-column-layout.wpmm-custom').on('click', function (e) {
+            $('.wpmm-custom-layout').slideToggle('fast');
+        })
 
+
+        $('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').on('click', function (e) {
 
             layout = document.getElementById('wpmm_layout_wrapper');
             rows = layout && layout.querySelectorAll('.wpmm-layout-row');
-            layout_array = [];
-            rows.forEach(row => {
-                cols = row.querySelectorAll('.wpmm-item-col')
-                colsArr = []
-                cols.forEach(col => {
-                    colsArr.push({
-                        id: col.dataset.colId,
-                        column: col.dataset.col
+            if (rows.length !== 0) {
+                layout_array = [];
+                rows.forEach(row => {
+                    cols = row.querySelectorAll('.wpmm-item-col')
+                    colsArr = []
+                    cols.forEach(col => {
+                        colsArr.push({
+                            id: col.dataset.colId,
+                            column: col.dataset.col
+                        })
                     })
-                })
-                layout_array.push({
-                    columns: colsArr
-                })
-            });
-            layout_array.push({ columns });
+                    layout_array.push({
+                        columns: colsArr
+                    })
+                });
+            }
 
 
-            newLayout = $(this).data('layout');
-            newLayoutArr = ('string' === typeof newLayout) ? newLayout.split(',') : [newLayout];
+            if ($(this).hasClass('wpmm-custom-layout-apply')) {
+                new_layout = $('input.wpmm-custom-layout-field').val();
+                new_layout_structure = ('string' === typeof new_layout && new_layout.includes('+'))
+                    ? new_layout.split('+') : [new_layout];
+            } else {
+                new_layout = $(this).data('layout');
+                new_layout_structure = ('string' === typeof new_layout && new_layout.includes(','))
+                    ? new_layout.split(',') : [new_layout];
+            }
 
-            columns = [];
-            newLayoutArr.forEach((col, i) => {
-                columns.push({
+            column_count = new_layout_structure.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+
+            new_columns = [];
+            new_layout_structure.forEach((col, i) => {
+                new_columns.push({
                     id: i,
                     column: col
                 })
             })
 
-            create_row_layout($(this), columns);
+            if ('undefined' !== typeof layout_array) {
+                layout_array.push({
+                    columns: new_layout_structure
+                });
+                layout_array_new = layout_array;
+            }
+
+
+
+
+            create_row_layout(layout, new_columns, column_count);
             wpmm_add_new_item();
         })
 
