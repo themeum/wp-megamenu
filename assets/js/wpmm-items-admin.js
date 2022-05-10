@@ -5,16 +5,11 @@
      *
      */
     function create_row_layout(layout, layout_array, column_count) {
-console.log(layout_array.length);
-        col_gap = 1/layout_array.length;
         let column_ui = '';
         layout_array.forEach((col, index) => {
-            let colNum = col.column;
-            colWidthX = colNum * 100 / column_count;
-            console.log(colWidthX);
-            colWidth = colNum * 10;
+            colWidth = col.column;
             column_ui += `
-                <div class="wpmm-item-col wpmm-item-${colNum}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colNum}" data-rowid="2" data-col-id="${index}">
+                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colWidth}" data-rowid="2" data-col-id="${index}">
                     <div class="wpmm-column-contents-wrapper">
                         <div class="wpmm-column-toolbar wpmm-column-drag-handler">
                             <span class="wpmm-col-sorting-icon">
@@ -44,7 +39,7 @@ console.log(layout_array.length);
                     </span>
                 </div>
             </div>
-            <div class="wpmm-columns-container wpmm-item-row wpmm-wrap wpmm-gap-1">
+            <div class="wpmm-columns-container wpmm-item-row wpmm-flex-wrap wpmm-gap-1">
                 ${column_ui}
             </div>
         </div>`;
@@ -88,86 +83,16 @@ console.log(layout_array.length);
 
     });
 
-    var MenuChild = $('#menu-to-edit').children('li.menu-item');
+    /* var MenuChild = $('#menu-to-edit').children('li.menu-item');
     menu_id = $('input#menu').val();
     MenuChild.on('click', function () {
         var id = parseInt($(this).attr('id').match(/[0-9]+/)[0], 10);
         var depth = $(this).attr('class').match(/\menu-item-depth-(\d+)\b/)[1];
         ajax_request_load_menu_item_settings(id, depth, menu_id);
-    });
+    }); */
 
+    function insert_widget_to_column() {
 
-    function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
-        $.ajax({
-            type: 'POST',
-            url: ajaxurl,
-            data: {
-                action: "wpmm_item_settings_load",
-                menu_item_id: menu_item_id,
-                menu_item_depth: depth,
-                menu_id: menu_id,
-                wpmm_nonce: wpmm.wpmm_nonce
-            },
-            cache: false,
-            beforeSend: function () {
-                // $('.wpmm-item-settings-content').html('<div class="wpmm-item-loading"></div>');
-            },
-            complete: function () {
-                //$('.wpmm-item-settings-content').empty();
-            },
-            success: function (response) {
-                $('.wpmm-item-settings-content').html(response);
-                //settings shortable
-                wpmm_delete_any_row(menu_item_id);
-                initiate_sortable();
-                initiate_actions_on_layout_modal(menu_item_id);
-
-            }
-        });
-    }
-
-
-    function ajax_request_load_menu_item_row(menu_item_id, depth, menu_id) {
-        $.ajax({
-            type: 'POST',
-            url: ajaxurl,
-            data: {
-                action: "wpmm_item_row_load",
-                menu_item_id: menu_item_id,
-                menu_item_depth: depth,
-                menu_id: menu_id,
-                wpmm_nonce: wpmm.wpmm_nonce
-            },
-            cache: false,
-            beforeSend: function () {
-                // $('.wpmm-item-settings-content').html('<div class="wpmm-item-loading"></div>');
-            },
-            complete: function () {
-                //$('.wpmm-item-settings-content').empty();
-            },
-            success: function (response) {
-                setTimeout((e) => {
-                    $('#wpmm_layout_wrapper').html(response);
-                    wpmm_add_new_item();
-                    setTimeout(() => {
-                        $('#wpmm_layout_wrapper').removeClass('loading');
-                    }, 100)
-
-                    $('#layout-modal').hide('fast');
-                }, 3000)
-                //settings shortable
-                wpmm_delete_any_row();
-                initiate_sortable();
-                initiate_actions_on_layout_modal(menu_item_id);
-
-            }
-        });
-    }
-
-    /**
-     * @return mixed
-     */
-    function initiate_actions_on_layout_modal(menu_item_id) {
         $('.widget-list-item').on('click', function (e) {
             e.preventDefault();
 
@@ -253,6 +178,12 @@ console.log(layout_array.length);
                 });
             }
         });
+    }
+
+    /**
+     * @return mixed
+     */
+    function initiate_actions_on_layout_modal(menu_item_id) {
 
         $('.widget-form-open,.widget-controls a.close').on('click', function (e) {
             e.preventDefault();
@@ -296,7 +227,12 @@ console.log(layout_array.length);
                     ? new_layout.split(',') : [new_layout];
             }
 
-            column_count = new_layout_structure.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            column_count = Math.ceil(new_layout_structure.reduce((a, b) => parseFloat(a) + parseFloat(b), 0));
+
+            if (100 < column_count) {
+                console.log('Sum of columns should less than or equal to 100');
+                return false;
+            }
 
             new_columns = [];
             new_layout_structure.forEach((col, i) => {
@@ -325,6 +261,37 @@ console.log(layout_array.length);
             $('#layout-modal').attr('data-menu-item-id', menu_item_id).slideDown('fast');
         });
 
+    }
+
+
+    function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: "wpmm_item_settings_load",
+                menu_item_id: menu_item_id,
+                menu_item_depth: depth,
+                menu_id: menu_id,
+                wpmm_nonce: wpmm.wpmm_nonce
+            },
+            cache: false,
+            beforeSend: function () {
+                // $('.wpmm-item-settings-content').html('<div class="wpmm-item-loading"></div>');
+            },
+            complete: function () {
+                //$('.wpmm-item-settings-content').empty();
+                initiate_actions_on_layout_modal(menu_item_id);
+
+            },
+            success: function (response) {
+                $('.wpmm-item-settings-content').html(response);
+                //settings shortable
+                wpmm_delete_any_row(menu_item_id);
+                initiate_sortable();
+
+            }
+        });
     }
 
 
@@ -386,6 +353,8 @@ console.log(layout_array.length);
                         search_widget_on_modal(e);
                     }
                 }
+
+                insert_widget_to_column();
             }
         });
     }
@@ -435,7 +404,7 @@ console.log(layout_array.length);
                 items: " .widget",
                 placeholder: "drop-highlight",
                 receive: function (event, ui) {
-                    console.log(ui);
+                    // console.log(ui);
                     //alert('Connected Receive first call');
                     wpmm_saving_indicator('show');
                     var from_item_index = ui.item.attr('data-item-key-id');

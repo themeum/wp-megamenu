@@ -7,9 +7,11 @@
 .wpmm-item-row {
     display: flex;
 }
-.wpmm-item-col{
-    width: var(--col-width);
+
+.wpmm-item-col {
+    flex-basis: var(--col-width);
 }
+
 .wpmm-item-col-12 {
     width: 100%;
 }
@@ -54,7 +56,7 @@
     flex-direction: column;
 }
 
-.wpmm-wrap {
+.wpmm-flex-wrap {
     flex-wrap: wrap;
 }
 
@@ -69,6 +71,10 @@
 .wpmm-item-grow,
 .wpmm-item-row .wpmm-item-field {
     flex-grow: 1;
+}
+
+.wpmm-columns-container.wpmm-item-row {
+    margin-right: -1em;
 }
 
 .wpmm-align-center {
@@ -643,4 +649,8 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     height: .5rem;
     border-width: .2em;
     margin-right: 10px;
+}
+
+.wpmm-column-layout-name{
+    display: none;
 }
