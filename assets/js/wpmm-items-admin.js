@@ -66,6 +66,7 @@
         wpmm_item_settings_wrap.show();
         ajax_request_load_menu_item_settings(id, depth, menu_id);
 
+
         //Press escape key to close modal
 
         document.addEventListener('keydown', function (event) {
@@ -91,92 +92,16 @@
         ajax_request_load_menu_item_settings(id, depth, menu_id);
     }); */
 
-    function insert_widget_to_column() {
+    function insert_widget_to_column(menu_item_id) {
 
         $('.widget-list-item').on('click', function (e) {
             e.preventDefault();
-
-            wpmm_saving_indicator('show');
-            var from_item_index = ui.item.attr('data-item-key-id');
-
-            var item_order = $(this).sortable('toArray', { attribute: 'data-item-key-id' }).toString();
-            var last_index = item_order.split(',').pop();
+            console.log($(this), menu_item_id);
 
 
-            var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-
-            var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
-            var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
-
-            var from_row_id = parseInt(ui.sender.closest('.wpmm-row').data('row-id'));
-            var from_col_id = parseInt(ui.sender.closest('.wpmm-col').data('col-id'));
-            var data = {
-                action: 'wpmm_drag_to_add_widget_item',
-                menu_item_id: menu_item_id,
-                item_order: item_order,
-                row_id: row_id,
-                col_id: col_id,
-
-                type: 'connect',
-                from_item_index: from_item_index,
-
-                widget_base_id: widget_base_id,
-                reorder_item_type: reorder_item_type,
-                last_index: last_index
-            };
-            // console.log(data);
-            //outsideWidget drag to inside
-            if (ui.sender.attr('data-type') === 'outsideWidget') {
-                var reorder_item_type = ui.sender.attr('data-type');
-                var widget_base_id = ui.sender.attr('data-widget-id-base');
-
-                var data = {
-                    action: 'wpmm_drag_to_add_widget_item',
-                    menu_item_id: menu_item_id,
-                    item_order: item_order,
-                    row_id: row_id,
-                    col_id: col_id,
-
-                    type: 'connect',
-                    from_item_index: from_item_index,
-
-                    widget_base_id: widget_base_id,
-                    reorder_item_type: reorder_item_type,
-                    last_index: last_index
-                };
-
-                //Saving via post method in db
-                $.post(ajaxurl, data, function (response) {
-                    if (response.success) {
-                        var menu_id = $('input#menu').val();
-                        ajax_request_load_menu_item_settings(menu_item_id, 0, menu_id);
-                    }
-                    wpmm_saving_indicator('hide');
-                });
-
-            } else {
-                //rearrange inner widget or menu item
-                var from_item_order = ui.sender.sortable('toArray', { attribute: 'data-item-key-id' }).toString();
-
-                var data = {
-                    action: 'wpmm_reorder_items',
-                    menu_item_id: menu_item_id,
-                    item_order: item_order,
-                    row_id: row_id,
-                    col_id: col_id,
-
-                    type: 'connect',
-                    from_item_order: from_item_order,
-                    from_item_index: from_item_index,
-                    from_row_id: from_row_id,
-                    from_col_id: from_col_id
-                };
 
 
-                $.post(ajaxurl, data, function (response) {
-                    wpmm_saving_indicator('hide');
-                });
-            }
+            // wpmm_saving_indicator('show');
         });
     }
 
@@ -249,13 +174,11 @@
                 layout_array_new = layout_array;
             }
 
-
-
-
             create_row_layout(layout, new_columns, column_count);
-            wpmm_add_new_item();
+            wpmm_add_new_item(menu_item_id);
         })
 
+        wpmm_add_new_item(menu_item_id);
 
         $('.select_layout').on('click', function (e) {
             $('#layout-modal').attr('data-menu-item-id', menu_item_id).slideDown('fast');
@@ -323,7 +246,7 @@
      *
      * @return html
      */
-    function ajax_request_widget_panel_to_select_menu_item() {
+    function ajax_request_widget_panel_to_select_menu_item(menu_item_id) {
         $.ajax({
             type: 'POST',
             url: ajaxurl,
@@ -354,7 +277,7 @@
                     }
                 }
 
-                insert_widget_to_column();
+                insert_widget_to_column(menu_item_id);
             }
         });
     }
@@ -364,11 +287,12 @@
     /**
      * Select Widget as menu item
      */
-    function wpmm_add_new_item() {
+    function wpmm_add_new_item(menu_item_id) {
         /* wpmm new block */
         $('.wpmm-add-new-item').on('click', function (e) {
             e.preventDefault();
-            ajax_request_widget_panel_to_select_menu_item();
+            console.log(menu_item_id);
+            ajax_request_widget_panel_to_select_menu_item(menu_item_id);
         })
     }
 
@@ -512,7 +436,9 @@
                 revertDuration: 0
             }).disableSelection();
 
-            wpmm_add_new_item();
+
+
+            wpmm_add_new_item($('.wp-megamenu-item-settins-wrap').data('id'));
 
 
             $(".wpmm-column-contents").sortable({

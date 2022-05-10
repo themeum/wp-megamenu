@@ -10,6 +10,7 @@
 
 .wpmm-item-col {
     flex-basis: var(--col-width);
+    width: var(--col-width);
 }
 
 .wpmm-item-col-12 {
