@@ -37,7 +37,17 @@ if ( ! class_exists('wp_megamenu_widgets')) {
 
             //Edit Widget by ajax, @since v.1.0
             add_action('wp_ajax_wpmm_edit_widget', array($this, 'wpmm_edit_widget'));
+            add_action('wp_ajax_wpmm_add_widget_to_column', array($this, 'wpmm_add_widget_to_column'));
         }
+
+        /**
+         * Insert widget to menu item column
+         */
+        public function wpmm_add_widget_to_column() {
+            wp_megamenu_widgets()->widget_list_item( $_REQUEST['widget_id'], $_REQUEST['widget_id'] );
+            // die;
+        }
+
 
         /**
          * Register sidebar to call it smartly
@@ -345,6 +355,34 @@ if ( ! class_exists('wp_megamenu_widgets')) {
             <?php
         }
 
+        /**
+         * @param $menu_item
+         * @param int $widget_key_id
+         *
+         * Menu item show in widget area
+         */
+        public function widget_list_item( $menu_item, $widget_key_id = 0){
+            ?>
+            <div id="widget-pages-6" class="widget wpmm-cell" data-item-key-id="0">
+                <div class="widget-top">
+
+                    <div class="widget-title-action">
+                        <button type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
+                            <span class="screen-reader-text">Edit widget: Pages</span>
+                            <span class="toggle-indicator" aria-hidden="true"></span>
+                        </button>
+
+                    </div>
+                    <div class="widget-title">
+                        <h3>Pages<span class="in-widget-title"></span></h3>
+                    </div>
+                </div>
+
+                <div class="widget-inner widget-inside"></div>
+
+            </div>
+            <?php
+        }
         /**
          * @param $menu_item
          * @param int $widget_key_id

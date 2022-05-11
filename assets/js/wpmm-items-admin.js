@@ -77,6 +77,7 @@
                     } else {
                         $('.wp-megamenu-item-settins-wrap').hide();
                         $('#wpmmSettingOverlay').hide();
+                        wpmm_item_settings_wrap.attr('data-id', 0);
                     }
                 }
             }
@@ -97,7 +98,25 @@
         $('.widget-list-item').on('click', function (e) {
             e.preventDefault();
             console.log($(this), menu_item_id);
-
+            $.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: {
+                    action: "wpmm_add_widget_to_column",
+                    menu_item_id: menu_item_id,
+                    widget_id: $(this).data('widget-id-base'),
+                    wpmm_nonce: wpmm.wpmm_nonce
+                },
+                cache: false,
+                beforeSend: function () {},
+                complete: function () {},
+                success: function (response) {
+                    console.log(response);
+                    if ($('.wpmm-item-widget-panel').is(":visible")) {
+                        $('.wpmm-item-widget-panel').hide().html('');
+                    }
+                }
+            });
 
 
 

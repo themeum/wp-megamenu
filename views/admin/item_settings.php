@@ -322,6 +322,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 													<div class="wpmm-column-contents">
 														<?php
 														foreach ( $layout_col['items'] as $key => $value ) {
+															pr($value);
 															if ( 'widget' === $value['item_type'] ) {
 																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key );
 															} else {
