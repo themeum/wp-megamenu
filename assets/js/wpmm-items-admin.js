@@ -1,12 +1,48 @@
-console.log(jQuery());
 /**
  * Request for registered widgets to select as megamenu item.
  *
  * @return html
  */
 function ajax_request_widget_panel_to_select_menu_item() {
+    formData = new FormData();
+
+    requestData = {
+        wpmm_nonce: wpmm.wpmm_nonce,
+        action: "wpmm_item_widget_panel",
+    }
+
+    Object.entries(requestData).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', ajaxurl, true);
+    xhttp.send(formData);
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4) {
+            widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
+            widgetItemPanel.style.display = 'block';
+            widgetItemPanel.innerHTML = xhttp.response;
+            widgetSearchField = document.getElementById('widget_search_field');
+
+            /* $('.close-widget-modal').on('click', function (e) {
+                if ($('.wpmm-item-widget-panel').is(":visible")) {
+                    $('.wpmm-item-widget-panel').hide().html('');
+                }
+            }) */
+
+            if (widgetSearchField) {
+                widgetSearchField.onkeyup = (e) => {
+                    widget_search_on_modal(e);
+                }
+            }
+
+            insert_widget_to_column();
+        }
+    };
 
 
+/*
     $.ajax({
         type: 'POST',
         url: ajaxurl,
@@ -33,13 +69,13 @@ function ajax_request_widget_panel_to_select_menu_item() {
 
             if (widgetSearchField) {
                 widgetSearchField.onkeyup = (e) => {
-                    search_widget_on_modal(e);
+                    widget_search_on_modal(e);
                 }
             }
 
             insert_widget_to_column();
         }
-    });
+    }); */
 }
 
 function wpmm_add_new_item(addElemBtn) {
@@ -135,19 +171,77 @@ function initiate_actions_on_layout_modal(menu_item_id) {
 
     document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
         item.addEventListener('click', event => {
-            // $(this).closest('.widget').find('.widget-inner').slideToggle('fast');
-            console.log(item.closest.querySelector('.widget'));
+            widgetInner = item.parentElement.parentElement.nextElementSibling;
+            widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
+        })
+    });
+
+    document.querySelectorAll('.wpmm-column-layout.wpmm-custom').forEach(item => {
+        item.addEventListener('click', event => {
+            document.querySelector('.wpmm-custom-layout').style.display = 'block';
         })
     })
 
-    /* $('.widget-form-open,.widget-controls a.close').on('click', function (e) {
-        e.preventDefault();
-        $(this).closest('.widget').find('.widget-inner').slideToggle('fast');
-    });
 
-    $('.wpmm-column-layout.wpmm-custom').on('click', function (e) {
-        $('.wpmm-custom-layout').slideToggle('fast');
-    }) */
+    document.querySelectorAll('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').forEach(item => {
+        item.addEventListener('click', event => {
+            layout = document.getElementById('wpmm_layout_wrapper');
+            rows = layout && layout.querySelectorAll('.wpmm-layout-row');
+            if (rows.length !== 0) {
+                layout_array = [];
+                rows.forEach(row => {
+                    cols = row.querySelectorAll('.wpmm-item-col')
+                    colsArr = []
+                    cols.forEach(col => {
+                        colsArr.push({
+                            id: col.dataset.colId,
+                            column: col.dataset.col
+                        })
+                    })
+                    layout_array.push({
+                        columns: colsArr
+                    })
+                });
+            }
+
+            if (item.classList.contains('wpmm-custom-layout-apply')) {
+                new_layout = document.querySelector('input.wpmm-custom-layout-field').value;
+                new_layout_structure = ('string' === typeof new_layout && new_layout.includes('+'))
+                    ? new_layout.split('+') : [new_layout];
+            } else {
+                new_layout = item.dataset.layout;
+                new_layout_structure = ('string' === typeof new_layout && new_layout.includes(','))
+                    ? new_layout.split(',') : [new_layout];
+            }
+
+            column_count = Math.ceil(new_layout_structure.reduce((a, b) => parseFloat(a) + parseFloat(b), 0));
+
+            if (100 < column_count) {
+                console.log('Sum of columns should less than or equal to 100');
+                return false;
+            }
+
+            new_columns = [];
+            new_layout_structure.forEach((col, i) => {
+                new_columns.push({
+                    id: i,
+                    column: col
+                })
+            })
+
+            if ('undefined' !== typeof layout_array) {
+                layout_array.push({
+                    columns: new_layout_structure
+                });
+                layout_array_new = layout_array;
+            }
+            new_row_id = 'undefined' !== typeof layout_array_new ? layout_array_new.length - 1 : 0;
+
+            create_row_layout(layout, new_columns, new_row_id);
+            // initiate_sortable();
+
+        })
+    })
 
 
     /* $('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').on('click', function (e) {
@@ -237,43 +331,18 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            initiate_actions_on_layout_modal(menu_item_id);
+
             document.querySelector('.wpmm-item-settings-content').innerHTML = xhttp.response;
+
+            initiate_actions_on_layout_modal(menu_item_id);
             // console.log(xhttp.response);
         }
     };
 
-    /* $.ajax({
-        type: 'POST',
-        url: ajaxurl,
-        data: {
-            action: "wpmm_item_settings_load",
-            menu_item_id: menu_item_id,
-            menu_item_depth: depth,
-            menu_id: menu_id,
-            wpmm_nonce: wpmm.wpmm_nonce
-        },
-        cache: false,
-        beforeSend: function () {
-            // $('.wpmm-item-settings-content').html('<div class="wpmm-item-loading"></div>');
-        },
-        complete: function () {
-            //$('.wpmm-item-settings-content').empty();
-            initiate_actions_on_layout_modal(menu_item_id);
-
-        },
-        success: function (response) {
-            $('.wpmm-item-settings-content').html(response);
-            //settings shortable
-            wpmm_delete_any_row(menu_item_id);
-            initiate_sortable();
-
-        }
-    }); */
 }
 
 
-function search_widget_on_modal(e) {
+function widget_search_on_modal(e) {
     var filter, ul, li, items_count_hidden, i, txtValue;
     filter = e.target.value.toUpperCase();
     ul = document.querySelector(".wpmm-widget-items .wpmm-item-grid");
@@ -296,35 +365,6 @@ function search_widget_on_modal(e) {
     no_item.style.display = items_count_hidden > 0 ? 'none' : 'block';
 }
 
-
-
-/**
- * Select Widget as menu item
- */
-function wpmm_add_new_itemX() {
-    console.log(location, 'row: ' + this.dataset.rowIndex, 'col: ' + this.dataset.colIndex);
-
-    /* wpmm new block */
-    // console.log(menu_item_id, location);
-    // $('.wpmm-add-new-item').each(function (e) {
-    /* const addNewElem = document.querySelectorAll('.wpmm-add-new-item');
-    addNewElem.forEach(elem => {
-        elem.addEventListener('click', (e) => {
-
-            e.stopPropagation();
-
-            // console.log(location, 'row: ' + elem.dataset.rowIndex, 'col: ' + elem.dataset.colIndex);
-            // ajax_request_widget_panel_to_select_menu_item(menu_item_id);
-        })
-    }) */
-    /* $('.wpmm-add-new-item').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log(location, 'row: ' + $(this).data('row-index'), 'col: ' + $(this).data('col-index'));
-        ajax_request_widget_panel_to_select_menu_item(menu_item_id);
-    }) */
-    // })
-}
 
 /**
  * Select Widget as menu item
