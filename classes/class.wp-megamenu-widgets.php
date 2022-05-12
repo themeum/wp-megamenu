@@ -44,8 +44,21 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          * Insert widget to menu item column
          */
         public function wpmm_add_widget_to_column() {
-            wp_megamenu_widgets()->widget_list_item( $_REQUEST['widget_id'], $_REQUEST['widget_id'] );
-            // die;
+            $id_base = $_REQUEST['widget_id'];
+            $new_base_id = $id_base.'-'.next_widget_id_number($id_base);
+
+            // pr($new_base_id);
+            wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
+            // wp_megamenu_widgets()->show_widget($_REQUEST['widget_id']);
+            // global $wp_registered_widget;
+            global $wp_widget_factory;
+            global $wp_registered_widget_controls;
+            // get_all_registered_widget
+            // global $wp_registered_widgets;
+            // pr(next_widget_id_number($id_base));
+            // pr();
+            // pr($this->get_all_registered_widget());
+            die;
         }
 
 
@@ -117,6 +130,19 @@ if ( ! class_exists('wp_megamenu_widgets')) {
                 );
             }
             return $widgets;
+        }
+
+        /**
+         * get all registere available widget
+         */
+        public function get_widget_title_by_base_id($id_base){
+            global $wp_widget_factory;
+
+            foreach( $wp_widget_factory->widgets as $widget ) {
+                if($widget->id_base === $id_base){
+                    return $widget->name;
+                }
+            }
         }
 
         /**
@@ -361,9 +387,10 @@ if ( ! class_exists('wp_megamenu_widgets')) {
          *
          * Menu item show in widget area
          */
-        public function widget_list_item( $menu_item, $widget_key_id = 0){
+        public function widget_list_item( $id_base, $widget_key_id = 0){
+            $menu_title = $this->get_widget_title_by_base_id($id_base)
             ?>
-            <div id="widget-pages-6" class="widget wpmm-cell" data-item-key-id="0">
+            <div id="widget-<?php echo $widget_key_id; ?>" class="widget wpmm-cell" data-item-key-id="0">
                 <div class="widget-top">
 
                     <div class="widget-title-action">
@@ -374,7 +401,7 @@ if ( ! class_exists('wp_megamenu_widgets')) {
 
                     </div>
                     <div class="widget-title">
-                        <h3>Pages<span class="in-widget-title"></span></h3>
+                        <h3><?php echo esc_attr($menu_title); ?><span class="in-widget-title"></span></h3>
                     </div>
                 </div>
 

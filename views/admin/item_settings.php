@@ -312,7 +312,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
 													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
 													?>
-											<div class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="2" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+											<div class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">
 													<div class="wpmm-column-toolbar wpmm-column-drag-handler">
 														<span class="wpmm-col-sorting-icon">
@@ -322,7 +322,6 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 													<div class="wpmm-column-contents">
 														<?php
 														foreach ( $layout_col['items'] as $key => $value ) {
-															pr($value);
 															if ( 'widget' === $value['item_type'] ) {
 																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key );
 															} else {
@@ -332,7 +331,8 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 														?>
 													</div>
 													<div class="wpmm-add-item-wrapper">
-														<button class="wpmm-add-new-item" title="Add Module">
+														<button class="wpmm-add-new-item"
+														onclick="wpmm_add_new_item(this)" data-col-index="<?php echo esc_attr( $col_key ); ?>" data-row-index="<?php echo esc_attr( $layout_key ); ?>" title="Add Module">
 															<span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
 														</button>
 													</div>

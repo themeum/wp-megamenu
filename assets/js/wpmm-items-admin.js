@@ -1,15 +1,14 @@
 (function ($) {
 
-
     /**
      *
      */
-    function create_row_layout(layout, layout_array, column_count) {
+    function create_row_layout(layout, layout_array, new_row_id) {
         let column_ui = '';
         layout_array.forEach((col, index) => {
             colWidth = col.column;
             column_ui += `
-                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colWidth}" data-rowid="2" data-col-id="${index}">
+                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colWidth}" data-rowid="${new_row_id}" data-col-id="${index}">
                     <div class="wpmm-column-contents-wrapper">
                         <div class="wpmm-column-toolbar wpmm-column-drag-handler">
                             <span class="wpmm-col-sorting-icon">
@@ -19,7 +18,7 @@
                         <div class="wpmm-column-contents">
                         </div>
                         <div class="wpmm-add-item-wrapper">
-                            <button class="wpmm-add-new-item" title="Add Module">
+                            <button class="wpmm-add-new-item" onclick="wpmm_add_new_item(this)" data-col-index="${index}" data-row-index="${new_row_id}" title="Add Module">
                                 <span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
                             </button>
                         </div>
@@ -27,7 +26,7 @@
                 </div>`;
         })
         rowLayout = `
-        <div class="wpmm-layout-row" data-row-id="1">
+        <div class="wpmm-layout-row" data-row-id="${new_row_id}">
             <div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
                 <div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
                     <i class="fa fa-sort wpmm-mr-2"></i>
@@ -94,6 +93,7 @@
     }); */
 
     function insert_widget_to_column(menu_item_id) {
+        console.log(menu_item_id);
 
         $('.widget-list-item').on('click', function (e) {
             e.preventDefault();
@@ -108,15 +108,16 @@
                     wpmm_nonce: wpmm.wpmm_nonce
                 },
                 cache: false,
-                beforeSend: function () {},
-                complete: function () {},
+                beforeSend: function () { },
+                complete: function () { },
                 success: function (response) {
-                    console.log(response);
+                    //parents('.wpmm-column-contents-wrapper')
                     if ($('.wpmm-item-widget-panel').is(":visible")) {
                         $('.wpmm-item-widget-panel').hide().html('');
                     }
                 }
             });
+
 
 
 
@@ -140,7 +141,7 @@
 
 
         $('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').on('click', function (e) {
-
+            e.stopPropagation()
             layout = document.getElementById('wpmm_layout_wrapper');
             rows = layout && layout.querySelectorAll('.wpmm-layout-row');
             if (rows.length !== 0) {
@@ -192,12 +193,12 @@
                 });
                 layout_array_new = layout_array;
             }
+            new_row_id = 'undefined' !== typeof layout_array_new ? layout_array_new.length -1 : 0;
+console.log(new_row_id);
 
-            create_row_layout(layout, new_columns, column_count);
-            wpmm_add_new_item(menu_item_id);
+            create_row_layout(layout, new_columns, new_row_id);
+            // wpmm_add_new_item(menu_item_id, 'click');
         })
-
-        wpmm_add_new_item(menu_item_id);
 
         $('.select_layout').on('click', function (e) {
             $('#layout-modal').attr('data-menu-item-id', menu_item_id).slideDown('fast');
@@ -306,13 +307,29 @@
     /**
      * Select Widget as menu item
      */
-    function wpmm_add_new_item(menu_item_id) {
+    function wpmm_add_new_itemX() {
+        console.log(location, 'row: ' + this.dataset.rowIndex, 'col: ' + this.dataset.colIndex);
+
         /* wpmm new block */
-        $('.wpmm-add-new-item').on('click', function (e) {
+        // console.log(menu_item_id, location);
+        // $('.wpmm-add-new-item').each(function (e) {
+        /* const addNewElem = document.querySelectorAll('.wpmm-add-new-item');
+        addNewElem.forEach(elem => {
+            elem.addEventListener('click', (e) => {
+
+                e.stopPropagation();
+
+                // console.log(location, 'row: ' + elem.dataset.rowIndex, 'col: ' + elem.dataset.colIndex);
+                // ajax_request_widget_panel_to_select_menu_item(menu_item_id);
+            })
+        }) */
+        /* $('.wpmm-add-new-item').on('click', function (e) {
+            e.stopPropagation();
             e.preventDefault();
-            console.log(menu_item_id);
+            console.log(location, 'row: ' + $(this).data('row-index'), 'col: ' + $(this).data('col-index'));
             ajax_request_widget_panel_to_select_menu_item(menu_item_id);
-        })
+        }) */
+        // })
     }
 
     /**
@@ -457,7 +474,7 @@
 
 
 
-            wpmm_add_new_item($('.wp-megamenu-item-settins-wrap').data('id'));
+            // wpmm_add_new_item($('.wp-megamenu-item-settins-wrap').data('id'), 'sort');
 
 
             $(".wpmm-column-contents").sortable({
@@ -540,3 +557,10 @@
 
 
 })(jQuery);
+
+
+function wpmm_add_new_item(thisX) {
+    // console.log(location, 'row: ' + this.dataset.rowIndex, 'col: ' + this.dataset.colIndex);
+    console.log(thisX.dataset.rowIndex);
+
+}
