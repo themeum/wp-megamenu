@@ -655,3 +655,11 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 .wpmm-column-layout-name{
     display: none;
 }
+
+.wpmm-blue-bg {
+    background: #72aee626;
+    transition: all 300ms;
+}
+.wpmm-blue-bg > .wpmm-column-contents-wrapper{
+    background: transparent;
+}
