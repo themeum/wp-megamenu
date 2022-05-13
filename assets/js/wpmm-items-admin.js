@@ -104,7 +104,8 @@ function create_row_layout(layout, layout_array, new_row_id) {
 
 function insert_widget_to_column(menu_item_id, addElemBtn) {
     // console.log(addElemBtn);
-    document.querySelectorAll('.widget-list-item').forEach(item => {
+    widgetListItem = document.querySelectorAll('.widget-list-item');
+    widgetListItem.forEach(item => {
         item.addEventListener('click', event => {
             formData = new FormData();
 
@@ -261,7 +262,8 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
             document.querySelector('.wpmm-item-settings-content').innerHTML = xhttp.response;
 
             initiate_actions_on_layout_modal(menu_item_id);
-            // console.log(xhttp.response);
+            initiate_sortable();
+
         }
     };
 
@@ -319,7 +321,7 @@ function wpmm_delete_any_row(menu_item_id) {
  */
 function initiate_sortable() {
 
-    Sortable.create(document.querySelector('#wpmm_layout_wrapper'),{
+    Sortable.create(document.querySelector('#wpmm_layout_wrapper'), {
         draggable: ".wpmm-layout-row",
         handle: ".wpmm-row-sorting-icon",
         animation: 150,
@@ -572,6 +574,7 @@ function initiate_sortable_X() {
                 }
             }
         });
+
 
     });
 
