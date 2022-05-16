@@ -51,6 +51,7 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
 }
 
 function wpmm_add_new_item(addElemBtn) {
+
     menu_item_id = document.querySelector('.wp-megamenu-item-settins-wrap').dataset.id;
     ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn);
 
@@ -155,6 +156,51 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
 
 }
 
+
+function get_maximum_widget_id_from_ui() {
+    var max = 0;
+    $('#sortable li').each(function () {
+        var val = $(this).data('itemid');
+        if (val > max) max = val;
+    });
+    return max;
+}
+
+
+function get_layout_array() {
+
+    layout = document.getElementById('wpmm_layout_wrapper');
+    rows = layout && layout.querySelectorAll('.wpmm-layout-row');
+    if (rows.length !== 0) {
+        layout_array = [];
+        rows.forEach(row => {
+            columns = row.querySelectorAll('.wpmm-item-col')
+            colsArr = [];
+
+            columns.forEach(column => {
+                col_items = column && column.querySelectorAll('.wpmm-column-contents .wpmm-cell');
+                cellItemsArr = [];
+                col_items.forEach(item => {
+                    widgetId = item.dataset.widgetId;
+                    cellItemsArr.push({
+                        cell_id: widgetId
+                    })
+                })
+
+                colsArr.push({
+                    column_id: column.dataset.colId,
+                    column_width: column.dataset.col,
+                    column_items: cellItemsArr
+                })
+            })
+            layout_array.push({
+                columns: colsArr
+            })
+        });
+    }
+
+    return layout_array;
+}
 /**
  * @return mixed
  */
@@ -176,24 +222,7 @@ function initiate_actions_on_layout_modal(menu_item_id) {
 
     document.querySelectorAll('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').forEach(item => {
         item.addEventListener('click', event => {
-            layout = document.getElementById('wpmm_layout_wrapper');
-            rows = layout && layout.querySelectorAll('.wpmm-layout-row');
-            if (rows.length !== 0) {
-                layout_array = [];
-                rows.forEach(row => {
-                    cols = row.querySelectorAll('.wpmm-item-col')
-                    colsArr = []
-                    cols.forEach(col => {
-                        colsArr.push({
-                            id: col.dataset.colId,
-                            column: col.dataset.col
-                        })
-                    })
-                    layout_array.push({
-                        columns: colsArr
-                    })
-                });
-            }
+
 
             if (item.classList.contains('wpmm-custom-layout-apply')) {
                 new_layout = document.querySelector('input.wpmm-custom-layout-field').value;
@@ -219,6 +248,7 @@ function initiate_actions_on_layout_modal(menu_item_id) {
                     column: col
                 })
             })
+            layout_array = get_layout_array();
 
             if ('undefined' !== typeof layout_array) {
                 layout_array.push({
@@ -263,7 +293,6 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
 
             initiate_actions_on_layout_modal(menu_item_id);
             initiate_sortable();
-
         }
     };
 
@@ -340,6 +369,11 @@ function initiate_sortable() {
 
 }
 
+
+const wpmmSaveNavItemFunction = (saveBtn) => {
+    layout_array_new = get_layout_array();
+    console.log(layout_array_new);
+}
 
 function initiate_sortable_X() {
     if (jQuery().sortable()) {
@@ -536,6 +570,8 @@ function initiate_sortable_X() {
 
     }
 }
+
+
 (function ($) {
 
     /**

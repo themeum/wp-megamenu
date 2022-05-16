@@ -311,8 +311,9 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 											if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
 													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
+													$layout_columns = ( $layout_columns * 100 ) / 12;
 													?>
-											<div class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+											<div style="--col-width: calc(<?php echo esc_attr( $layout_columns ); ?>% - 1em)" class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">
 													<div class="wpmm-column-toolbar wpmm-column-drag-handler">
 														<span class="wpmm-col-sorting-icon">
@@ -457,7 +458,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 			<div class="wpmm-modal-footer wpmm-justify-end">
 				<button type="button" class="button-secondary close-modal" data-dismiss="wpmm-modal">Close</button>
 				<div class="wpmm-ml-3">
-					<button type="button" class="button-primary wpmm-btn-spinner-">Save changes</button>
+					<button type="button" onclick="wpmmSaveNavItemFunction(this)" class="button-primary wpmm-save-nav-item wpmm-btn-spinner- ">Save changes</button>
 				</div>
 			</div>
 		</div>
