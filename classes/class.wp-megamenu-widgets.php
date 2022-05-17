@@ -44,20 +44,16 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * Insert widget to menu item column
 		 */
 		public function wpmm_add_widget_to_column() {
-			$id_base     = $_REQUEST['widget_id'];
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
+			$id_base     = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
 			$new_base_id = $id_base . '-' . next_widget_id_number( $id_base );
 
-			// pr($new_base_id);
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
-			// wp_megamenu_widgets()->show_widget($_REQUEST['widget_id']);
-			// global $wp_registered_widget;
-			global $wp_widget_factory;
-			global $wp_registered_widget_controls;
-			// get_all_registered_widget
-			// global $wp_registered_widgets;
-			// pr(next_widget_id_number($id_base));
-			// pr();
-			// pr($this->get_all_registered_widget());
+			// global $wp_widget_factory;
+			// global $wp_registered_widget_controls;
 			die;
 		}
 
@@ -258,13 +254,29 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * @param $widget_id
 		 * @return bool|string
 		 */
+		public function wpmm_get_widget_id_base_by_widget_id( $widget_id ) {
+			global $wp_registered_widget_controls;
+			if ( ! isset( $wp_registered_widget_controls[ $widget_id ] ) ) {
+				return false;
+			}
+			$control = $wp_registered_widget_controls[ $widget_id ];
+
+			$id_base = isset( $control['id_base'] ) ? $control['id_base'] : '';
+			return $id_base;
+		}
+
+		/**
+		 * @param $widget_id
+		 * @return bool|string
+		 */
 		public function wpmm_get_widget_name_by_widget_id( $widget_id ) {
 			global $wp_registered_widget_controls;
 			if ( ! isset( $wp_registered_widget_controls[ $widget_id ] ) ) {
 				return false;
 			}
 			$control = $wp_registered_widget_controls[ $widget_id ];
-			$name    = isset( $control['name'] ) ? $control['name'] : '';
+
+			$name = isset( $control['name'] ) ? $control['name'] : '';
 			return $name;
 		}
 
@@ -378,9 +390,9 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 *
 		 * Get widget item in item settings panel
 		 */
-		public function widget_item( $widget_id, $menu_item_id, $widget_key_id = 0 ) {
+		public function widget_item( $widget_id, $menu_item_id, $widget_key_id = 0, $id_base = null ) {
 			?>
-			<div data-widget-id="<?php esc_attr_e( $widget_id ); ?>" id="widget-<?php esc_attr_e( $widget_id ); ?>"  class="widget wpmm-cell"  data-item-key-id="<?php esc_attr_e( $widget_key_id ); ?>">
+			<div data-base-id="<?php echo esc_attr( $id_base ); ?>" data-widget-id="<?php esc_attr_e( $widget_id ); ?>" id="widget-<?php esc_attr_e( $widget_id ); ?>"  class="widget wpmm-cell"  data-item-key-id="<?php esc_attr_e( $widget_key_id ); ?>">
 				<div class="widget-top">
 
 					<div class="widget-title-action">
@@ -412,7 +424,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		public function widget_list_item( $id_base, $widget_key_id = 0 ) {
 			$menu_title = $this->get_widget_title_by_base_id( $id_base )
 			?>
-			<div data-base-id="<?php echo $id_base; ?>" id="widget-<?php esc_attr_e( $widget_key_id ); ?>" data-widget-id="<?php esc_attr_e( $widget_key_id ); ?>" class="widget wpmm-cell" data-item-key-id="0">
+			<div data-base-id="<?php echo esc_attr( $id_base ); ?>" id="widget-<?php echo esc_attr( $widget_key_id ); ?>" data-widget-id="<?php echo esc_attr( $widget_key_id ); ?>" class="widget wpmm-cell" data-item-key-id="0">
 				<div class="widget-top">
 
 					<div class="widget-title-action">

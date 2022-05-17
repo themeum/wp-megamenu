@@ -26,7 +26,7 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $widgets_manager = new wp_megamenu_widgets();
 $widgets         = $widgets_manager->get_all_registered_widget();
 // Get Menu Name
-// pr($wpmm_layout);
+// pr($get_menu_settings);
 ?>
 
 	<div class="wpmm-modal" tabindex="-1" role="dialog">
@@ -291,8 +291,10 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 					<div class="wpmm-item-content">
 						<div id="wpmm_layout_wrapper" class="wpmm-item-wrapper">
 							<?php
+
 							if ( ! empty( $wpmm_layout['layout'] ) && count( $wpmm_layout['layout'] ) ) {
 								foreach ( $wpmm_layout['layout'] as $layout_key => $layout_value ) {
+									// pr($layout_value);
 									?>
 									<div class="wpmm-layout-row" data-row-id="<?php echo esc_attr( $layout_key ); ?>">
 										<div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
@@ -323,8 +325,9 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 													<div class="wpmm-column-contents">
 														<?php
 														foreach ( $layout_col['items'] as $key => $value ) {
+															$id_base = wp_megamenu_widgets()->wpmm_get_widget_id_base_by_widget_id( $value['widget_id'] );
 															if ( 'widget' === $value['item_type'] ) {
-																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key );
+																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key, $id_base );
 															} else {
 																wp_megamenu_widgets()->menu_items( $value, $key );
 															}

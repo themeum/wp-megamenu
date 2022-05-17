@@ -59,6 +59,17 @@ function wpmm_add_new_item(addElemBtn) {
 
 
 /**
+ * Get latest widget id by id_base.
+ */
+function get_latest_widget_id_by_id_base(id_base) {
+    base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
+    base_ids.forEach(item => {
+        console.log(item.dataset.widgetId.split(id_base+'-'));
+    })
+}
+
+
+/**
  *
  */
 function create_row_layout(layout, layout_array, new_row_id) {
@@ -108,13 +119,14 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
     widgetListItem = document.querySelectorAll('.widget-list-item');
     widgetListItem.forEach(item => {
         item.addEventListener('click', event => {
-            formData = new FormData();
 
+            widgetBaseId = item.dataset.widgetIdBase;
+            formData = new FormData();
             requestData = {
                 wpmm_nonce: wpmm.wpmm_nonce,
                 action: "wpmm_add_widget_to_column",
                 menu_item_id: menu_item_id,
-                widget_id: item.dataset.widgetIdBase,
+                widget_id: widgetBaseId,
             }
 
             Object.entries(requestData).forEach(([key, value]) => {
@@ -129,7 +141,8 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                     rowID = addElemBtn.dataset.rowIndex;
                     colID = addElemBtn.dataset.colIndex;
 
-                    targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' + rowID + '"][data-col-id="' + colID + '"]');
+                    targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' +
+                        rowID + '"][data-col-id="' + colID + '"]');
 
                     widgetAddTarget = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
 
@@ -141,6 +154,8 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                         widgetItemPanel.innerHTML = '';
                     }
                     initiate_sortable();
+
+                    widgetByBaseId = get_latest_widget_id_by_id_base(widgetBaseId);
                 }
             };
 
@@ -183,18 +198,22 @@ function get_layout_array() {
                 col_items.forEach(item => {
                     widgetId = item.dataset.widgetId;
                     cellItemsArr.push({
-                        cell_id: widgetId
+                        widget_id: widgetId,
+                        item_type: 'widget',
+                        widget_class: '',
+                        widget_name: '',
+                        options: {},
                     })
                 })
 
                 colsArr.push({
-                    column_id: column.dataset.colId,
-                    column_width: column.dataset.col,
-                    column_items: cellItemsArr
+                    new: true,
+                    col: column.dataset.col,
+                    items: cellItemsArr
                 })
             })
             layout_array.push({
-                columns: colsArr
+                row: colsArr
             })
         });
     }
@@ -365,14 +384,24 @@ function initiate_sortable() {
             animation: 150,
             ghostClass: 'wpmm-blue-bg'
         });
-    })
+    });
+
+    wpmmColumnContents = document.querySelectorAll('.wpmm-column-contents');
+    wpmmColumnContents.forEach(item => {
+        Sortable.create(item, {
+            draggable: ".wpmm-cell",
+            animation: 150,
+            ghostClass: 'wpmm-blue-bg',
+            group: 'wpmm-layout-row'
+        });
+    });
 
 }
 
 
 const wpmmSaveNavItemFunction = (saveBtn) => {
     layout_array_new = get_layout_array();
-    console.log(layout_array_new);
+    console.log({ 'layout': layout_array_new });
 }
 
 function initiate_sortable_X() {
@@ -487,10 +516,6 @@ function initiate_sortable_X() {
             revert: "invalid",
             revertDuration: 0
         }).disableSelection();
-
-
-
-        // wpmm_add_new_item($('.wp-megamenu-item-settins-wrap').data('id'), 'sort');
 
 
         $(".wpmm-column-contents").sortable({
