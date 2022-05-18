@@ -48,12 +48,19 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				return;
 			}
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
-			$id_base     = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
-			$new_base_id = $id_base . '-' . next_widget_id_number( $id_base );
+			$id_base         = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
+			$existing_max_id = isset( $_POST['widget_existing_id'] ) ? str_replace( $id_base . '-', '', sanitize_text_field( $_POST['widget_existing_id'] ) ) : 0;
+			$widget_max_id   = next_widget_id_number( $id_base );
+
+			if ( $existing_max_id < $widget_max_id ) {
+				$new_base_id = $id_base . '-' . ( $widget_max_id + 1 );
+			} elseif ( ( isset( $_POST['widget_id'] ) && isset( $_POST['widget_existing_id'] ) ) && $_POST['widget_id'] === $_POST['widget_existing_id'] ) {
+				$new_base_id = $id_base . '-' . 1;
+			} else {
+				$new_base_id = $id_base;
+			}
 
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
-			// global $wp_widget_factory;
-			// global $wp_registered_widget_controls;
 			die;
 		}
 

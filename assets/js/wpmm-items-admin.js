@@ -63,9 +63,22 @@ function wpmm_add_new_item(addElemBtn) {
  */
 function get_latest_widget_id_by_id_base(id_base) {
     base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
+    widget_ids = [];
     base_ids.forEach(item => {
-        console.log(item.dataset.widgetId.split(id_base+'-'));
+        item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
+        console.log(typeof item_base_id);
+        if (0 !== item.length && 'undefined' !== typeof item_base_id) { widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]); }
+        // else { widget_ids.push(1) }
     })
+    console.log(widget_ids);
+    if (1 <= widget_ids.length) {
+        new_widget_id = id_base + '-' + (parseInt(1 < widget_ids.length ? Math.max(...widget_ids) : 1) + parseInt(1));
+    } else if (0 === widget_ids.length) {
+        new_widget_id = id_base + '-1';
+    } else {
+        new_widget_id = id_base;
+    }
+    return new_widget_id ?? new_widget_id;
 }
 
 
@@ -121,12 +134,14 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
         item.addEventListener('click', event => {
 
             widgetBaseId = item.dataset.widgetIdBase;
+            widgetByBaseId = get_latest_widget_id_by_id_base(widgetBaseId);
             formData = new FormData();
             requestData = {
                 wpmm_nonce: wpmm.wpmm_nonce,
                 action: "wpmm_add_widget_to_column",
                 menu_item_id: menu_item_id,
                 widget_id: widgetBaseId,
+                widget_existing_id: widgetByBaseId,
             }
 
             Object.entries(requestData).forEach(([key, value]) => {
@@ -138,6 +153,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4) {
+                    console.log(xhttp.response);
                     rowID = addElemBtn.dataset.rowIndex;
                     colID = addElemBtn.dataset.colIndex;
 
@@ -154,14 +170,11 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                         widgetItemPanel.innerHTML = '';
                     }
                     initiate_sortable();
-
-                    widgetByBaseId = get_latest_widget_id_by_id_base(widgetBaseId);
                 }
             };
 
         })
     });
-
 
     document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
         item.addEventListener('click', event => {
