@@ -66,19 +66,30 @@ function get_latest_widget_id_by_id_base(id_base) {
     widget_ids = [];
     base_ids.forEach(item => {
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
-        console.log(typeof item_base_id);
-        if (0 !== item.length && 'undefined' !== typeof item_base_id) { widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]); }
+        if (0 !== item.length && 'undefined' !== typeof item_base_id) {
+            console.log(item);
+            widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]);
+        }
         // else { widget_ids.push(1) }
     })
-    console.log(widget_ids);
+
+    console.log(widget_ids, Math.max(...widget_ids));
+
+    if (1 >= widget_ids.length) {
+        new_widget_id = id_base + '-' + (parseInt(1 < widget_ids.length ? Math.max(...widget_ids) : 1) + parseInt(1));
+    } else {
+        new_widget_id = id_base;
+    }
+    // console.log(new_widget_id);
+    /* console.log(widget_ids);
     if (1 <= widget_ids.length) {
         new_widget_id = id_base + '-' + (parseInt(1 < widget_ids.length ? Math.max(...widget_ids) : 1) + parseInt(1));
     } else if (0 === widget_ids.length) {
         new_widget_id = id_base + '-1';
     } else {
         new_widget_id = id_base;
-    }
-    return new_widget_id ?? new_widget_id;
+    } */
+    return new_widget_id;
 }
 
 
@@ -153,7 +164,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4) {
-                    console.log(xhttp.response);
+                    // console.log(xhttp.response);
                     rowID = addElemBtn.dataset.rowIndex;
                     colID = addElemBtn.dataset.colIndex;
 
@@ -162,7 +173,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
 
                     widgetAddTarget = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
 
-                    widgetAddTarget.insertAdjacentHTML('beforeend', xhttp.response);
+                    // widgetAddTarget.insertAdjacentHTML('beforeend', xhttp.response);
                     widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
 
                     if ('block' === widgetItemPanel.style.display) {
