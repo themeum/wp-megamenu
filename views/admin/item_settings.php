@@ -288,7 +288,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 
 						</div>
 					</div>
-					<div class="wpmm-item-content">
+					<div class="wpmm-item-content loading">
 						<div id="wpmm_layout_wrapper" class="wpmm-item-wrapper">
 							<?php
 

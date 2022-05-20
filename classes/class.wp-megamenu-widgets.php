@@ -115,7 +115,6 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 						</div>
 
 						<?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
-						<div class="clear"></div>
 					</div>
 				</div>
 			</form>

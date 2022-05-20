@@ -332,7 +332,7 @@
             }
         });
     });
-    $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
+    $(document).on('click','.wpmm-isp-close-btn,.close-modalX,#wpmmSettingOverlay1', function(e){
         e.preventDefault();
         $('.wp-megamenu-item-settins-wrap').hide();
         $('#wpmmSettingOverlay').hide();
