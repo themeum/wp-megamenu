@@ -51,10 +51,8 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
 }
 
 function wpmm_add_new_item(addElemBtn) {
-
     menu_item_id = document.querySelector('.wp-megamenu-item-settins-wrap').dataset.id;
     ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn);
-
 }
 
 
@@ -63,32 +61,23 @@ function wpmm_add_new_item(addElemBtn) {
  */
 function get_latest_widget_id_by_id_base(id_base) {
     base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
+    console.log(base_ids);
     widget_ids = [];
     base_ids.forEach(item => {
+        console.log(item);
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
         if (0 !== item.length && 'undefined' !== typeof item_base_id) {
-            console.log(item);
             widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]);
         }
         // else { widget_ids.push(1) }
     })
 
-    console.log(widget_ids, Math.max(...widget_ids));
-
-    if (1 >= widget_ids.length) {
-        new_widget_id = id_base + '-' + (parseInt(1 < widget_ids.length ? Math.max(...widget_ids) : 1) + parseInt(1));
+    if (1 > widget_ids.length) {
+        new_widget_id = id_base + '-' + 1;
     } else {
-        new_widget_id = id_base;
+        new_widget_id = id_base + '-' + (parseInt(Math.max(...widget_ids)));
     }
-    // console.log(new_widget_id);
-    /* console.log(widget_ids);
-    if (1 <= widget_ids.length) {
-        new_widget_id = id_base + '-' + (parseInt(1 < widget_ids.length ? Math.max(...widget_ids) : 1) + parseInt(1));
-    } else if (0 === widget_ids.length) {
-        new_widget_id = id_base + '-1';
-    } else {
-        new_widget_id = id_base;
-    } */
+
     return new_widget_id;
 }
 
@@ -146,6 +135,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
 
             widgetBaseId = item.dataset.widgetIdBase;
             widgetByBaseId = get_latest_widget_id_by_id_base(widgetBaseId);
+
             formData = new FormData();
             requestData = {
                 wpmm_nonce: wpmm.wpmm_nonce,
@@ -164,7 +154,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4) {
-                    // console.log(xhttp.response);
+                    console.log(xhttp.response);
                     rowID = addElemBtn.dataset.rowIndex;
                     colID = addElemBtn.dataset.colIndex;
 
@@ -173,7 +163,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
 
                     widgetAddTarget = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
 
-                    // widgetAddTarget.insertAdjacentHTML('beforeend', xhttp.response);
+                    widgetAddTarget.insertAdjacentHTML('beforeend', xhttp.response);
                     widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
 
                     if ('block' === widgetItemPanel.style.display) {
@@ -265,7 +255,7 @@ function initiate_actions_on_layout_modal(menu_item_id) {
 
     document.querySelectorAll('.wpmm-column-layout:not(.wpmm-custom), .wpmm-custom-layout-apply').forEach(item => {
         item.addEventListener('click', event => {
-
+console.log(item);
 
             if (item.classList.contains('wpmm-custom-layout-apply')) {
                 new_layout = document.querySelector('input.wpmm-custom-layout-field').value;
