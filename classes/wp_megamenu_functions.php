@@ -1420,6 +1420,21 @@ if ( ! function_exists('get_wpmm_option_input_checkmark')){
 	}
 }
 
+if ( ! function_exists('sanitize_array')){
+	function sanitize_array($array = []){
+            foreach ( $array as $key => &$value ) {
+                if ( is_array( $value ) ) {
+                    $value = sanitize_array($value);
+                }
+                else {
+                    $value = sanitize_text_field( $value );
+                }
+            }
+
+            return $array;
+	}
+}
+
 /**
  * Sanitize settings options
  */

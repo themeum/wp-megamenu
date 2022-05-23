@@ -454,9 +454,34 @@ function initiate_sortable() {
 
 
 const wpmmSaveNavItemFunction = (saveBtn) => {
+    menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
     layout_array_new = get_layout_array();
-    wpmm_nav_item_settings = get_nav_item_settings();
-    console.log({ 'layout': layout_array_new, 'settings': wpmm_nav_item_settings });
+    menu_item_settings = get_nav_item_settings();
+    dataArray = { menu_item_id: menu_item_id, data: { 'layout': layout_array_new, 'settings': menu_item_settings } };
+
+
+
+    formData = new FormData();
+
+    requestData = {
+        wpmm_nonce: wpmm.wpmm_nonce,
+        action: "wpmm_nav_item_settings",
+        data: JSON.stringify(dataArray)
+    }
+    // console.log(requestData);
+    Object.entries(requestData).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', ajaxurl, true);
+    xhttp.send(formData);
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4) {
+            console.log(xhttp.response);
+        }
+    };
+
 }
 
 function initiate_sortable_X() {
