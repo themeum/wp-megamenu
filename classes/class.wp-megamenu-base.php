@@ -31,6 +31,7 @@ if ( ! class_exists('wp_megamenu_base')) {
 			add_action('wp_ajax_wpmm_item_settings_load', array($this, 'wpmm_item_settings_load'));
 			add_action('wp_ajax_wpmm_item_row_load', array($this, 'wpmm_item_row_load'));
 			add_action('wp_ajax_wpmm_item_widget_panel', array($this, 'wpmm_item_widget_panel'));
+			add_action('wp_ajax_wpmm_nav_item_settings', array($this, 'wpmm_nav_item_settings'));
 			add_filter('wp_nav_menu_objects', array( $this, 'add_widgets_to_menu' ), 10, 2 );
 			add_filter('body_class', array($this, 'add_body_classes'), 10, 1);
 
@@ -229,6 +230,97 @@ if ( ! class_exists('wp_megamenu_base')) {
 
 			// Return sanitized options
 			return $options;
+		}
+
+		/**
+		 * List WordPress Widgets.
+		 *
+		 * @return mixed
+		 */
+
+		public function wpmm_nav_item_settings() {
+			pr($_REQUEST);
+
+			if(! current_user_can('administrator')) {
+                return;
+            }
+
+			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
+
+			$menu_item_id 		= sanitize_text_field($_POST['menu_item_id']);
+			$get_menu_settings 	= (array) maybe_unserialize(get_post_meta($menu_item_id, 'wpmm_layout', true));
+
+			$get_menu_settings['options']['menu_icon_image']        = wpmm_item_settings_input('menu_icon_image');
+			$get_menu_settings['options']['menu_bg_image']          = wpmm_item_settings_input('menu_bg_image');
+			$get_menu_settings['options']['disable_link']           = wpmm_item_settings_input('disable_link');
+			$get_menu_settings['options']['hide_text']              = wpmm_item_settings_input('hide_text');
+			$get_menu_settings['options']['hide_arrow']             = wpmm_item_settings_input('hide_arrow');
+			$get_menu_settings['options']['hide_item_on_mobile']    = wpmm_item_settings_input('hide_item_on_mobile');
+			$get_menu_settings['options']['hide_item_on_desktop']   = wpmm_item_settings_input('hide_item_on_desktop');
+			$get_menu_settings['options']['item_align']             = wpmm_item_settings_input('item_align');
+			$get_menu_settings['options']['dropdown_alignment']     = wpmm_item_settings_input('dropdown_alignment');
+			$get_menu_settings['options']['icon_position']          = wpmm_item_settings_input('icon_position');
+			$get_menu_settings['options']['badge_text']             = wpmm_item_settings_input('badge_text');
+			$get_menu_settings['options']['badge_style']            = wpmm_item_settings_input('badge_style');
+
+            $get_menu_settings['options']['mark_as_logo']      		= wpmm_item_settings_input('mark_as_logo');
+            $get_menu_settings['options']['logged_in_only']      	= wpmm_item_settings_input('logged_in_only');
+            $get_menu_settings['options']['item_logo_type']      	= wpmm_item_settings_input('item_logo_type');
+            $get_menu_settings['options']['item_logo_url']      	= wpmm_item_settings_input('item_logo_url');
+            $get_menu_settings['options']['item_logo_text']      	= wpmm_item_settings_input('item_logo_text');
+            $get_menu_settings['options']['text_logo_google_font'] 	= wpmm_item_settings_input('text_logo_google_font');
+            $get_menu_settings['options']['item_logo_position'] 	= wpmm_item_settings_input('item_logo_position');
+            $get_menu_settings['options']['item_logo_max_height'] 	= wpmm_item_settings_input('item_logo_max_height');
+            $get_menu_settings['options']['item_logo_max_width'] 	= wpmm_item_settings_input('item_logo_max_width');
+            $get_menu_settings['options']['item_logo_margin_top'] 	= wpmm_item_settings_input('item_logo_margin_top');
+            $get_menu_settings['options']['item_logo_margin_right']      	= wpmm_item_settings_input('item_logo_margin_right');
+            $get_menu_settings['options']['item_logo_margin_bottom']      	= wpmm_item_settings_input('item_logo_margin_bottom');
+            $get_menu_settings['options']['item_logo_margin_left']      	= wpmm_item_settings_input('item_logo_margin_left');
+            $get_menu_settings['options']['item_logo_padding_top']      	= wpmm_item_settings_input('item_logo_padding_top');
+            $get_menu_settings['options']['item_logo_padding_right']      	= wpmm_item_settings_input('item_logo_padding_right');
+            $get_menu_settings['options']['item_logo_padding_bottom']      	= wpmm_item_settings_input('item_logo_padding_bottom');
+            $get_menu_settings['options']['item_logo_padding_left']      	= wpmm_item_settings_input('item_logo_padding_left');
+            $get_menu_settings['options']['text_logo_font_weight']      	= wpmm_item_settings_input('text_logo_font_weight');
+            $get_menu_settings['options']['text_logo_font_size']      		= wpmm_item_settings_input('text_logo_font_size');
+            $get_menu_settings['options']['text_logo_line_height']      	= wpmm_item_settings_input('text_logo_line_height');
+            $get_menu_settings['options']['text_logo_case']      			= wpmm_item_settings_input('text_logo_case');
+            $get_menu_settings['options']['text_logo_letter_spacing']      	= wpmm_item_settings_input('text_logo_letter_spacing');
+            $get_menu_settings['options']['text_logo_color']      			= wpmm_item_settings_input('text_logo_color');
+
+
+			$get_menu_settings['options']['single_item_text_color'] 	= wpmm_item_settings_input('single_item_text_color');
+			$get_menu_settings['options']['single_menu_font_size'] 		= wpmm_item_settings_input('single_menu_font_size');
+			$get_menu_settings['options']['single_menu_font_weight'] 	= wpmm_item_settings_input('single_menu_font_weight');
+			$get_menu_settings['options']['single_menu_line_height'] 	= wpmm_item_settings_input('single_menu_line_height');
+
+			$get_menu_settings['options']['single_menu_item_border_separator_width'] 	= wpmm_item_settings_input('single_menu_item_border_separator_width');
+			$get_menu_settings['options']['single_menu_item_border_separator_type'] 	= wpmm_item_settings_input('single_menu_item_border_separator_type');
+			$get_menu_settings['options']['single_menu_item_border_separator_color'] 	= wpmm_item_settings_input('single_menu_item_border_separator_color');
+
+
+			# Padding
+			$get_menu_settings['options']['single_menu_padding_top'] 	= wpmm_item_settings_input('single_menu_padding_top');
+			$get_menu_settings['options']['single_menu_padding_right'] 	= wpmm_item_settings_input('single_menu_padding_right');
+			$get_menu_settings['options']['single_menu_padding_bottom'] = wpmm_item_settings_input('single_menu_padding_bottom');
+			$get_menu_settings['options']['single_menu_padding_left'] 	= wpmm_item_settings_input('single_menu_padding_left');
+
+			# Margin
+			$get_menu_settings['options']['single_menu_margin_top'] 	= wpmm_item_settings_input('single_menu_margin_top');
+			$get_menu_settings['options']['single_menu_margin_right'] 	= wpmm_item_settings_input('single_menu_margin_right');
+			$get_menu_settings['options']['single_menu_margin_bottom'] = wpmm_item_settings_input('single_menu_margin_bottom');
+			$get_menu_settings['options']['single_menu_margin_left'] 	= wpmm_item_settings_input('single_menu_margin_left');
+
+			# Submenu Padding
+			$get_menu_settings['options']['wp_megamenu_submenu_menu_padding_top'] 		= wpmm_item_settings_input('wp_megamenu_submenu_menu_padding_top');
+			$get_menu_settings['options']['wp_megamenu_submenu_menu_padding_right'] 	= wpmm_item_settings_input('wp_megamenu_submenu_menu_padding_right');
+			$get_menu_settings['options']['wp_megamenu_submenu_menu_padding_bottom'] 	= wpmm_item_settings_input('wp_megamenu_submenu_menu_padding_bottom');
+			$get_menu_settings['options']['wp_megamenu_submenu_menu_padding_left'] 		= wpmm_item_settings_input('wp_megamenu_submenu_menu_padding_left');
+
+
+			update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
+            do_action('wpmm_regenerate_css');
+			wp_send_json_success( __('Saved Success', 'wp-megamenu') );
+			die();
 		}
 
 		/**

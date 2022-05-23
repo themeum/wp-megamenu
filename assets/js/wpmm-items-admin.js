@@ -234,6 +234,19 @@ function get_layout_array() {
 
     return layout_array;
 }
+
+function get_nav_item_settings() {
+    settingsArray = [];
+    Array.from(document.getElementById('wpmm_nav_item_settings').elements).forEach(item => {
+        if ('' !== item.name) {
+            settingsArray.push({
+                key: item.name,
+                value: '' !== item.value ? item.value : ''
+            })
+        }
+    });
+    return settingsArray;
+}
 /**
  * @return mixed
  */
@@ -442,7 +455,8 @@ function initiate_sortable() {
 
 const wpmmSaveNavItemFunction = (saveBtn) => {
     layout_array_new = get_layout_array();
-    console.log({ 'layout': layout_array_new });
+    wpmm_nav_item_settings = get_nav_item_settings();
+    console.log({ 'layout': layout_array_new, 'settings': wpmm_nav_item_settings });
 }
 
 function initiate_sortable_X() {

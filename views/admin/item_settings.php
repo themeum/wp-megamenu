@@ -40,12 +40,14 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 			<div class="wpmm-modal-body">
 				<div class="wpmm-option-content">
 					<div class="wpmm-item-sidebar">
-						<div class="wpmm-item-fields">
+						<form id="wpmm_nav_item_settings" method="POST">
+							<div class="wpmm-item-fields">
+
 							<div class="wpmm-item-field">
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_enable">Mega Menu</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_enable">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_enable" name="wpmm_enable">
 									</div>
 								</div>
 							</div>
@@ -54,12 +56,12 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 									<label>Menu Width</label>
 									<div class="wpmm-row-column">
 										<div class="wpmm-input-group">
-											<input type="number" max="9999" class="wpmm-form-control" aria-label="">
-											<select class="form-select">
-												<option value="1">px</option>
-												<option value="2">em</option>
-												<option value="2">rem</option>
-												<option value="3">%</option>
+											<input type="number" max="9999" class="wpmm-form-control" name="wpmm_width">
+											<select class="form-select" name="width_type">
+												<option value="px">px</option>
+												<option value="em">em</option>
+												<option value="rem">rem</option>
+												<option value="%">%</option>
 											</select>
 										</div>
 									</div>
@@ -69,16 +71,16 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-row wpmm-gap-1">
 								<div class="wpmm-item-field">
 									<label>Alignment</label>
-									<select class="form-select">
-										<option value="1">Full</option>
-										<option value="2">Left</option>
-										<option value="2">Center</option>
-										<option value="3">Right</option>
+									<select class="form-select" name="menu_alignment">
+										<option value="full">Full</option>
+										<option value="left">Left</option>
+										<option value="center">Center</option>
+										<option value="right">Right</option>
 									</select>
 								</div>
 								<div class="wpmm-item-field">
 									<label>Icon</label>
-									<select class="form-select">
+									<select class="form-select" name="menu_icon">
 										<option value="1">Full</option>
 										<option value="2">Left</option>
 										<option value="2">Center</option>
@@ -89,14 +91,14 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 
 							<div class="wpmm-item-field">
 								<label>Custom Class</label>
-								<input class="wpmm-form-control" type="text" role="switch" id="wpmm_item_custom_class" placeholder="add custom classes">
+								<input class="wpmm-form-control" type="text" role="switch" id="wpmm_item_custom_class" placeholder="add custom classes" name="wpmm_item_custom_class">
 							</div>
 
 							<div class="wpmm-item-field">
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_show_menu_title">Show Menu Title</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_show_menu_title">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_show_menu_title" name="wpmm_show_menu_title">
 									</div>
 								</div>
 							</div>
@@ -105,7 +107,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-row wpmm-gap-1">
 								<div class="wpmm-item-field">
 									<label>Badge</label>
-									<select class="form-select">
+									<select class="form-select" name="menu_badge">
 										<option value="1">Full</option>
 										<option value="2">Left</option>
 										<option value="2">Center</option>
@@ -113,8 +115,8 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 									</select>
 								</div>
 								<div class="wpmm-item-field">
-									<label>Left</label>
-									<select class="form-select">
+									<label>Position</label>
+									<select class="form-select" name="badge_position">
 										<option value="1">Full</option>
 										<option value="2">Left</option>
 										<option value="2">Center</option>
@@ -127,24 +129,24 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-field">
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label>Badge Background</label>
-									<input type="color" value="gray">
+									<input type="color" value="gray" name="badge_background">
 								</div>
 							</div>
 							<div class="wpmm-item-field">
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label>Badge Text Color</label>
-									<input type="color" value="red">
+									<input type="color" value="red" name="badge_text_color">
 								</div>
 							</div>
 							<div class="wpmm-item-field">
 								<label>Upload Background Image</label>
-								<input type="file" value="red">
+								<input type="file" value="red" name="menu_background_image">
 							</div>
 							<div class="wpmm-item-field">
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_logged_in_only">Logged in only</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_logged_in_only">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_logged_in_only" name="wpmm_logged_in_only">
 									</div>
 								</div>
 							</div>
@@ -152,7 +154,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_hide_text">Hide Text</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_text">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_text" name="wpmm_hide_text">
 									</div>
 								</div>
 							</div>
@@ -160,7 +162,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_hide_arrow">Hide Arrow</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_arrow">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_arrow" name="wpmm_hide_arrow">
 									</div>
 								</div>
 							</div>
@@ -168,7 +170,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_disable_link">Disable Link</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_disable_link">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_disable_link" name="wpmm_disable_link">
 									</div>
 								</div>
 							</div>
@@ -176,7 +178,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_hide_on_mobile">Hide Item on Mobile</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_on_mobile">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_on_mobile" name="wpmm_hide_on_mobile">
 									</div>
 								</div>
 							</div>
@@ -184,7 +186,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label for="wpmm_hide_on_desktop">Hide Item on Desktop</label>
 									<div class="wpmm-form-check wpmm-form-switch">
-										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_on_desktop">
+										<input class="wpmm-form-check-input" type="checkbox" role="switch" id="wpmm_hide_on_desktop" name="wpmm_hide_on_desktop">
 									</div>
 								</div>
 							</div>
@@ -192,7 +194,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label>Menu Item Alignment</label>
 									<div>
-										<select class="form-select">
+										<select class="form-select" name="menu_item_alignment">
 											<option value="1">Full</option>
 											<option value="2">Left</option>
 											<option value="2">Center</option>
@@ -205,7 +207,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label>Dropdown alignment</label>
 									<div>
-										<select class="form-select">
+										<select class="form-select" name="dropdown_alignment">
 											<option value="1">Full</option>
 											<option value="2">Left</option>
 											<option value="2">Center</option>
@@ -218,7 +220,7 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 								<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 									<label>Icon Position</label>
 									<div>
-										<select class="form-select">
+										<select class="form-select" name="icon_position">
 											<option value="1">Full</option>
 											<option value="2">Left</option>
 											<option value="2">Center</option>
@@ -230,9 +232,9 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-field">
 								<label>Badge Text</label>
 								<div class="wpmm-input-group">
-									<input type="text" class="wpmm-form-control" aria-label="" placeholder="Badge Text">
+									<input type="text" class="wpmm-form-control" name="badge_text" placeholder="Badge Text">
 									<div>
-										<select class="form-select">
+										<select class="form-select" name="badge_status">
 											<option value="default">Default</option>
 											<option value="primary" selected="selected">Primary</option>
 											<option value="success">Success</option>
@@ -249,19 +251,19 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-row wpmm-gap-1 input-sm">
 								<div class="wpmm-item-field">
 									<label>Top</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="padding_top">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Right</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="padding_right">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Bottom</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="padding_bottom">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Left</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="padding_left">
 								</div>
 							</div>
 
@@ -270,22 +272,24 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 							<div class="wpmm-item-row wpmm-gap-1 input-sm">
 								<div class="wpmm-item-field">
 									<label>Top</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="margin_top">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Right</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="margin_right">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Bottom</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="margin_bottom">
 								</div>
 								<div class="wpmm-item-field">
 									<label>Left</label>
-									<input type="text" class="form-control wpmm-text-center" placeholder="0px">
+									<input type="text" class="form-control wpmm-text-center" placeholder="0px" name="margin_left">
 								</div>
 							</div>
 
+
+						</form>
 						</div>
 					</div>
 					<div class="wpmm-item-content loading">
