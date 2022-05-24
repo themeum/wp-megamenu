@@ -63,6 +63,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			}
 			// echo $new_base_id.PHP_EOL;
 
+			$this->add_widget_to_wpmm_sidebar( $new_base_id );
+
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
 		}
@@ -292,6 +294,59 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		/**
 		 * Add widget or item
 		 */
+		public function wpmm_add_widget_to_widget_list() {
+			require_once ABSPATH . 'wp-admin/includes/widgets.php';
+
+			pr( $_REQUEST );
+			die;
+
+			$widget_base_id = sanitize_text_field( $_POST['widget_id'] );
+			$menu_item_id   = (int) sanitize_text_field( $_POST['menu_item_id'] );
+
+			$next_id   = next_widget_id_number( $widget_base_id );
+			$widget_id = $widget_base_id . '-' . $next_id;
+
+			$this->add_widget_to_wpmm_sidebar( $widget_id );
+
+			// get new widget id
+			$get_widget_option             = get_option( 'widget_' . $widget_base_id );
+			$get_widget_option[ $next_id ] = array();
+			update_option( 'widget_' . $widget_base_id, $get_widget_option );
+
+			// Settings in item post meta
+			$widget_name  = $this->wpmm_get_widget_name_by_widget_id( $widget_id );
+			$widget_class = $this->wpmm_get_widget_class_by_widget_id( $widget_id );
+
+			// $get_menu_settings = (array) get_post_meta($menu_item_id, 'wpmm_layout', true);
+
+			$get_layout = get_post_meta( $menu_item_id, 'wpmm_layout', true );
+
+			// Setting item settings in the menu
+			// $get_menu_settings['items'][] = array( 'item_type' => 'widget', 'widget_class' => $widget_class, 'widget_name' => $widget_name, 'widget_id' => $widget_id, 'options' => array() );
+			$get_layout['layout'][0]['row'][0]['items'][] = array(
+				'item_type'    => 'widget',
+				'widget_class' => $widget_class,
+				'widget_name'  => $widget_name,
+				'widget_id'    => $widget_id,
+				'options'      => array(),
+			);
+
+			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
+			// update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
+
+			// Send json success
+			wp_send_json_success(
+				array(
+					'message'   => __( 'Wiedget added', 'wp-megamenu' ),
+					'widget_id' => $widget_id,
+				)
+			);
+		}
+
+
+		/**
+		 * Add widget or item
+		 */
 		public function wpmm_add_widget_to_item() {
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
 
@@ -431,7 +486,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * Menu item show in widget area
 		 */
 		public function widget_list_item( $id_base, $widget_key_id = 0 ) {
-			$menu_title = $this->get_widget_title_by_base_id( $id_base )
+			$menu_title = $this->get_widget_title_by_base_id( $id_base );
 			?>
 			<div data-base-id="<?php echo esc_attr( $id_base ); ?>" id="widget-<?php echo esc_attr( $widget_key_id ); ?>" data-widget-id="<?php echo esc_attr( $widget_key_id ); ?>" class="widget wpmm-cell" data-item-key-id="0">
 				<div class="widget-top">
@@ -448,7 +503,9 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 					</div>
 				</div>
 
-				<div class="widget-inner widget-inside"></div>
+				<div class="widget-inner widget-inside">
+				<?php $this->show_wpmm_widget_form( $widget_id ); ?>
+				</div>
 
 			</div>
 			<?php

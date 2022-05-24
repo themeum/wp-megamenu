@@ -221,7 +221,6 @@ function get_layout_array() {
                 })
 
                 colsArr.push({
-                    new: true,
                     col: column.dataset.col,
                     items: cellItemsArr
                 })
@@ -240,8 +239,7 @@ function get_nav_item_settings() {
     Array.from(document.getElementById('wpmm_nav_item_settings').elements).forEach(item => {
         if ('' !== item.name) {
             settingsArray.push({
-                key: item.name,
-                value: '' !== item.value ? item.value : ''
+                [item.name]: '' !== item.value ? item.value : ''
             })
         }
     });
@@ -426,6 +424,9 @@ function initiate_sortable() {
     Sortable.create(document.querySelector('#wpmm_layout_wrapper'), {
         draggable: ".wpmm-layout-row",
         handle: ".wpmm-row-sorting-icon",
+        group: {
+            name: 'shared',
+        },
         animation: 150,
         ghostClass: 'wpmm-blue-bg'
     });
@@ -435,6 +436,9 @@ function initiate_sortable() {
         Sortable.create(item, {
             draggable: ".wpmm-item-col",
             handle: '.wpmm-col-sorting-icon',
+            group: {
+                name: 'shared',
+            },
             animation: 150,
             ghostClass: 'wpmm-blue-bg'
         });
@@ -444,6 +448,9 @@ function initiate_sortable() {
     wpmmColumnContents.forEach(item => {
         Sortable.create(item, {
             draggable: ".wpmm-cell",
+            group: {
+                name: 'shared',
+            },
             animation: 150,
             ghostClass: 'wpmm-blue-bg',
             group: 'wpmm-layout-row'
@@ -457,7 +464,7 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
     menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
     layout_array_new = get_layout_array();
     menu_item_settings = get_nav_item_settings();
-    dataArray = { menu_item_id: menu_item_id, data: { 'layout': layout_array_new, 'settings': menu_item_settings } };
+    dataArray = { menu_item_id: menu_item_id, 'layout': layout_array_new, 'options': menu_item_settings, new_layout: true };
 
 
 

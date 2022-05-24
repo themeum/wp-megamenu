@@ -255,10 +255,23 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 		 */
 
 		public function wpmm_nav_item_settings() {
-			$data      = json_decode( wp_unslash( $_POST['data'] ), true );
-			$dataArray = sanitize_array( $data );
-			
-			pr( $dataArray );
+			$data                         = json_decode( wp_unslash( $_POST['data'] ), true );
+			$menu_data_array              = sanitize_array( $data );
+			$data_options                 = $menu_data_array['options'];
+			$menu_data_array['menu_type'] = 'wpmm_mega_menu';
+			unset( $menu_data_array['options'] );
+
+			foreach ( $data_options as $options ) {
+				foreach ( $options as $key => $option ) {
+					$menu_data_array['options'][ $key ] = $option;
+				}
+			}
+			$widgets         = wp_get_sidebars_widgets();
+			pr($widgets);
+
+///			pr( $menu_data_array );
+			// wp_send_json( $menu_data_array );
+
 			die;
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
