@@ -61,9 +61,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			} else {
 				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
 			}
-			// echo $new_base_id.PHP_EOL;
-
-			$this->add_widget_to_wpmm_sidebar( $new_base_id );
+			// echo $new_base_id.PHP_EOL; die;
+			$this->wpmm_add_widget_to_widget_list( $new_base_id );
 
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
@@ -294,17 +293,15 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		/**
 		 * Add widget or item
 		 */
-		public function wpmm_add_widget_to_widget_list() {
+		public function wpmm_add_widget_to_widget_list( $new_base_id ) {
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
-
-			pr( $_REQUEST );
-			die;
 
 			$widget_base_id = sanitize_text_field( $_POST['widget_id'] );
 			$menu_item_id   = (int) sanitize_text_field( $_POST['menu_item_id'] );
 
 			$next_id   = next_widget_id_number( $widget_base_id );
 			$widget_id = $widget_base_id . '-' . $next_id;
+			$widget_id = $new_base_id;
 
 			$this->add_widget_to_wpmm_sidebar( $widget_id );
 
@@ -335,12 +332,12 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			// update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
 
 			// Send json success
-			wp_send_json_success(
+			/* wp_send_json_success(
 				array(
 					'message'   => __( 'Wiedget added', 'wp-megamenu' ),
 					'widget_id' => $widget_id,
 				)
-			);
+			); */
 		}
 
 

@@ -316,8 +316,13 @@ $widgets         = $widgets_manager->get_all_registered_widget();
 											<?php
 											if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
-													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
-													$layout_columns = ( $layout_columns * 100 ) / 12;
+													if ( isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ) {
+														$layout_columns = $layout_col['col'];
+													} else {
+														$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
+														$layout_columns = ( $layout_columns * 100 ) / 12;
+													}
+
 													?>
 											<div style="--col-width: calc(<?php echo esc_attr( $layout_columns ); ?>% - 1em)" class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">

@@ -455,6 +455,7 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
     layout_array_new = get_layout_array();
     menu_item_settings = get_nav_item_settings();
     dataArray = { menu_item_id: menu_item_id, 'layout': layout_array_new, 'options': menu_item_settings };
+    saveBtn.classList.add('wpmm-btn-spinner');
 
 
 
@@ -475,7 +476,10 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            console.log(xhttp.response);
+            setTimeout(() => {
+                saveBtn.classList.remove('wpmm-btn-spinner');
+                console.log(xhttp.response);
+            },1000)
         }
     };
 

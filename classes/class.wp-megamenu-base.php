@@ -271,6 +271,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			$menu_get_data = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
 			unset( $menu_get_data[0] );
 			// pr( $menu_request_data );die;
+			$menu_get_data['layout']                   = $menu_request_data['layout'];
 
 			foreach ( $data_options as $options ) {
 				foreach ( $options as $key => $option ) {
