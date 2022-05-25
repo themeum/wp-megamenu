@@ -454,7 +454,7 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
     menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
     layout_array_new = get_layout_array();
     menu_item_settings = get_nav_item_settings();
-    dataArray = { menu_item_id: menu_item_id, 'layout': layout_array_new, 'options': menu_item_settings, new_layout: true };
+    dataArray = { menu_item_id: menu_item_id, 'layout': layout_array_new, 'options': menu_item_settings };
 
 
 

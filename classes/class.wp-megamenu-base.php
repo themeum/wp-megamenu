@@ -255,30 +255,36 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 		 */
 
 		public function wpmm_nav_item_settings() {
-			$data                         = json_decode( wp_unslash( $_POST['data'] ), true );
-			$menu_data_array              = sanitize_array( $data );
-			$data_options                 = $menu_data_array['options'];
-			$menu_data_array['menu_type'] = 'wpmm_mega_menu';
-			unset( $menu_data_array['options'] );
-
-			foreach ( $data_options as $options ) {
-				foreach ( $options as $key => $option ) {
-					$menu_data_array['options'][ $key ] = $option;
-				}
-			}
-			// $widgets         = wp_get_sidebars_widgets();
-			// pr($widgets);
-
-			pr( $menu_data_array );
-			// wp_send_json( $menu_data_array );
-
-			die;
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
+			$data                           = json_decode( wp_unslash( $_POST['data'] ), true );
+			$menu_request_data              = sanitize_array( $data );
+			$data_options                   = $menu_request_data['options'];
+			$menu_request_data['menu_type'] = 'wpmm_mega_menu';
+			$menu_request_data['data_type'] = 'new';
+			unset( $menu_request_data['options'] );
+			$menu_item_id  = sanitize_text_field( $data['menu_item_id'] );
+			$menu_get_data = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
+			unset( $menu_get_data[0] );
+			// pr( $menu_request_data );die;
+
+			foreach ( $data_options as $options ) {
+				foreach ( $options as $key => $option ) {
+					$menu_get_data['options'][ $key ] = $option;
+				}
+			}
+			if ( ! isset( $menu_get_data['data_type'] ) ) {
+				$menu_get_data['data_type'] = 'new';
+			}
+			// pr( $menu_get_data );die;
+			update_post_meta( $menu_item_id, 'wpmm_layout', $menu_get_data );
+			do_action( 'wpmm_regenerate_css' );
+			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );
+			die();
 			$menu_item_id      = sanitize_text_field( $_POST['menu_item_id'] );
 			$get_menu_settings = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
 

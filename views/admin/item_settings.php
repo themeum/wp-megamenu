@@ -26,7 +26,7 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $widgets_manager = new wp_megamenu_widgets();
 $widgets         = $widgets_manager->get_all_registered_widget();
 // Get Menu Name
-// pr($get_menu_settings);
+// pr($wpmm_layout);
 ?>
 
 	<div class="wpmm-modal" tabindex="-1" role="dialog">
