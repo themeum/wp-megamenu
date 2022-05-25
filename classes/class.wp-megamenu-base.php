@@ -266,10 +266,10 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					$menu_data_array['options'][ $key ] = $option;
 				}
 			}
-			$widgets         = wp_get_sidebars_widgets();
-			pr($widgets);
+			// $widgets         = wp_get_sidebars_widgets();
+			// pr($widgets);
 
-///			pr( $menu_data_array );
+			pr( $menu_data_array );
 			// wp_send_json( $menu_data_array );
 
 			die;

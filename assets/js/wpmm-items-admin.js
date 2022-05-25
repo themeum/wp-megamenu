@@ -200,8 +200,9 @@ function get_layout_array() {
 
     layout = document.getElementById('wpmm_layout_wrapper');
     rows = layout && layout.querySelectorAll('.wpmm-layout-row');
-    if (rows.length !== 0) {
-        layout_array = [];
+
+    layout_array = [];
+    if (0 !== rows.length) {
         rows.forEach(row => {
             columns = row.querySelectorAll('.wpmm-item-col')
             colsArr = [];
@@ -424,33 +425,22 @@ function initiate_sortable() {
     Sortable.create(document.querySelector('#wpmm_layout_wrapper'), {
         draggable: ".wpmm-layout-row",
         handle: ".wpmm-row-sorting-icon",
-        group: {
-            name: 'shared',
-        },
         animation: 150,
         ghostClass: 'wpmm-blue-bg'
     });
 
-    wpmmItemWrap = document.querySelectorAll('.wpmm-item-row');
-    wpmmItemWrap.forEach(item => {
+    document.querySelectorAll('.wpmm-item-row').forEach(item => {
         Sortable.create(item, {
             draggable: ".wpmm-item-col",
             handle: '.wpmm-col-sorting-icon',
-            group: {
-                name: 'shared',
-            },
             animation: 150,
             ghostClass: 'wpmm-blue-bg'
         });
     });
 
-    wpmmColumnContents = document.querySelectorAll('.wpmm-column-contents');
-    wpmmColumnContents.forEach(item => {
+    document.querySelectorAll('.wpmm-column-contents').forEach(item => {
         Sortable.create(item, {
             draggable: ".wpmm-cell",
-            group: {
-                name: 'shared',
-            },
             animation: 150,
             ghostClass: 'wpmm-blue-bg',
             group: 'wpmm-layout-row'
