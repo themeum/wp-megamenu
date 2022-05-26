@@ -348,6 +348,7 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
 
             initiate_actions_on_layout_modal(menu_item_id);
             initiate_sortable();
+
             wpmm_loading(false, 200);
 
             document.querySelectorAll('.close-modal').forEach(item => {
@@ -394,7 +395,88 @@ function widget_search_on_modal(e) {
     no_item.style.display = items_count_hidden > 0 ? 'none' : 'block';
 }
 
+function wpmm_save_widget_item(saveButton) {
+    saveButton.closest('form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        thisForm = e.target;
+        widget_element = thisForm.closest('.widget.wpmm-cell');
+        menu_item = thisForm.closest('.wp-megamenu-item-settins-wrap');
 
+        console.log(widget_element, menu_item.dataset.id);
+
+        formData = new FormData(thisForm);
+
+        requestData = {
+            wpmm_nonce: wpmm.wpmm_nonce,
+            action: "wpmm_save_widget",
+            menu_item_id: menu_item.dataset.id,
+            widget_key_id: widget_element.id,
+        }
+        // console.log(requestData);
+        Object.entries(requestData).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('POST', ajaxurl, true);
+        xhttp.send(formData);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === 4) {
+                console.log(xhttp.response);
+            }
+        };
+
+    })
+    /* $(document).on('submit', 'form.wpmm_widget_save_form', function (e) {
+        e.preventDefault();
+        wpmm_saving_indicator('show');
+
+        var menu_item_id = $(this).closest('.wpmm-item-settings-panel').data('id');
+        var widget_key_id = $(this).closest('.widget').data('widget-key-id');
+        var form_input = $(this).closest('form').serialize()+'&action=wpmm_save_widget&menu_item_id='+menu_item_id+'&widget_key_id='+widget_key_id+'&wpmm_nonce='+wpmm.wpmm_nonce;
+        $.post(ajaxurl, form_input, function (response) {
+            wpmm_saving_indicator('hide');
+        });
+    }); */
+}
+/**
+ * Select Widget as menu item
+ */
+function wpmm_delete_this_widget(deleteButton) {
+    widget_element = deleteButton.closest('.widget.wpmm-cell');
+    // widget_element
+    rowId = widget_element.closest('.wpmm-item-col').dataset.rowid;
+    colId = widget_element.closest('.wpmm-item-col').dataset.colId;
+    console.log(rowId, colId, widget_element.id);
+    /* var data = {
+        action: 'wpmm_delete_this_widget',
+        menu_item_id: menu_item_id,
+        row_id: row_id,
+        wpmm_nonce: wpmm.wpmm_nonce
+    };
+    $.post(ajaxurl, data, function (response) {
+        if (response.success) {
+            button_clicked.closest('.wpmm-layout-row').remove();
+        }
+    }); */
+    widget_element.remove();
+}
+
+/*
+var menu_item_id = $(this).closest('.wpmm-item-settings-panel').data('id');
+var widget_key_id = $(this).closest('.widget').data('item-key-id');
+var widget_wrap = $(this).closest('.widget');
+
+var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
+var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
+wpmm_saving_indicator('show');
+var form_data = $(this).closest('form').serialize()+'&action=wpmm_delete_widget&menu_item_id='+menu_item_id+'&widget_key_id='+widget_key_id+'&row_id='+row_id+'&col_id='+col_id+'&wpmm_nonce='+wpmm.wpmm_nonce;
+$.post(ajaxurl, form_data, function (response) {
+    widget_wrap.find('.wdiget-inner-wrap').slideUp();
+    widget_wrap.hide();
+    wpmm_saving_indicator('hide');
+});
+*/
 /**
  * Select Widget as menu item
  */
@@ -479,7 +561,7 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
             setTimeout(() => {
                 saveBtn.classList.remove('wpmm-btn-spinner');
                 console.log(xhttp.response);
-            },1000)
+            }, 2000)
         }
     };
 
@@ -684,6 +766,7 @@ function initiate_sortable_X() {
      * Open item settings from bottom popup
      */
     $('.wp_megamenu_lauch').click(function (e) {
+        console.log(this);
         e.preventDefault();
         // wpmm_loading(false, 10);
         var menu_item = $(this).closest('li.menu-item');

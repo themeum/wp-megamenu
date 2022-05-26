@@ -111,11 +111,10 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 					<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 						<div class='widget-controls'>
-							<a class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
+							<a onclick="wpmm_delete_this_widget(this)" class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
 							<a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
 						</div>
-
-						<?php submit_button( __( 'Save' ), 'button-primary alignright', 'savewidget', false ); ?>
+						<button type="submit" onclick="wpmm_save_widget_item(this)" class="button-primary alignright"><?php _e( 'Save', 'wp-megamenu' ); ?></button>
 					</div>
 				</div>
 			</form>
@@ -332,7 +331,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			// update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
 
 			// Send json success
-			/* wp_send_json_success(
+			/*
+			 wp_send_json_success(
 				array(
 					'message'   => __( 'Wiedget added', 'wp-megamenu' ),
 					'widget_id' => $widget_id,
@@ -534,6 +534,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
+
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
 			$id_base   = sanitize_text_field( $_POST['id_base'] );
@@ -541,6 +542,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			global $wp_registered_widget_updates;
 			$control = $wp_registered_widget_updates[ $id_base ];
+
 			if ( is_callable( $control['callback'] ) ) {
 				call_user_func_array( $control['callback'], $control['params'] );
 				return true;

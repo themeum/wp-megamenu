@@ -376,7 +376,7 @@
     /**
      * Save widget input
      */
-    $(document).on('submit', 'form.wpmm_widget_save_form', function (e) {
+    $(document).on('submit', 'form.wpmm_widget_save_formX', function (e) {
         e.preventDefault();
         wpmm_saving_indicator('show');
 
@@ -390,7 +390,7 @@
     /**
      * Delete widget from menu
      */
-    $(document).on('click', '.widget-controls a.delete', function (e) {
+    $(document).on('click', '.widget-controls a.deleteX', function (e) {
         e.preventDefault();
 
         var menu_item_id = $(this).closest('.wpmm-item-settings-panel').data('id');

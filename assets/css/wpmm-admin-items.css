@@ -645,17 +645,16 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 
 .wpmm-btn-spinner:before {
     content: '';
-    display: inline-block;
-    vertical-align: -.125em;
-    border: .25em solid currentColor;
+    border: 1px solid currentColor;
     border-right-color: transparent;
     border-radius: 50%;
     -webkit-animation: .75s linear infinite spinner-border;
     animation: .75s linear infinite spinner-border;
-    width: .5rem;
-    height: .5rem;
-    border-width: .2em;
-    margin-right: 10px;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: -3px;
 }
 
 .wpmm-column-layout-name{
