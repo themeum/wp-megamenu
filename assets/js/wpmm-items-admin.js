@@ -64,7 +64,6 @@ function get_latest_widget_id_by_id_base(id_base) {
     base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
     widget_ids = [];
     base_ids.forEach(item => {
-        console.log(item);
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
         if (0 !== item.length && 'undefined' !== typeof item_base_id) {
             widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]);
@@ -160,9 +159,9 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                     targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' +
                         rowID + '"][data-col-id="' + colID + '"]');
 
-                    widgetAddTarget = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
+                    columnToAddWidgets = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
 
-                    widgetAddTarget.insertAdjacentHTML('beforeend', xhttp.response);
+                    columnToAddWidgets.insertAdjacentHTML('beforeend', xhttp.response);
                     widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
 
                     if ('block' === widgetItemPanel.style.display) {
@@ -246,18 +245,36 @@ function get_nav_item_settings() {
     });
     return settingsArray;
 }
+
+function toggle_widget_form(thisToggler) {
+    widgetInner = thisToggler.parentElement.parentElement.nextElementSibling;
+    widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
+    wpmm_loading(false, 10);
+
+    /* widgetElements = document.querySelectorAll('.widget.wpmm-cell');
+    widgetElements.forEach(item => {
+        console.log(item);
+    }) */
+
+    elemTrigger = widgetInner.closest('.widget.wpmm-cell');
+    jQuery(document).trigger('widget-added', [jQuery(elemTrigger)]);
+
+    // wp.editor.initialize(elemTrigger.id);
+
+
+}
 /**
  * @return mixed
  */
 function initiate_actions_on_layout_modal(menu_item_id) {
 
-    document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
+    /* document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
         item.addEventListener('click', event => {
             widgetInner = item.parentElement.parentElement.nextElementSibling;
             widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
             wpmm_loading(false, 10);
         })
-    });
+    }); */
 
     document.querySelectorAll('.wpmm-column-layout.wpmm-custom').forEach(item => {
         item.addEventListener('click', event => {
@@ -398,6 +415,7 @@ function widget_search_on_modal(e) {
 function wpmm_save_widget_item(saveButton) {
     saveButton.closest('form').addEventListener('submit', (e) => {
         e.preventDefault();
+        saveButton.classList.add('wpmm-btn-spinner');
         thisForm = e.target;
         widget_element = thisForm.closest('.widget.wpmm-cell');
         menu_item = thisForm.closest('.wp-megamenu-item-settins-wrap');
@@ -423,6 +441,10 @@ function wpmm_save_widget_item(saveButton) {
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState === 4) {
                 console.log(xhttp.response);
+                setTimeout(() => {
+                    saveButton.classList.remove('wpmm-btn-spinner');
+                }, 1000)
+
             }
         };
 
@@ -523,6 +545,7 @@ function initiate_sortable() {
     document.querySelectorAll('.wpmm-column-contents').forEach(item => {
         Sortable.create(item, {
             draggable: ".wpmm-cell",
+            handle: '.widget-top',
             animation: 150,
             ghostClass: 'wpmm-blue-bg',
             group: 'wpmm-layout-row'
@@ -766,7 +789,6 @@ function initiate_sortable_X() {
      * Open item settings from bottom popup
      */
     $('.wp_megamenu_lauch').click(function (e) {
-        console.log(this);
         e.preventDefault();
         // wpmm_loading(false, 10);
         var menu_item = $(this).closest('li.menu-item');
@@ -804,6 +826,35 @@ function initiate_sortable_X() {
 
     });
 
+
+    function add_wpmm_events_to_widget(widget) {
+        var update = widget.find(".widget-action");
+        var close = widget.find(".widget-controls .close");
+        var id = widget.attr("id");
+        update.on('click', function () {
+            if (!widget.hasClass("open")) {
+                //Supporting Black Studio TinyMCE
+                if (widget.is('[id*=black-studio-tinymce]')) {
+                    bstw(widget).deactivate().activate();
+                }
+                console.log(widget);
+                $(document).trigger('widget-added', [widget]);
+                widget.toggleClass("open");
+            } else {
+                widget.toggleClass('open');
+            }
+        });
+        close.on('click', function (e) {
+            e.preventDefault();
+            widget.removeClass('open');
+        });
+        $(".widget").not(widget).removeClass("open");
+    }
+
+
+    /* $('.widget').each(function () {
+        add_wpmm_events_to_widget($(this));
+    }); */
 
 })(jQuery);
 

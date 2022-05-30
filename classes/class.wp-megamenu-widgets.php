@@ -62,7 +62,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
 			}
 			// echo $new_base_id.PHP_EOL; die;
-			$this->wpmm_add_widget_to_widget_list( $new_base_id );
+			$this->wpmm_add_widget_to_widget_list( $new_base_id, ( $db_max_id + 1 ) );
 
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
@@ -292,7 +292,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		/**
 		 * Add widget or item
 		 */
-		public function wpmm_add_widget_to_widget_list( $new_base_id ) {
+		public function wpmm_add_widget_to_widget_list( $new_base_id, $new_next_id = null ) {
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
 
 			$widget_base_id = sanitize_text_field( $_POST['widget_id'] );
@@ -305,8 +305,11 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$this->add_widget_to_wpmm_sidebar( $widget_id );
 
 			// get new widget id
-			$get_widget_option             = get_option( 'widget_' . $widget_base_id );
-			$get_widget_option[ $next_id ] = array();
+			$get_widget_option                 = get_option( 'widget_' . $widget_base_id );
+			// $get_widget_option[ $new_next_id ] = array();
+			// pr($widget_base_id);
+			pr( $get_widget_option[ $new_next_id ] );
+			die;
 			update_option( 'widget_' . $widget_base_id, $get_widget_option );
 
 			// Settings in item post meta
@@ -425,7 +428,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				<div class="widget-top">
 
 					<div class="widget-title-action">
-						<button type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
+						<button onclick="toggle_widget_form(this)" type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
 							<span class="screen-reader-text"><?php printf( __( 'Edit widget: %s' ), $this->wpmm_get_widget_name_by_widget_id( $widget_id ) ); ?></span>
 							<span class="toggle-indicator" aria-hidden="true"></span>
 						</button>
@@ -457,7 +460,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				<div class="widget-top">
 
 					<div class="widget-title-action">
-						<button type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
+						<button onclick="toggle_widget_form(this)" type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
 							<span class="screen-reader-text"><?php printf( __( 'Edit widget: %s' ), $this->wpmm_get_widget_name_by_widget_id( $widget_id ) ); ?></span>
 							<span class="toggle-indicator" aria-hidden="true"></span>
 						</button>
@@ -469,7 +472,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				</div>
 
 				<div class="widget-inner widget-inside">
-					<?php $this->show_wpmm_widget_form( $widget_id ); ?>
+					<?php
+					$this->show_wpmm_widget_form( $widget_id ); ?>
 				</div>
 
 			</div>
@@ -489,7 +493,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				<div class="widget-top">
 
 					<div class="widget-title-action">
-						<button type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
+						<button onclick="toggle_widget_form(this)"  type="button" class="widget-action hide-if-no-js widget-form-open" aria-expanded="false">
 							<span class="screen-reader-text">Edit widget: Pages</span>
 							<span class="toggle-indicator" aria-hidden="true"></span>
 						</button>
