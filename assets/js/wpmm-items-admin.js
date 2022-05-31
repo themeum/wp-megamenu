@@ -127,11 +127,13 @@ function create_row_layout(layout, layout_array, new_row_id) {
 }
 
 function insert_widget_to_column(menu_item_id, addElemBtn) {
-    // console.log(addElemBtn);
+
     widgetListItem = document.querySelectorAll('.widget-list-item');
     widgetListItem.forEach(item => {
         item.addEventListener('click', event => {
 
+            rowID = addElemBtn.dataset.rowIndex;
+            colID = addElemBtn.dataset.colIndex;
             widgetBaseId = item.dataset.widgetIdBase;
             widgetByBaseId = get_latest_widget_id_by_id_base(widgetBaseId);
 
@@ -142,6 +144,8 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                 menu_item_id: menu_item_id,
                 widget_id: widgetBaseId,
                 widget_existing_id: widgetByBaseId,
+                row_id: rowID,
+                col_id: colID,
             }
 
             Object.entries(requestData).forEach(([key, value]) => {
@@ -153,8 +157,6 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4) {
-                    rowID = addElemBtn.dataset.rowIndex;
-                    colID = addElemBtn.dataset.colIndex;
 
                     targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' +
                         rowID + '"][data-col-id="' + colID + '"]');
@@ -256,10 +258,13 @@ function toggle_widget_form(thisToggler) {
         console.log(item);
     }) */
 
-    elemTrigger = widgetInner.closest('.widget.wpmm-cell');
+    // setTimeout(() => {
+        elemTrigger = widgetInner.closest('.widget.wpmm-cell');
     jQuery(document).trigger('widget-added', [jQuery(elemTrigger)]);
+    // console.log(elemTrigger.querySelectorAll('textarea'));
+        wp.editor.initialize(elemTrigger.id+'-text');
+    // },1000)
 
-    // wp.editor.initialize(elemTrigger.id);
 
 
 }

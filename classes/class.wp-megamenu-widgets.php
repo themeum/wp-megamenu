@@ -52,7 +52,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$widget_ui_id = isset( $_POST['widget_existing_id'] ) ? sanitize_key( $_POST['widget_existing_id'] ) : '';
 			$ui_max_id    = isset( $widget_ui_id ) && ! empty( $widget_ui_id ) ? str_replace( $id_base . '-', '', $widget_ui_id ) : 0;
 			$db_max_id    = next_widget_id_number( $id_base );
-			// echo 'UI: ' . $ui_max_id .PHP_EOL. 'DB: ' . $db_max_id.PHP_EOL;
+			echo 'UI: ' . $ui_max_id .PHP_EOL. 'DB: ' . $db_max_id.PHP_EOL;
 
 			if ( $db_max_id < $ui_max_id ) {
 				$new_base_id = $id_base . '-' . ( $ui_max_id + 1 );
@@ -62,7 +62,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
 			}
 			// echo $new_base_id.PHP_EOL; die;
-			$this->wpmm_add_widget_to_widget_list( $new_base_id, ( $db_max_id + 1 ) );
+			$this->wpmm_add_widget_to_widget_list( $new_base_id, ( $db_max_id ) );
 
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
@@ -91,10 +91,11 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		public function show_wpmm_widget_form( $widget_id ) {
 			global $wp_registered_widget_controls;
-
+// pr($widget_id);
 			$id_base = $this->wpmm_get_id_base_for_widget_id( $widget_id );
 			$control = $wp_registered_widget_controls[ $widget_id ];
 			$nonce   = wp_create_nonce( 'megamenu_save_widget_' . $widget_id );
+			// pr($control);
 			?>
 
 			<form method='post'  class="wpmm_widget_save_form">
@@ -203,6 +204,40 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			return $widget['wpmm'];
 		}
 
+		/**
+		 *  Get Widget instance title or widget name as a fallback.
+		 *  Returns empty widget titles too.
+		 *
+		 *  @param string $widget_id
+		 *  @return string Widget title or widget name
+		 */
+		function get_widget_title_by_widget_id( $widget_id ) {
+
+			global $wp_registered_widgets;
+
+			// get instance
+			$instance = $wp_registered_widgets[ $widget_id ]['callback'][0];
+
+			// @see https://developer.wordpress.org/reference/classes/wp_widget/get_settings/
+			$settings = $instance->get_settings();
+			// echo '<pre>';
+			// print_r($instance);
+			// echo '</pre>';
+			// fallback 1 – widget number can't be found
+			if ( isset( $wp_registered_widgets[ $widget_id ]['params'][0]['number'] ) ) {
+				$num = $wp_registered_widgets[ $widget_id ]['params'][0]['number'];
+			} else {
+				return $instance->name;
+			}
+
+			// nasty nesting
+			if ( isset( $settings[ $num ]['title'] ) ) {
+				return $settings[ $num ]['title'];
+			}
+			return $instance->name;
+
+		}
+
 
 		/**
 		 * @param $widgets_array
@@ -293,23 +328,24 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * Add widget or item
 		 */
 		public function wpmm_add_widget_to_widget_list( $new_base_id, $new_next_id = null ) {
+			pr($_REQUEST);
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
 
 			$widget_base_id = sanitize_text_field( $_POST['widget_id'] );
 			$menu_item_id   = (int) sanitize_text_field( $_POST['menu_item_id'] );
 
-			$next_id   = next_widget_id_number( $widget_base_id );
-			$widget_id = $widget_base_id . '-' . $next_id;
-			$widget_id = $new_base_id;
+			$widget_id = $widget_base_id . '-' . $new_base_id;
+			// $widget_id = $new_base_id;
 
 			$this->add_widget_to_wpmm_sidebar( $widget_id );
 
 			// get new widget id
-			$get_widget_option                 = get_option( 'widget_' . $widget_base_id );
-			// $get_widget_option[ $new_next_id ] = array();
-			// pr($widget_base_id);
-			pr( $get_widget_option[ $new_next_id ] );
-			die;
+			$get_widget_option = get_option( 'widget_' . $widget_base_id );
+			// pr($next_id);die;
+			$get_widget_option[ $new_next_id ] = array();
+			// pr($new_next_id);
+			pr($get_widget_option);die;
+
 			update_option( 'widget_' . $widget_base_id, $get_widget_option );
 
 			// Settings in item post meta
@@ -322,7 +358,17 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			// Setting item settings in the menu
 			// $get_menu_settings['items'][] = array( 'item_type' => 'widget', 'widget_class' => $widget_class, 'widget_name' => $widget_name, 'widget_id' => $widget_id, 'options' => array() );
-			$get_layout['layout'][0]['row'][0]['items'][] = array(
+			$get_layout['layout'][ $row_id ]['row'][ $col_id ]['items'][] = array(
+            	'item_type'    => 'widget',
+            	'widget_class' => $widget_class,
+            	'widget_name'  => $widget_name,
+            	'widget_id'    => $widget_id,
+            	'options'      => array(),
+            );
+
+            update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
+
+			/* $get_layout['layout'][0]['row'][0]['items'][] = array(
 				'item_type'    => 'widget',
 				'widget_class' => $widget_class,
 				'widget_name'  => $widget_name,
@@ -330,7 +376,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				'options'      => array(),
 			);
 
-			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
+			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout ); */
 			// update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
 
 			// Send json success
@@ -420,11 +466,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		public function widget_items( $widget_id, $menu_item_id, $widget_key_id = 0 ) {
 			?>
-			<div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget"  data-item-key-id="
-											  <?php
-												esc_attr_e( $widget_key_id );
-												?>
-			">
+			<div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget"  data-item-key-id=" <?php esc_attr_e( $widget_key_id ); ?>">
 				<div class="widget-top">
 
 					<div class="widget-title-action">
@@ -467,13 +509,14 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 					</div>
 					<div class="widget-title">
-						<h3><?php esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) ); ?><span class="in-widget-title"></span></h3>
+						<h3><?php echo $widget_id; esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) ); ?>: <span class="widget_title"><?php //esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span></h3>
 					</div>
 				</div>
 
 				<div class="widget-inner widget-inside">
 					<?php
-					$this->show_wpmm_widget_form( $widget_id ); ?>
+					$this->show_wpmm_widget_form( $widget_id );
+					?>
 				</div>
 
 			</div>
