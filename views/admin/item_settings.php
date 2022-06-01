@@ -309,7 +309,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 												<span>Row</span>
 											</div>
 											<div class="wpmm-row-toolbar-right">
-												<span class="wpmm-row-delete-icon">
+												<span class="wpmm-row-delete-icon" onclick="wpmm_delete_any_row(this)">
 													<i class="fa fa-trash-o"></i>
 												</span>
 											</div>
@@ -335,7 +335,9 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 													</div>
 													<div class="wpmm-column-contents">
 														<?php
+														// pr($layout_col['items']);
 														foreach ( $layout_col['items'] as $key => $value ) {
+															pr($value);
 															$id_base = wp_megamenu_widgets()->wpmm_get_widget_id_base_by_widget_id( $value['widget_id'] );
 															if ( 'widget' === $value['item_type'] ) {
 																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key, $id_base );

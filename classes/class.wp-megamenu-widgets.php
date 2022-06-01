@@ -47,12 +47,13 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
+			pr($_REQUEST);
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
-			$id_base      = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
+			$id_base      = isset( $_POST['base_id'] ) ? sanitize_key( $_POST['base_id'] ) : '';
 			$widget_ui_id = isset( $_POST['widget_existing_id'] ) ? sanitize_key( $_POST['widget_existing_id'] ) : '';
 			$ui_max_id    = isset( $widget_ui_id ) && ! empty( $widget_ui_id ) ? str_replace( $id_base . '-', '', $widget_ui_id ) : 0;
 			$db_max_id    = next_widget_id_number( $id_base );
-			echo 'UI: ' . $ui_max_id .PHP_EOL. 'DB: ' . $db_max_id.PHP_EOL;
+			echo 'UI: ' . $ui_max_id . PHP_EOL . 'DB: ' . $db_max_id . PHP_EOL;
 
 			if ( $db_max_id < $ui_max_id ) {
 				$new_base_id = $id_base . '-' . ( $ui_max_id + 1 );
@@ -61,8 +62,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			} else {
 				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
 			}
-			// echo $new_base_id.PHP_EOL; die;
-			$this->wpmm_add_widget_to_widget_list( $new_base_id, ( $db_max_id ) );
+			echo $new_base_id.PHP_EOL;
+			$this->wpmm_add_widget_to_widget_list( $id_base, $new_base_id, ( $db_max_id ) );
 
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
@@ -91,7 +92,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		public function show_wpmm_widget_form( $widget_id ) {
 			global $wp_registered_widget_controls;
-// pr($widget_id);
+			// pr($widget_id);
+
 			$id_base = $this->wpmm_get_id_base_for_widget_id( $widget_id );
 			$control = $wp_registered_widget_controls[ $widget_id ];
 			$nonce   = wp_create_nonce( 'megamenu_save_widget_' . $widget_id );
@@ -300,6 +302,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		public function wpmm_get_widget_id_base_by_widget_id( $widget_id ) {
 			global $wp_registered_widget_controls;
+			pr($widget_id);
 			if ( ! isset( $wp_registered_widget_controls[ $widget_id ] ) ) {
 				return false;
 			}
@@ -327,15 +330,14 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		/**
 		 * Add widget or item
 		 */
-		public function wpmm_add_widget_to_widget_list( $new_base_id, $new_next_id = null ) {
-			pr($_REQUEST);
+		public function wpmm_add_widget_to_widget_list( $id_base, $new_base_id, $new_next_id = null ) {
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
 
 			$widget_base_id = sanitize_text_field( $_POST['widget_id'] );
 			$menu_item_id   = (int) sanitize_text_field( $_POST['menu_item_id'] );
 
-			$widget_id = $widget_base_id . '-' . $new_base_id;
-			// $widget_id = $new_base_id;
+			// $widget_id = $id_base . '-' . $new_base_id;
+			$widget_id = $new_base_id;
 
 			$this->add_widget_to_wpmm_sidebar( $widget_id );
 
@@ -343,8 +345,6 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$get_widget_option = get_option( 'widget_' . $widget_base_id );
 			// pr($next_id);die;
 			$get_widget_option[ $new_next_id ] = array();
-			// pr($new_next_id);
-			pr($get_widget_option);die;
 
 			update_option( 'widget_' . $widget_base_id, $get_widget_option );
 
@@ -352,41 +352,22 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$widget_name  = $this->wpmm_get_widget_name_by_widget_id( $widget_id );
 			$widget_class = $this->wpmm_get_widget_class_by_widget_id( $widget_id );
 
-			// $get_menu_settings = (array) get_post_meta($menu_item_id, 'wpmm_layout', true);
-
 			$get_layout = get_post_meta( $menu_item_id, 'wpmm_layout', true );
 
 			// Setting item settings in the menu
 			// $get_menu_settings['items'][] = array( 'item_type' => 'widget', 'widget_class' => $widget_class, 'widget_name' => $widget_name, 'widget_id' => $widget_id, 'options' => array() );
 			$get_layout['layout'][ $row_id ]['row'][ $col_id ]['items'][] = array(
-            	'item_type'    => 'widget',
-            	'widget_class' => $widget_class,
-            	'widget_name'  => $widget_name,
-            	'widget_id'    => $widget_id,
-            	'options'      => array(),
-            );
-
-            update_post_meta($menu_item_id, 'wpmm_layout', $get_layout);
-
-			/* $get_layout['layout'][0]['row'][0]['items'][] = array(
 				'item_type'    => 'widget',
 				'widget_class' => $widget_class,
 				'widget_name'  => $widget_name,
+				'base_id'      => $id_base,
 				'widget_id'    => $widget_id,
 				'options'      => array(),
 			);
 
-			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout ); */
-			// update_post_meta($menu_item_id, 'wpmm_layout', $get_menu_settings);
+			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
 
-			// Send json success
-			/*
-			 wp_send_json_success(
-				array(
-					'message'   => __( 'Wiedget added', 'wp-megamenu' ),
-					'widget_id' => $widget_id,
-				)
-			); */
+
 		}
 
 
@@ -465,6 +446,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * Get widget item in item settings panel
 		 */
 		public function widget_items( $widget_id, $menu_item_id, $widget_key_id = 0 ) {
+			pr( $_REQUEST );
 			?>
 			<div id="widget-<?php esc_attr_e( $widget_id ); ?>" class="widget"  data-item-key-id=" <?php esc_attr_e( $widget_key_id ); ?>">
 				<div class="widget-top">
@@ -509,7 +491,12 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 					</div>
 					<div class="widget-title">
-						<h3><?php echo $widget_id; esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) ); ?>: <span class="widget_title"><?php //esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span></h3>
+						<h3>
+						<?php
+						echo $widget_id;
+						esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) );
+						?>
+						: <span class="widget_title"><?php // esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span></h3>
 					</div>
 				</div>
 
@@ -589,6 +576,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			global $wp_registered_widget_updates;
 			$control = $wp_registered_widget_updates[ $id_base ];
+			pr( $_POST );
+			die;
 
 			if ( is_callable( $control['callback'] ) ) {
 				call_user_func_array( $control['callback'], $control['params'] );

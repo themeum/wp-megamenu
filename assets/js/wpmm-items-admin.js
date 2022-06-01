@@ -62,19 +62,20 @@ function wpmm_add_new_item(addElemBtn) {
  */
 function get_latest_widget_id_by_id_base(id_base) {
     base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
+    console.log(base_ids);
     widget_ids = [];
     base_ids.forEach(item => {
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
+        console.log(item_base_id);
         if (0 !== item.length && 'undefined' !== typeof item_base_id) {
             widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]);
         }
-        // else { widget_ids.push(1) }
     })
 
     if (1 > widget_ids.length) {
-        new_widget_id = id_base + '-' + 1;
+        new_widget_id = 1;
     } else {
-        new_widget_id = id_base + '-' + (parseInt(Math.max(...widget_ids)));
+        new_widget_id = parseInt(Math.max(...widget_ids));
     }
 
     return new_widget_id;
@@ -142,7 +143,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                 wpmm_nonce: wpmm.wpmm_nonce,
                 action: "wpmm_add_widget_to_column",
                 menu_item_id: menu_item_id,
-                widget_id: widgetBaseId,
+                base_id: widgetBaseId,
                 widget_existing_id: widgetByBaseId,
                 row_id: rowID,
                 col_id: colID,
@@ -507,22 +508,19 @@ $.post(ajaxurl, form_data, function (response) {
 /**
  * Select Widget as menu item
  */
-function wpmm_delete_any_row(menu_item_id) {
-    $(document).on('click', '.wpmm-row-delete-icon', function () {
-        var button_clicked = $(this);
-        // var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-        var row_id = parseInt($(this).closest('.wpmm-layout-row').data('row-id'));
-        var data = {
-            action: 'wpmm_delete_row',
-            menu_item_id: menu_item_id,
-            row_id: row_id,
-            wpmm_nonce: wpmm.wpmm_nonce
-        };
-        $.post(ajaxurl, data, function (response) {
-            if (response.success) {
-                button_clicked.closest('.wpmm-layout-row').remove();
-            }
-        });
+function wpmm_delete_any_row(rowDeleteButton) {
+    var menu_item_id = parseInt(rowDeleteButton.closest('.wp-megamenu-item-settins-wrap').dataset.id);
+    var row_id = parseInt(rowDeleteButton.closest('.wpmm-layout-row').dataset.rowId);
+    var data = {
+        action: 'wpmm_delete_row',
+        menu_item_id: menu_item_id,
+        row_id: row_id,
+        wpmm_nonce: wpmm.wpmm_nonce
+    };
+    jQuery.post(ajaxurl, data, function (response) {
+        if (response.success) {
+            rowDeleteButton.closest('.wpmm-layout-row').remove();
+        }
     });
 }
 
