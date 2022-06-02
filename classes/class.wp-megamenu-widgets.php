@@ -200,6 +200,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		public function get_sidebar_widgets() {
 			$widget = wp_get_sidebars_widgets();
+			// pr($widget);die;
 			if ( ! isset( $widget['wpmm'] ) ) {
 				return false;
 			}
@@ -258,6 +259,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 */
 		private function add_widget_to_wpmm_sidebar( $new_widget_id ) {
 			$new_widgets   = $this->get_sidebar_widgets();
+			pr($new_widgets);die;
 			$new_widgets[] = $new_widget_id;
 			$this->set_sidebar_widgets( $new_widgets );
 			return $new_widget_id;
