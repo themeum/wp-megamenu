@@ -66,7 +66,6 @@ function get_latest_widget_id_by_id_base(id_base) {
     widget_ids = [];
     base_ids.forEach(item => {
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
-        console.log(item_base_id);
         if (0 !== item.length && 'undefined' !== typeof item_base_id) {
             widget_ids.push(item.dataset.widgetId.split(id_base + '-')[1]);
         }
@@ -455,6 +454,7 @@ function wpmm_save_widget_item(saveButton) {
         };
 
     })
+    // {"widget_id":"pages-15","item_type":"widget","widget_class":"","widget_name":"","options":{}}
     /* $(document).on('submit', 'form.wpmm_widget_save_form', function (e) {
         e.preventDefault();
         wpmm_saving_indicator('show');
