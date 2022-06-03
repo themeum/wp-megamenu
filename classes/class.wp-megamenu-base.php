@@ -261,18 +261,18 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
-			$data                           = json_decode( wp_unslash( $_POST['data'] ), true );
+			$data = json_decode( wp_unslash( $_POST['data'] ), true );
 
 			$menu_request_data              = sanitize_array( $data );
 			$data_options                   = $menu_request_data['options'];
 			$menu_request_data['menu_type'] = 'wpmm_mega_menu';
 			$menu_request_data['data_type'] = 'new';
 			unset( $menu_request_data['options'] );
-			$menu_item_id  = sanitize_text_field( $data['menu_item_id'] );
-			$menu_get_data = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
+			$menu_item_id            = sanitize_text_field( $data['menu_item_id'] );
+			$menu_get_data           = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
+			$menu_get_data['layout'] = $menu_request_data['layout'];
 			unset( $menu_get_data[0] );
 			// pr( $menu_request_data );die;
-			$menu_get_data['layout']                   = $menu_request_data['layout'];
 
 			foreach ( $data_options as $options ) {
 				foreach ( $options as $key => $option ) {
@@ -285,22 +285,17 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			update_post_meta( $menu_item_id, 'wpmm_layout', $menu_get_data );
 			do_action( 'wpmm_regenerate_css' );
 			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );
+
 			die();
 
-
-
-
-
-
-			$menu_item_id      = sanitize_text_field( $_POST['menu_item_id'] );
-			$get_menu_settings = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
-
-			$get_menu_settings['options']['menu_icon_image']      = wpmm_item_settings_input( 'menu_icon_image' );
-			$get_menu_settings['options']['menu_bg_image']        = wpmm_item_settings_input( 'menu_bg_image' );
-			$get_menu_settings['options']['disable_link']         = wpmm_item_settings_input( 'disable_link' );
-			$get_menu_settings['options']['hide_text']            = wpmm_item_settings_input( 'hide_text' );
-			$get_menu_settings['options']['hide_arrow']           = wpmm_item_settings_input( 'hide_arrow' );
-			$get_menu_settings['options']['hide_item_on_mobile']  = wpmm_item_settings_input( 'hide_item_on_mobile' );
+			$menu_item_id                                        = sanitize_text_field( $_POST['menu_item_id'] );
+			$get_menu_settings                                   = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
+			$get_menu_settings['options']['menu_icon_image']     = wpmm_item_settings_input( 'menu_icon_image' );
+			$get_menu_settings['options']['menu_bg_image']       = wpmm_item_settings_input( 'menu_bg_image' );
+			$get_menu_settings['options']['disable_link']        = wpmm_item_settings_input( 'disable_link' );
+			$get_menu_settings['options']['hide_text']           = wpmm_item_settings_input( 'hide_text' );
+			$get_menu_settings['options']['hide_arrow']          = wpmm_item_settings_input( 'hide_arrow' );
+			$get_menu_settings['options']['hide_item_on_mobile'] = wpmm_item_settings_input( 'hide_item_on_mobile' );
 			$get_menu_settings['options']['hide_item_on_desktop'] = wpmm_item_settings_input( 'hide_item_on_desktop' );
 			$get_menu_settings['options']['item_align']           = wpmm_item_settings_input( 'item_align' );
 			$get_menu_settings['options']['dropdown_alignment']   = wpmm_item_settings_input( 'dropdown_alignment' );

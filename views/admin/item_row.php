@@ -41,7 +41,7 @@ if ( ! empty( $wpmm_layout['layout'] ) && count( $wpmm_layout['layout'] ) ) {
 					<span>Row</span>
 				</div>
 				<div class="wpmm-row-toolbar-right">
-					<span class="wpmm-row-delete-icon">
+					<span class="wpmm-row-delete-icon" onclick="wpmm_delete_any_row(this)">
 						<i class="fa fa-trash-o"></i>
 					</span>
 				</div>

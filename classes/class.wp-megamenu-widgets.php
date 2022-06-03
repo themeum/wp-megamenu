@@ -38,6 +38,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			// Edit Widget by ajax, @since v.1.0
 			add_action( 'wp_ajax_wpmm_edit_widget', array( $this, 'wpmm_edit_widget' ) );
 			add_action( 'wp_ajax_wpmm_add_widget_to_column', array( $this, 'wpmm_add_widget_to_column' ) );
+			add_action( 'wp_ajax_wpmm_new_widget_ui', array( $this, 'wpmm_new_widget_ui' ) );
 		}
 
 		/**
@@ -49,22 +50,41 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			}
 			// pr( $_REQUEST );
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
-			$id_base      = isset( $_POST['base_id'] ) ? sanitize_key( $_POST['base_id'] ) : '';
-			$widget_ui_id = isset( $_POST['widget_existing_id'] ) ? sanitize_key( $_POST['widget_existing_id'] ) : '';
-			$ui_max_id    = isset( $widget_ui_id ) && ! empty( $widget_ui_id ) ? str_replace( $id_base . '-', '', $widget_ui_id ) : 0;
-			$db_max_id    = next_widget_id_number( $id_base );
+			$id_base   = isset( $_POST['base_id'] ) ? sanitize_key( $_POST['base_id'] ) : '';
+			$ui_max_id = isset( $_POST['widget_existing_id'] ) ? sanitize_key( $_POST['widget_existing_id'] ) : '';
+			$db_max_id = next_widget_id_number( $id_base );
 			// echo 'UI: ' . $ui_max_id . PHP_EOL . 'DB: ' . $db_max_id . PHP_EOL;
 
-			if ( $db_max_id < $ui_max_id ) {
+			if ( $ui_max_id < $db_max_id ) {
+				$new_base_id = $id_base . '-' . $db_max_id;
+			} elseif ( $ui_max_id >= $db_max_id ) {
 				$new_base_id = $id_base . '-' . ( $ui_max_id + 1 );
-			} elseif ( $db_max_id < $ui_max_id ) {
-				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
-			} else {
-				$new_base_id = $id_base . '-' . ( $db_max_id + 1 );
 			}
-			// echo $new_base_id . PHP_EOL;
-			$this->wpmm_add_widget_to_widget_list( $id_base, $new_base_id, ( $db_max_id ) );
 
+			$this->wpmm_add_widget_to_widget_list( $id_base, $new_base_id );
+
+			wp_send_json(
+				array(
+					'id_base'     => $id_base,
+					'new_base_id' => $new_base_id,
+				)
+			);
+			// wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
+
+			die;
+		}
+
+
+		/**
+		 * Register sidebar to call it smartly
+		 */
+		public function wpmm_new_widget_ui() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+			$id_base     = $_POST['id_base'];
+			$new_base_id = $_POST['new_base_id'];
+			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 			wp_megamenu_widgets()->widget_list_item( $id_base, $new_base_id );
 			die;
 		}
@@ -90,13 +110,55 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 *
 		 * @since v.1.0
 		 */
-		public function show_wpmm_widget_form( $widget_id ) {
+		public function show_wpmm_widget_form_loaded( $widget_id ) {
+			global $wp_registered_widgets;
+			// pr( $wp_registered_widgets );
 			global $wp_registered_widget_controls;
 
 			$id_base = $this->wpmm_get_base_id_by_widget_id( $widget_id );
 			$control = $wp_registered_widget_controls[ $widget_id ];
 			$nonce   = wp_create_nonce( 'megamenu_save_widget_' . $widget_id );
 			// pr($control);
+			// pr($wp_registered_widget_controls);
+			?>
+
+			<form method='post' class="wpmm_widget_save_form">
+				<input type="hidden" name="widget-id" class="widget-id" value="<?php esc_attr_e( $widget_id ); ?>" />
+				<input type='hidden' name='id_base'   class="id_base" value='<?php esc_attr_e( $id_base ); ?>' />
+				<input type='hidden' name='widget_id' value='<?php esc_attr_e( $widget_id ); ?>' />
+				<input type='hidden' name='_wpnonce'  value='<?php echo $nonce; ?>' />
+				<div class='widget-content'>
+					<?php
+					if ( is_callable( $control['callback'] ) ) {
+						call_user_func_array( $control['callback'], $control['params'] );
+					}
+					?>
+
+					<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
+						<div class='widget-controls'>
+							<a onclick="wpmm_delete_this_widget(this)" class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
+							<a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
+						</div>
+						<button type="submit" onclick="wpmm_save_widget_item(this)" class="button-primary alignright"><?php _e( 'Save', 'wp-megamenu' ); ?></button>
+					</div>
+				</div>
+			</form>
+			<?php
+		}
+		/**
+		 * @param $widget_id
+		 *
+		 * Generate Widget form.
+		 *
+		 * @since v.1.0
+		 */
+		public function show_wpmm_widget_form( $widget_id ) {
+			global $wp_registered_widget_controls;
+
+			$id_base = $this->wpmm_get_base_id_by_widget_id( $widget_id );
+			$control = $wp_registered_widget_controls[ $widget_id ];
+			$nonce   = wp_create_nonce( 'megamenu_save_widget_' . $widget_id );
+			// pr( $wp_registered_widget_controls );
 			?>
 
 			<form method='post'  class="wpmm_widget_save_form">
@@ -267,7 +329,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		 * @return mixed
 		 */
 		private function add_widget_to_wpmm_sidebar( $new_widget_id ) {
-			$new_widgets = $this->get_sidebar_widgets();
+			$new_widgets   = $this->get_sidebar_widgets();
 			$new_widgets[] = $new_widget_id;
 			$this->set_sidebar_widgets( $new_widgets );
 			return $new_widget_id;
@@ -350,7 +412,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 		/**
 		 * Add widget or item
 		 */
-		public function wpmm_add_widget_to_widget_list( $id_base, $new_widget_id, $new_next_id = null ) {
+		public function wpmm_add_widget_to_widget_list( $id_base, $new_widget_id ) {
 			require_once ABSPATH . 'wp-admin/includes/widgets.php';
 
 			$widget_base_id = sanitize_text_field( $_POST['base_id'] );
@@ -358,17 +420,17 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$row_id         = (int) sanitize_text_field( $_POST['row_id'] );
 			$col_id         = (int) sanitize_text_field( $_POST['col_id'] );
 
-			$this->add_widget_to_wpmm_sidebar( $new_widget_id );
-
 			// get new widget id
 			$get_widget_option = get_option( 'widget_' . $widget_base_id );
-			// pr($get_widget_option);die;
-			$get_widget_option[ $new_next_id ] = array();
+			$widget_next_num   = str_replace( $id_base . '-', '', $new_widget_id );
+
+			$get_widget_option[ $widget_next_num ] = array();
 
 			update_option( 'widget_' . $widget_base_id, $get_widget_option );
+			$this->add_widget_to_wpmm_sidebar( $new_widget_id );
 
-			$get_widget_option = get_option( 'widget_' . $widget_base_id );
-			// pr($get_widget_option);die;
+			// $get_widget_option = get_option( 'widget_' . $widget_base_id );
+
 			// Settings in item post meta
 			$widget_name  = $this->wpmm_get_widget_name_by_widget_id( $new_widget_id );
 			$widget_class = $this->wpmm_get_widget_class_by_widget_id( $new_widget_id );
@@ -387,6 +449,8 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			);
 
 			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
+
+			return true;
 
 		}
 
@@ -512,10 +576,12 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 					<div class="widget-title">
 						<h3>
 						<?php
-						echo $widget_id;
-						//esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) );
-						?>
-						 <span class="widget_title"><?php // esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span></h3>
+						esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) );
+						if ( ! empty( $this->get_widget_title_by_widget_id( $widget_id ) ) ) {
+							?>
+						: <span class="widget_title"><?php esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span>
+						<?php } ?>
+						</h3>
 					</div>
 				</div>
 
@@ -554,7 +620,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				</div>
 
 				<div class="widget-inner widget-inside">
-				<?php $this->show_wpmm_widget_form( $widget_key_id ); ?>
+				<?php $this->show_wpmm_widget_form_loaded( $widget_key_id ); ?>
 				</div>
 
 			</div>
