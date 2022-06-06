@@ -448,7 +448,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 				'options'      => array(),
 			);
 
-			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
+			// update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
 
 			return true;
 

@@ -189,6 +189,10 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                                 widgetItemPanel.innerHTML = '';
                             }
                             initiate_sortable();
+                            triggerWidget = jQuery(`[data-widget-id="${respData.new_base_id}"]`);
+                            console.log(triggerWidget);
+
+                            jQuery(document).trigger('widget-added', [triggerWidget]);
 
 
                         }
@@ -288,6 +292,10 @@ function get_nav_item_settings() {
     return settingsArray;
 }
 
+jQuery(document).on('widget-added', (e, data) => {
+    console.log(data);
+});
+
 function toggle_widget_form(thisToggler) {
     widgetInner = thisToggler.parentElement.parentElement.nextElementSibling;
     widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
@@ -299,12 +307,33 @@ function toggle_widget_form(thisToggler) {
     }) */
 
     // setTimeout(() => {
-    elemTrigger = widgetInner.closest('.widget.wpmm-cell');
-    jQuery(document).trigger('widget-added', [jQuery(elemTrigger)]);
-    // console.log(elemTrigger.querySelectorAll('textarea'));
-    wp.editor.initialize(elemTrigger.id + '-text');
-    // },1000)
+    elemTrigger = jQuery(widgetInner.closest('.widget.wpmm-cell'));
+    // console.log([(elemTrigger)]);
+    // jQuery(document).trigger('widget-added', [elemTrigger]);
+    // wp.mediaWidgets.handleWidgetAdded(event, self.ui.form);
 
+
+    /* console.log(jQuery(document).trigger('widget-added', [elemTrigger]));
+
+    document.addEventListener("widget-added", function (e) {
+        console.log(e.detail); // Prints "Example of an event"
+    }); */
+    // console.log(wp.media.view.Attachment.render());
+
+
+    // console.log(elemTrigger.querySelectorAll('textarea'));
+    // wp.editor.initialize(elemTrigger[0].id + '-text');
+
+
+    //getting empty widgetId for for WordPress 4.8 widgets when popup settings is opened, closed and
+    // reopened
+
+
+    // $('.widget').each(function() {
+    //     add_wpmm_events_to_widget($(this));
+    // });
+
+    // }, 1000)
 
 
 }
@@ -901,6 +930,7 @@ function initiate_sortable_X() {
 
     /* $('.widget').each(function () {
         add_wpmm_events_to_widget($(this));
+        console.log($(this));
     }); */
 
 })(jQuery);
