@@ -319,6 +319,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 											<?php
 											if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
+
 													if ( isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ) {
 														$layout_columns = $layout_col['col'];
 													} else {
@@ -326,8 +327,12 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 														$layout_columns = ( $layout_columns * 100 ) / 12;
 													}
 
+													if ( isset( $layout_col['width'] ) ) {
+														$layout_width = ( $layout_columns * 100 ) / 12;
+													}
+
 													?>
-											<div style="--col-width: calc(<?php echo esc_attr( $layout_columns ); ?>% - 1em)" class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+											<div style="--col-width: calc(<?php echo esc_attr( $layout_width ); ?>% - 1em)" class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-width="<?php echo esc_attr( $layout_width ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">
 													<div class="wpmm-column-toolbar wpmm-column-drag-handler">
 														<span class="wpmm-col-sorting-icon">

@@ -251,8 +251,11 @@ function get_layout_array() {
                     })
                 })
 
+                layout_width = ( column.dataset.col * 100 ) / 12;
+
                 colsArr.push({
                     col: column.dataset.col,
+                    width: layout_width,
                     items: cellItemsArr
                 })
             })
@@ -864,6 +867,27 @@ function initiate_sortable_X() {
 }
 
 
+
+onConfirmRefresh = (e) => {
+    console.log(e);
+    e.preventDefault();
+    return e.returnValue = "Are you sure you want to leave the page?";
+}
+
+// window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+
+
+/* window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+
+    if (confirm("Press a button!") == true) {
+        text = "You pressed OK!";
+    } else {
+        text = "You canceled!";
+    }
+}); */
+
+
 (function ($) {
 
     /**
@@ -937,6 +961,5 @@ function initiate_sortable_X() {
         add_wpmm_events_to_widget($(this));
         console.log($(this));
     }); */
-
 })(jQuery);
 

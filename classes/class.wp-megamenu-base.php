@@ -262,7 +262,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
 			$data = json_decode( wp_unslash( $_POST['data'] ), true );
-
+// pr($data);die;
 			$menu_request_data              = sanitize_array( $data );
 			$data_options                   = $menu_request_data['options'];
 			$menu_request_data['menu_type'] = 'wpmm_mega_menu';
@@ -271,7 +271,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			$menu_item_id            = sanitize_text_field( $data['menu_item_id'] );
 			$menu_get_data           = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
 			$menu_get_data['layout'] = $menu_request_data['layout'];
-			pr( $menu_request_data );die;
+			// pr( $menu_request_data );die;
 
 			unset( $menu_get_data[0] );
 
