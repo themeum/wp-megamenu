@@ -319,15 +319,19 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 											<?php
 											if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
-
+													/*
 													if ( isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ) {
 														$layout_columns = $layout_col['col'];
 													} else {
 														$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
 														$layout_columns = ( $layout_columns * 100 ) / 12;
-													}
+													}*/
+
+													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 3;
 
 													if ( isset( $layout_col['width'] ) ) {
+														$layout_width = $layout_col['width'];
+													} else {
 														$layout_width = ( $layout_columns * 100 ) / 12;
 													}
 
