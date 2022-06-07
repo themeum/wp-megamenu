@@ -333,12 +333,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 }
 
 .wpmm-modal .wpmm-option-content {
-    flex-grow: 1;
     overflow: hidden;
     padding: 10px;
-    display: flex;
+    display: grid;
     padding-right: 0;
     height: 100%;
+    grid-template-columns: 300px auto;
 }
 
 .wpmm-modal .wpmm-option-content .wpmm-item-sidebar {
@@ -440,9 +440,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     display: none;
 }
 
-/* .wpmm-layout-row:not(:first-child){
-    margin-top: 20px;
-} */
+#layout-modal{
+    display: none;
+}
+#layout-modal.show{
+    display: block;
+}
 .wpmm-layout-row {
     background: #fafafa;
     padding: 0 16px 20px;
@@ -480,7 +483,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     border: 1px dashed #dedede;
     transition: background-color 100ms linear;
 }
-
+.widget.wpmm-cell form > div p:first-child{
+    margin-top: 0;
+}
+.widget.wpmm-cell .widget-content{
+    padding: 0;
+}
 
 .wpmm-item-settings-content .widget.wpmm-cell.wpmm-blue-bg {
     background: #72aee626;

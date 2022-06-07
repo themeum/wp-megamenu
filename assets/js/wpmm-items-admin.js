@@ -292,14 +292,19 @@ function get_nav_item_settings() {
     return settingsArray;
 }
 
-jQuery(document).on('widget-added', (e, data) => {
-    console.log(data);
-});
+function wpmm_toggle_layout_builder(button) {
+    console.log(button);
+    document.getElementById('layout-modal').classList.toggle('show');
+}
 
 function toggle_widget_form(thisToggler) {
+
+
     widgetInner = thisToggler.parentElement.parentElement.nextElementSibling;
     widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
     wpmm_loading(false, 10);
+    widgetWrapper = widgetInner.closest('.widget.wpmm-cell');
+    widgetWrapper.classList.toggle('open');
 
     /* widgetElements = document.querySelectorAll('.widget.wpmm-cell');
     widgetElements.forEach(item => {
@@ -307,7 +312,7 @@ function toggle_widget_form(thisToggler) {
     }) */
 
     // setTimeout(() => {
-    elemTrigger = jQuery(widgetInner.closest('.widget.wpmm-cell'));
+    elemTrigger = jQuery(widgetWrapper);
     // console.log([(elemTrigger)]);
     jQuery(document).trigger('widget-added', [elemTrigger]);
     // wp.mediaWidgets.handleWidgetAdded(event, self.ui.form);

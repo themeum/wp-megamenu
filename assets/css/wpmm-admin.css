@@ -3,7 +3,7 @@ img{
 }
 .widget.open .widget-inner {
     display: block;
-    padding: 10px;
+    padding: 10px 16px;
 }
 .clearfix::after {
     display: block;
