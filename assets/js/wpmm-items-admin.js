@@ -309,7 +309,7 @@ function toggle_widget_form(thisToggler) {
     // setTimeout(() => {
     elemTrigger = jQuery(widgetInner.closest('.widget.wpmm-cell'));
     // console.log([(elemTrigger)]);
-    // jQuery(document).trigger('widget-added', [elemTrigger]);
+    jQuery(document).trigger('widget-added', [elemTrigger]);
     // wp.mediaWidgets.handleWidgetAdded(event, self.ui.form);
 
 
