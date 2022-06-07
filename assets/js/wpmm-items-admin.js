@@ -89,7 +89,7 @@ function create_row_layout(layout, layout_array, new_row_id) {
     layout_array.forEach((col, index) => {
         colWidth = col.column;
         column_ui += `
-                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-col="${colWidth}" data-rowid="${new_row_id}" data-col-id="${index}">
+                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-width="${colWidth}" data-rowid="${new_row_id}" data-col-id="${index}">
                     <div class="wpmm-column-contents-wrapper">
                         <div class="wpmm-column-toolbar wpmm-column-drag-handler">
                             <span class="wpmm-col-sorting-icon">
@@ -250,12 +250,14 @@ function get_layout_array() {
                         options: {},
                     })
                 })
-
-                layout_width = ( column.dataset.col * 100 ) / 12;
-
+                if ('' == column.dataset.col) {
+                    layout_colwidth = (column.dataset.width * 12) / 100;
+                } else {
+                    layout_colwidth = column.dataset.col;
+                }
                 colsArr.push({
-                    col: column.dataset.col,
-                    width: layout_width,
+                    col: layout_colwidth,
+                    width: column.dataset.width,
                     items: cellItemsArr
                 })
             })

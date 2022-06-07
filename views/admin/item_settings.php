@@ -326,7 +326,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 														$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
 														$layout_columns = ( $layout_columns * 100 ) / 12;
 													}*/
-
+// pr($layout_col);
 													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 3;
 
 													if ( isset( $layout_col['width'] ) ) {
