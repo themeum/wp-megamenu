@@ -35,7 +35,7 @@ img{
 .wpmm-item-settings-content input[type=checkbox],
 .wpmm-theme-settings input[type=radio],
 .wpmm-theme-settings input[type=checkbox] {
-    border: 1px solid #8c8c8c;
+    border: 1px solid #BFBFC1;
     box-shadow: none;
     border-radius: 2px;
     padding: 0;
@@ -85,7 +85,7 @@ img{
     width: 200px;*/
 
     box-shadow: none;
-    border: 1px solid #8c8c8c;
+    border: 1px solid #BFBFC1;
     border-radius: 2px;
     padding: 2px 15px;
    /* width: 164px;
@@ -124,7 +124,7 @@ img{
     line-height: 16px;
     height: 34px;
     box-shadow: none;
-    border: 1px solid #8c8c8c;
+    border: 1px solid #BFBFC1;
     border-radius: 2px;
     margin-right: 10px;
     width: 200px;

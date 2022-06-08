@@ -203,6 +203,22 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     display: none;
 }
 
+.wp-core-ui .wpmm-modal .wpmm-item-content input:not([type=checkbox]):not([type=radio]),
+.wp-core-ui .wpmm-modal .wpmm-item-content input[type=text],
+.wp-core-ui .wpmm-modal .wpmm-item-content input[type=number] {
+    box-shadow: none;
+    border: 1px solid #BFBFC1;
+    border-radius: 2px;
+    padding: 2px 15px;
+    line-height: 2;
+    min-height: 30px;
+}
+
+.wp-core-ui .wpmm-modal .wpmm-item-content select {
+    color: #32373c;
+    border-color: #BFBFC1;
+}
+
 .wpmm-form-check-input {
     width: 1em;
     height: 1em;
@@ -293,6 +309,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     height: 30px;
     font-size: 13px;
     width: 100%;
+    border-color: #BFBFC1;
 }
 
 .wpmm-modal,
@@ -440,12 +457,14 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     display: none;
 }
 
-#layout-modal{
+#layout-modal {
     display: none;
 }
-#layout-modal.show{
+
+#layout-modal.show {
     display: block;
 }
+
 .wpmm-layout-row {
     background: #fafafa;
     padding: 0 16px 20px;
@@ -483,10 +502,12 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     border: 1px dashed #dedede;
     transition: background-color 100ms linear;
 }
-.widget.wpmm-cell form > div p:first-child{
+
+.widget.wpmm-cell form>div p:first-child {
     margin-top: 0;
 }
-.widget.wpmm-cell .widget-content{
+
+.widget.wpmm-cell .widget-content {
     padding: 0;
 }
 
@@ -665,7 +686,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     vertical-align: -3px;
 }
 
-.wpmm-column-layout-name{
+.wpmm-column-layout-name {
     display: none;
 }
 
@@ -673,13 +694,15 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     background: #72aee626;
     transition: all 300ms;
 }
-.wpmm-blue-bg > .wpmm-column-contents-wrapper{
+
+.wpmm-blue-bg>.wpmm-column-contents-wrapper {
     background: transparent;
 }
 
 .wpmm-item-content.loading {
     position: relative;
 }
+
 .wpmm-item-content.loading:before {
     content: '';
     background: #fff;
@@ -690,6 +713,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     left: 0;
     z-index: 1;
 }
+
 .wpmm-item-content.loading:after {
     content: '';
     border: 1px solid #2271b1;

@@ -86,7 +86,9 @@ function get_latest_widget_id_by_id_base(id_base) {
  */
 function create_row_layout(layout, layout_array, new_row_id) {
     let column_ui = '';
+
     layout_array.forEach((col, index) => {
+        console.log(col);
         colWidth = col.column;
         column_ui += `
                 <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-width="${colWidth}" data-rowid="${new_row_id}" data-col-id="${index}">
@@ -250,11 +252,12 @@ function get_layout_array() {
                         options: {},
                     })
                 })
-                if ('' == column.dataset.col) {
+                layout_colwidth = Math.ceil((column.dataset.width * 12) / 100);
+                /* if ('' == column.dataset.col) {
                     layout_colwidth = (column.dataset.width * 12) / 100;
                 } else {
                     layout_colwidth = column.dataset.col;
-                }
+                } */
                 colsArr.push({
                     col: layout_colwidth,
                     width: column.dataset.width,
