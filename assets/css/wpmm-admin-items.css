@@ -120,6 +120,7 @@
 .pr {
     height: 100%;
     overflow: scroll;
+    margin: 0;
 }
 
 /* input-group */
@@ -311,7 +312,13 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     width: 100%;
     border-color: #BFBFC1;
 }
+.wpmm-modal .wpmm-item-sidebar input[type="color"] {
+    padding: 0 2px;
+}
 
+.wpmm-modal .wpmm-item-sidebar input[type="color"].block {
+    min-width: 100%;
+}
 .wpmm-modal,
 .wpmm-modal-dialog,
 .wpmm-modal-content {

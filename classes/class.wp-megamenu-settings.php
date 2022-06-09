@@ -97,89 +97,213 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					),
 				),
 				array(
-					'label'     => 'Badge Text',
-					'has_child' => true,
-					'fields'    => array(
+					'label'      => 'Badge Text',
+					'child_type' => 'input_group',
+					'has_child'  => true,
+					'fields'     => array(
+
 						array(
-							'key'     => 'badge_text',
-							'type'    => 'text',
-							'default' => 'Badge Text',
+							'key'         => 'badge_text',
+							'label'       => false,
+							'type'        => 'text',
+							'default'     => 'Badge Text',
+							'placeholder' => 'Badge Text',
+
 						),
 						array(
 							'key'     => 'icon_position',
+							'label'   => false,
+
 							'type'    => 'select',
-							'value'   => 'left',
+							'value'   => 'primary',
+							'width'   => '130px',
+
 							'options' => array(
-								'default' => 'default',
-								'primary' => 'primary',
-								'success' => 'success',
-								'info'    => 'info',
-								'warning' => 'warning',
-								'danger'  => 'danger',
+								'default' => 'Default',
+								'primary' => 'Primary',
+								'success' => 'Success',
+								'info'    => 'Info',
+								'warning' => 'Warning',
+								'danger'  => 'Danger',
+
 							),
 						),
 					),
 				),
 				array(
-					'label'     => 'Padding',
-					'has_child' => true,
-					'fields'    => array(
+					'label'      => 'Padding',
+					'child_type' => 'multi_column',
+					'has_child'  => true,
+					'fields'     => array(
+
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_top',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'wp_megamenu_submenu_menu_padding_top',
+							'label'       => 'Top',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_right',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'wp_megamenu_submenu_menu_padding_right',
+							'label'       => 'Right',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_bottom',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'wp_megamenu_submenu_menu_padding_bottom',
+							'label'       => 'Bottom',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_left',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'wp_megamenu_submenu_menu_padding_left',
+							'label'       => 'Left',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 					),
 				),
 				array(
-					'label'     => 'Margin',
-					'has_child' => true,
-					'fields'    => array(
+					'label'      => 'Margin',
+					'child_type' => 'multi_column',
+					'has_child'  => true,
+					'fields'     => array(
+
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_top',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'single_menu_margin_top',
+							'label'       => 'Top',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_right',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'single_menu_margin_right',
+							'label'       => 'Right',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_bottom',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'single_menu_margin_bottom',
+							'label'       => 'Bottom',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 						array(
-							'key'     => 'wp_megamenu_submenu_menu_padding_left',
-							'type'    => 'text',
-							'default' => '',
+							'key'         => 'single_menu_margin_left',
+							'label'       => 'Left',
+							'placeholder' => '0px',
+							'type'        => 'text',
+							'default'     => '',
+
 						),
 					),
 				),
 			);
 
 			// New navigation item setting fields
-			$other_fields = array();
+			$other_fields = array(
+
+				array(
+					'label'      => 'Menu Width',
+					'child_type' => 'input_group_inline',
+					'has_child'  => true,
+					'fields'     => array(
+
+						array(
+							'key'         => 'menu_width',
+							'label'       => false,
+							'type'        => 'number',
+							'default'     => '10',
+							'placeholder' => '',
+
+						),
+						array(
+							'key'     => 'menu_width_type',
+							'label'   => false,
+							'type'    => 'select',
+							'value'   => 'primary',
+							'options' => array(
+								'px'  => 'px',
+								'em'  => 'em',
+								'rem' => 'rem',
+								'%'   => '%',
+							),
+						),
+					),
+				),
+				array(
+					'key'         => 'custom_class',
+					'label'       => 'Custom Class',
+					'type'        => 'text',
+					'default'     => '',
+					'placeholder' => 'Type Custom Class',
+				),
+				array(
+					'key'     => 'badge_background',
+					'label'   => 'Badge Background',
+					'type'    => 'color',
+					'default' => '',
+				),
+				array(
+					'child_type' => 'multi_column',
+					'has_child'  => true,
+					'fields'     => array(
+						array(
+							'key'     => 'item_align',
+							'label'   => 'Menu Item Alignment',
+							'type'    => 'select',
+							'default' => 'left',
+							'options' => array(
+								'left'   => 'Left',
+								'center' => 'Center',
+								'right'  => 'Right',
+							),
+						),
+						array(
+							'key'     => 'item_align',
+							'label'   => 'Menu Item Alignment',
+							'type'    => 'select',
+							'default' => 'left',
+							'options' => array(
+								'left'   => 'Left',
+								'center' => 'Center',
+								'right'  => 'Right',
+							),
+						),
+					),
+				),
+			);
+
 
 			$item_setting_fields = array_merge( $listed_fields, $other_fields );
 
 			return $item_setting_fields;
+		}
+
+		public function wpmm_field_type( $field ) {
+			ob_start();
+			if ( isset( $field['has_child'] ) ) {
+				if ( isset( $field['child_type'] ) ) {
+					include wpmm()->path . "views/admin/fields/{$field['child_type']}.php";
+				} else {
+					include wpmm()->path . 'views/admin/fields/child_fields.php';
+				}
+			} elseif ( isset( $field['type'] ) ) {
+				include wpmm()->path . "views/admin/fields/{$field['type']}.php";
+			}
+			return ob_get_clean();
 		}
 
 		public function save_wpmm_settings() {
