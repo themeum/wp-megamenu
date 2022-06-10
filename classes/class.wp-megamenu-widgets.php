@@ -282,7 +282,10 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$instance = $wp_registered_widgets[ $widget_id ]['callback'][0];
 
 			// @see https://developer.wordpress.org/reference/classes/wp_widget/get_settings/
-			$settings = $instance->get_settings();
+			if ( isset( $instance ) ) {
+				$settings = $instance->get_settings();
+			}
+
 			// echo '<pre>';
 			// print_r($instance);
 			// echo '</pre>';

@@ -48,6 +48,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 						<form id="wpmm_nav_item_settings" method="POST">
 							<div class="wpmm-item-fields">
 							<?php
+							pr($setting_saved);
 							foreach ( $setting_fields as $setting_field ) {
 								if ( isset( $setting_field['has_child'] ) ) {
 									echo wpmm_settings()->wpmm_field_type( $setting_field );

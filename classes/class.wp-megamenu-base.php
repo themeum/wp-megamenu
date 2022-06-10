@@ -258,31 +258,37 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
-
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
-			$data = json_decode( wp_unslash( $_POST['data'] ), true );
-			// pr( $data );die;
-			$menu_request_data              = sanitize_array( $data );
-			$data_options                   = $menu_request_data['options'];
-			$menu_request_data['menu_type'] = 'wpmm_mega_menu';
-			$menu_request_data['data_type'] = 'new';
-			unset( $menu_request_data['options'] );
-			$menu_item_id            = sanitize_text_field( $data['menu_item_id'] );
-			$menu_get_data           = (array) maybe_unserialize( get_post_meta( $menu_item_id, 'wpmm_layout', true ) );
-			$menu_get_data['layout'] = $menu_request_data['layout'];
-			// pr( $menu_request_data );die;
+			$request_data           = $_POST;
+			$request_data['layout'] = sanitize_array( json_decode( wp_unslash( $request_data['layout'] ), true ) );
+			$dataset_saved          = (array) maybe_unserialize( get_post_meta( $request_data['menu_item_id'], 'wpmm_layout', true ) );
 
-			unset( $menu_get_data[0] );
+			$dataset                 = $request_data;
+			$dataset['menu_type']    = 'wpmm_mega_menu';
+			$dataset_saved['layout'] = $request_data['layout'];
 
-			foreach ( $data_options as $options ) {
-				foreach ( $options as $key => $option ) {
-					$menu_get_data['options'][ $key ] = $option;
+			unset( $dataset_saved[0] );
+
+			foreach ( $request_data['options'] as $key => $option ) {
+				if ( isset( $request_data['options'][ $key ] ) ) {
+					$request_data['options'][ $key ] = $option;
 				}
 			}
+
+			$dataset['options']    = $request_data['options'];
+
+
+			pr( $dataset );
+			die;
+
 			if ( ! isset( $menu_get_data['data_type'] ) ) {
 				$menu_get_data['data_type'] = 'new';
 			}
+
+			pr( $menu_get_data );
+			die;
+
 			update_post_meta( $menu_item_id, 'wpmm_layout', $menu_get_data );
 			do_action( 'wpmm_regenerate_css' );
 			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );

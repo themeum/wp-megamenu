@@ -243,9 +243,9 @@ function get_layout_array() {
                 col_items = column && column.querySelectorAll('.wpmm-column-contents .wpmm-cell');
                 cellItemsArr = [];
                 col_items.forEach(item => {
-                    widgetId = item.dataset.widgetId;
                     cellItemsArr.push({
-                        widget_id: widgetId,
+                        widget_id: item.dataset.widgetId,
+                        base_id: item.dataset.baseId,
                         item_type: 'widget',
                         widget_class: '',
                         widget_name: '',
@@ -253,11 +253,7 @@ function get_layout_array() {
                     })
                 })
                 layout_colwidth = Math.ceil((column.dataset.width * 12) / 100);
-                /* if ('' == column.dataset.col) {
-                    layout_colwidth = (column.dataset.width * 12) / 100;
-                } else {
-                    layout_colwidth = column.dataset.col;
-                } */
+
                 colsArr.push({
                     col: layout_colwidth,
                     width: column.dataset.width,
@@ -645,22 +641,20 @@ function initiate_sortable() {
 
 
 const wpmmSaveNavItemFunction = (saveBtn) => {
+    settings_form = document.getElementById('wpmm_nav_item_settings');
     menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
     layout_array_new = get_layout_array();
     menu_item_settings = get_nav_item_settings();
-    dataArray = { menu_item_id: menu_item_id, 'layout': layout_array_new, 'options': menu_item_settings };
     saveBtn.classList.add('wpmm-btn-spinner');
 
-
-
-    formData = new FormData();
+    formData = new FormData(settings_form);
 
     requestData = {
+        menu_item_id: menu_item_id,
         wpmm_nonce: wpmm.wpmm_nonce,
         action: "wpmm_nav_item_settings",
-        data: JSON.stringify(dataArray)
+        layout: JSON.stringify(layout_array_new),
     }
-    // console.log(requestData);
     Object.entries(requestData).forEach(([key, value]) => {
         formData.append(key, value);
     });
@@ -676,7 +670,6 @@ const wpmmSaveNavItemFunction = (saveBtn) => {
             }, 2000)
         }
     };
-
 }
 
 function initiate_sortable_X() {
