@@ -11,7 +11,7 @@
 						include wpmm()->path . "views/admin/fields/{$field['type']}.php";
 					} else {
 						?>
-					<div style="width: <?php echo esc_attr( $field['width'] ); ?>">
+					<div style="width: <?php echo isset( $field['width'] ) ? esc_attr( $field['width'] ) : ''; ?>">
 						<?php include wpmm()->path . "views/admin/fields/{$field['type']}.php"; ?>
 					</div>
 						<?php

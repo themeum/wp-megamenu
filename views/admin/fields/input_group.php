@@ -1,4 +1,6 @@
-<?php if ( $field['inline'] ) { ?>
+<?php
+if ( isset( $field['inline'] ) ) {
+	?>
 
 <div class="wpmm-item-field">
 	<div class="wpmm-item-row wpmm-space-between wpmm-align-center">

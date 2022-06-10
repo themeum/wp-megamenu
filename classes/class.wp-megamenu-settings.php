@@ -226,6 +226,8 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'label'       => false,
 							'type'        => 'number',
 							'default'     => '10',
+							'min'         => '0',
+							'max'         => '100',
 							'placeholder' => '',
 
 						),
@@ -265,6 +267,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'label'   => 'Menu Item Alignment',
 							'type'    => 'select',
 							'default' => 'left',
+							'layout' => 'full',
 							'options' => array(
 								'left'   => 'Left',
 								'center' => 'Center',
@@ -276,6 +279,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'label'   => 'Menu Item Alignment',
 							'type'    => 'select',
 							'default' => 'left',
+							'layout' => 'full',
 							'options' => array(
 								'left'   => 'Left',
 								'center' => 'Center',
@@ -285,7 +289,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					),
 				),
 			);
-
 
 			$item_setting_fields = array_merge( $listed_fields, $other_fields );
 
