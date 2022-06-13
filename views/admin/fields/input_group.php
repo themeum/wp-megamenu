@@ -1,4 +1,5 @@
 <?php
+echo $value;
 if ( isset( $field['inline'] ) ) {
 	?>
 

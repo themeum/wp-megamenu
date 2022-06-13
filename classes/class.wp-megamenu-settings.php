@@ -32,37 +32,37 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'key'     => 'logged_in_only',
 					'label'   => 'Logged in only',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'false',
 				),
 				array(
 					'key'     => 'hide_text',
 					'label'   => 'Hide Text',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'true',
 				),
 				array(
 					'key'     => 'hide_arrow',
 					'label'   => 'Hide Arrow',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'true',
 				),
 				array(
 					'key'     => 'disable_link',
 					'label'   => 'Disable Link',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'false',
 				),
 				array(
 					'key'     => 'hide_item_on_mobile',
 					'label'   => 'Hide Item on Mobile',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'false',
 				),
 				array(
 					'key'     => 'hide_item_on_desktop',
 					'label'   => 'Hide Item on Desktop',
 					'type'    => 'checkbox',
-					'default' => 'on',
+					'default' => 'false',
 				),
 				array(
 					'key'     => 'item_align',
@@ -101,23 +101,19 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'child_type' => 'input_group',
 					'has_child'  => true,
 					'fields'     => array(
-
 						array(
 							'key'         => 'badge_text',
 							'label'       => false,
 							'type'        => 'text',
 							'default'     => 'Badge Text',
 							'placeholder' => 'Badge Text',
-
 						),
 						array(
-							'key'     => 'icon_position',
+							'key'     => 'badge_style',
 							'label'   => false,
-
 							'type'    => 'select',
-							'value'   => 'primary',
+							'default' => 'primary',
 							'width'   => '130px',
-
 							'options' => array(
 								'default' => 'Default',
 								'primary' => 'Primary',
@@ -125,7 +121,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 								'info'    => 'Info',
 								'warning' => 'Warning',
 								'danger'  => 'Danger',
-
 							),
 						),
 					),
@@ -135,14 +130,12 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'child_type' => 'multi_column',
 					'has_child'  => true,
 					'fields'     => array(
-
 						array(
 							'key'         => 'wp_megamenu_submenu_menu_padding_top',
 							'label'       => 'Top',
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'wp_megamenu_submenu_menu_padding_right',
@@ -150,7 +143,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'wp_megamenu_submenu_menu_padding_bottom',
@@ -158,7 +150,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'wp_megamenu_submenu_menu_padding_left',
@@ -166,7 +157,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 					),
 				),
@@ -175,14 +165,12 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'child_type' => 'multi_column',
 					'has_child'  => true,
 					'fields'     => array(
-
 						array(
 							'key'         => 'single_menu_margin_top',
 							'label'       => 'Top',
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'single_menu_margin_right',
@@ -190,7 +178,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'single_menu_margin_bottom',
@@ -198,7 +185,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 						array(
 							'key'         => 'single_menu_margin_left',
@@ -206,7 +192,6 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'placeholder' => '0px',
 							'type'        => 'text',
 							'default'     => '',
-
 						),
 					),
 				),
@@ -214,32 +199,30 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 			// New navigation item setting fields
 			$other_fields = array(
-
 				array(
 					'label'      => 'Menu Width',
 					'child_type' => 'input_group_inline',
 					'has_child'  => true,
 					'fields'     => array(
-
 						array(
 							'key'         => 'menu_width',
 							'label'       => false,
 							'type'        => 'number',
-							'default'     => '10',
+							'default'     => '100',
 							'min'         => '0',
 							'max'         => '100',
 							'placeholder' => '',
-
 						),
 						array(
 							'key'     => 'menu_width_type',
 							'label'   => false,
 							'type'    => 'select',
-							'value'   => 'primary',
+							'width'   => '70px',
+							'default'   => '%',
 							'options' => array(
-								'px'  => 'px',
-								'em'  => 'em',
-								'rem' => 'rem',
+								'px'  => 'PX',
+								'em'  => 'EM',
+								'rem' => 'REM',
 								'%'   => '%',
 							),
 						),
@@ -263,11 +246,11 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'has_child'  => true,
 					'fields'     => array(
 						array(
-							'key'     => 'item_align',
+							'key'     => 'item_align_x',
 							'label'   => 'Menu Item Alignment',
 							'type'    => 'select',
-							'default' => 'left',
-							'layout' => 'full',
+							'default' => 'center',
+							'layout'  => 'full',
 							'options' => array(
 								'left'   => 'Left',
 								'center' => 'Center',
@@ -275,11 +258,11 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							),
 						),
 						array(
-							'key'     => 'item_align',
+							'key'     => 'item_align_y',
 							'label'   => 'Menu Item Alignment',
 							'type'    => 'select',
-							'default' => 'left',
-							'layout' => 'full',
+							'default' => 'right',
+							'layout'  => 'full',
 							'options' => array(
 								'left'   => 'Left',
 								'center' => 'Center',
@@ -295,14 +278,10 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 			return $item_setting_fields;
 		}
 
-		public function wpmm_field_type( $field ) {
+		public function wpmm_field_type( $field, $saved_options = null ) {
 			ob_start();
-			if ( isset( $field['has_child'] ) ) {
-				if ( isset( $field['child_type'] ) ) {
-					include wpmm()->path . "views/admin/fields/{$field['child_type']}.php";
-				} else {
-					include wpmm()->path . 'views/admin/fields/child_fields.php';
-				}
+			if ( isset( $field['has_child'] ) && isset( $field['child_type'] ) ) {
+				include wpmm()->path . "views/admin/fields/{$field['child_type']}.php";
 			} elseif ( isset( $field['type'] ) ) {
 				include wpmm()->path . "views/admin/fields/{$field['type']}.php";
 			}

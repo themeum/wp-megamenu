@@ -271,25 +271,18 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			unset( $dataset_saved[0] );
 
 			foreach ( $request_data['options'] as $key => $option ) {
-				if ( isset( $request_data['options'][ $key ] ) ) {
+				if ( isset( $dataset_saved['options'][ $key ] ) ) {
 					$request_data['options'][ $key ] = $option;
 				}
 			}
 
-			$dataset['options']    = $request_data['options'];
+			$dataset['options'] = $request_data['options'];
 
-
-			pr( $dataset );
-			die;
-
-			if ( ! isset( $menu_get_data['data_type'] ) ) {
-				$menu_get_data['data_type'] = 'new';
+			if ( ! isset( $dataset_saved['data_type'] ) ) {
+				$dataset['data_type'] = 'new';
 			}
-
-			pr( $menu_get_data );
-			die;
-
-			update_post_meta( $menu_item_id, 'wpmm_layout', $menu_get_data );
+// pr($dataset);die;
+			update_post_meta( $dataset['menu_item_id'], 'wpmm_layout', $dataset );
 			do_action( 'wpmm_regenerate_css' );
 			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );
 

@@ -466,11 +466,20 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
                 $('#wpmmSettingOverlay').hide();
             }); */
 
+            document.querySelectorAll('input.wpmm-form-check-input').forEach(item => {
+                set_checkbox_status(item);
+                item.onchange = () => set_checkbox_status(item);
+            });
+
         }
     };
 
 }
 
+// Checkbox status by event. set true or false
+function set_checkbox_status(item) {
+    item.previousElementSibling.value = (true === item.checked) ? true : false;
+}
 
 function widget_search_on_modal(e) {
     var filter, ul, li, items_count_hidden, i, txtValue;
@@ -640,36 +649,48 @@ function initiate_sortable() {
 }
 
 
+
+
+
+// Save action to save navigation settings and layout
 const wpmmSaveNavItemFunction = (saveBtn) => {
     settings_form = document.getElementById('wpmm_nav_item_settings');
-    menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
-    layout_array_new = get_layout_array();
-    menu_item_settings = get_nav_item_settings();
-    saveBtn.classList.add('wpmm-btn-spinner');
+    settings_form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    formData = new FormData(settings_form);
+        if ('undefined' !== typeof submitForm && true === submitForm) return;
 
-    requestData = {
-        menu_item_id: menu_item_id,
-        wpmm_nonce: wpmm.wpmm_nonce,
-        action: "wpmm_nav_item_settings",
-        layout: JSON.stringify(layout_array_new),
-    }
-    Object.entries(requestData).forEach(([key, value]) => {
-        formData.append(key, value);
-    });
+        submitForm = true;
+        menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
+        layout_array_new = get_layout_array();
+        menu_item_settings = get_nav_item_settings();
+        saveBtn.classList.add('wpmm-btn-spinner');
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST', ajaxurl, true);
-    xhttp.send(formData);
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState === 4) {
-            setTimeout(() => {
-                saveBtn.classList.remove('wpmm-btn-spinner');
-                console.log(xhttp.response);
-            }, 2000)
+        formData = new FormData(settings_form);
+
+        requestData = {
+            menu_item_id: menu_item_id,
+            wpmm_nonce: wpmm.wpmm_nonce,
+            action: "wpmm_nav_item_settings",
+            layout: JSON.stringify(layout_array_new),
         }
-    };
+        Object.entries(requestData).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('POST', ajaxurl, true);
+        xhttp.send(formData);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === 4) {
+                setTimeout(() => {
+                    saveBtn.classList.remove('wpmm-btn-spinner');
+                    console.log(xhttp.response);
+                    submitForm = false;
+                }, 1000)
+            }
+        };
+    })
 }
 
 function initiate_sortable_X() {

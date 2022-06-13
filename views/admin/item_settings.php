@@ -28,8 +28,8 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $if_new         = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ? true : false;
 $_settings      = wpmm_settings();
 $setting_fields = $_settings->wpmm_item_setting_fields();
-$setting_saved  = $wpmm_layout['options'];
 // Get Menu Name
+// pr($wpmm_layout);
 
 $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"menu_order";s:7:"exclude";s:0:"";}i:4;a:0:{}i:5;a:0:{}i:6;a:0:{}i:7;a:0:{}i:8;a:0:{}i:9;a:0:{}i:10;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"post_title";s:7:"exclude";s:0:"";}i:11;a:0:{}i:12;a:3:{s:5:"title";s:10:"Good pages";s:6:"sortby";s:10:"post_title";s:7:"exclude";s:3:"1,2";}i:13;a:3:{s:5:"title";s:4:"NEws";s:6:"sortby";s:10:"post_title";s:7:"exclude";s:6:"12, 32";}i:14;a:0:{}i:15;a:0:{}i:16;a:0:{}i:17;a:0:{}i:18;a:0:{}i:19;a:0:{}i:20;a:0:{}i:21;a:0:{}i:22;a:0:{}i:23;a:3:{s:5:"title";s:1:"1";s:6:"sortby";s:10:"post_title";s:7:"exclude";s:0:"";}i:24;a:3:{s:5:"title";s:1:"2";s:6:"sortby";s:10:"post_title";s:7:"exclude";s:0:"";}i:25;a:0:{}i:26;a:0:{}i:27;a:0:{}s:12:"_multiwidget";i:1;i:28;a:0:{}i:29;a:0:{}i:30;a:0:{}}';
 // pr(maybe_unserialize($data_serial));
@@ -48,12 +48,14 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 						<form id="wpmm_nav_item_settings" method="POST">
 							<div class="wpmm-item-fields">
 							<?php
-							pr($setting_saved);
+							$saved_options = $wpmm_layout['options'];
+							// pr($setting_saved);
 							foreach ( $setting_fields as $setting_field ) {
+								// echo $saved_settings[ $setting_field['key'] ];
 								if ( isset( $setting_field['has_child'] ) ) {
-									echo wpmm_settings()->wpmm_field_type( $setting_field );
+									echo wpmm_settings()->wpmm_field_type( $setting_field, $saved_options );
 								} elseif ( isset( $setting_field['type'] ) ) {
-									echo wpmm_settings()->wpmm_field_type( $setting_field );
+									echo wpmm_settings()->wpmm_field_type( $setting_field, $saved_options );
 								}
 							}
 							?>
@@ -332,17 +334,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 											<?php
 											if ( ! empty( $layout_value['row'] ) && count( $layout_value['row'] ) ) {
 												foreach ( $layout_value['row'] as $col_key => $layout_col ) {
-													/*
-													if ( isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ) {
-														$layout_columns = $layout_col['col'];
-													} else {
-														$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 6;
-														$layout_columns = ( $layout_columns * 100 ) / 12;
-													}*/
-													// pr($layout_col);
-
 													$layout_columns = ! empty( $layout_col['col'] ) ? $layout_col['col'] : 3;
-
 													if ( isset( $layout_col['width'] ) ) {
 														$layout_width = $layout_col['width'];
 													} else {
@@ -359,12 +351,10 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 													</div>
 													<div class="wpmm-column-contents">
 														<?php
-														// pr($layout_col['items']);
 														foreach ( $layout_col['items'] as $key => $value ) {
 															if ( true === $if_new ) {
 																$value['base_id'] = wp_megamenu_widgets()->wpmm_get_id_base_by_widget_id( $value['widget_id'] );
 															}
-															// pr( $value );
 															if ( 'widget' === $value['item_type'] ) {
 																wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key, $value['base_id'] );
 															} else {
@@ -500,7 +490,7 @@ $data_serial = 'a:30:{i:2;a:0:{}i:3;a:3:{s:5:"title";s:0:"";s:6:"sortby";s:10:"m
 			<div class="wpmm-modal-footer wpmm-justify-end">
 				<button type="button" class="button-secondary close-modal" data-dismiss="wpmm-modal">Close</button>
 				<div class="wpmm-ml-3">
-					<button type="button" onclick="wpmmSaveNavItemFunction(this)" class="button-primary wpmm-save-nav-item wpmm-btn-spinner- ">Save changes</button>
+					<button type="submit" form="wpmm_nav_item_settings" onclick="wpmmSaveNavItemFunction(this)" class="button-primary wpmm-save-nav-item wpmm-btn-spinner- ">Save changes</button>
 				</div>
 			</div>
 		</div>
