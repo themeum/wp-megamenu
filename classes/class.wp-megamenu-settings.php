@@ -218,7 +218,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'label'   => false,
 							'type'    => 'select',
 							'width'   => '70px',
-							'default'   => '%',
+							'default' => '%',
 							'options' => array(
 								'px'  => 'PX',
 								'em'  => 'EM',
@@ -275,7 +275,9 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 			$item_setting_fields = array_merge( $listed_fields, $other_fields );
 
-			return $item_setting_fields;
+			$setting_fields = apply_filters( 'wpmm/navigation/settings', $item_setting_fields );
+
+			return $setting_fields;
 		}
 
 		public function wpmm_field_type( $field, $saved_options = null ) {
