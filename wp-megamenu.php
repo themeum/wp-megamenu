@@ -62,6 +62,7 @@ require WPMM_DIR . 'classes/class.wp-megamenu-themes.php';
 require WPMM_DIR . 'classes/class.wp-megamenu-css.php';
 require WPMM_DIR . 'classes/class.wp-megamenu-settings.php';
 require WPMM_DIR . 'classes/class.wp-megamenu-export-import.php';
+require WPMM_DIR . 'classes/class.wp-megamenu-blocks.php';
 require WPMM_DIR . 'libs/wp-megamenu-login-register.php';
 require WPMM_DIR . 'libs/wpmm-header-cart.php';
 

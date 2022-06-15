@@ -415,7 +415,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 }
 
 .wpmm-column-layout svg {
-    fill: #3b434a;
+    fill: #2271b1;
 }
 
 .wpmm-add-slots {
@@ -435,8 +435,8 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     align-items: center;
     justify-content: center;
     height: 46px;
-    background: rgba(2, 11, 83, 0.2);
-    border: 1px solid transparent;
+    background: rgb(236 244 250);
+    border: 1px dashed #2271b1;
     border-radius: 7px;
     margin-bottom: 5px;
     transition: background-color 400ms, border-color 400ms, box-shadow 400ms;
@@ -448,8 +448,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 
 .wpmm-column-layout:hover .wpmm-column-layout-preview,
 .wpmm-column-layout.active .wpmm-column-layout-preview {
-    background: rgba(51, 102, 255, 0.1);
-    border: 1px solid rgba(51, 102, 255, 0.14);
+    background: #c9e4f8;
 }
 
 .wpmm-columns-layout .wpmm-item-grid {

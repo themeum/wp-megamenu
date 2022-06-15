@@ -25,6 +25,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			add_action( 'wp_ajax_wpmm_get_widget_to_item', array( $this, 'wpmm_get_widget_to_item' ) );
 			add_action( 'wp_ajax_wpmm_save_widget', array( $this, 'wpmm_save_widget' ) );
 			add_action( 'wp_ajax_wpmm_delete_widget', array( $this, 'wpmm_delete_widget' ) );
+			add_action( 'wp_ajax_wpmm_delete_this_widget', array( $this, 'wpmm_delete_this_widget' ) );
 
 			add_action( 'wp_ajax_wpmm_increase_widget_column', array( $this, 'wpmm_increase_widget_column' ) );
 			add_action( 'wp_ajax_wpmm_reorder_items', array( $this, 'wpmm_reorder_items' ) );
@@ -137,7 +138,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 					<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 						<div class='widget-controls'>
 							<a onclick="wpmm_delete_this_widget(this)" class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
-							<a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
+							<a class='close' onclick="toggle_widget_form(this)" href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
 						</div>
 						<button type="submit" onclick="wpmm_save_widget_item(this)" class="button-primary alignright"><?php _e( 'Save', 'wp-megamenu' ); ?></button>
 					</div>
@@ -176,7 +177,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 					<div class="wpmm-item-row wpmm-space-between wpmm-align-center">
 						<div class='widget-controls'>
 							<a onclick="wpmm_delete_this_widget(this)" class='delete' href='#delete'><?php esc_html_e( 'Delete', 'wp-megamenu' ); ?></a> |
-							<a class='close' href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
+							<a class='close' onclick="toggle_widget_form(this)" href='#close'><?php esc_html_e( 'Close', 'wp-megamenu' ); ?></a>
 						</div>
 						<button type="submit" onclick="wpmm_save_widget_item(this)" class="button-primary alignright"><?php _e( 'Save', 'wp-megamenu' ); ?></button>
 					</div>
@@ -717,6 +718,54 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
 		}
 
+		/**
+		 *
+		 * Delete an item from widget area in wp megamenu
+		 */
+
+		public function wpmm_delete_this_widget() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
+
+			pr( $_REQUEST );
+			die;
+
+			$id_base       = sanitize_text_field( $_POST['id_base'] );
+			$widget_id     = sanitize_text_field( $_POST['widget_id'] );
+			$menu_item_id  = (int) sanitize_text_field( $_POST['menu_item_id'] );
+			$widget_key_id = (int) sanitize_text_field( $_POST['widget_key_id'] );
+
+			$row_id = (int) sanitize_text_field( $_POST['row_id'] );
+			$col_id = (int) sanitize_text_field( $_POST['col_id'] );
+
+			// Remove from sidebar
+			$sidebar_widgets = $this->get_sidebar_widgets();
+			$new_widgets     = array();
+			foreach ( $sidebar_widgets as $key => $value ) {
+				if ( $widget_id != $value ) {
+					$new_widgets[] = $value;
+				}
+			}
+			$this->set_sidebar_widgets( $new_widgets );
+
+			// Remove from option widget_{$widget_base_id}
+			$get_widget_option    = get_option( 'widget_' . $id_base );
+			$key_in_widget_option = (int) str_replace( $get_widget_option . '-', '', $widget_id );
+
+			unset( $get_widget_option[ $key_in_widget_option ] );
+			update_option( 'widget_' . $id_base, $get_widget_option );
+
+			// Remove from menu item post meta
+			$get_layout = get_post_meta( $menu_item_id, 'wpmm_layout', true );
+
+			if ( ! empty( $get_layout['layout'][ $row_id ]['row'][ $col_id ]['items'][ $widget_key_id ] ) ) {
+				unset( $get_layout['layout'][ $row_id ]['row'][ $col_id ]['items'][ $widget_key_id ] );
+			}
+			update_post_meta( $menu_item_id, 'wpmm_layout', $get_layout );
+		}
+
 
 		/**
 		 * Increase or decrease column
@@ -935,4 +984,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			return new wp_megamenu_widgets();
 		}
 	}
+
+
+
 }

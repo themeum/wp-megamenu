@@ -304,46 +304,15 @@ function wpmm_toggle_layout_builder(button) {
 function toggle_widget_form(thisToggler) {
 
 
-    widgetInner = thisToggler.parentElement.parentElement.nextElementSibling;
+    widgetInner = thisToggler.closest('.widget.wpmm-cell').querySelector('.widget-inner');
     widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
     wpmm_loading(false, 10);
     widgetWrapper = widgetInner.closest('.widget.wpmm-cell');
     widgetWrapper.classList.toggle('open');
 
-    /* widgetElements = document.querySelectorAll('.widget.wpmm-cell');
-    widgetElements.forEach(item => {
-        console.log(item);
-    }) */
-
-    // setTimeout(() => {
     elemTrigger = jQuery(widgetWrapper);
-    // console.log([(elemTrigger)]);
+
     jQuery(document).trigger('widget-added', [elemTrigger]);
-    // wp.mediaWidgets.handleWidgetAdded(event, self.ui.form);
-
-
-    /* console.log(jQuery(document).trigger('widget-added', [elemTrigger]));
-
-    document.addEventListener("widget-added", function (e) {
-        console.log(e.detail); // Prints "Example of an event"
-    }); */
-    // console.log(wp.media.view.Attachment.render());
-
-
-    // console.log(elemTrigger.querySelectorAll('textarea'));
-    // wp.editor.initialize(elemTrigger[0].id + '-text');
-
-
-    //getting empty widgetId for for WordPress 4.8 widgets when popup settings is opened, closed and
-    // reopened
-
-
-    // $('.widget').each(function() {
-    //     add_wpmm_events_to_widget($(this));
-    // });
-
-    // }, 1000)
-
 
 }
 /**
@@ -554,6 +523,11 @@ function wpmm_save_widget_item(saveButton) {
         });
     }); */
 }
+
+function get_menu_item_id() {
+    return document.querySelector('.wp-megamenu-item-settins-wrap').dataset.id;
+}
+
 /**
  * Select Widget as menu item
  */
@@ -562,19 +536,43 @@ function wpmm_delete_this_widget(deleteButton) {
     // widget_element
     rowId = widget_element.closest('.wpmm-item-col').dataset.rowid;
     colId = widget_element.closest('.wpmm-item-col').dataset.colId;
-    console.log(rowId, colId, widget_element.id);
+    // console.log(rowId, colId, widget_element.id);
+    formData = new FormData();
+
+    requestData = {
+        menu_item_id: get_menu_item_id(),
+        wpmm_nonce: wpmm.wpmm_nonce,
+        action: "wpmm_delete_this_widget",
+        row_id: rowId,
+    }
+    Object.entries(requestData).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', ajaxurl, true);
+    xhttp.send(formData);
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4) {
+            // setTimeout(() => {
+                console.log(xhttp.response);
+            // }, 1000)
+        }
+    };
+
     /* var data = {
         action: 'wpmm_delete_this_widget',
-        menu_item_id: menu_item_id,
-        row_id: row_id,
+        menu_item_id: get_menu_item_id(),
+        row_id: rowId,
         wpmm_nonce: wpmm.wpmm_nonce
     };
-    $.post(ajaxurl, data, function (response) {
+    jQuery.post(ajaxurl, data, function (response) {
         if (response.success) {
-            button_clicked.closest('.wpmm-layout-row').remove();
+            console.log(response);
+            // button_clicked.closest('.wpmm-layout-row').remove();
         }
     }); */
-    widget_element.remove();
+    // widget_element.remove();
 }
 
 /*
