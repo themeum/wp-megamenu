@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "wp-megamenu/wpmm-block",
+  "version": "0.1.0",
+  "title": "WPMM Block",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example static block scaffolded with Create Block tool.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "wpmm-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
