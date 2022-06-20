@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/components/NavigationList.jsx":
-/*!*******************************************!*\
-  !*** ./src/components/NavigationList.jsx ***!
-  \*******************************************/
+/***/ "./src/wpmm-menu/components/NavigationList.jsx":
+/*!*****************************************************!*\
+  !*** ./src/wpmm-menu/components/NavigationList.jsx ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/wpmm-menu/editor.scss");
-/* harmony import */ var _components_NavigationList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/NavigationList */ "./src/components/NavigationList.jsx");
+/* harmony import */ var _components_NavigationList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/NavigationList */ "./src/wpmm-menu/components/NavigationList.jsx");
 
 
 /**
@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Edit(props) {
-  console.log(props);
+  console.log((0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)());
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_NavigationList__WEBPACK_IMPORTED_MODULE_4__.NavigationList, null));
 }
 

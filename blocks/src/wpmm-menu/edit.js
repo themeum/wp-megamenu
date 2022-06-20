@@ -29,10 +29,10 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-import { NavigationList } from '../components/NavigationList';
+import { NavigationList } from './components/NavigationList';
 
 export default function Edit(props) {
-	console.log(props);
+	console.log(useBlockProps());
 	return (
 		<div {...useBlockProps()}>
 			<NavigationList />
