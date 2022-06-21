@@ -32,7 +32,12 @@ import './editor.scss';
 import { NavigationList } from './components/NavigationList';
 
 export default function Edit(props) {
-	console.log(useBlockProps());
+	const {
+		attributes,
+		setAttributes,
+		className,
+	} = props;
+	console.log(attributes);
 	return (
 		<div {...useBlockProps()}>
 			<NavigationList />

@@ -94,7 +94,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Edit(props) {
-  console.log((0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)());
+  const {
+    attributes,
+    setAttributes,
+    className
+  } = props;
+  console.log(attributes);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_NavigationList__WEBPACK_IMPORTED_MODULE_4__.NavigationList, null));
 }
 

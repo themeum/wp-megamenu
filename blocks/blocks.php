@@ -21,9 +21,8 @@
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function create_block_starter_block_block_init() {
-	register_block_type( __DIR__ . '/build/wpmm-block' );
+	// register_block_type( __DIR__ . '/build/wpmm-block' );
 	register_block_type(
-		__DIR__ . '/build/wpmm-menu',
 		array(
 			'render_callback' => 'render_block_core_navigation',
 		)
