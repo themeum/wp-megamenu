@@ -9,31 +9,47 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 
 		public function __construct() {
 			add_action( 'init', array( $this, 'fancy_custom_block_block_init' ) );
+
+			add_action(
+				'rest_api_init',
+				function() {
+
+					register_rest_route(
+						'wpmm',
+						'nav_menus',
+						array(
+							'methods'  => 'GET',
+							'callback' => array( $this, 'wpmm_menu_list' ),
+						)
+					);
+					register_rest_route(
+						'wpmm',
+						'nav_menu/(?P<slug>[a-zA-Z0-9-]+)',
+						array(
+							'methods'  => 'GET',
+							'callback' => array( $this, 'wpmm_menu_item' ),
+						)
+					);
+				}
+			);
+		}
+		public function wpmm_menu_list() {
+			return wp_get_nav_menus();
 		}
 
+		public function wpmm_menu_item( WP_REST_Request $request ) {
+
+			// wp_send_json($request['slug']);
+			// wp_send_json($_GET);
+			return wp_get_nav_menu_items( $request['slug'] );
+		}
+
+
 		public function fancy_custom_block_block_init() {
-			$blocks = array( 'wpmm-block', 'wpmm-menu' );
+			$blocks = array( 'wpmm-menu' ); // 'wpmm-block',
 
 			foreach ( $blocks as $block ) {
-				if ( 'wpmm-menu' === $block ) {
-					$attr = array(
-						'render_callback' => 'render_block_core_navigation',
-						'attributes'      => array(
-							'home_url' => array(
-								'default' => get_home_url(),
-								'type'    => 'string',
-							),
-							'home_prl' => array(
-								'default' => get_default_block_editor_settings(),
-								'type'    => 'array',
-							),
-						),
-					);
-				} else {
-					$attr = array();
-				}
-
-				register_block_type( WPMM_DIR . '/blocks/build/' . $block, $attr );
+				register_block_type( WPMM_DIR . '/blocks/build/' . $block );
 			}
 
 		}

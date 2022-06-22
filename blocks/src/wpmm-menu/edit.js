@@ -32,15 +32,29 @@ import './editor.scss';
 import { NavigationList } from './components/NavigationList';
 
 export default function Edit(props) {
-	const {
-		attributes,
-		setAttributes,
-		className,
-	} = props;
-	console.log(attributes);
+	let navItems = props.attributes.nav_items;
+	// console.log(navItems);
+	if (!navItems) {
+		wp.apiFetch({
+			url: '/wp-json/wpmm/nav_menus'
+		}).then(nav_items => {
+			props.setAttributes({
+				nav_items: nav_items
+			})
+		})
+	}
+
+	if (!navItems) {
+		return 'Loading...';
+	}
+
+	if (navItems && navItems.length === 0) {
+		return 'no item found';
+	}
+	// console.log(props.attributes);
 	return (
 		<div {...useBlockProps()}>
-			<NavigationList />
+			<NavigationList nav_menus={props} />
 		</div>
 	);
 }
