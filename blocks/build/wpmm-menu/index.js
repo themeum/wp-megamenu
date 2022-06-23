@@ -18,31 +18,47 @@ __webpack_require__.r(__webpack_exports__);
 
 const NavigationList = props => {
   const [navSlug, setNavSlug] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-
-  const updateNavigation = e => {
-    props.nav_menus.setAttributes({
-      set_nav: e.target.value
-    });
-
-    if (props.nav_menus.attributes.set_nav) {
-      // console.log(props.nav_menus.attributes.set_nav);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (props.menu_list.attributes.set_nav) {
       wp.apiFetch({
-        url: '/wp-json/wpmm/nav_menu/' + props.nav_menus.attributes.set_nav
+        url: '/wp-json/wpmm/nav_menu/' + props.menu_list.attributes.set_nav
       }).then(nav_item => {
-        console.log(nav_item);
         setNavSlug(nav_item);
       });
     }
+  }, []);
+
+  const updateNavigation = e => {
+    props.menu_list.setAttributes({
+      set_nav: e.target.value
+    });
+    wp.apiFetch({
+      url: '/wp-json/wpmm/nav_menu/' + e.target.value
+    }).then(nav_item => {
+      setNavSlug(nav_item);
+    });
   };
 
   const listNavigationItems = () => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, " Menu Items:", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, navSlug.map(nav => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, nav.title))));
+    if (!navSlug) return;
+    console.log(navSlug);
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+      className: "wpmm_list_menu"
+    }, navSlug.map(nav => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: nav.is_wpmm ? 'is_wpmm' : ''
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+        href: "{nav.post_url}"
+      }, nav.title));
+    })));
   };
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
     onChange: updateNavigation,
-    value: props.nav_menus.attributes.set_nav
-  }, props.nav_menus.attributes.nav_items.map(nav => {
+    value: props.menu_list.attributes.set_nav
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "-"
+  }, "Select Navigation"), props.menu_list.attributes.nav_items.map(nav => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
       value: nav.slug
     }, nav.name);
@@ -126,7 +142,7 @@ function Edit(props) {
 
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_NavigationList__WEBPACK_IMPORTED_MODULE_4__.NavigationList, {
-    nav_menus: props
+    menu_list: props
   }));
 }
 

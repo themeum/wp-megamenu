@@ -282,7 +282,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			if ( ! isset( $dataset_saved['data_type'] ) ) {
 				$dataset['data_type'] = 'new';
 			}
-// pr($dataset);die;
+			// pr($dataset);die;
 			update_post_meta( $dataset['menu_item_id'], 'wpmm_layout', $dataset );
 			do_action( 'wpmm_regenerate_css' );
 			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );

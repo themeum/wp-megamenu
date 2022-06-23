@@ -1,32 +1,47 @@
-import React, { useState } from '@wordpress/element';
+import React, { useState, useEffect } from '@wordpress/element';
 
 
 export const NavigationList = (props) => {
 
     const [navSlug, setNavSlug] = useState([]);
-
-
-    const updateNavigation = (e) => {
-        props.nav_menus.setAttributes({
-            set_nav: e.target.value
-        })
-
-        if (props.nav_menus.attributes.set_nav) {
-            // console.log(props.nav_menus.attributes.set_nav);
+    useEffect(() => {
+        if (props.menu_list.attributes.set_nav) {
             wp.apiFetch({
-                url: '/wp-json/wpmm/nav_menu/' + props.nav_menus.attributes.set_nav
+                url: '/wp-json/wpmm/nav_menu/' + props.menu_list.attributes.set_nav
             }).then(nav_item => {
-                console.log(nav_item);
                 setNavSlug(nav_item)
             })
         }
+    }, []);
+
+    const updateNavigation = (e) => {
+        props.menu_list.setAttributes({
+            set_nav: e.target.value
+        })
+
+        wp.apiFetch({
+            url: '/wp-json/wpmm/nav_menu/' + e.target.value
+        }).then(nav_item => {
+            setNavSlug(nav_item)
+        });
     }
 
     const listNavigationItems = () => {
+
+        if (!navSlug) return;
+        console.log(navSlug);
         return (
-            <div> Menu Items:
-                <ul>
-                    {navSlug.map(nav => <li>{nav.title}</li>)}
+            <div>
+                <ul className='wpmm_list_menu'>
+                    {
+                        navSlug.map(nav => {
+                            return (
+                                <li className={nav.is_wpmm ? 'is_wpmm' : ''}>
+                                    <a href='{nav.post_url}'>{nav.title}</a>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             </div>
         )
@@ -34,9 +49,10 @@ export const NavigationList = (props) => {
 
     return (
         <>
-            <select onChange={updateNavigation} value={props.nav_menus.attributes.set_nav}>
+            <select onChange={updateNavigation} value={props.menu_list.attributes.set_nav}>
+                <option value='-'>Select Navigation</option>
                 {
-                    props.nav_menus.attributes.nav_items.map(nav => {
+                    props.menu_list.attributes.nav_items.map(nav => {
                         return (
                             <option value={nav.slug}>{nav.name}</option>
                         )

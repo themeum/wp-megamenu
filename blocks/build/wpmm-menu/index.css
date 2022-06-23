@@ -6,8 +6,16 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-wp-megamenu-wpmm-block {
+.wp-block-wp-megamenu-wpmm-menu {
   border: 1px dotted #f00;
+}
+.wp-block-wp-megamenu-wpmm-menu ul.wpmm_list_menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+.wp-block-wp-megamenu-wpmm-menu ul.wpmm_list_menu li.is_wpmm {
+  background: lightcoral;
 }
 
 /*# sourceMappingURL=index.css.map*/

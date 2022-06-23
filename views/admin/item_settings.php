@@ -28,7 +28,7 @@ if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 $if_new         = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_type'] ? true : false;
 $_settings      = wpmm_settings();
 $setting_fields = $_settings->wpmm_item_setting_fields();
-
+// pr($get_menu_settings);
 // Get Menu Name
 // pr( wp_get_nav_menus() );
 // pr( get_registered_nav_menus() );

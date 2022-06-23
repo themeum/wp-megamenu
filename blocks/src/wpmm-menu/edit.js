@@ -54,7 +54,7 @@ export default function Edit(props) {
 	// console.log(props.attributes);
 	return (
 		<div {...useBlockProps()}>
-			<NavigationList nav_menus={props} />
+			<NavigationList menu_list={props} />
 		</div>
 	);
 }

@@ -27,7 +27,7 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 						'nav_menu/(?P<slug>[a-zA-Z0-9-]+)',
 						array(
 							'methods'  => 'GET',
-							'callback' => array( $this, 'wpmm_menu_item' ),
+							'callback' => array( $this, 'wpmm_menu_by_slug' ),
 						)
 					);
 				}
@@ -35,13 +35,34 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		}
 		public function wpmm_menu_list() {
 			return wp_get_nav_menus();
+			/*
+			 $nav_items = array();
+			foreach ( wp_get_nav_menus() as $nav ) {
+				$nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
+				$nav_items[]  = $nav;
+			}
+			return $nav_items; */
 		}
 
-		public function wpmm_menu_item( WP_REST_Request $request ) {
+		public function wpmm_menu_by_slug( WP_REST_Request $request ) {
+			// return wp_get_nav_menu_items( $request['slug'] );
+			foreach ( wp_get_nav_menu_items( $request['slug'] ) as $navs ) {
+				// $nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
+				foreach ( $navs as $key => $nav ) {
+					$nav_item[ $key ] = $nav;
+				}
+				if ( 'wpmm_mega_menu' === get_post_meta( $navs->ID, 'wpmm_layout', true )['menu_type'] ) {
+					$nav_item['post_url'] = '#';
+					$nav_item['is_wpmm']  = true;
+				} else {
+					$nav_item['post_url'] = get_permalink( $navs->ID );
+					$nav_item['is_wpmm']  = false;
+				}
+				$nav_items[] = $nav_item;
 
-			// wp_send_json($request['slug']);
-			// wp_send_json($_GET);
-			return wp_get_nav_menu_items( $request['slug'] );
+			}
+			return $nav_items;
+
 		}
 
 
