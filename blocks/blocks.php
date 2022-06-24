@@ -20,7 +20,7 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_starter_block_block_init() {
+/* function create_block_starter_block_block_init() {
 	// register_block_type( __DIR__ . '/build/wpmm-block' );
 	register_block_type(
 		array(
@@ -33,4 +33,4 @@ add_action( 'init', 'create_block_starter_block_block_init' );
 
 function render_block_core_navigation() {
 	return '<h2>Navigation Menu</h2>';
-}
+} */

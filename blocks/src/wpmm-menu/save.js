@@ -26,7 +26,7 @@ export default function save() {
 	return (
 		<p { ...useBlockProps.save() }>
 			{ __(
-				'WPMM Menu – hello from the saved content!',
+				'WPMM Menu ',
 				'wp-megamenu'
 			) }
 		</p>

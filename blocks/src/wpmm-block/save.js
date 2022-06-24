@@ -26,7 +26,7 @@ export default function save() {
 	return (
 		<p { ...useBlockProps.save() }>
 			{ __(
-				'WPMM Block – hello from the saved content!',
+				'WPMM Block –  the saved content!',
 				'wpmm-block'
 			) }
 		</p>

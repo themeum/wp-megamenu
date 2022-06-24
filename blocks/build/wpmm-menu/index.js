@@ -18,36 +18,38 @@ __webpack_require__.r(__webpack_exports__);
 
 const NavigationList = props => {
   const [navSlug, setNavSlug] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [navAreas, setNavAreas] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(['-']);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (props.menu_list.attributes.set_nav) {
-      wp.apiFetch({
-        url: '/wp-json/wpmm/nav_menu/' + props.menu_list.attributes.set_nav
-      }).then(nav_item => {
-        setNavSlug(nav_item);
-      });
-    }
+    console.log(props);
+    let reqUrl = props.attributes.set_nav ? props.attributes.set_nav : '-';
+    fetchApiData('/wp-json/wpmm/nav_menus', setNavAreas);
+    fetchApiData(`/wp-json/wpmm/nav_menu/${reqUrl}`, setNavSlug);
   }, []);
 
+  const fetchApiData = (reqUrl, callback) => {
+    console.log(reqUrl);
+    wp.apiFetch({
+      url: reqUrl
+    }).then(data => {
+      callback(data);
+    });
+  };
+
   const updateNavigation = e => {
-    props.menu_list.setAttributes({
+    props.setAttributes({
       set_nav: e.target.value
     });
-    wp.apiFetch({
-      url: '/wp-json/wpmm/nav_menu/' + e.target.value
-    }).then(nav_item => {
-      setNavSlug(nav_item);
-    });
+    fetchApiData(`/wp-json/wpmm/nav_menu/${e.target.value}`, setNavSlug);
   };
 
   const listNavigationItems = () => {
     if (!navSlug) return;
-    console.log(navSlug);
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
       className: "wpmm_list_menu"
     }, navSlug.map(nav => {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
         className: nav.is_wpmm ? 'is_wpmm' : ''
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      }, nav.is_wpmm ? nav.title : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
         href: "{nav.post_url}"
       }, nav.title));
     })));
@@ -55,10 +57,10 @@ const NavigationList = props => {
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
     onChange: updateNavigation,
-    value: props.menu_list.attributes.set_nav
+    value: props.attributes.set_nav
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
     value: "-"
-  }, "Select Navigation"), props.menu_list.attributes.nav_items.map(nav => {
+  }, "Select Navigation"), navAreas.map(nav => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
       value: nav.slug
     }, nav.name);
@@ -93,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 
+
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -120,30 +123,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Edit(props) {
-  let navItems = props.attributes.nav_items; // console.log(navItems);
-
-  if (!navItems) {
-    wp.apiFetch({
-      url: '/wp-json/wpmm/nav_menus'
-    }).then(nav_items => {
-      props.setAttributes({
-        nav_items: nav_items
-      });
-    });
-  }
-
-  if (!navItems) {
-    return 'Loading...';
-  }
-
-  if (navItems && navItems.length === 0) {
-    return 'no item found';
-  } // console.log(props.attributes);
-
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_NavigationList__WEBPACK_IMPORTED_MODULE_4__.NavigationList, {
-    menu_list: props
-  }));
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
+    value: props.attributes.alignment
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
+    key: "setting"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "gutenpride-controls"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("legend", {
+    className: "blocks-base-control__label"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background color', 'gutenpride')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("legend", {
+    className: "blocks-base-control__label"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text color', 'gutenpride')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, null)))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_NavigationList__WEBPACK_IMPORTED_MODULE_4__.NavigationList, props));
 }
 
 /***/ }),
@@ -191,11 +181,15 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
   attributes: {
+    set_nav: {
+      type: 'string'
+    },
     nav_items: {
       type: 'object'
     },
-    set_nav: {
-      type: 'string'
+    alignment: {
+      type: 'string',
+      default: 'none'
     }
   },
 
@@ -255,7 +249,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function save() {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WPMM Menu – hello from the saved content!', 'wp-megamenu'));
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WPMM Menu ', 'wp-megamenu'));
 }
 
 /***/ }),
@@ -330,7 +324,7 @@ module.exports = window["wp"]["i18n"];
   \**********************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"wp-megamenu/wpmm-menu","version":"0.1.0","title":"WPMM Menu","category":"widgets","icon":"smiley","description":"Example static block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"wpmm-menu","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"wp-megamenu/wpmm-menu","version":"0.1.0","title":"WPMM Menu","category":"widgets","icon":"smiley","description":"Example static menu scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"wpmm-menu","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ })
 

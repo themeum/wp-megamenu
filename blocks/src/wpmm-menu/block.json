@@ -6,7 +6,7 @@
 	"title": "WPMM Menu",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example static block scaffolded with Create Block tool.",
+	"description": "Example static menu scaffolded with Create Block tool.",
 	"supports": {
 		"html": false
 	},

@@ -45,21 +45,23 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		}
 
 		public function wpmm_menu_by_slug( WP_REST_Request $request ) {
-			// return wp_get_nav_menu_items( $request['slug'] );
-			foreach ( wp_get_nav_menu_items( $request['slug'] ) as $navs ) {
-				// $nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
-				foreach ( $navs as $key => $nav ) {
-					$nav_item[ $key ] = $nav;
-				}
-				if ( 'wpmm_mega_menu' === get_post_meta( $navs->ID, 'wpmm_layout', true )['menu_type'] ) {
-					$nav_item['post_url'] = '#';
-					$nav_item['is_wpmm']  = true;
-				} else {
-					$nav_item['post_url'] = get_permalink( $navs->ID );
-					$nav_item['is_wpmm']  = false;
-				}
-				$nav_items[] = $nav_item;
+			$nav_items = array();
+			if ( '-' !== $request['slug'] ) {
+				foreach ( wp_get_nav_menu_items( $request['slug'] ) as $navs ) {
+					// $nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
+					foreach ( $navs as $key => $nav ) {
+						$nav_item[ $key ] = $nav;
+					}
+					if ( 'wpmm_mega_menu' === get_post_meta( $navs->ID, 'wpmm_layout', true )['menu_type'] ) {
+						$nav_item['post_url'] = '#';
+						$nav_item['is_wpmm']  = true;
+					} else {
+						$nav_item['post_url'] = get_permalink( $navs->ID );
+						$nav_item['is_wpmm']  = false;
+					}
+					$nav_items[] = $nav_item;
 
+				}
 			}
 			return $nav_items;
 
@@ -70,12 +72,18 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 			$blocks = array( 'wpmm-menu' ); // 'wpmm-block',
 
 			foreach ( $blocks as $block ) {
-				register_block_type( WPMM_DIR . '/blocks/build/' . $block );
+				register_block_type(
+					WPMM_DIR . '/blocks/build/' . $block,
+					array(
+						'render_callback' => array( $this, 'render_block_core_navigation' ),
+					)
+				);
 			}
 
 		}
 
-		public function render_block_core_navigation() {
+		public function render_block_core_navigation( $attributes ) {
+			pr( $attributes );
 			return '<h2>Navigation MegaMenu</h2>';
 		}
 

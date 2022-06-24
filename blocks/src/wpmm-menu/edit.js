@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
+import React, { useEffect } from '@wordpress/element';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -11,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, AlignmentToolbar, BlockControls, InspectorControls, ColorPalette } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -32,29 +33,30 @@ import './editor.scss';
 import { NavigationList } from './components/NavigationList';
 
 export default function Edit(props) {
-	let navItems = props.attributes.nav_items;
-	// console.log(navItems);
-	if (!navItems) {
-		wp.apiFetch({
-			url: '/wp-json/wpmm/nav_menus'
-		}).then(nav_items => {
-			props.setAttributes({
-				nav_items: nav_items
-			})
-		})
-	}
-
-	if (!navItems) {
-		return 'Loading...';
-	}
-
-	if (navItems && navItems.length === 0) {
-		return 'no item found';
-	}
-	// console.log(props.attributes);
 	return (
 		<div {...useBlockProps()}>
-			<NavigationList menu_list={props} />
+			<BlockControls>
+				<AlignmentToolbar
+					value={props.attributes.alignment}
+				/>
+			</BlockControls>
+			<InspectorControls key="setting">
+				<div id="gutenpride-controls">
+					<fieldset>
+						<legend className="blocks-base-control__label">
+							{__('Background color', 'gutenpride')}
+						</legend>
+						<ColorPalette />
+					</fieldset>
+					<fieldset>
+						<legend className="blocks-base-control__label">
+							{__('Text color', 'gutenpride')}
+						</legend>
+						<ColorPalette />
+					</fieldset>
+				</div>
+			</InspectorControls>
+			<NavigationList {...props} />
 		</div>
 	);
 }

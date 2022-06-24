@@ -28,12 +28,16 @@ import metadata from './block.json';
  */
 registerBlockType(metadata.name, {
 	attributes: {
+		set_nav: {
+			type: 'string'
+		},
 		nav_items: {
 			type: 'object'
 		},
-		set_nav: {
-			type: 'string'
-		}
+        alignment: {
+            type: 'string',
+            default: 'none',
+        },
 	},
 	/**
 	 * @see ./edit.js

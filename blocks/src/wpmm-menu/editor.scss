@@ -12,8 +12,26 @@
 		padding: 0;
 		display: flex;
 
+		li {
+			position: relative;
+			a {
+				padding-inline: 20px;
+				padding-block: 5px;
+			}
+
+
+		}
+
 		li.is_wpmm {
-			background: lightcoral;
+			padding-inline: 20px;
+			padding-block: 5px;
+		}
+
+		li.is_wpmm:after {
+			position: absolute;
+			content: '›';
+			transform: rotate(90deg);
+			right: 0;
 		}
 	}
 }
