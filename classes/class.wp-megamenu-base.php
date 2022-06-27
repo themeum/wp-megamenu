@@ -261,12 +261,11 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			}
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
-			$request_data           = $_POST;
-			$request_data['layout'] = sanitize_array( json_decode( wp_unslash( $request_data['layout'] ), true ) );
-			$dataset_saved          = (array) maybe_unserialize( get_post_meta( $request_data['menu_item_id'], 'wpmm_layout', true ) );
-
+			$request_data            = $_POST;
+			$request_data['layout']  = sanitize_array( json_decode( wp_unslash( $request_data['layout'] ), true ) );
+			$dataset_saved           = (array) maybe_unserialize( get_post_meta( $request_data['menu_item_id'], 'wpmm_layout', true ) );
 			$dataset                 = $request_data;
-			$dataset['menu_type']    = 'wpmm_mega_menu';
+			$dataset['menu_type']    = 'true' === $request_data['options']['menu_type'] ? 'wpmm_mega_menu' : 'wpmm_dropdown_menu';
 			$dataset_saved['layout'] = $request_data['layout'];
 
 			unset( $dataset_saved[0] );
@@ -282,7 +281,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			if ( ! isset( $dataset_saved['data_type'] ) ) {
 				$dataset['data_type'] = 'new';
 			}
-			// pr($dataset);die;
+			// die( pr( $dataset ) );
 			update_post_meta( $dataset['menu_item_id'], 'wpmm_layout', $dataset );
 			do_action( 'wpmm_regenerate_css' );
 			wp_send_json_success( __( 'Saved Success', 'wp-megamenu' ) );
@@ -347,7 +346,6 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					}
 				}
 
-				// print_row($get_layout);
 				if ( ! empty( $get_layout['layout'] ) ) {
 					foreach ( $get_layout['layout'] as $lkey => $all_layout ) {
 						if ( count( $all_layout['row'] ) ) {
@@ -521,6 +519,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 
 				if ( ! empty( $get_layout['menu_type'] ) ) {
 					if ( $get_layout['menu_type'] === 'wpmm_mega_menu' ) {
+
 						// unset($items[$key]);
 
 						if ( ! empty( $get_layout['layout'] ) ) {
@@ -607,13 +606,11 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 									}
 								}
 							}
-							// print_r($items);
 						}
 					}
 				}
 			}
 
-			// print_row($items);die();
 			$parent_id = array();
 			foreach ( $parent_item as $pkey => $pvalue ) {
 				$parent_id[] = $pvalue->ID;

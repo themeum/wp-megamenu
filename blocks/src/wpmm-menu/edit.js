@@ -41,19 +41,21 @@ export default function Edit(props) {
 				/>
 			</BlockControls>
 			<InspectorControls key="setting">
-				<div id="gutenpride-controls">
-					<fieldset>
-						<legend className="blocks-base-control__label">
-							{__('Background color', 'gutenpride')}
-						</legend>
-						<ColorPalette />
-					</fieldset>
-					<fieldset>
-						<legend className="blocks-base-control__label">
-							{__('Text color', 'gutenpride')}
-						</legend>
-						<ColorPalette />
-					</fieldset>
+				<div className='block-editor-block-inspector'>
+					<div id="gutenpride-controls" className='components-panel__body'>
+						<fieldset>
+							<legend className="blocks-base-control__label">
+								{__('Background color', 'gutenpride')}
+							</legend>
+							<ColorPalette />
+						</fieldset>
+						<fieldset>
+							<legend className="blocks-base-control__label">
+								{__('Text color', 'gutenpride')}
+							</legend>
+							<ColorPalette />
+						</fieldset>
+					</div>
 				</div>
 			</InspectorControls>
 			<NavigationList {...props} />

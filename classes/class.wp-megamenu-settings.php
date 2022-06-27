@@ -14,8 +14,12 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'save_wpmm_settings' ) );
+			// add_action( 'admin_enqueue_scripts', array( $this, 'my_admin_scripts' ) );
 		}
 
+		function my_admin_scripts() {
+			// wp_enqueue_media();
+		}
 		/**
 		 * Save the settings
 		 */
@@ -23,10 +27,28 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 			// Existing navigation item setting fields
 			$listed_fields = array(
 				array(
+					'key'     => 'menu_type',
+					'label'   => 'Enable MegaMenu',
+					'type'    => 'checkbox',
+					'default' => 'false',
+				),
+				array(
 					'key'     => 'menu_bg_image',
 					'label'   => 'Upload Background Image',
 					'type'    => 'image',
 					'default' => 2,
+				),
+				array(
+					'key'     => 'badge_style',
+					'label'   => 'Select Stretch',
+					'type'    => 'select',
+					'default' => 'primary',
+					'width'   => '130px',
+					'options' => array(
+						'wpmm-strees-default'         => 'Default',
+						'wpmm-strees-row'             => 'Row',
+						'wpmm-strees-row-and-content' => 'Row and Content',
+					),
 				),
 				array(
 					'key'     => 'logged_in_only',
