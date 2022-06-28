@@ -312,6 +312,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     width: 100%;
     border-color: #BFBFC1;
 }
+
 .wpmm-modal .wpmm-item-sidebar input[type="color"] {
     padding: 0 2px;
 }
@@ -319,6 +320,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 .wpmm-modal .wpmm-item-sidebar input[type="color"].block {
     min-width: 100%;
 }
+
 .wpmm-modal,
 .wpmm-modal-dialog,
 .wpmm-modal-content {
@@ -660,6 +662,40 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 
 .wpmm-row-delete-icon {
     cursor: pointer;
+}
+
+.upload_image_button {
+    width: 100%;
+}
+
+.wpmm_image_preview {
+    position: relative;
+    box-shadow: 0 0 1px;
+}
+
+.wpmm_image_preview button {
+    display: none;
+    position: absolute;
+    background: #f47575;
+    border-radius: 50%;
+    border: none;
+    top: -10px;
+    right: -10px;
+    width: 26px;
+    height: 26px;
+    z-index: 9;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.wpmm_image_preview button:hover {
+    background: #ff0000;
+}
+
+.wpmm_image_preview img+button {
+    display: block;
 }
 
 @-webkit-keyframes spinner-border {

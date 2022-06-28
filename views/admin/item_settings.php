@@ -35,21 +35,12 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 			</div>
 			<div class="wpmm-modal-body">
 				<div class="wpmm-option-content">
-					<div class="wpmm-item-sidebar">
+					<div class="wpmm-item-sidebar"><!-- onclick="wpmm_image_uploader(this)"  -->
 						<form id="wpmm_nav_item_settings" method="POST">
 							<div class="wpmm-item-fields">
-							<label for="upload_image">
-								<input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" />
-								<input id="upload_image_button" class="button" type="button" value="Upload Image" />
-								<br />Enter a URL or upload an image
-							</label>
 							<?php
 							foreach ( wpmm_settings()->wpmm_item_setting_fields() as $setting_field ) {
-								if ( isset( $setting_field['has_child'] ) ) {
-									echo wpmm_settings()->wpmm_field_type( $setting_field, $wpmm_layout['options'] );
-								} elseif ( isset( $setting_field['type'] ) ) {
-									echo wpmm_settings()->wpmm_field_type( $setting_field, $wpmm_layout['options'] );
-								}
+								wpmm_settings()->wpmm_field_type( $setting_field, $wpmm_layout['options'] );
 							}
 							?>
 							</form>

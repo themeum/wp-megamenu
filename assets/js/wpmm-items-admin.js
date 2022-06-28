@@ -43,7 +43,6 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
                     widget_search_on_modal(e);
                 }
             }
-
             insert_widget_to_column(menu_item_id, addElemBtn);
         }
     };
@@ -297,7 +296,6 @@ function get_nav_item_settings() {
 }
 
 function wpmm_toggle_layout_builder(button) {
-    console.log(button);
     document.getElementById('layout-modal').classList.toggle('show');
 }
 
@@ -440,6 +438,14 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
                 item.onchange = () => set_checkbox_status(item);
             });
 
+
+
+            document.querySelectorAll('.upload_image_button').forEach(item => {
+                wpmm_image_uploader(item, 'Choose ');
+            })
+
+
+
         }
     };
 
@@ -555,7 +561,7 @@ function wpmm_delete_this_widget(deleteButton) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
             // setTimeout(() => {
-                console.log(xhttp.response);
+            console.log(xhttp.response);
             // }, 1000)
         }
     };
@@ -904,6 +910,41 @@ onConfirmRefresh = (e) => {
     }
 }); */
 
+/**
+ * Image upload action for wpmm item
+ */
+function wpmm_image_uploader(element = null, title = null, btn_text = null, view = null) {
+    element.addEventListener('click', (e) => {
+        var wpmm_media,
+            img_viewer = document.createElement("img"),
+            wrapper = element.closest('.wpmm_image_uploader')
+                .querySelector('.wpmm_image_preview');
+        if (wpmm_media) {
+            wpmm_media.open();
+            return;
+        }
+        wpmm_media = wp.media.frames.file_frame = wp.media({
+            title: !title ? 'Choose Image' : title,
+            button: {
+                text: !btn_text ? 'Choose Image' : btn_text
+            },
+            multiple: false
+        });
+        wpmm_media.on('select', function () {
+            attachment = wpmm_media.state().get('selection').first().toJSON();
+            if (wrapper && wrapper.querySelector('img')) {
+                wrapper.querySelector('img').setAttribute("src", attachment.url)
+            } else {
+                img_viewer.setAttribute("src", attachment.url);
+                wrapper && wrapper.prepend(img_viewer);
+            }
+        });
+        wpmm_media.open();
+    })
+
+
+}
+
 
 (function ($) {
 
@@ -978,5 +1019,7 @@ onConfirmRefresh = (e) => {
         add_wpmm_events_to_widget($(this));
         console.log($(this));
     }); */
+
+
 })(jQuery);
 

@@ -27,16 +27,16 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 			// Existing navigation item setting fields
 			$listed_fields = array(
 				array(
-					'key'     => 'menu_type',
-					'label'   => 'Enable MegaMenu',
-					'type'    => 'checkbox',
-					'default' => 'false',
-				),
-				array(
 					'key'     => 'menu_bg_image',
 					'label'   => 'Upload Background Image',
 					'type'    => 'image',
 					'default' => 2,
+				),
+				array(
+					'key'     => 'menu_type',
+					'label'   => 'Enable MegaMenu',
+					'type'    => 'checkbox',
+					'default' => 'false',
 				),
 				array(
 					'key'     => 'badge_style',
@@ -309,7 +309,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 			} elseif ( isset( $field['type'] ) ) {
 				include wpmm()->path . "views/admin/fields/{$field['type']}.php";
 			}
-			return ob_get_clean();
+			echo ob_get_clean();
 		}
 
 		public function save_wpmm_settings() {

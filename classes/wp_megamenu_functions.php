@@ -1506,7 +1506,7 @@ if ( ! function_exists( 'sanitize_array' ) ) {
 	/**
 	 * Sanitize input field
 	 *
-	 * @param array $array is input
+	 * @param array $array is incoming here.
 	 *
 	 * @return array
 	 */
@@ -1518,8 +1518,7 @@ if ( ! function_exists( 'sanitize_array' ) ) {
 				$value = sanitize_text_field( $value );
 			}
 		}
-
-			return $array;
+		return $array;
 	}
 }
 
