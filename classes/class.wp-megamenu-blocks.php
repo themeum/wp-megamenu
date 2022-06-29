@@ -9,6 +9,8 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 
 		public function __construct() {
 			add_action( 'init', array( $this, 'fancy_custom_block_block_init' ) );
+			add_action( 'after_setup_theme', array( $this, 'register_my_menu' ) );
+			add_shortcode( 'foobar', array( $this, 'foobar_func' ) );
 
 			add_action(
 				'rest_api_init',
@@ -33,6 +35,12 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 				}
 			);
 		}
+
+		public function register_my_menu() {
+			register_nav_menu( 'block', __( 'Block Menu', 'wp-megamenu' ) );
+		}
+
+
 		public function wpmm_menu_list() {
 			return wp_get_nav_menus();
 			/*
@@ -83,7 +91,6 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		}
 
 		public function render_block_core_navigation( $attributes ) {
-			pr( $attributes );
 			return '<h2>Navigation MegaMenu</h2>';
 		}
 

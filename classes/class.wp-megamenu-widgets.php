@@ -729,9 +729,6 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			}
 			check_ajax_referer( 'wpmm_check_security', 'wpmm_nonce' );
 
-			pr( $_REQUEST );
-			die;
-
 			$id_base       = sanitize_text_field( $_POST['id_base'] );
 			$widget_id     = sanitize_text_field( $_POST['widget_id'] );
 			$menu_item_id  = (int) sanitize_text_field( $_POST['menu_item_id'] );
@@ -742,6 +739,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			// Remove from sidebar
 			$sidebar_widgets = $this->get_sidebar_widgets();
+			pr($sidebar_widgets);die;
 			$new_widgets     = array();
 			foreach ( $sidebar_widgets as $key => $value ) {
 				if ( $widget_id != $value ) {
@@ -752,6 +750,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			// Remove from option widget_{$widget_base_id}
 			$get_widget_option    = get_option( 'widget_' . $id_base );
+
 			$key_in_widget_option = (int) str_replace( $get_widget_option . '-', '', $widget_id );
 
 			unset( $get_widget_option[ $key_in_widget_option ] );

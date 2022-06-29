@@ -541,21 +541,22 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 									);
 
 									foreach ( $row['row'] as $col_id => $col ) {
-										if ( ! empty( $col['col'] ) ) {
+										/* if ( ! empty( $col['col'] ) ) {
 											$col_class = 'wpmm-col-' . $col['col'];
 										} else {
 											$col_class = 'wpmm-col-';
-										}
+										} */
 										// Todo: need to make a better solution to generat $big_col_int_ID ID
 										$big_col_int_ID = rand( 999999, PHP_INT_MAX ) + $big_row_int_ID + 993495349 + ( $row_key + 1 ) + ( $col_id + 1 ) + $item_count;
 										// Add dummy li
 										$items[] = (object) array(
 											'menu_item_parent' => $big_row_int_ID,
 											'type'    => 'wpmm_col',
+											'style'   => 'width:' . $col['width'] . '%',
 											'title'   => 'Custom col',
 											'ID'      => $big_col_int_ID,
 											'db_id'   => $big_col_int_ID,
-											'classes' => array( 'wpmm-col', $col_class ),
+											'classes' => array( 'wpmm-col' ),
 										);
 
 										if ( ! empty( $col['items'] ) ) {

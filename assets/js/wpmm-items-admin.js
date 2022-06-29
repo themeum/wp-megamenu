@@ -918,7 +918,9 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
         var wpmm_media,
             img_viewer = document.createElement("img"),
             wrapper = element.closest('.wpmm_image_uploader')
-                .querySelector('.wpmm_image_preview');
+                .querySelector('.wpmm_image_preview'),
+            media_value = element.closest('.wpmm_image_uploader')
+                .querySelector('input.upload_image');
         if (wpmm_media) {
             wpmm_media.open();
             return;
@@ -933,11 +935,14 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
         wpmm_media.on('select', function () {
             attachment = wpmm_media.state().get('selection').first().toJSON();
             if (wrapper && wrapper.querySelector('img')) {
-                wrapper.querySelector('img').setAttribute("src", attachment.url)
+                wrapper.querySelector('img').setAttribute("src", attachment.url);
+                media_value.value = attachment.id;
             } else {
                 img_viewer.setAttribute("src", attachment.url);
                 wrapper && wrapper.prepend(img_viewer);
+                media_value.value = attachment.id;
             }
+            console.log(wrapper);
         });
         wpmm_media.open();
     })

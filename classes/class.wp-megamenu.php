@@ -59,7 +59,7 @@ if ( ! class_exists( 'wp_megamenu' ) ) {
 
 			$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
-			$li_attributes = '';
+			$li_attributes = empty( $item->style ) ? '' : 'style="' . $item->style . '"';
 			$class_names   = $value = '';
 
 			$classes   = empty( $item->classes ) ? array() : (array) $item->classes;
