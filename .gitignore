@@ -2,3 +2,8 @@
 .ds_store
 wp-megamenu/
 *.zip
+node_modules
+build
+languages
+blocks/package-lock.json
+blocks/node_modules

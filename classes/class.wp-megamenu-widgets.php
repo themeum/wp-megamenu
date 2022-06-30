@@ -739,7 +739,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 
 			// Remove from sidebar
 			$sidebar_widgets = $this->get_sidebar_widgets();
-			pr($sidebar_widgets);die;
+			// pr($sidebar_widgets);die;
 			$new_widgets     = array();
 			foreach ( $sidebar_widgets as $key => $value ) {
 				if ( $widget_id != $value ) {

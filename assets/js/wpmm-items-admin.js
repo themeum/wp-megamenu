@@ -562,6 +562,7 @@ function wpmm_delete_this_widget(deleteButton) {
         if (xhttp.readyState === 4) {
             // setTimeout(() => {
             console.log(xhttp.response);
+            widget_element.remove();
             // }, 1000)
         }
     };
