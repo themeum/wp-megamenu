@@ -59,6 +59,10 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 											<div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
 												<i class="fa fa-sort wpmm-mr-2"></i>
 												<span>Row</span>
+												<div class="colum_maker">
+													<button class="fa fa-plus increment"></button>
+													<span>Add Column</span>
+												</div>
 											</div>
 											<div class="wpmm-row-toolbar-right">
 												<span class="wpmm-row-delete-icon" onclick="wpmm_delete_any_row(this)">
@@ -76,14 +80,18 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 													} else {
 														$layout_width = ( $layout_columns * 100 ) / 12;
 													}
-
 													?>
-											<div style="--col-width: calc(<?php echo esc_attr( $layout_width ); ?>% - 1em)" class="wpmm-item-col wpmm-item-<?php echo esc_attr( $layout_columns ); ?>" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-width="<?php echo esc_attr( $layout_width ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+											<div style="--col-width: calc(<?php echo esc_attr( $layout_width ); ?>% - 1em)" class="wpmm-item-col" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-width="<?php echo esc_attr( $layout_width ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
 												<div class="wpmm-column-contents-wrapper">
 													<div class="wpmm-column-toolbar wpmm-column-drag-handler">
-														<span class="wpmm-col-sorting-icon">
+														<div class="wpmm-col-sorting-icon">
 															<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
-														</span>
+														</div>
+														<div class="colum_resizer">
+															<button class="fa fa-minus decrement"></button>
+															<button class="fa fa-plus increment"></button>
+															<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+														</div>
 													</div>
 													<div class="wpmm-column-contents">
 														<?php

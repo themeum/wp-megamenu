@@ -39,9 +39,10 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 					'default' => 'false',
 				),
 				array(
-					'key'     => 'badge_style',
+					'key'     => 'menu_strees_row',
 					'label'   => 'Select Stretch',
 					'type'    => 'select',
+					'area'    => 'location',
 					'default' => 'primary',
 					'width'   => '130px',
 					'options' => array(

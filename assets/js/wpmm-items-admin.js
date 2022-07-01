@@ -411,7 +411,8 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
 
-            document.querySelector('.wpmm-item-settings-content').innerHTML = xhttp.response;
+            wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
+            wpmm_settings_modal.innerHTML = xhttp.response;
 
             initiate_actions_on_layout_modal(menu_item_id);
             initiate_sortable();
@@ -445,6 +446,82 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
             })
 
 
+            colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
+            colum_resizers.forEach(item => {
+                let timer, totalWidth = [],
+                    increment = item && item.querySelector('button.increment'),
+                    decrement = item && item.querySelector('button.decrement'),
+                    this_col = item && item.closest('.wpmm-item-col'),
+                    this_row = this_col && this_col.closest('.wpmm-columns-container'),
+                    col_width = this_col && this_col.dataset.width;
+
+                function continuosIncerment() {
+                    inc_dec_btn_action(++col_width);
+                    timer = setTimeout(continuosIncerment, 50);
+                }
+
+                function continuosDecrement() {
+                    inc_dec_btn_action(--col_width);
+                    timer = setTimeout(continuosDecrement, 50);
+                }
+
+                function timeoutClear() {
+                    clearTimeout(timer);
+                }
+
+
+                function inc_dec_btn_event(event_type) {
+                    change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
+                    change_value = 'increment' === event_type ? increment : decrement;
+
+                    change_value.addEventListener('mousedown', change_type);
+                    change_value.addEventListener('mouseup', timeoutClear);
+                    change_value.addEventListener('mouseleave', timeoutClear);
+                    inc_dec_event_control(col_total_width());
+                }
+
+                function col_total_width() {
+                    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => totalWidth.push(item.dataset.width));
+                    fullWidth = totalWidth.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+                    totalWidth = [];
+                    return Math.ceil(fullWidth);
+                }
+
+                function inc_dec_row_buttons(type, value) {
+                    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
+                        item.querySelector(`button.${type}`).style.pointerEvents = value;
+                    });
+                }
+
+                function inc_dec_col_button(type, value) {
+                    type.style.pointerEvents = value;
+                }
+
+
+                function inc_dec_event_control(fullWidth) {
+
+                    if (100 <= fullWidth) {
+                        inc_dec_row_buttons('increment', 'none');
+                        inc_dec_col_button(decrement, 'auto');
+                    } else if (20 >= col_width) {
+                        inc_dec_col_button(decrement, 'none');
+                        inc_dec_col_button(increment, 'auto');
+                    } else {
+                        inc_dec_row_buttons('increment', 'auto');
+                    }
+                }
+
+                inc_dec_btn_event('increment');
+                inc_dec_btn_event('decrement');
+
+                function inc_dec_btn_action(value) {
+                    this_col.dataset.width = value;
+                    item.querySelector('input[type=number]').value = value;
+                    this_col.style.setProperty('--col-width', `calc(${value}% - 1em)`);
+                    inc_dec_event_control(col_total_width());
+                }
+
+            });
 
         }
     };
@@ -915,13 +992,16 @@ onConfirmRefresh = (e) => {
  * Image upload action for wpmm item
  */
 function wpmm_image_uploader(element = null, title = null, btn_text = null, view = null) {
+    console.log(element);
+    var wpmm_media,
+        img_element = document.createElement("img"),
+        wrapper = element.closest('.wpmm_image_uploader'),
+        image_preview = wrapper && wrapper.querySelector('.wpmm_image_preview'),
+        input_media = wrapper && wrapper.querySelector('input.upload_image'),
+        delete_btn = image_preview && image_preview.querySelector('.delete_image');
+
     element.addEventListener('click', (e) => {
-        var wpmm_media,
-            img_viewer = document.createElement("img"),
-            wrapper = element.closest('.wpmm_image_uploader')
-                .querySelector('.wpmm_image_preview'),
-            media_value = element.closest('.wpmm_image_uploader')
-                .querySelector('input.upload_image');
+
         if (wpmm_media) {
             wpmm_media.open();
             return;
@@ -937,15 +1017,22 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
             attachment = wpmm_media.state().get('selection').first().toJSON();
             if (wrapper && wrapper.querySelector('img')) {
                 wrapper.querySelector('img').setAttribute("src", attachment.url);
-                media_value.value = attachment.id;
+                input_media.value = attachment.id;
             } else {
-                img_viewer.setAttribute("src", attachment.url);
-                wrapper && wrapper.prepend(img_viewer);
-                media_value.value = attachment.id;
+                img_element.setAttribute("src", attachment.url);
+                image_preview && image_preview.prepend(img_element);
+                input_media.value = attachment.id;
             }
             console.log(wrapper);
         });
         wpmm_media.open();
+    })
+
+
+    delete_btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        input_media.value = '';
+        delete_btn.previousElementSibling.remove();
     })
 
 
