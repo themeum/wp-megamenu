@@ -537,29 +537,39 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     padding-right: 0;
     width: 0;
     transition: all .3s;
-    visibility: hidden;
+    /* visibility: hidden;
     opacity: 0;
-    left: 100px;
+    left: 100px; */
     position: relative;
 }
 
-.colum_maker:hover span {
+.wpmm-layout-row:hover .colum_maker span {
     padding-right: 5px;
     width: 80px;
-    visibility: visible;
+    /* visibility: visible;
     opacity: 1;
-    left: 0;
+    left: 0; */
 }
 
 .colum_resizer {
     display: inline-flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s;
+    position: relative;
+    z-index: 1;
+}
+
+.wpmm-layout-row:hover .colum_resizer {
+    visibility: visible;
+    opacity: 1;
 }
 
 
 .colum_resizer input::-webkit-outer-spin-button,
 .colum_resizer input::-webkit-inner-spin-button,
 .colum_resizer input[type=number] {
-    max-width: 50px;
+    max-width: 40px;
     min-height: 25px !important;
     max-height: 25px;
     -webkit-appearance: none;
@@ -570,6 +580,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     margin-inline-end: 0;
     padding: 0 !important;
     text-align: center;
+    -moz-appearance: textfield;
 }
 
 .colum_resizer button {

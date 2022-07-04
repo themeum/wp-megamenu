@@ -44,6 +44,7 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
                 }
             }
             insert_widget_to_column(menu_item_id, addElemBtn);
+
         }
     };
 
@@ -80,33 +81,57 @@ function get_latest_widget_id_by_id_base(id_base) {
 }
 
 
-/**
- *
- */
+
+
+function add_new_column(button) {
+    col_width = 20;
+    row = button.closest('.wpmm-layout-row');
+    console.log(col_total_width(row) + parseFloat(Math.ceil(col_width)));
+    col_width_all = col_total_width(row) + parseFloat(Math.ceil(col_width));
+    layout = row && row.querySelector('.wpmm-columns-container');
+    column_layout = column_layout_ui(3, 3, col_width);
+    if (col_width_all <= 100) {
+        layout.insertAdjacentHTML('beforeend', column_layout);
+        wpmm_colum_resizer();
+    } else {
+        console.log('Total col width should not more than 100%.');
+    }
+}
+
+
+function column_layout_ui(row_id, col_index, col_width) {
+    return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_id}" data-col-id="${col_index}">
+        <div class="wpmm-column-contents-wrapper">
+            <div class="wpmm-column-toolbar wpmm-column-drag-handler">
+                <span class="wpmm-col-sorting-icon">
+                    <i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+                </span>
+                <div class="colum_resizer">
+                    <button class="fa fa-minus decrement" style="pointer-events: none;"></button>
+                    <button class="fa fa-plus increment" style="pointer-events: none;"></button>
+                    <input type="number" min="20" max="100" value="20">
+                </div>
+            </div>
+            <div class="wpmm-column-contents">
+            </div>
+            <div class="wpmm-add-item-wrapper">
+                <button class="wpmm-add-new-item" onclick="wpmm_add_new_item(this)" data-col-index="${col_index}" data-row-index="${row_id}" title="Add Module">
+                    <span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
+                </button>
+            </div>
+        </div>
+    </div>`;
+}
+
+
+
 function create_row_layout(layout, layout_array, new_row_id) {
     let column_ui = '';
 
     layout_array.forEach((col, index) => {
-        console.log(col);
-        colWidth = col.column;
-        column_ui += `
-                <div class="wpmm-item-col wpmm-item-${colWidth}" style="--col-width: calc(${colWidth}% - 1em)" data-width="${colWidth}" data-rowid="${new_row_id}" data-col-id="${index}">
-                    <div class="wpmm-column-contents-wrapper">
-                        <div class="wpmm-column-toolbar wpmm-column-drag-handler">
-                            <span class="wpmm-col-sorting-icon">
-                                <i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
-                            </span>
-                        </div>
-                        <div class="wpmm-column-contents">
-                        </div>
-                        <div class="wpmm-add-item-wrapper">
-                            <button class="wpmm-add-new-item" onclick="wpmm_add_new_item(this)" data-col-index="${index}" data-row-index="${new_row_id}" title="Add Module">
-                                <span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
+        column_ui += column_layout_ui(new_row_id, index, col.column);
     })
+
     rowLayout = `
         <div class="wpmm-layout-row" data-row-id="${new_row_id}">
             <div class="wpmm-row-toolbar wpmm-item-row wpmm-space-between wpmm-align">
@@ -389,6 +414,14 @@ function wpmm_loading(load = true, duration = 1000) {
 }
 
 
+function col_total_width(row) {
+    totalWidth = [];
+    row && row.querySelectorAll('.wpmm-item-col').forEach(item => totalWidth.push(item.dataset.width));
+    fullWidth = totalWidth.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+    totalWidth = [];
+    return Math.ceil(fullWidth);
+}
+
 function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
 
     formData = new FormData();
@@ -411,7 +444,7 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
 
-            wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
+            let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
             wpmm_settings_modal.innerHTML = xhttp.response;
 
             initiate_actions_on_layout_modal(menu_item_id);
@@ -445,88 +478,92 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
                 wpmm_image_uploader(item, 'Choose ');
             })
 
-
-            colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
-            colum_resizers.forEach(item => {
-                let timer, totalWidth = [],
-                    increment = item && item.querySelector('button.increment'),
-                    decrement = item && item.querySelector('button.decrement'),
-                    this_col = item && item.closest('.wpmm-item-col'),
-                    this_row = this_col && this_col.closest('.wpmm-columns-container'),
-                    col_width = this_col && this_col.dataset.width;
-
-                function continuosIncerment() {
-                    inc_dec_btn_action(++col_width);
-                    timer = setTimeout(continuosIncerment, 50);
-                }
-
-                function continuosDecrement() {
-                    inc_dec_btn_action(--col_width);
-                    timer = setTimeout(continuosDecrement, 50);
-                }
-
-                function timeoutClear() {
-                    clearTimeout(timer);
-                }
-
-
-                function inc_dec_btn_event(event_type) {
-                    change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
-                    change_value = 'increment' === event_type ? increment : decrement;
-
-                    change_value.addEventListener('mousedown', change_type);
-                    change_value.addEventListener('mouseup', timeoutClear);
-                    change_value.addEventListener('mouseleave', timeoutClear);
-                    inc_dec_event_control(col_total_width());
-                }
-
-                function col_total_width() {
-                    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => totalWidth.push(item.dataset.width));
-                    fullWidth = totalWidth.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
-                    totalWidth = [];
-                    return Math.ceil(fullWidth);
-                }
-
-                function inc_dec_row_buttons(type, value) {
-                    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
-                        item.querySelector(`button.${type}`).style.pointerEvents = value;
-                    });
-                }
-
-                function inc_dec_col_button(type, value) {
-                    type.style.pointerEvents = value;
-                }
-
-
-                function inc_dec_event_control(fullWidth) {
-
-                    if (100 <= fullWidth) {
-                        inc_dec_row_buttons('increment', 'none');
-                        inc_dec_col_button(decrement, 'auto');
-                    } else if (20 >= col_width) {
-                        inc_dec_col_button(decrement, 'none');
-                        inc_dec_col_button(increment, 'auto');
-                    } else {
-                        inc_dec_row_buttons('increment', 'auto');
-                    }
-                }
-
-                inc_dec_btn_event('increment');
-                inc_dec_btn_event('decrement');
-
-                function inc_dec_btn_action(value) {
-                    this_col.dataset.width = value;
-                    item.querySelector('input[type=number]').value = value;
-                    this_col.style.setProperty('--col-width', `calc(${value}% - 1em)`);
-                    inc_dec_event_control(col_total_width());
-                }
-
-            });
+            wpmm_colum_resizer();
 
         }
     };
 
 }
+
+
+
+// Colum resizer function
+function wpmm_colum_resizer() {
+    let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
+    let colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
+    colum_resizers.forEach(item => {
+        let timer,
+            increment = item && item.querySelector('button.increment'),
+            decrement = item && item.querySelector('button.decrement'),
+            this_col = item && item.closest('.wpmm-item-col'),
+            this_row = this_col && this_col.closest('.wpmm-columns-container'),
+            col_width = this_col && this_col.dataset.width;
+
+        function continuosIncerment() {
+            inc_dec_btn_action(++col_width);
+            timer = setTimeout(continuosIncerment, 200);
+        }
+
+        function continuosDecrement() {
+            inc_dec_btn_action(--col_width);
+            timer = setTimeout(continuosDecrement, 200);
+        }
+
+        function timeoutClear() {
+            clearTimeout(timer);
+        }
+
+
+        function inc_dec_btn_event(event_type) {
+            change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
+            change_value = 'increment' === event_type ? increment : decrement;
+
+            change_value.addEventListener('mousedown', change_type);
+            change_value.addEventListener('mouseup', timeoutClear);
+            change_value.addEventListener('mouseleave', timeoutClear);
+            inc_dec_event_control(col_total_width(this_row));
+        }
+
+
+        function inc_dec_row_buttons(type, value) {
+            this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
+                item.querySelector(`button.${type}`).style.pointerEvents = value;
+            });
+        }
+
+        function inc_dec_col_button(type, value) {
+            type.style.pointerEvents = value;
+        }
+
+
+        function inc_dec_event_control(fullWidth) {
+
+            if (100 <= fullWidth) {
+                inc_dec_row_buttons('increment', 'none');
+                inc_dec_col_button(decrement, 'auto');
+            } else if (20 >= col_width) {
+                inc_dec_col_button(decrement, 'none');
+                inc_dec_col_button(increment, 'auto');
+            } else {
+                inc_dec_row_buttons('increment', 'auto');
+            }
+        }
+
+        inc_dec_btn_event('increment');
+        inc_dec_btn_event('decrement');
+
+        function inc_dec_btn_action(value) {
+            this_col.dataset.width = value;
+            item.querySelector('input[type=number]').value = value;
+            this_col.style.setProperty('--col-width', `calc(${value}% - 1em)`);
+            inc_dec_event_control(col_total_width(this_row));
+        }
+
+    });
+
+}
+
+
 
 // Checkbox status by event. set true or false
 function set_checkbox_status(item) {

@@ -59,8 +59,9 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 											<div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
 												<i class="fa fa-sort wpmm-mr-2"></i>
 												<span>Row</span>
-												<div class="colum_maker">
-													<button class="fa fa-plus increment"></button>
+												<div class="colum_maker" onclick="add_new_column(this)">
+													<button class="fa fa-cog"></button>
+													<button class="fa fa-plus"></button>
 													<span>Add Column</span>
 												</div>
 											</div>

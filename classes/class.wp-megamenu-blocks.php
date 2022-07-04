@@ -91,6 +91,7 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		}
 
 		public function render_block_core_navigation( $attributes ) {
+			// pr($attributes);
 			return '<h2>Navigation MegaMenu</h2>';
 		}
 
