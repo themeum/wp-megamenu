@@ -580,11 +580,14 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 					<div class="widget-title">
 						<h3>
 						<?php
-						esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) );
 						if ( ! empty( $this->get_widget_title_by_widget_id( $widget_id ) ) ) {
 							?>
-						: <span class="widget_title"><?php esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span>
-						<?php } ?>
+						<span class="widget_title"><?php esc_html_e( $this->get_widget_title_by_widget_id( $widget_id ) ); ?></span>  <span class="in-widget-title"></span>
+							<?php
+						} else {
+							esc_html_e( $this->wpmm_get_widget_name_by_widget_id( $widget_id ) );
+						}
+						?>
 						</h3>
 					</div>
 				</div>
@@ -740,7 +743,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			// Remove from sidebar
 			$sidebar_widgets = $this->get_sidebar_widgets();
 			// pr($sidebar_widgets);die;
-			$new_widgets     = array();
+			$new_widgets = array();
 			foreach ( $sidebar_widgets as $key => $value ) {
 				if ( $widget_id != $value ) {
 					$new_widgets[] = $value;
@@ -749,7 +752,7 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			$this->set_sidebar_widgets( $new_widgets );
 
 			// Remove from option widget_{$widget_base_id}
-			$get_widget_option    = get_option( 'widget_' . $id_base );
+			$get_widget_option = get_option( 'widget_' . $id_base );
 
 			$key_in_widget_option = (int) str_replace( $get_widget_option . '-', '', $widget_id );
 
@@ -983,7 +986,4 @@ if ( ! class_exists( 'wp_megamenu_widgets' ) ) {
 			return new wp_megamenu_widgets();
 		}
 	}
-
-
-
 }

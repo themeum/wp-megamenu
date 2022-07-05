@@ -59,10 +59,14 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 											<div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
 												<i class="fa fa-sort wpmm-mr-2"></i>
 												<span>Row</span>
-												<div class="colum_maker" onclick="add_new_column(this)">
-													<button class="fa fa-cog"></button>
-													<button class="fa fa-plus"></button>
-													<span>Add Column</span>
+												<div class="colum_maker area_toggler">
+													<button class="fa fa-cog toggler_button"></button>
+													<div class="dropdown_buttons">
+														<button onclick="add_new_column(this)">
+															<i class="fa fa-plus"></i>
+															<span>Add Column</span>
+														</button>
+													</div>
 												</div>
 											</div>
 											<div class="wpmm-row-toolbar-right">
@@ -88,10 +92,15 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 														<div class="wpmm-col-sorting-icon">
 															<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
 														</div>
-														<div class="colum_resizer">
-															<button class="fa fa-minus decrement"></button>
-															<button class="fa fa-plus increment"></button>
-															<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+														<div class="colum_resizer area_toggler">
+															<button class="fa fa-cog toggler_button"></button>
+															<div class="dropdown_buttons">
+																<div class="btn-row">
+																	<button class="fa fa-minus decrement"></button>
+																	<button class="fa fa-plus increment"></button>
+																</div>
+																<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+															</div>
 														</div>
 													</div>
 													<div class="wpmm-column-contents">

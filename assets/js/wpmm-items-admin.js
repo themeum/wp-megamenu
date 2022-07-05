@@ -45,6 +45,8 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
             }
             insert_widget_to_column(menu_item_id, addElemBtn);
 
+            // common functions run after item settings panel open
+            _actions_after_open_widgets_list();
         }
     };
 
@@ -83,6 +85,33 @@ function get_latest_widget_id_by_id_base(id_base) {
 
 
 
+function toggle_dropdown() {
+    document.querySelectorAll('.toggler_button').forEach(item => {
+
+        item.addEventListener('click', (e) => {
+            close_all_opened_dropdown();
+            item.closest('.area_toggler').classList.toggle('show');
+            e.stopPropagation();
+        })
+
+        window.addEventListener('click', (e) => {
+            close_all_opened_dropdown();
+        })
+
+    })
+
+}
+
+function close_all_opened_dropdown() {
+    document.querySelectorAll('.area_toggler').forEach(item => {
+        item.classList.contains('show') && item.classList.remove('show');
+    })
+    document.querySelectorAll('.dropdown_buttons').forEach(item => {
+        item.addEventListener('click', (e) => e.stopPropagation());
+    })
+}
+
+
 function add_new_column(button) {
     col_width = 20;
     row = button.closest('.wpmm-layout-row');
@@ -93,29 +122,35 @@ function add_new_column(button) {
     if (col_width_all <= 100) {
         layout.insertAdjacentHTML('beforeend', column_layout);
         wpmm_colum_resizer();
+        toggle_dropdown();
     } else {
         console.log('Total col width should not more than 100%.');
     }
 }
 
 
-function column_layout_ui(row_id, col_index, col_width) {
-    return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_id}" data-col-id="${col_index}">
+function column_layout_ui(row_index, col_index, col_width) {
+    return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_index}" data-col-id="${col_index}">
         <div class="wpmm-column-contents-wrapper">
             <div class="wpmm-column-toolbar wpmm-column-drag-handler">
                 <span class="wpmm-col-sorting-icon">
                     <i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
                 </span>
-                <div class="colum_resizer">
-                    <button class="fa fa-minus decrement" style="pointer-events: none;"></button>
-                    <button class="fa fa-plus increment" style="pointer-events: none;"></button>
-                    <input type="number" min="20" max="100" value="20">
+                <div class="colum_resizer area_toggler">
+                    <button class="fa fa-cog toggler_button"></button>
+                    <div class="dropdown_buttons">
+                        <div class="btn-row">
+                            <button class="fa fa-minus decrement"></button>
+                            <button class="fa fa-plus increment"></button>
+                        </div>
+                        <input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+                    </div>
                 </div>
             </div>
             <div class="wpmm-column-contents">
             </div>
             <div class="wpmm-add-item-wrapper">
-                <button class="wpmm-add-new-item" onclick="wpmm_add_new_item(this)" data-col-index="${col_index}" data-row-index="${row_id}" title="Add Module">
+                <button class="wpmm-add-new-item" onclick="wpmm_add_new_item(this)" data-col-index="${col_index}" data-row-index="${row_index}" title="Add Module">
                     <span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
                 </button>
             </div>
@@ -446,45 +481,58 @@ function ajax_request_load_menu_item_settings(menu_item_id, depth, menu_id) {
 
             let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
             wpmm_settings_modal.innerHTML = xhttp.response;
+            params = { menu_item_id };
 
-            initiate_actions_on_layout_modal(menu_item_id);
-            initiate_sortable();
-
-            wpmm_loading(false, 200);
-
-            document.querySelectorAll('.close-modal').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.wp-megamenu-item-settins-wrap, #wpmmSettingOverlay').forEach(item => {
-                        item.style.display = 'none';
-                        wpmm_loading(true, 0);
-                    })
-                })
-            })
-
-            /* $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
-                e.preventDefault();
-                $('.wp-megamenu-item-settins-wrap').hide();
-                $('#wpmmSettingOverlay').hide();
-            }); */
-
-            document.querySelectorAll('input.wpmm-form-check-input').forEach(item => {
-                set_checkbox_status(item);
-                item.onchange = () => set_checkbox_status(item);
-            });
-
-
-
-            document.querySelectorAll('.upload_image_button').forEach(item => {
-                wpmm_image_uploader(item, 'Choose ');
-            })
-
-            wpmm_colum_resizer();
+            // common functions run after item settings panel open
+            _actions_after_open_settings_panel(params);
 
         }
     };
 
 }
 
+function _actions_after_open_settings_panel() {
+
+    wpmm_loading(false, 200);
+
+    initiate_actions_on_layout_modal(params.menu_item_id);
+
+    initiate_sortable();
+    document.querySelectorAll('.close-modal').forEach(item => {
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.wp-megamenu-item-settins-wrap, #wpmmSettingOverlay').forEach(item => {
+                item.style.display = 'none';
+                wpmm_loading(true, 0);
+            })
+        })
+    })
+
+    wpmm_colum_resizer();
+
+    document.querySelectorAll('input.wpmm-form-check-input').forEach(item => {
+        set_checkbox_status(item);
+        item.onchange = () => set_checkbox_status(item);
+    });
+
+    document.querySelectorAll('.upload_image_button').forEach(item => {
+        wpmm_image_uploader(item, 'Choose ');
+    })
+
+    toggle_dropdown();
+
+
+    /* $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
+        e.preventDefault();
+        $('.wp-megamenu-item-settins-wrap').hide();
+        $('#wpmmSettingOverlay').hide();
+    }); */
+
+}
+
+
+function _actions_after_open_widgets_list() {
+    return;
+}
 
 
 // Colum resizer function

@@ -501,7 +501,6 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     display: flex;
     justify-content: start;
     align-items: center;
-    gap: 10px;
 }
 
 .wpmm-row-toolbar-left {
@@ -509,67 +508,75 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     align-items: center;
 }
 
-.colum_maker {
-    cursor: pointer;
-    background: #ffffff;
+.area_toggler {
     transition: all .3s;
     color: #999;
-    margin-left: 20px;
-    border: 1px dashed #dedede;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    position: relative;
 }
 
-.colum_maker button {
+.area_toggler>button {
     padding: 5px;
     border: none;
     cursor: pointer;
-    background: #ffffff;
+    background: transparent;
     transition: all .3s;
     width: 25px;
     height: 25px;
     color: #999;
 }
 
-.colum_maker span {
-    white-space: nowrap;
-    padding-right: 0;
-    width: 0;
-    transition: all .3s;
-    /* visibility: hidden;
+.area_toggler .dropdown_buttons {
+    position: absolute;
+    visibility: hidden;
     opacity: 0;
-    left: 100px; */
-    position: relative;
+    background: #eee;
+    z-index: 9;
+    box-shadow: 0 0 2px;
+    left: 0;
+    top: 100%;
 }
 
-.wpmm-layout-row:hover .colum_maker span {
-    padding-right: 5px;
-    width: 80px;
-    /* visibility: visible;
-    opacity: 1;
-    left: 0; */
+.dropdown_buttons button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #eee;
+    padding-block: 7px;
+    padding-inline: 10px;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
 }
+
+.dropdown_buttons button span {
+    white-space: nowrap;
+}
+
+.dropdown_buttons button:hover {
+    background-color: #ddd;
+}
+
+.area_toggler.show .dropdown_buttons {
+    visibility: visible;
+    opacity: 1;
+}
+
 
 .colum_resizer {
     display: inline-flex;
-    visibility: hidden;
-    opacity: 0;
     transition: all .3s;
     position: relative;
     z-index: 1;
 }
 
-.wpmm-layout-row:hover .colum_resizer {
-    visibility: visible;
-    opacity: 1;
+.btn-row {
+    display: flex;
 }
 
 
 .colum_resizer input::-webkit-outer-spin-button,
 .colum_resizer input::-webkit-inner-spin-button,
 .colum_resizer input[type=number] {
-    max-width: 40px;
     min-height: 25px !important;
     max-height: 25px;
     -webkit-appearance: none;
@@ -581,25 +588,6 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     padding: 0 !important;
     text-align: center;
     -moz-appearance: textfield;
-}
-
-.colum_resizer button {
-    padding: 5px;
-    border: none;
-    cursor: pointer;
-    background: #ffffff;
-    transition: all .3s;
-    width: 25px;
-    height: 25px;
-    margin-left: -1px;
-    color: #999;
-    /* border: 1px dashed #fff; */
-    border: 1px dashed #dedede;
-}
-
-.colum_resizer button:hover {
-    color: #111;
-    background: #e9e9e9;
 }
 
 .drop-highlight {
