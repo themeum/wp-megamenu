@@ -128,6 +128,14 @@ function add_new_column(button) {
     }
 }
 
+function drag_and_resize() {
+    document.addEventListener("dragover", function (e) {
+        e = e || window.event;
+        var dragX = e.pageX, dragY = e.pageY;
+
+        console.log("X: " + dragX + " Y: " + dragY);
+    }, false);
+}
 
 function column_layout_ui(row_index, col_index, col_width) {
     return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_index}" data-col-id="${col_index}">
@@ -520,7 +528,7 @@ function _actions_after_open_settings_panel() {
 
     toggle_dropdown();
 
-
+    drag_and_resize();
     /* $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
         e.preventDefault();
         $('.wp-megamenu-item-settins-wrap').hide();
@@ -548,12 +556,12 @@ function wpmm_colum_resizer() {
             col_width = this_col && this_col.dataset.width;
 
         function continuosIncerment() {
-            inc_dec_btn_action(++col_width);
+            inc_dec_btn_action(++col_width, this_col, this_row, item);
             timer = setTimeout(continuosIncerment, 200);
         }
 
         function continuosDecrement() {
-            inc_dec_btn_action(--col_width);
+            inc_dec_btn_action(--col_width, this_col, this_row, item);
             timer = setTimeout(continuosDecrement, 200);
         }
 
@@ -563,8 +571,8 @@ function wpmm_colum_resizer() {
 
 
         function inc_dec_btn_event(event_type) {
-            change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
-            change_value = 'increment' === event_type ? increment : decrement;
+            let change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
+            let change_value = 'increment' === event_type ? increment : decrement;
 
             change_value.addEventListener('mousedown', change_type);
             change_value.addEventListener('mouseup', timeoutClear);
@@ -572,44 +580,40 @@ function wpmm_colum_resizer() {
             inc_dec_event_control(col_total_width(this_row));
         }
 
-
-        function inc_dec_row_buttons(type, value) {
-            this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
-                item.querySelector(`button.${type}`).style.pointerEvents = value;
-            });
-        }
-
-        function inc_dec_col_button(type, value) {
-            type.style.pointerEvents = value;
-        }
-
-
-        function inc_dec_event_control(fullWidth) {
-
-            if (100 <= fullWidth) {
-                inc_dec_row_buttons('increment', 'none');
-                inc_dec_col_button(decrement, 'auto');
-            } else if (20 >= col_width) {
-                inc_dec_col_button(decrement, 'none');
-                inc_dec_col_button(increment, 'auto');
-            } else {
-                inc_dec_row_buttons('increment', 'auto');
-            }
-        }
-
-        inc_dec_btn_event('increment');
-        inc_dec_btn_event('decrement');
-
-        function inc_dec_btn_action(value) {
+        function inc_dec_btn_action(value, this_col, this_row, item) {
             this_col.dataset.width = value;
             item.querySelector('input[type=number]').value = value;
             this_col.style.setProperty('--col-width', `calc(${value}% - 1em)`);
             inc_dec_event_control(col_total_width(this_row));
         }
 
+
+        function inc_dec_event_control(fullWidth) {
+
+            if (100 <= fullWidth) {
+                inc_dec_row_buttons(this_row, 'increment', 'none');
+                decrement.style.pointerEvents = 'auto';
+            } else if (20 >= col_width) {
+                decrement.style.pointerEvents = 'none';
+                increment.style.pointerEvents = 'auto';
+            } else {
+                inc_dec_row_buttons(this_row, 'increment', 'auto');
+            }
+        }
+
+        inc_dec_btn_event('increment');
+        inc_dec_btn_event('decrement');
+
     });
 
 }
+
+function inc_dec_row_buttons(this_row, type, value) {
+    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
+        item.querySelector(`button.${type}`).style.pointerEvents = value;
+    });
+}
+
 
 
 
