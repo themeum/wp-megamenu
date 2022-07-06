@@ -100,6 +100,8 @@ function toggle_dropdown() {
 
     })
 
+    wpmm_colum_resizer();
+
 }
 
 function close_all_opened_dropdown() {
@@ -121,23 +123,34 @@ function add_new_column(button) {
     column_layout = column_layout_ui(3, 3, col_width);
     if (col_width_all <= 100) {
         layout.insertAdjacentHTML('beforeend', column_layout);
-        wpmm_colum_resizer();
-        toggle_dropdown();
     } else {
         console.log('Total col width should not more than 100%.');
     }
+    toggle_dropdown();
+
 }
 
 function drag_and_resize() {
-    document.addEventListener("dragover", function (e) {
-        e = e || window.event;
-        var dragX = e.pageX, dragY = e.pageY;
 
-        console.log("X: " + dragX + " Y: " + dragY);
-    }, false);
+    resizers = document.querySelectorAll('.resizer');
+    resizers.forEach(item => {
+        item.addEventListener("dragover", function (e) {
+            e = e || window.event;
+            var dragX = e.pageX, dragY = e.pageY;
+            adjustWidth = parseInt(dragX) - parseFloat(item.getBoundingClientRect());
+            this_col = item.closest('.wpmm-item-col');
+            set_width = parseFloat(this_col.offsetWidth) + parseFloat(adjustWidth);
+            this_col.style.setProperty('width', `calc(${set_width}px - 1em)`);
+        }, false);
+    });
+
 }
 
+
+
+
 function column_layout_ui(row_index, col_index, col_width) {
+
     return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_index}" data-col-id="${col_index}">
         <div class="wpmm-column-contents-wrapper">
             <div class="wpmm-column-toolbar wpmm-column-drag-handler">
@@ -193,6 +206,9 @@ function create_row_layout(layout, layout_array, new_row_id) {
             </div>
         </div>`;
     layout.insertAdjacentHTML('beforeend', rowLayout);
+    toggle_dropdown();
+
+
 }
 
 function insert_widget_to_column(menu_item_id, addElemBtn) {
@@ -515,7 +531,6 @@ function _actions_after_open_settings_panel() {
         })
     })
 
-    wpmm_colum_resizer();
 
     document.querySelectorAll('input.wpmm-form-check-input').forEach(item => {
         set_checkbox_status(item);
@@ -528,7 +543,6 @@ function _actions_after_open_settings_panel() {
 
     toggle_dropdown();
 
-    drag_and_resize();
     /* $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
         e.preventDefault();
         $('.wp-megamenu-item-settins-wrap').hide();

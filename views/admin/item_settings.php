@@ -124,6 +124,7 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 														</button>
 													</div>
 												</div>
+												<div draggable="true" class="resizer"></div>
 											</div>
 													<?php
 												}

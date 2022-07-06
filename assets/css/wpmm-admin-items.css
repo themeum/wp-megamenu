@@ -9,8 +9,9 @@
 }
 
 .wpmm-item-col {
-    flex-basis: var(--col-width);
+    /* flex-basis: var(--col-width); */
     width: var(--col-width);
+    position: relative;
 }
 
 .wpmm-item-col-12 {
@@ -573,6 +574,19 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     display: flex;
 }
 
+.wpmm-item-col .resizer {
+    position: absolute;
+    right: -9px;
+    height: 100%;
+    width: 5px;
+    background: #eee;
+    top: 0;
+    cursor: col-resize;
+    display: none;
+}
+.wpmm-item-col:last-child .resizer {
+    display: none;
+}
 
 .colum_resizer input::-webkit-outer-spin-button,
 .colum_resizer input::-webkit-inner-spin-button,
