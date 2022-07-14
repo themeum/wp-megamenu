@@ -128,7 +128,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 							'key'         => 'badge_text',
 							'label'       => false,
 							'type'        => 'text',
-							'default'     => 'Badge Text',
+							'default'     => '',
 							'placeholder' => 'Badge Text',
 						),
 						array(

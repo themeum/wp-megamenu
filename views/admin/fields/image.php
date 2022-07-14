@@ -13,7 +13,7 @@ if ( isset( $field['label'] ) && false !== $field['label'] ) { ?>
 			<?php if ( $url ) { ?>
 				<img src="<?php echo esc_url( $url ); ?>">
 			<?php } ?>
-			<button class="fa fa-trash delete_image"></button>
+			<button type="button" class="fa fa-trash delete_image"></button>
 		</div>
 		<input class="upload_image" type="hidden" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" name="options[<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>]"  />
 		<button class="upload_image_button button" type="button"><?php echo null === $url ? 'Upload Image' : 'Change Image'; ?></button>
@@ -25,7 +25,7 @@ if ( isset( $field['label'] ) && false !== $field['label'] ) { ?>
 			<?php if ( $url ) { ?>
 				<img src="<?php echo esc_url( $url ); ?>">
 			<?php } ?>
-			<button class="fa fa-trash delete_image"></button>
+			<button type="button" class="fa fa-trash delete_image"></button>
 		</div>
 		<input class="upload_image" type="hidden" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" name="options[<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>]"  />
 		<button class="upload_image_button button" type="button"><?php echo null === $url ? 'Upload Image' : 'Change Image'; ?></button>

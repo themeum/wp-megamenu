@@ -561,7 +561,75 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     visibility: visible;
     opacity: 1;
 }
+[wpmm-title] {
+    position: relative;
+}
 
+[wpmm-title]:before {
+    visibility: hidden;
+    opacity: 0;
+    bottom: 90%;
+    content: attr(wpmm-title);
+    background: #589bda;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    font-size: 10px;
+    color: #dcdcde;
+    line-height: 1;
+    box-shadow: 0 0 10px -4px #000;
+}
+/* title-right wpmm-title="View column options" */
+
+[wpmm-title]:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #599bda;
+    position: absolute;
+    left: 8px;
+    visibility: hidden;
+    opacity: 0;
+    top: -10%;
+}
+[wpmm-title][title-right]:after {
+    border-top: 5px solid transparent;
+    border-right: 7px solid #599bda;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    left: 16px;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+[wpmm-title]:hover:after,
+[wpmm-title]:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+[wpmm-title]:hover:after{
+    top: 0%;
+}
+[wpmm-title]:hover:before {
+    bottom: 100%;
+}
+
+[wpmm-title][title-right]:before{
+    bottom: inherit;
+    left: 110%;
+}
 
 .colum_resizer {
     display: inline-flex;

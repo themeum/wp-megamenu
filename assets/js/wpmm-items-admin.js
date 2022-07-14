@@ -45,8 +45,6 @@ function ajax_request_widget_panel_to_select_menu_item(menu_item_id, addElemBtn)
             }
             insert_widget_to_column(menu_item_id, addElemBtn);
 
-            // common functions run after item settings panel open
-            _actions_after_open_widgets_list();
         }
     };
 
@@ -64,7 +62,7 @@ function wpmm_add_new_item(addElemBtn) {
  */
 function get_latest_widget_id_by_id_base(id_base) {
     base_ids = document.querySelectorAll('[data-base-id="' + id_base + '"]');
-    console.log(base_ids);
+
     widget_ids = [];
     base_ids.forEach(item => {
         item_base_id = item.dataset.widgetId.split(id_base + '-')[1];
@@ -117,14 +115,21 @@ function close_all_opened_dropdown() {
 function add_new_column(button) {
     col_width = 20;
     row = button.closest('.wpmm-layout-row');
-    console.log(col_total_width(row) + parseFloat(Math.ceil(col_width)));
+
+    row_cols = row && row.querySelectorAll('.wpmm-item-col');
+    row_index = row.dataset.rowId;
+    col_index = Array.from(row_cols).pop().dataset.colId;
+    new_col_index = parseInt(col_index) + 1;
+
     col_width_all = col_total_width(row) + parseFloat(Math.ceil(col_width));
+
+
     layout = row && row.querySelector('.wpmm-columns-container');
-    column_layout = column_layout_ui(3, 3, col_width);
+    column_layout = column_layout_ui(row_index, new_col_index, col_width);
     if (col_width_all <= 100) {
-        layout.insertAdjacentHTML('beforeend', column_layout);
+        layout && layout.insertAdjacentHTML('beforeend', column_layout);
     } else {
-        console.log('Total col width should not more than 100%.');
+        alert('Summ of column can\'t be more than 100%.');
     }
     toggle_dropdown();
 
@@ -194,6 +199,15 @@ function create_row_layout(layout, layout_array, new_row_id) {
                 <div class="wpmm-row-toolbar-left wpmm-row-sorting-icon">
                     <i class="fa fa-sort wpmm-mr-2"></i>
                     <span>Row</span>
+                    <div class="colum_maker area_toggler">
+                        <button class="fa fa-cog toggler_button"></button>
+                        <div class="dropdown_buttons">
+                            <button onclick="add_new_column(this)">
+                                <i class="fa fa-plus"></i>
+                                <span>Add Column</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="wpmm-row-toolbar-right">
                     <span class="wpmm-row-delete-icon" onclick="wpmm_delete_any_row(this)">
@@ -275,10 +289,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                             }
                             initiate_sortable();
                             triggerWidget = jQuery(`[data-widget-id="${respData.new_base_id}"]`);
-                            console.log(triggerWidget);
-
                             jQuery(document).trigger('widget-added', [triggerWidget]);
-
 
                         }
                     }
@@ -402,14 +413,6 @@ function toggle_widget_form(thisToggler) {
  */
 function initiate_actions_on_layout_modal(menu_item_id) {
 
-    /* document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
-        item.addEventListener('click', event => {
-            widgetInner = item.parentElement.parentElement.nextElementSibling;
-            widgetInner.style.display = 'block' === widgetInner.style.display ? 'none' : 'block';
-            wpmm_loading(false, 10);
-        })
-    }); */
-
     document.querySelectorAll('.wpmm-column-layout.wpmm-custom').forEach(item => {
         item.addEventListener('click', event => {
             document.querySelector('.wpmm-custom-layout').style.display = 'block';
@@ -522,6 +525,7 @@ function _actions_after_open_settings_panel() {
     initiate_actions_on_layout_modal(params.menu_item_id);
 
     initiate_sortable();
+
     document.querySelectorAll('.close-modal').forEach(item => {
         item.addEventListener('click', () => {
             document.querySelectorAll('.wp-megamenu-item-settins-wrap, #wpmmSettingOverlay').forEach(item => {
@@ -543,25 +547,15 @@ function _actions_after_open_settings_panel() {
 
     toggle_dropdown();
 
-    /* $(document).on('click','.wpmm-isp-close-btn,.close-modal,#wpmmSettingOverlay1', function(e){
-        e.preventDefault();
-        $('.wp-megamenu-item-settins-wrap').hide();
-        $('#wpmmSettingOverlay').hide();
-    }); */
 
 }
-
-
-function _actions_after_open_widgets_list() {
-    return;
-}
-
 
 // Colum resizer function
 function wpmm_colum_resizer() {
     let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
     let colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
     colum_resizers.forEach(item => {
+        console.log(item);
         let timer,
             increment = item && item.querySelector('button.increment'),
             decrement = item && item.querySelector('button.decrement'),
@@ -603,16 +597,18 @@ function wpmm_colum_resizer() {
 
 
         function inc_dec_event_control(fullWidth) {
-
-            if (100 <= fullWidth) {
-                inc_dec_row_buttons(this_row, 'increment', 'none');
-                decrement.style.pointerEvents = 'auto';
-            } else if (20 >= col_width) {
-                decrement.style.pointerEvents = 'none';
-                increment.style.pointerEvents = 'auto';
-            } else {
+            console.log(col_width, fullWidth);
+            if (100 > fullWidth) {
                 inc_dec_row_buttons(this_row, 'increment', 'auto');
+                if (20 >= col_width) {
+                    decrement.style.pointerEvents = 'none';
+                } else {
+                    decrement.style.pointerEvents = 'auto';
+                }
+            } else {
+                inc_dec_row_buttons(this_row, 'increment', 'none');
             }
+
         }
 
         inc_dec_btn_event('increment');
@@ -622,14 +618,12 @@ function wpmm_colum_resizer() {
 
 }
 
+// enable/disable column resizer
 function inc_dec_row_buttons(this_row, type, value) {
     this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
         item.querySelector(`button.${type}`).style.pointerEvents = value;
     });
 }
-
-
-
 
 // Checkbox status by event. set true or false
 function set_checkbox_status(item) {
@@ -696,18 +690,7 @@ function wpmm_save_widget_item(saveButton) {
         };
 
     })
-    // {"widget_id":"pages-15","item_type":"widget","widget_class":"","widget_name":"","options":{}}
-    /* $(document).on('submit', 'form.wpmm_widget_save_form', function (e) {
-        e.preventDefault();
-        wpmm_saving_indicator('show');
-
-        var menu_item_id = $(this).closest('.wpmm-item-settings-panel').data('id');
-        var widget_key_id = $(this).closest('.widget').data('widget-key-id');
-        var form_input = $(this).closest('form').serialize()+'&action=wpmm_save_widget&menu_item_id='+menu_item_id+'&widget_key_id='+widget_key_id+'&wpmm_nonce='+wpmm.wpmm_nonce;
-        $.post(ajaxurl, form_input, function (response) {
-            wpmm_saving_indicator('hide');
-        });
-    }); */
+    
 }
 
 function get_menu_item_id() {
@@ -834,48 +817,40 @@ function initiate_sortable() {
 }
 
 
-
-
-
 // Save action to save navigation settings and layout
-const wpmmSaveNavItemFunction = (saveBtn) => {
-    settings_form = document.getElementById('wpmm_nav_item_settings');
-    settings_form.addEventListener('submit', (e) => {
-        e.preventDefault();
+const wpmmSaveNavItemFunction = (form, event) => {
+    event.preventDefault();
+    saveBtn = document.querySelector(`[form="${form.id}"]`);
+    submitForm = true;
+    menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
+    layout_array_new = get_layout_array();
+    menu_item_settings = get_nav_item_settings();
+    saveBtn.classList.add('wpmm-btn-spinner');
 
-        if ('undefined' !== typeof submitForm && true === submitForm) return;
+    formData = new FormData(form);
 
-        submitForm = true;
-        menu_item_id = saveBtn.closest('.wp-megamenu-item-settins-wrap').dataset.id;
-        layout_array_new = get_layout_array();
-        menu_item_settings = get_nav_item_settings();
-        saveBtn.classList.add('wpmm-btn-spinner');
+    requestData = {
+        menu_item_id: menu_item_id,
+        wpmm_nonce: wpmm.wpmm_nonce,
+        action: "wpmm_nav_item_settings",
+        layout: JSON.stringify(layout_array_new),
+    }
+    Object.entries(requestData).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
 
-        formData = new FormData(settings_form);
-
-        requestData = {
-            menu_item_id: menu_item_id,
-            wpmm_nonce: wpmm.wpmm_nonce,
-            action: "wpmm_nav_item_settings",
-            layout: JSON.stringify(layout_array_new),
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', ajaxurl, true);
+    xhttp.send(formData);
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4) {
+            setTimeout(() => {
+                saveBtn.classList.remove('wpmm-btn-spinner');
+                console.log(xhttp.response);
+                submitForm = false;
+            }, 1000)
         }
-        Object.entries(requestData).forEach(([key, value]) => {
-            formData.append(key, value);
-        });
-
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('POST', ajaxurl, true);
-        xhttp.send(formData);
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState === 4) {
-                setTimeout(() => {
-                    saveBtn.classList.remove('wpmm-btn-spinner');
-                    console.log(xhttp.response);
-                    submitForm = false;
-                }, 1000)
-            }
-        };
-    })
+    };
 }
 
 function initiate_sortable_X() {
@@ -1095,7 +1070,7 @@ onConfirmRefresh = (e) => {
  * Image upload action for wpmm item
  */
 function wpmm_image_uploader(element = null, title = null, btn_text = null, view = null) {
-    console.log(element);
+
     var wpmm_media,
         img_element = document.createElement("img"),
         wrapper = element.closest('.wpmm_image_uploader'),
@@ -1126,18 +1101,16 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
                 image_preview && image_preview.prepend(img_element);
                 input_media.value = attachment.id;
             }
-            console.log(wrapper);
         });
         wpmm_media.open();
     })
 
-
-    delete_btn.addEventListener('click', (e) => {
+    imageToDelete = delete_btn.previousElementSibling;
+    imageToDelete && delete_btn && delete_btn.addEventListener('click', (e) => {
         e.preventDefault();
         input_media.value = '';
-        delete_btn.previousElementSibling.remove();
+        imageToDelete && imageToDelete.remove();
     })
-
 
 }
 
