@@ -50,7 +50,6 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 						<div class="wpmm-item-content loading">
 							<div id="wpmm_layout_wrapper" class="wpmm-item-wrapper">
 								<?php
-
 								if ( ! empty( $wpmm_layout['layout'] ) && count( $wpmm_layout['layout'] ) ) {
 									foreach ( $wpmm_layout['layout'] as $layout_key => $layout_value ) {
 										?>
@@ -95,11 +94,21 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 															<div class="colum_resizer area_toggler">
 																<button class="fa fa-cog toggler_button"></button>
 																<div class="dropdown_buttons">
-																	<div class="btn-row">
-																		<button class="fa fa-minus decrement"></button>
-																		<button class="fa fa-plus increment"></button>
+																	<div class="btn-col">
+																		<div class="col_item">
+																			<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+																		</div>
+																		<div class="col_item">
+																			<button class="fa fa-plus increment"></button>
+																		</div>
+																		<div class="col_item">
+																			<button class="fa fa-minus decrement"></button>
+																		</div>
+																		<div class="col_item">
+																			<button class="fa fa-trash remove"></button>
+																		</div>
 																	</div>
-																	<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+
 																</div>
 															</div>
 														</div>
@@ -139,11 +148,11 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 							</div>
 
 
-							<div class="wpmm-add-row">
+							<div class="wpmm-add-row position-relative">
 								<button onclick="wpmm_toggle_layout_builder(this)" class="select_layout button-primary"><i class="fa fa-plus"></i> Add New Row</button>
-							</div>
-							<div class="wpmm-add-slots" id="layout-modal">
-								<?php echo include_view( 'views/admin/columns_layouts.php' ); ?>
+								<div class="wpmm-add-slots" id="layout-modal">
+									<?php echo include_view( 'views/admin/columns_layouts.php' ); ?>
+								</div>
 							</div>
 						</div>
 					</div>

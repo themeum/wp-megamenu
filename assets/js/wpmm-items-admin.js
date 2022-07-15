@@ -117,9 +117,15 @@ function add_new_column(button) {
     row = button.closest('.wpmm-layout-row');
 
     row_cols = row && row.querySelectorAll('.wpmm-item-col');
+    col_item = Array.from(row_cols).pop();
+
     row_index = row.dataset.rowId;
-    col_index = Array.from(row_cols).pop().dataset.colId;
-    new_col_index = parseInt(col_index) + 1;
+    if (0 <= row_cols.length) {
+        col_index = col_item && col_item.dataset.colId;
+        new_col_index = 'undefined' !== typeof col_index ? (parseInt(col_index) + 1) : 0;
+    } else {
+        new_col_index = 0;
+    }
 
     col_width_all = col_total_width(row) + parseFloat(Math.ceil(col_width));
 
@@ -165,11 +171,20 @@ function column_layout_ui(row_index, col_index, col_width) {
                 <div class="colum_resizer area_toggler">
                     <button class="fa fa-cog toggler_button"></button>
                     <div class="dropdown_buttons">
-                        <div class="btn-row">
-                            <button class="fa fa-minus decrement"></button>
-                            <button class="fa fa-plus increment"></button>
+                        <div class="btn-col">
+                            <div class="col_item">
+                                <input type="number" min="20" max="100" value="${col_width}">
+                            </div>
+                            <div class="col_item">
+                                <button class="fa fa-plus increment"></button>
+                            </div>
+                            <div class="col_item">
+                                <button class="fa fa-minus decrement"></button>
+                            </div>
+                            <div class="col_item">
+                                <button class="fa fa-trash remove"></button>
+                            </div>
                         </div>
-                        <input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
                     </div>
                 </div>
             </div>
@@ -221,7 +236,6 @@ function create_row_layout(layout, layout_array, new_row_id) {
         </div>`;
     layout.insertAdjacentHTML('beforeend', rowLayout);
     toggle_dropdown();
-
 
 }
 
@@ -364,7 +378,19 @@ function get_layout_array() {
 }
 
 
-function update_layout_array() {
+function reset_col_index(row) {
+
+    cols = row && row.querySelectorAll('.wpmm-item-col');
+
+    if (0 !== cols.length) {
+        cols.forEach((col, index) => {
+            col.dataset.colId = index;
+        });
+    }
+
+}
+
+function reset_row_index() {
 
     layout = document.getElementById('wpmm_layout_wrapper');
     rows = layout && layout.querySelectorAll('.wpmm-layout-row');
@@ -555,10 +581,10 @@ function wpmm_colum_resizer() {
     let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
     let colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
     colum_resizers.forEach(item => {
-        console.log(item);
         let timer,
             increment = item && item.querySelector('button.increment'),
             decrement = item && item.querySelector('button.decrement'),
+            remove = item && item.querySelector('button.remove'),
             this_col = item && item.closest('.wpmm-item-col'),
             this_row = this_col && this_col.closest('.wpmm-columns-container'),
             col_width = this_col && this_col.dataset.width;
@@ -573,12 +599,14 @@ function wpmm_colum_resizer() {
             timer = setTimeout(continuosDecrement, 200);
         }
 
+
+
         function timeoutClear() {
             clearTimeout(timer);
         }
 
 
-        function inc_dec_btn_event(event_type) {
+        function column_btn_event(event_type) {
             let change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
             let change_value = 'increment' === event_type ? increment : decrement;
 
@@ -597,7 +625,6 @@ function wpmm_colum_resizer() {
 
 
         function inc_dec_event_control(fullWidth) {
-            console.log(col_width, fullWidth);
             if (100 > fullWidth) {
                 inc_dec_row_buttons(this_row, 'increment', 'auto');
                 if (20 >= col_width) {
@@ -611,11 +638,22 @@ function wpmm_colum_resizer() {
 
         }
 
-        inc_dec_btn_event('increment');
-        inc_dec_btn_event('decrement');
+        column_btn_event('increment');
+        column_btn_event('decrement');
+        remove && remove.addEventListener('click', (e) => {
+            this_col && this_col.remove();
+            reset_col_index(this_row);
+        })
 
     });
 
+}
+
+// reset column
+function inc_dec_row_buttons(this_row) {
+    this_row && this_row.querySelectorAll('.wpmm-item-col').forEach(item => {
+        item.querySelector(`button.${type}`).style.pointerEvents = value;
+    });
 }
 
 // enable/disable column resizer
@@ -690,7 +728,7 @@ function wpmm_save_widget_item(saveButton) {
         };
 
     })
-    
+
 }
 
 function get_menu_item_id() {
@@ -775,7 +813,7 @@ function wpmm_delete_any_row(rowDeleteButton) {
     jQuery.post(ajaxurl, data, function (response) {
         if (response.success) {
             rowDeleteButton.closest('.wpmm-layout-row').remove();
-            update_layout_array();
+            reset_row_index();
         }
     });
 }
@@ -791,7 +829,7 @@ function initiate_sortable() {
         animation: 150,
         ghostClass: 'wpmm-blue-bg',
         onEnd: (e) => {
-            update_layout_array();
+            reset_row_index();
         }
     });
 
@@ -852,199 +890,6 @@ const wpmmSaveNavItemFunction = (form, event) => {
         }
     };
 }
-
-function initiate_sortable_X() {
-    if (jQuery().sortable()) {
-        $(".wpmm-item-wrap").sortable({
-            connectWith: ".wpmm-item-wrap, .wmmDraggableWidgetLists",
-            items: " .widget",
-            placeholder: "drop-highlight",
-            receive: function (event, ui) {
-                wpmm_saving_indicator('show');
-                var from_item_index = ui.item.attr('data-item-key-id');
-
-                var item_order = $(this).sortable('toArray', { attribute: 'data-item-key-id' }).toString();
-                var last_index = item_order.split(',').pop();
-
-
-                var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-
-                var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
-                var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
-
-                var from_row_id = parseInt(ui.sender.closest('.wpmm-row').data('row-id'));
-                var from_col_id = parseInt(ui.sender.closest('.wpmm-col').data('col-id'));
-
-                //outsideWidget drag to inside
-                if (ui.sender.attr('data-type') === 'outsideWidget') {
-                    var reorder_item_type = ui.sender.attr('data-type');
-                    var widget_base_id = ui.sender.attr('data-widget-id-base');
-
-                    var data = {
-                        action: 'wpmm_drag_to_add_widget_item',
-                        menu_item_id: menu_item_id,
-                        item_order: item_order,
-                        row_id: row_id,
-                        col_id: col_id,
-
-                        type: 'connect',
-                        from_item_index: from_item_index,
-
-                        widget_base_id: widget_base_id,
-                        reorder_item_type: reorder_item_type,
-                        last_index: last_index
-                    };
-
-                    //Saving via post method in db
-                    $.post(ajaxurl, data, function (response) {
-                        if (response.success) {
-                            var menu_id = $('input#menu').val();
-                            ajax_request_load_menu_item_settings(menu_item_id, 0, menu_id);
-                        }
-                        wpmm_saving_indicator('hide');
-                    });
-
-                } else {
-                    //rearrange inner widget or menu item
-                    var from_item_order = ui.sender.sortable('toArray', { attribute: 'data-item-key-id' }).toString();
-
-                    var data = {
-                        action: 'wpmm_reorder_items',
-                        menu_item_id: menu_item_id,
-                        item_order: item_order,
-                        row_id: row_id,
-                        col_id: col_id,
-
-                        type: 'connect',
-                        from_item_order: from_item_order,
-                        from_item_index: from_item_index,
-                        from_row_id: from_row_id,
-                        from_col_id: from_col_id
-                    };
-
-
-                    $.post(ajaxurl, data, function (response) {
-                        wpmm_saving_indicator('hide');
-                    });
-                }
-            },
-
-            update: function (event, ui) {
-                //console.log(ui);
-                if (!ui.sender && ui.item.attr('data-type') !== 'outsideWidget') {
-                    //console.log(ui.item.attr('data-type'));
-                    //alert('Update second call:');
-
-                    wpmm_saving_indicator('show');
-
-                    var item_order = $(this).sortable('toArray', { attribute: 'data-item-key-id' }).toString();
-                    var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-
-                    var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
-                    var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
-
-                    var data = {
-                        action: 'wpmm_reorder_items',
-                        menu_item_id: menu_item_id,
-                        item_order: item_order,
-                        row_id: row_id,
-                        col_id: col_id
-                    };
-
-                    $.post(ajaxurl, data, function (response) {
-                        wpmm_saving_indicator('hide');
-                    });
-                }
-            }
-        }).disableSelection();
-
-
-        $(".draggableWidget").draggable({
-            connectToSortable: ".wpmm-item-wrap",
-            helper: "clone",
-            revert: "invalid",
-            revertDuration: 0
-        }).disableSelection();
-
-
-        $(".wpmm-column-contents").sortable({
-            connectWith: ".wpmm-column-contents",
-            items: " .wpmm-cell",
-            handle: '.widget-top',
-            placeholder: "drop-highlight",
-            update: function (event, ui) {
-                console.log('item updated');
-            }
-
-        }).disableSelection();
-
-        $('#wpmm_layout_wrapper').sortable({
-            items: '.wpmm-layout-row',
-            handle: '.wpmm-row-sorting-icon',
-            placeholder: "drop-highlight",
-            update: function (event, ui) {
-                console.log('layout updated');
-            }
-        });
-
-
-        $('.wpmm-item-row').sortable({
-            items: '.wpmm-item-col',
-            handle: '.wpmm-col-sorting-icon',
-            placeholder: "drop-col-highlight",
-            update: function (event, ui) {
-                console.log('column updated');
-            }
-        });
-        /* wpmm new block */
-
-
-
-        $('#wpmm_item_layout_wrap').sortable({
-            items: '.wpmm-row',
-            handle: '.wpmmRowSortingIcon',
-            placeholder: "drop-highlight",
-            update: function (event, ui) {
-                wpmm_saving_indicator('show');
-                var row_order = $(this).sortable('toArray', { attribute: 'data-row-id' }).toString();
-                var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-
-                var data = {
-                    action: 'wpmm_reorder_row',
-                    menu_item_id: menu_item_id,
-                    row_order: row_order
-                };
-                $.post(ajaxurl, data, function (response) {
-                    wpmm_saving_indicator('hide');
-                });
-            }
-        });
-
-        $('.wpmm-row').sortable({
-            items: '.wpmm-col',
-            handle: '.wpmmColSortingIcon',
-            placeholder: "drop-col-highlight",
-            update: function (event, ui) {
-                wpmm_saving_indicator('show');
-                var col_order = $(this).sortable('toArray', { attribute: 'data-col-id' }).toString();
-                var menu_item_id = parseInt($(this).closest('.wpmm-item-settings-panel').data('id'));
-                var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
-                //alert(col_order);
-                var data = {
-                    action: 'wpmm_reorder_col',
-                    menu_item_id: menu_item_id,
-                    col_order: col_order,
-                    row_id: row_id
-                };
-                $.post(ajaxurl, data, function (response) {
-                    wpmm_saving_indicator('hide');
-                });
-            }
-        });
-
-    }
-}
-
 
 
 onConfirmRefresh = (e) => {

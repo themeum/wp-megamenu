@@ -296,9 +296,9 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 				),
 			);
 
-			$item_setting_fields = array_merge( $listed_fields, $other_fields );
+			$setting_fields = array_merge( $listed_fields, apply_filters( 'wpmm/pro_fields', $listed_fields ) );
 
-			$setting_fields = apply_filters( 'wpmm/navigation/settings', $item_setting_fields );
+			// $setting_fields = apply_filters( 'wpmm/pro_fields', $listed_fields );
 
 			return $setting_fields;
 		}
