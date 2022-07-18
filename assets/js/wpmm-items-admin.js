@@ -699,7 +699,6 @@ function wpmm_save_widget_item(saveButton) {
         widget_element = thisForm.closest('.widget.wpmm-cell');
         menu_item = thisForm.closest('.wp-megamenu-item-settins-wrap');
 
-        console.log(widget_element, menu_item.dataset.id);
 
         formData = new FormData(thisForm);
 

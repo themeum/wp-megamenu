@@ -32,7 +32,7 @@ import './editor.scss';
  */
 import { NavigationList } from './components/NavigationList';
 
-export default function Edit(props) {
+export default function MenuEdit(props) {
 	return (
 		<div {...useBlockProps()}>
 			<BlockControls>

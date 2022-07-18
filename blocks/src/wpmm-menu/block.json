@@ -1,17 +1,16 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
-	"name": "wp-megamenu/wpmm-menu",
-	"version": "0.1.0",
-	"title": "WPMM Menu",
-	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example static menu scaffolded with Create Block tool.",
-	"supports": {
-		"html": false
-	},
-	"textdomain": "wpmm-menu",
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "wp-megamenu/wpmm-menu",
+    "version": "0.1.0",
+    "category": "widgets",
+    "icon": "smiley",
+    "description": "Example static menu scaffolded with Create Block tool.",
+    "supports": {
+        "html": false
+    },
+    "textdomain": "wpmm-menu",
+    "editorScript": "/build/index.js",
+    "editorStyle": "/build/index.css",
+    "style": "/build/style-index.css"
 }

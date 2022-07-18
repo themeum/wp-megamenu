@@ -1534,6 +1534,37 @@ function wpmm_sanitize_settings_options( $input ) {
 }
 
 /**
+ * Sanitize html data
+ *
+ * @param string|mixed
+ *
+ * @return string|mixed
+ */
+function wpmm_allowed_html() {
+	// Set the allowed tags.
+	$allowed_tags = array( 'post', 'strip', 'data', 'entities' );
+	// Run through wp_kses to validate the tag(s) and then return it.
+	return wp_kses_allowed_html( $allowed_tags );
+}
+
+/**
+ * Sanitize html data
+ *
+ * @param string|mixed
+ *
+ * @return string|mixed
+ */
+function wpmm_sanitize_html( $html ) {
+	// Set the allowed tags.
+	$allowed_tags = array(
+		'style' => array(),
+		'class' => array(),
+	);
+	// Run through wp_kses to validate the tag(s) and then return it.
+	return wp_kses( $html, $allowed_tags );
+}
+
+/**
  * Sanitize inline css
  *
  * @param string|mixed

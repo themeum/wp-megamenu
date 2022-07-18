@@ -722,8 +722,13 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
 			$html .= '<div class="wpmm-item-settings-content">';
 			$html .= '</div>';
 			$html .= '</div>';
+
 			$html .= '<div class="wpmm-item-widget-panel" style="display: none;">';
 			$html .= '</div>';
+
+			$html .= '<div class="wpmm-toast" style="display: none;">';
+			$html .= '</div>';
+
 			echo $html;
 		}
 	}

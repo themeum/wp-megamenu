@@ -29,7 +29,7 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
+export default function BlockEdit() {
 	return (
 		<p { ...useBlockProps() }>
 			{ __( 'WPMM Block – hello from the editor!', 'wpmm-block' ) }

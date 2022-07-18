@@ -10,7 +10,7 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		public function __construct() {
 			add_action( 'init', array( $this, 'fancy_custom_block_block_init' ) );
 			add_action( 'after_setup_theme', array( $this, 'register_my_menu' ) );
-			add_shortcode( 'foobar', array( $this, 'foobar_func' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'wpmm_block_style_script' ) );
 
 			add_action(
 				'rest_api_init',
@@ -36,6 +36,7 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 			);
 		}
 
+
 		public function register_my_menu() {
 			register_nav_menu( 'block', __( 'Block Menu', 'wp-megamenu' ) );
 		}
@@ -46,8 +47,8 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 			/*
 			 $nav_items = array();
 			foreach ( wp_get_nav_menus() as $nav ) {
-				$nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
-				$nav_items[]  = $nav;
+			$nav->is_wpmm = 'wpmm_mega_menu' === get_post_meta( $nav->term_id, 'wpmm_layout', true )['menu_type'] ? true : false;
+			$nav_items[]  = $nav;
 			}
 			return $nav_items; */
 		}
@@ -76,29 +77,50 @@ if ( ! class_exists( 'wpmm_blocks' ) ) {
 		}
 
 
+		public function wpmm_block_style_script() {
+			wp_register_script( 'wpmm_editorScript', WPMM_URL . 'blocks/build/index.js', array(), false, true );
+			wp_register_style( 'wpmm_editorStyle', WPMM_URL . 'blocks/build/index.css' );
+			wp_register_style( 'wpmm_blockStyle', WPMM_URL . 'blocks/build/style-index.css' );
+
+		}
+
+		public function get_block_config_json() {
+			$blockArray   = array();
+			$blockArray[] = json_decode( file_get_contents( WPMM_DIR . '/blocks/src/wpmm-menu/block.json' ), true );
+			$blockArray[] = json_decode( file_get_contents( WPMM_DIR . '/blocks/src/wpmm-block/block.json' ), true );
+
+			return $blockArray;
+		}
+
+
 		public function fancy_custom_block_block_init() {
-			$blocks = array( 'wpmm-menu' ); // 'wpmm-block',
 
-			foreach ( $blocks as $block ) {
+			$args = array(
+				'editor_script' => 'wpmm_editorScript',
+				'editor_style'  => 'wpmm_editorStyle',
+				'style'         => 'wpmm_blockStyle',
+			);
+
+			$block_list = $this->get_block_config_json();
+
+			foreach ( $block_list  as $block ) {
+
 				register_block_type(
-					WPMM_DIR . '/blocks/build/' . $block,
-					array(
-						'render_callback' => array( $this, 'render_block_core_navigation' ),
-					)
+					$block['name'],
+					$args
 				);
-			}
 
+			}
 		}
 
 		public function render_block_core_navigation( $attributes ) {
 			// pr($attributes);
 			return '<h2>Navigation MegaMenu</h2>';
 		}
-
 	}
-
-	wpmm_blocks::init();
-
 }
+
+wpmm_blocks::init();
+
 
 
