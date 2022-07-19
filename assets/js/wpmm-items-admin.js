@@ -576,6 +576,29 @@ function _actions_after_open_settings_panel() {
 
 }
 
+window.wpmm_toast = (type = 'success', message = 'Successfully applied!', time = 5000) => {
+    let toast_element = document.querySelector('.wpmm-toast');
+    let toast_message = toast_element && toast_element.querySelector('.toast_message');
+    let close_toast = toast_element && toast_element.querySelector('.close_toast');
+    let old_type, new_type = !old_type ? 'is_' + type : '';
+
+
+    if (new_type) {
+        toast_element.classList.add('show', new_type);
+    }
+    toast_message.innerText = message;
+
+    close_toast.addEventListener('click', (e) => {
+        e.preventDefault();
+        toast_element.classList.remove('show', new_type);
+    })
+    setTimeout(() => {
+        toast_element.classList.remove('show', new_type);
+    }, time);
+    old_type = new_type;
+}
+
+
 // Colum resizer function
 function wpmm_colum_resizer() {
     let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
@@ -880,12 +903,16 @@ const wpmmSaveNavItemFunction = (form, event) => {
     xhttp.open('POST', ajaxurl, true);
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
+        console.log(xhttp.readyState);
         if (xhttp.readyState === 4) {
             setTimeout(() => {
                 saveBtn.classList.remove('wpmm-btn-spinner');
                 console.log(xhttp.response);
                 submitForm = false;
+                wpmm_toast('success', 'Layout Successfully Saved!');
             }, 1000)
+        } else {
+            wpmm_toast('error', 'Error saving data!');
         }
     };
 }

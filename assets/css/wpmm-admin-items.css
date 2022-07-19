@@ -123,7 +123,11 @@
     overflow: scroll;
     margin: 0;
 }
-.position-relative{position: relative;}
+
+.position-relative {
+    position: relative;
+}
+
 /* input-group */
 .wpmm-input-group {
     position: relative;
@@ -564,6 +568,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     visibility: visible;
     opacity: 1;
 }
+
 [wpmm-title] {
     position: relative;
 }
@@ -589,6 +594,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     line-height: 1;
     box-shadow: 0 0 10px -4px #000;
 }
+
 /* title-right wpmm-title="View column options" */
 
 [wpmm-title]:after {
@@ -604,6 +610,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     opacity: 0;
     top: -10%;
 }
+
 [wpmm-title][title-right]:after {
     border-top: 5px solid transparent;
     border-right: 7px solid #599bda;
@@ -616,20 +623,22 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     bottom: 0;
     margin: auto;
 }
+
 [wpmm-title]:hover:after,
 [wpmm-title]:hover:before {
     visibility: visible;
     opacity: 1;
 }
 
-[wpmm-title]:hover:after{
+[wpmm-title]:hover:after {
     top: 0%;
 }
+
 [wpmm-title]:hover:before {
     bottom: 100%;
 }
 
-[wpmm-title][title-right]:before{
+[wpmm-title][title-right]:before {
     bottom: inherit;
     left: 110%;
 }
@@ -655,6 +664,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     cursor: col-resize;
     display: none;
 }
+
 .wpmm-item-col:last-child .resizer {
     display: none;
 }
@@ -949,18 +959,86 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     right: 0;
 }
 
-.btn-col .col_item{
+.btn-col .col_item {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.btn-col label{
+
+.btn-col label {
     padding: 2px 5px;
 }
+
 .btn-col input[type=number],
-.btn-col button{
+.btn-col button {
     width: 50px;
 }
-.btn-col .col_item:not(:last-child){
+
+.btn-col .col_item:not(:last-child) {
     border-bottom: 1px solid #BFBFC1;
+}
+
+
+.wpmm-toast {
+    box-shadow: -2px 2px 15px -5px #000;
+    background: #3b3b3b;
+    z-index: 999999;
+    position: fixed;
+    bottom: 0;
+    right: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #fff;
+    transition: all 100ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.wpmm-toast.is_success {
+    background: #206418;
+}
+
+.wpmm-toast.is_warning {
+    background: #8d6b02;
+}
+
+.wpmm-toast.is_error {
+    background: #c62626;
+}
+
+.wpmm-toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 40px;
+}
+.wpmm-toast .wpmm-toast-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wpmm-toast .toast_message {
+    white-space: nowrap;
+    padding-inline: 10px;
+}
+
+.wpmm-toast button {
+    background: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    border: none;
+    border-left: 1px solid rgba(212, 212, 212, 0.5);
+}
+
+.wpmm-toast button:hover {
+    opacity: .8;
+}
+
+.wpmm-toast span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
 }

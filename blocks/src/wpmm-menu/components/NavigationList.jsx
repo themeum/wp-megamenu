@@ -49,7 +49,7 @@ export const NavigationList = (props) => {
     }
 
     return (
-        <>
+        <div className='wpmm_menu_block_admin'>
             <select onChange={updateNavigation} value={props.attributes.set_nav}>
                 <option value='-'>Select Navigation</option>
                 {
@@ -61,6 +61,6 @@ export const NavigationList = (props) => {
                 }
             </select>
             {listNavigationItems()}
-        </>
+        </div>
     )
 }

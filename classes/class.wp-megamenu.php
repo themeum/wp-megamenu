@@ -726,10 +726,17 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
 			$html .= '<div class="wpmm-item-widget-panel" style="display: none;">';
 			$html .= '</div>';
 
-			$html .= '<div class="wpmm-toast" style="display: none;">';
+			$html .= '<div class="wpmm-toast is_success">';
+			$html .= <<<ECHO
+				<div class="wpmm-toast-wrap">
+					<span class="fa fa-check-circle fa-2x"></span>
+					<div class="toast_message"></div>
+					<button class="fa fa-times-circle close_toast fa-2x"></button>
+				</div>
+			ECHO;
 			$html .= '</div>';
 
-			echo $html;
+			echo apply_filters( 'wpmm_kses', $html ); // PHPCS:ignore
 		}
 	}
 }

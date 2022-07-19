@@ -1536,16 +1536,53 @@ function wpmm_sanitize_settings_options( $input ) {
 /**
  * Sanitize html data
  *
- * @param string|mixed
+ * @param array $args to allowed items.
  *
- * @return string|mixed
+ * @return array
  */
-function wpmm_allowed_html() {
-	// Set the allowed tags.
-	$allowed_tags = array( 'post', 'strip', 'data', 'entities' );
-	// Run through wp_kses to validate the tag(s) and then return it.
-	return wp_kses_allowed_html( $allowed_tags );
+
+add_filter( 'wpmm_kses', 'wpmm_sanitized_html', 10, 1 );
+
+function wpmm_sanitized_html( $html ) {
+	add_filter(
+		'safe_style_css',
+		function( $array ) {
+			$array[] = 'display';
+			return $array;
+		}
+	);
+	$sanitized_html = wp_kses( $html, wpmm_allowed_html() );
+	add_filter(
+		'safe_style_css',
+		function( $array = array() ) {
+			unset( $array['display'] );
+			return $array;
+		}
+	);
+	return $sanitized_html;
 }
+
+function wpmm_allowed_html( $args = array(), $elements = array() ) {
+	$attrs    = array(
+		'style' => array(),
+		'data'  => array(),
+		'href'  => array(),
+		'title' => array(),
+		'id'    => array(),
+		'class' => array(),
+	);
+
+	$elements = empty( $elements ) ? array( 'div', 'button', 'span', 'p', 'a', 'h1', 'h2', 'h2', 'h3', 'h4', 'h5', 'h6' ) : $elements;
+
+	$allowed = array();
+	foreach ( $elements as $element ) {
+		$allowed[ $element ] = $attrs;
+	}
+	// Set the allowed tags.
+	return $allowed;
+}
+
+
 
 /**
  * Sanitize html data

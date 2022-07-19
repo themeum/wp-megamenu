@@ -4,8 +4,9 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-wp-megamenu-wpmm-menu {
-	border: 1px dotted #f00;
+.wpmm_menu_block_admin {
+	background-color:rgb(8, 96, 122);
+	padding: 10px;
 
 	ul.wpmm_list_menu {
 		list-style: none;
@@ -14,6 +15,7 @@
 
 		li {
 			position: relative;
+
 			a {
 				padding-inline: 20px;
 				padding-block: 5px;
