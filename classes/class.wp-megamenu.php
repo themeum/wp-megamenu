@@ -729,9 +729,9 @@ function wp_megamenu_add_menu_settings_wrap_admin_footer() {
 			$html .= '<div class="wpmm-toast is_success">';
 			$html .= <<<ECHO
 				<div class="wpmm-toast-wrap">
-					<span class="fa fa-check-circle fa-2x"></span>
+					<span class="fa fa-check-circle fa-2x toast_icon"></span>
 					<div class="toast_message"></div>
-					<button class="fa fa-times-circle close_toast fa-2x"></button>
+					<button class="fa fa-times close_toast fa-2x"></button>
 				</div>
 			ECHO;
 			$html .= '</div>';

@@ -14,11 +14,86 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'save_wpmm_settings' ) );
-			// add_action( 'admin_enqueue_scripts', array( $this, 'my_admin_scripts' ) );
+			add_filter( 'wpmm/pro_fields', array( $this, 'pro_fields' ), 10, 1 );
 		}
 
-		function my_admin_scripts() {
-			// wp_enqueue_media();
+		public function pro_fields() {
+
+			return array(
+				array(
+					'label'      => 'Menu Width',
+					'child_type' => 'input_group_inline',
+					'has_child'  => true,
+					'fields'     => array(
+						array(
+							'key'         => 'menu_width',
+							'label'       => false,
+							'type'        => 'number',
+							'default'     => '100',
+							'min'         => '0',
+							'max'         => '100',
+							'placeholder' => '',
+						),
+						array(
+							'key'     => 'menu_width_type',
+							'label'   => false,
+							'type'    => 'select',
+							'width'   => '70px',
+							'default' => '%',
+							'options' => array(
+								'px'  => 'PX',
+								'em'  => 'EM',
+								'rem' => 'REM',
+								'%'   => '%',
+							),
+						),
+					),
+				),
+				array(
+					'key'         => 'custom_class',
+					'label'       => 'Custom Class',
+					'type'        => 'text',
+					'default'     => '',
+					'placeholder' => 'Type Custom Class',
+				),
+				array(
+					'key'     => 'badge_background',
+					'label'   => 'Badge Background',
+					'type'    => 'color',
+					'default' => '',
+				),
+				array(
+					'child_type' => 'multi_column',
+					'has_child'  => true,
+					'fields'     => array(
+						array(
+							'key'     => 'item_align_x',
+							'label'   => 'Menu Item Alignment',
+							'type'    => 'select',
+							'default' => 'center',
+							'layout'  => 'full',
+							'options' => array(
+								'left'   => 'Left',
+								'center' => 'Center',
+								'right'  => 'Right',
+							),
+						),
+						array(
+							'key'     => 'item_align_y',
+							'label'   => 'Menu Item Alignment',
+							'type'    => 'select',
+							'default' => 'right',
+							'layout'  => 'full',
+							'options' => array(
+								'left'   => 'Left',
+								'center' => 'Center',
+								'right'  => 'Right',
+							),
+						),
+					),
+				),
+			);
+
 		}
 		/**
 		 * Save the settings
@@ -220,87 +295,10 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 				),
 			);
 
-			// New navigation item setting fields
-			$other_fields = array(
-				array(
-					'label'      => 'Menu Width',
-					'child_type' => 'input_group_inline',
-					'has_child'  => true,
-					'fields'     => array(
-						array(
-							'key'         => 'menu_width',
-							'label'       => false,
-							'type'        => 'number',
-							'default'     => '100',
-							'min'         => '0',
-							'max'         => '100',
-							'placeholder' => '',
-						),
-						array(
-							'key'     => 'menu_width_type',
-							'label'   => false,
-							'type'    => 'select',
-							'width'   => '70px',
-							'default' => '%',
-							'options' => array(
-								'px'  => 'PX',
-								'em'  => 'EM',
-								'rem' => 'REM',
-								'%'   => '%',
-							),
-						),
-					),
-				),
-				array(
-					'key'         => 'custom_class',
-					'label'       => 'Custom Class',
-					'type'        => 'text',
-					'default'     => '',
-					'placeholder' => 'Type Custom Class',
-				),
-				array(
-					'key'     => 'badge_background',
-					'label'   => 'Badge Background',
-					'type'    => 'color',
-					'default' => '',
-				),
-				array(
-					'child_type' => 'multi_column',
-					'has_child'  => true,
-					'fields'     => array(
-						array(
-							'key'     => 'item_align_x',
-							'label'   => 'Menu Item Alignment',
-							'type'    => 'select',
-							'default' => 'center',
-							'layout'  => 'full',
-							'options' => array(
-								'left'   => 'Left',
-								'center' => 'Center',
-								'right'  => 'Right',
-							),
-						),
-						array(
-							'key'     => 'item_align_y',
-							'label'   => 'Menu Item Alignment',
-							'type'    => 'select',
-							'default' => 'right',
-							'layout'  => 'full',
-							'options' => array(
-								'left'   => 'Left',
-								'center' => 'Center',
-								'right'  => 'Right',
-							),
-						),
-					),
-				),
-			);
-
-			$setting_fields = array_merge( $listed_fields, apply_filters( 'wpmm/pro_fields', $listed_fields ) );
-
+			// $setting_fields = array_merge( $listed_fields, apply_filters( 'wpmm/pro_fields', array() ) );
 			// $setting_fields = apply_filters( 'wpmm/pro_fields', $listed_fields );
 
-			return $setting_fields;
+			return array_merge( $listed_fields, apply_filters( 'wpmm/pro_fields', array() ) );
 		}
 
 		public function wpmm_field_type( $field, $saved_options = null ) {
@@ -320,7 +318,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 			// Checking the verified Data
 			if ( isset( $_POST['wpmm_settings_nonce_field'] )
-				&& wp_verify_nonce( $_POST['wpmm_settings_nonce_field'], 'wpmm_settings_nonce_action' ) ) {
+			&& wp_verify_nonce( $_POST['wpmm_settings_nonce_field'], 'wpmm_settings_nonce_action' ) ) {
 				// processing data.
 				$get_wpmm_option = (array) maybe_unserialize( get_option( 'wpmm_options' ) );
 

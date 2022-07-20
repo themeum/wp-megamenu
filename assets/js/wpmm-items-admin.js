@@ -129,13 +129,13 @@ function add_new_column(button) {
 
     col_width_all = col_total_width(row) + parseFloat(Math.ceil(col_width));
 
-
     layout = row && row.querySelector('.wpmm-columns-container');
     column_layout = column_layout_ui(row_index, new_col_index, col_width);
     if (col_width_all <= 100) {
         layout && layout.insertAdjacentHTML('beforeend', column_layout);
+        wpmm_toast('success', 'Column added to Row: ' + row_index + ', Column: ' + new_col_index);
     } else {
-        alert('Summ of column can\'t be more than 100%.');
+        wpmm_toast('warning', 'Sum of column can\'t be more than 100%.');
     }
     toggle_dropdown();
 
@@ -159,9 +159,8 @@ function drag_and_resize() {
 
 
 
-
+// Column item UI
 function column_layout_ui(row_index, col_index, col_width) {
-
     return `<div class="wpmm-item-col wpmm-item-${col_width}" style="--col-width: calc(${col_width}% - 1em)" data-width="${col_width}" data-rowid="${row_index}" data-col-id="${col_index}">
         <div class="wpmm-column-contents-wrapper">
             <div class="wpmm-column-toolbar wpmm-column-drag-handler">
@@ -270,7 +269,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4) {
-
+                    wpmm_toast('success', 'Widget successfully added to column.', 2000);
                     respData = JSON.parse(xhttp.response);
                     viewData = new FormData();
                     requestData = {
@@ -318,7 +317,6 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
 
     document.querySelectorAll('.widget-form-open,.widget-controls a.close').forEach(item => {
         item.addEventListener('click', event => {
-            console.log(item);
             wpmm_loading(false, 10);
         })
     });
@@ -462,7 +460,7 @@ function initiate_actions_on_layout_modal(menu_item_id) {
             column_count = Math.ceil(new_layout_structure.reduce((a, b) => parseFloat(a) + parseFloat(b), 0));
 
             if (100 < column_count) {
-                console.log('Sum of columns should less than or equal to 100');
+                wpmm_toast('warning', 'Sum of columns should less than or equal to 100');
                 return false;
             }
 
@@ -576,26 +574,40 @@ function _actions_after_open_settings_panel() {
 
 }
 
+// Toast JS function for wpmm.
 window.wpmm_toast = (type = 'success', message = 'Successfully applied!', time = 5000) => {
-    let toast_element = document.querySelector('.wpmm-toast');
-    let toast_message = toast_element && toast_element.querySelector('.toast_message');
-    let close_toast = toast_element && toast_element.querySelector('.close_toast');
-    let old_type, new_type = !old_type ? 'is_' + type : '';
 
+    let toast_element = document.querySelector('.wpmm-toast'),
+        toast_message = toast_element && toast_element.querySelector('.toast_message'),
+        toast_icon = toast_element && toast_element.querySelector('.toast_icon'),
+        close_toast = toast_element && toast_element.querySelector('.close_toast');
 
-    if (new_type) {
-        toast_element.classList.add('show', new_type);
+    type = 'is_' + type;
+    toast_icon.classList = 'fa fa-2x toast_icon';
+
+    switch (type) {
+        case 'is_warning':
+            toast_icon.classList.add('fa-exclamation-circle');
+            break;
+        case 'is_error':
+            toast_icon.classList.add('fa-times-circle');
+            break;
+        default:
+            toast_icon.classList.add('fa-check-circle');
     }
+
+    toast_element.classList = 'wpmm-toast show';
+    toast_element.classList.add(type);
     toast_message.innerText = message;
 
     close_toast.addEventListener('click', (e) => {
         e.preventDefault();
-        toast_element.classList.remove('show', new_type);
+        toast_element.classList = 'wpmm-toast';
     })
+
     setTimeout(() => {
-        toast_element.classList.remove('show', new_type);
+        toast_element.classList = 'wpmm-toast';
     }, time);
-    old_type = new_type;
 }
 
 
@@ -666,6 +678,7 @@ function wpmm_colum_resizer() {
         remove && remove.addEventListener('click', (e) => {
             this_col && this_col.remove();
             reset_col_index(this_row);
+            wpmm_toast('success', 'Column removed.', 2000);
         })
 
     });
@@ -692,14 +705,14 @@ function set_checkbox_status(item) {
 }
 
 function widget_search_on_modal(e) {
-    var filter, ul, li, items_count_hidden, i, txtValue;
+    var filter, ul, li, items_count_hidden, txtValue;
     filter = e.target.value.toUpperCase();
     ul = document.querySelector(".wpmm-widget-items .wpmm-item-grid");
     li = ul.querySelectorAll('.widget-list-item');
     no_item = document.querySelector('.no_item');
 
     // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
+    for (let i = 0; i < li.length; i++) {
         txtValue = li[i].innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
@@ -731,7 +744,7 @@ function wpmm_save_widget_item(saveButton) {
             menu_item_id: menu_item.dataset.id,
             widget_key_id: widget_element.id,
         }
-        // console.log(requestData);
+
         Object.entries(requestData).forEach(([key, value]) => {
             formData.append(key, value);
         });
@@ -741,7 +754,6 @@ function wpmm_save_widget_item(saveButton) {
         xhttp.send(formData);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState === 4) {
-                console.log(xhttp.response);
                 setTimeout(() => {
                     saveButton.classList.remove('wpmm-btn-spinner');
                 }, 1000)
@@ -765,7 +777,6 @@ function wpmm_delete_this_widget(deleteButton) {
     // widget_element
     rowId = widget_element.closest('.wpmm-item-col').dataset.rowid;
     colId = widget_element.closest('.wpmm-item-col').dataset.colId;
-    // console.log(rowId, colId, widget_element.id);
     formData = new FormData();
 
     requestData = {
@@ -783,43 +794,11 @@ function wpmm_delete_this_widget(deleteButton) {
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            // setTimeout(() => {
-            console.log(xhttp.response);
             widget_element.remove();
-            // }, 1000)
         }
     };
-
-    /* var data = {
-        action: 'wpmm_delete_this_widget',
-        menu_item_id: get_menu_item_id(),
-        row_id: rowId,
-        wpmm_nonce: wpmm.wpmm_nonce
-    };
-    jQuery.post(ajaxurl, data, function (response) {
-        if (response.success) {
-            console.log(response);
-            // button_clicked.closest('.wpmm-layout-row').remove();
-        }
-    }); */
-    // widget_element.remove();
 }
 
-/*
-var menu_item_id = $(this).closest('.wpmm-item-settings-panel').data('id');
-var widget_key_id = $(this).closest('.widget').data('item-key-id');
-var widget_wrap = $(this).closest('.widget');
-
-var row_id = parseInt($(this).closest('.wpmm-row').data('row-id'));
-var col_id = parseInt($(this).closest('.wpmm-col').data('col-id'));
-wpmm_saving_indicator('show');
-var form_data = $(this).closest('form').serialize()+'&action=wpmm_delete_widget&menu_item_id='+menu_item_id+'&widget_key_id='+widget_key_id+'&row_id='+row_id+'&col_id='+col_id+'&wpmm_nonce='+wpmm.wpmm_nonce;
-$.post(ajaxurl, form_data, function (response) {
-    widget_wrap.find('.wdiget-inner-wrap').slideUp();
-    widget_wrap.hide();
-    wpmm_saving_indicator('hide');
-});
-*/
 /**
  * Select Widget as menu item
  */
@@ -836,6 +815,7 @@ function wpmm_delete_any_row(rowDeleteButton) {
         if (response.success) {
             rowDeleteButton.closest('.wpmm-layout-row').remove();
             reset_row_index();
+            wpmm_toast('success', 'Row removed.', 2000);
         }
     });
 }
@@ -903,39 +883,24 @@ const wpmmSaveNavItemFunction = (form, event) => {
     xhttp.open('POST', ajaxurl, true);
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
-        console.log(xhttp.readyState);
+
         if (xhttp.readyState === 4) {
             setTimeout(() => {
                 saveBtn.classList.remove('wpmm-btn-spinner');
-                console.log(xhttp.response);
                 submitForm = false;
-                wpmm_toast('success', 'Layout Successfully Saved!');
+                wpmm_toast('success', 'Layout Successfully Saved.');
             }, 1000)
-        } else {
-            wpmm_toast('error', 'Error saving data!');
         }
     };
 }
 
 
-onConfirmRefresh = (e) => {
-    console.log(e);
+const onConfirmRefresh = (e) => {
     e.preventDefault();
     return e.returnValue = "Are you sure you want to leave the page?";
 }
 
 // window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
-
-
-/* window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
-
-    if (confirm("Press a button!") == true) {
-        text = "You pressed OK!";
-    } else {
-        text = "You canceled!";
-    }
-}); */
 
 /**
  * Image upload action for wpmm item
@@ -1040,7 +1005,7 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
                 if (widget.is('[id*=black-studio-tinymce]')) {
                     bstw(widget).deactivate().activate();
                 }
-                console.log(widget);
+                (widget);
                 $(document).trigger('widget-added', [widget]);
                 widget.toggleClass("open");
             } else {
@@ -1053,12 +1018,6 @@ function wpmm_image_uploader(element = null, title = null, btn_text = null, view
         });
         $(".widget").not(widget).removeClass("open");
     }
-
-
-    /* $('.widget').each(function () {
-        add_wpmm_events_to_widget($(this));
-        console.log($(this));
-    }); */
 
 
 })(jQuery);

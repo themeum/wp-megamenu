@@ -1551,7 +1551,8 @@ function wpmm_sanitized_html( $html ) {
 			return $array;
 		}
 	);
-	$sanitized_html = wp_kses( $html, wpmm_allowed_html() );
+	// $sanitized_html = wp_kses( $html, wpmm_allowed_html() );
+	$sanitized_html = wp_kses_post( $html );
 	add_filter(
 		'safe_style_css',
 		function( $array = array() ) {
