@@ -83,18 +83,18 @@ if ( ! class_exists( 'wp_megamenu' ) ) {
 				if ( is_array( $wpmm_item_settings ) && ! empty( $wpmm_item_settings['options']['strees_row_width'] ) ) {
 					$wpmm_ite_fixed_width = 'wpmm-item-fixed-width';
 				}
-				if ( ! empty( $wpmm_item_settings['menu_strees_row'] ) ) {
-					if ( $wpmm_item_settings['menu_strees_row'] == 'wpmm-strees-default' ) {
+				if ( ! empty( $wpmm_item_settings['options']['menu_strees_row'] ) ) {
+					if ( $wpmm_item_settings['options']['menu_strees_row'] == 'wpmm-strees-default' ) {
 						$classes[] = $wpmm_ite_fixed_width;
 					}
 				} else {
 					$classes[] = $wpmm_ite_fixed_width;
 				}
 			}
-			if ( $depth == 0 && ! empty( $wpmm_item_settings['menu_strees_row'] ) ) {
-				$this->container_type = $wpmm_item_settings['menu_strees_row'];
+			if ( $depth == 0 && ! empty( $wpmm_item_settings['options']['menu_strees_row'] ) ) {
+				$this->container_type = $wpmm_item_settings['options']['menu_strees_row'];
 				$this->wpmm_item_id   = 'wpmm-strees-row-' . $item->ID;
-				$classes[]            = $wpmm_item_settings['menu_strees_row'];
+				$classes[]            = $wpmm_item_settings['options']['menu_strees_row'];
 			} else {
 				$this->container_type = null;
 			}

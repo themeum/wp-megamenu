@@ -133,7 +133,7 @@ function add_new_column(button) {
     column_layout = column_layout_ui(row_index, new_col_index, col_width);
     if (col_width_all <= 100) {
         layout && layout.insertAdjacentHTML('beforeend', column_layout);
-        wpmm_toast('success', 'Column added to Row: ' + row_index + ', Column: ' + new_col_index);
+        // wpmm_toast('success', 'Column added to Row: ' + row_index + ', Column: ' + new_col_index);
     } else {
         wpmm_toast('warning', 'Sum of column can\'t be more than 100%.');
     }
@@ -268,8 +268,8 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
             xhttp.open('POST', ajaxurl, true);
             xhttp.send(formData);
             xhttp.onreadystatechange = function () {
+
                 if (xhttp.readyState === 4) {
-                    wpmm_toast('success', 'Widget successfully added to column.', 2000);
                     respData = JSON.parse(xhttp.response);
                     viewData = new FormData();
                     requestData = {
@@ -754,10 +754,7 @@ function wpmm_save_widget_item(saveButton) {
         xhttp.send(formData);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState === 4) {
-                setTimeout(() => {
-                    saveButton.classList.remove('wpmm-btn-spinner');
-                }, 1000)
-
+                saveButton.classList.remove('wpmm-btn-spinner');
             }
         };
 
@@ -883,13 +880,11 @@ const wpmmSaveNavItemFunction = (form, event) => {
     xhttp.open('POST', ajaxurl, true);
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
-
         if (xhttp.readyState === 4) {
-            setTimeout(() => {
-                saveBtn.classList.remove('wpmm-btn-spinner');
-                submitForm = false;
-                wpmm_toast('success', 'Layout Successfully Saved.');
-            }, 1000)
+            console.log(xhttp.status);
+            saveBtn.classList.remove('wpmm-btn-spinner');
+            submitForm = false;
+            wpmm_toast('success', 'Layout Successfully Saved.');
         }
     };
 }
