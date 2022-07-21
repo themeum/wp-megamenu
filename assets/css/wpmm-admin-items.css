@@ -388,6 +388,9 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     overflow-y: scroll;
     padding-left: 10px;
     padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .wpmm-item-content .widget-content {
@@ -437,7 +440,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
     right: 0;
     position: absolute;
     bottom: 0;
-    z-index: 999;
+    z-index: 99999;
 }
 
 .wpmm-column-layout-preview {
@@ -558,6 +561,7 @@ input.wpmm-form-check-input[type=checkbox]:checked::before {
 
 .dropdown_buttons button span {
     white-space: nowrap;
+    margin-left: 7px;
 }
 
 .dropdown_buttons button:hover {

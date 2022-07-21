@@ -87,13 +87,13 @@ function toggle_dropdown() {
     document.querySelectorAll('.toggler_button').forEach(item => {
 
         item.addEventListener('click', (e) => {
-            close_all_opened_dropdown();
+            close_all_opened_elements();
             item.closest('.area_toggler').classList.toggle('show');
             e.stopPropagation();
         })
 
         window.addEventListener('click', (e) => {
-            close_all_opened_dropdown();
+            close_all_opened_elements();
         })
 
     })
@@ -102,12 +102,16 @@ function toggle_dropdown() {
 
 }
 
-function close_all_opened_dropdown() {
+function close_all_opened_elements() {
     document.querySelectorAll('.area_toggler').forEach(item => {
         item.classList.contains('show') && item.classList.remove('show');
     })
     document.querySelectorAll('.dropdown_buttons').forEach(item => {
         item.addEventListener('click', (e) => e.stopPropagation());
+    })
+    document.querySelector('.wpmm-add-slots').classList.remove('show');
+    document.querySelector('.wpmm-add-slots').addEventListener('click', (e) => {
+        e.stopPropagation();
     })
 }
 
@@ -264,53 +268,7 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
                 formData.append(key, value);
             });
 
-            xhttp = new XMLHttpRequest();
-            xhttp.open('POST', ajaxurl, true);
-            xhttp.send(formData);
-            xhttp.onreadystatechange = function () {
-
-                if (xhttp.readyState === 4) {
-                    respData = JSON.parse(xhttp.response);
-                    viewData = new FormData();
-                    requestData = {
-                        wpmm_nonce: wpmm.wpmm_nonce,
-                        action: "wpmm_new_widget_ui",
-                        id_base: widgetBaseId,
-                        new_base_id: respData.new_base_id,
-                    }
-                    Object.entries(requestData).forEach(([key, value]) => {
-                        viewData.append(key, value);
-                    });
-
-                    xhttp = new XMLHttpRequest();
-                    xhttp.open('POST', ajaxurl, true);
-                    xhttp.send(viewData);
-                    xhttp.onreadystatechange = function () {
-                        if (xhttp.readyState === 4) {
-
-                            targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' +
-                                rowID + '"][data-col-id="' + colID + '"]');
-
-                            columnToAddWidgets = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
-
-                            columnToAddWidgets.insertAdjacentHTML('beforeend', xhttp.response);
-                            widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
-
-                            if ('block' === widgetItemPanel.style.display) {
-                                widgetItemPanel.style.display = 'none';
-                                widgetItemPanel.innerHTML = '';
-                            }
-                            initiate_sortable();
-                            triggerWidget = jQuery(`[data-widget-id="${respData.new_base_id}"]`);
-                            jQuery(document).trigger('widget-added', [triggerWidget]);
-
-                        }
-                    }
-
-
-
-                }
-            };
+            add_widget_to_column(widgetBaseId, rowID, colID);
 
         })
     });
@@ -321,6 +279,57 @@ function insert_widget_to_column(menu_item_id, addElemBtn) {
         })
     });
 
+}
+
+
+function add_widget_to_column(widgetBaseId, rowID, colID) {
+
+    xhttp = new XMLHttpRequest();
+    xhttp.open('POST', ajaxurl, true);
+    xhttp.send(formData);
+    xhttp.onreadystatechange = function () {
+
+        if (xhttp.readyState === 4) {
+            respData = JSON.parse(xhttp.response);
+            viewData = new FormData();
+            requestData = {
+                wpmm_nonce: wpmm.wpmm_nonce,
+                action: "wpmm_new_widget_ui",
+                id_base: widgetBaseId,
+                new_base_id: respData.new_base_id,
+            }
+
+            Object.entries(requestData).forEach(([key, value]) => {
+                viewData.append(key, value);
+            });
+
+            xhttp = new XMLHttpRequest();
+            xhttp.open('POST', ajaxurl, true);
+            xhttp.send(viewData);
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4) {
+
+                    targetedColumn = document.querySelector('.wpmm-item-col[data-rowid="' +
+                        rowID + '"][data-col-id="' + colID + '"]');
+
+                    columnToAddWidgets = targetedColumn && targetedColumn.querySelector('.wpmm-column-contents');
+
+                    columnToAddWidgets.insertAdjacentHTML('beforeend', xhttp.response);
+                    widgetItemPanel = document.querySelector('.wpmm-item-widget-panel');
+
+                    if ('block' === widgetItemPanel.style.display) {
+                        widgetItemPanel.style.display = 'none';
+                        widgetItemPanel.innerHTML = '';
+                    }
+                    initiate_sortable();
+                    triggerWidget = jQuery(`[data-widget-id="${respData.new_base_id}"]`);
+                    jQuery(document).trigger('widget-added', [triggerWidget]);
+
+                }
+            }
+
+        }
+    };
 }
 
 
@@ -414,8 +423,12 @@ function get_nav_item_settings() {
     return settingsArray;
 }
 
-function wpmm_toggle_layout_builder(button) {
-    document.getElementById('layout-modal').classList.toggle('show');
+function wpmm_toggle_layout_builder(e, button) {
+    let layout_modal = document.getElementById('layout-modal');
+
+    e.stopPropagation();
+    layout_modal.classList.toggle('show');
+
 }
 
 function toggle_widget_form(thisToggler) {
@@ -483,6 +496,14 @@ function initiate_actions_on_layout_modal(menu_item_id) {
 
             create_row_layout(layout, new_columns, new_row_id);
             initiate_sortable();
+
+            rowLayout = layout.querySelectorAll('.wpmm-layout-row')[new_row_id];
+            rowLayout.scrollIntoView({behavior: "smooth"});
+
+            item.closest('.wpmm-add-slots').classList.remove('show');
+
+
+
 
         })
     })

@@ -63,6 +63,7 @@ if ( ! class_exists( 'wp_megamenu' ) ) {
 			$class_names   = $value = '';
 
 			$classes   = empty( $item->classes ) ? array() : (array) $item->classes;
+
 			$classes[] = 'wp-megamenu-item-' . $item->ID;
 
 			if ( $item_center_logo_url ) {
@@ -121,6 +122,7 @@ if ( ! class_exists( 'wp_megamenu' ) ) {
 
 			// Make sure you still add all of the WordPress classes.
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+
 			$class_names = ' class="' . esc_attr( $class_names ) . '"';
 
 			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args );
@@ -145,7 +147,7 @@ if ( ! class_exists( 'wp_megamenu' ) ) {
 			// Social Link Target
 			if ( ! empty( $item->type ) && $item->type === 'wpmm_social' ) {
 				if ( empty( $theme_options_array['social_links_target'] ) ||
-					 $theme_options_array['social_links_target'] !== '_self' ) {
+					$theme_options_array['social_links_target'] !== '_self' ) {
 					$attributes .= ' target="_blank" ';
 				} else {
 					$attributes .= ' target="_self" ';

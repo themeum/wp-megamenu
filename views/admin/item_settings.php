@@ -14,10 +14,12 @@ $menu_strees_row = '';
 if ( ! empty( $get_menu_settings['menu_strees_row'] ) ) {
 	$menu_strees_row = $get_menu_settings['menu_strees_row'];
 }
+
 $item_width = '';
 if ( ! empty( $get_menu_settings['options']['width'] ) ) {
 	$item_width = $get_menu_settings['options']['width'];
 }
+
 $item_strees_row_width = '';
 if ( ! empty( $get_menu_settings['options']['strees_row_width'] ) ) {
 	$item_strees_row_width = $get_menu_settings['options']['strees_row_width'];
@@ -63,7 +65,7 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 														<div class="dropdown_buttons">
 															<button onclick="add_new_column(this)">
 																<i class="fa fa-plus"></i>
-																<span>Add Column</span>
+																<span><?php _e( 'Add Column', 'wp-megamenu' ); ?></span>
 															</button>
 														</div>
 													</div>
@@ -85,56 +87,58 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 															$layout_width = ( $layout_columns * 100 ) / 12;
 														}
 														?>
-												<div style="--col-width: calc(<?php echo esc_attr( $layout_width ); ?>% - 1em)" class="wpmm-item-col" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-width="<?php echo esc_attr( $layout_width ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
-													<div class="wpmm-column-contents-wrapper">
-														<div class="wpmm-column-toolbar wpmm-column-drag-handler">
-															<div class="wpmm-col-sorting-icon">
-																<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
-															</div>
-															<div class="colum_resizer area_toggler">
-																<button class="fa fa-cog toggler_button"></button>
-																<div class="dropdown_buttons">
-																	<div class="btn-col">
-																		<div class="col_item">
-																			<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
-																		</div>
-																		<div class="col_item">
-																			<button class="fa fa-plus increment"></button>
-																		</div>
-																		<div class="col_item">
-																			<button class="fa fa-minus decrement"></button>
-																		</div>
-																		<div class="col_item">
-																			<button class="fa fa-trash remove"></button>
+														<div style="--col-width: calc(<?php echo esc_attr( $layout_width ); ?>% - 1em)" class="wpmm-item-col" data-col="<?php echo esc_attr( $layout_columns ); ?>" data-width="<?php echo esc_attr( $layout_width ); ?>" data-rowid="<?php echo esc_attr( $layout_key ); ?>" data-col-id="<?php echo esc_attr( $col_key ); ?>">
+															<div class="wpmm-column-contents-wrapper">
+																<div class="wpmm-column-toolbar wpmm-column-drag-handler">
+																	<div class="wpmm-col-sorting-icon">
+																		<i class="fa fa-sort wpmm-mr-2 fa-rotate-90"></i> Column
+																	</div>
+																	<div class="colum_resizer area_toggler">
+																		<button class="fa fa-cog toggler_button"></button>
+																		<div class="dropdown_buttons">
+																			<div class="btn-col">
+																				<div class="col_item">
+																					<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+																				</div>
+																				<div class="col_item">
+																					<button class="fa fa-plus increment"></button>
+																				</div>
+																				<div class="col_item">
+																					<button class="fa fa-minus decrement"></button>
+																				</div>
+																				<div class="col_item">
+																					<button class="fa fa-trash remove"></button>
+																				</div>
+																			</div>
+
 																		</div>
 																	</div>
+																</div>
+																<div class="wpmm-column-contents">
+																	<?php
+																	foreach ( $layout_col['items'] as $key => $value ) {
 
+																		if ( true === $if_new ) {
+																			$value['base_id'] = wp_megamenu_widgets()->wpmm_get_id_base_by_widget_id( $value['widget_id'] );
+																		}
+																		if ( 'widget' === $value['item_type'] ) {
+																			wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key, $value['base_id'] );
+																		} else {
+																			wp_megamenu_widgets()->menu_items( $value, $key );
+																		}
+																	}
+																	?>
+																</div>
+
+																<div class="wpmm-add-item-wrapper">
+																	<button class="wpmm-add-new-item"
+																	onclick="wpmm_add_new_item(this)" data-col-index="<?php echo esc_attr( $col_key ); ?>" data-row-index="<?php echo esc_attr( $layout_key ); ?>" title="Add Module">
+																		<span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
+																	</button>
 																</div>
 															</div>
+															<div draggable="true" class="resizer"></div>
 														</div>
-														<div class="wpmm-column-contents">
-															<?php
-															foreach ( $layout_col['items'] as $key => $value ) {
-																if ( true === $if_new ) {
-																	$value['base_id'] = wp_megamenu_widgets()->wpmm_get_id_base_by_widget_id( $value['widget_id'] );
-																}
-																if ( 'widget' === $value['item_type'] ) {
-																	wp_megamenu_widgets()->widget_item( $value['widget_id'], $get_menu_settings, $key, $value['base_id'] );
-																} else {
-																	wp_megamenu_widgets()->menu_items( $value, $key );
-																}
-															}
-															?>
-														</div>
-														<div class="wpmm-add-item-wrapper">
-															<button class="wpmm-add-new-item"
-															onclick="wpmm_add_new_item(this)" data-col-index="<?php echo esc_attr( $col_key ); ?>" data-row-index="<?php echo esc_attr( $layout_key ); ?>" title="Add Module">
-																<span class="fa fa-plus-square-o wpmm-mr-2" aria-hidden="true"></span> Add Element
-															</button>
-														</div>
-													</div>
-													<div draggable="true" class="resizer"></div>
-												</div>
 														<?php
 													}
 												}
@@ -147,20 +151,20 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 								?>
 							</div>
 
-
 							<div class="wpmm-add-row position-relative">
-								<button onclick="wpmm_toggle_layout_builder(this)" class="select_layout button-primary"><i class="fa fa-plus"></i> Add New Row</button>
+								<button onclick="wpmm_toggle_layout_builder(event, this)" class="select_layout button-primary"><i class="fa fa-plus"></i> Add New Row</button>
 								<div class="wpmm-add-slots" id="layout-modal">
-									<?php echo include_view( 'views/admin/columns_layouts.php' ); ?>
+									<?php echo apply_filters( 'wpmm_kses', include_view( 'views/admin/columns_layouts.php' ) ); // PHPCS:ignore ?>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
 				<div class="wpmm-modal-footer wpmm-justify-end">
-					<button type="button" class="button-secondary close-modal" data-dismiss="wpmm-modal">Close</button>
+					<button type="button" class="button-secondary close-modal" data-dismiss="wpmm-modal"><?php _e( 'Close', 'wp-megamenu' ); ?></button>
 					<div class="wpmm-ml-3">
-						<button type="submit" form="wpmm_nav_item_settings" class="button-primary wpmm-save-nav-item wpmm-btn-spinner- ">Save changes</button>
+						<button type="submit" form="wpmm_nav_item_settings" class="button-primary wpmm-save-nav-item wpmm-btn-spinner- "><?php _e( 'Save changes', 'wp-megamenu' ); ?></button>
 					</div>
 				</div>
 			</div>

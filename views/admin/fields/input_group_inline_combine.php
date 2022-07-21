@@ -4,7 +4,6 @@
 		<div class="wpmm-row-column">
 			<div class="wpmm-input-group">
 				<?php
-				$combine = true;
 				foreach ( $field['fields'] as $key => $field ) {
 					?>
 					<?php
@@ -19,7 +18,6 @@
 					}
 				}
 				?>
-				<input type="hidden" name="<?php echo $field['key'] ?>" value="">
 			</div>
 		</div>
 	</div>

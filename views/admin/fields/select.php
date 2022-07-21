@@ -3,11 +3,13 @@ $field_label = isset( $field['label'] ) ? $field['label'] : '';
 $field_key   = isset( $field['key'] ) ? $field['key'] : '';
 $value  = isset( $saved_options[ $field_key ] ) ? $saved_options[ $field_key ] : $field['default'];
 
+$attr_name = true === $combine ? null : "name=options[$field_key]";
+
 if ( isset( $field['layout'] ) && 'full' === $field['layout'] ) {
 	?>
 <div class="wpmm-item-field">
 	<label>Top</label>
-	<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" name="options[<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>]">
+	<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" <?php echo esc_attr( $attr_name ); ?>>
 		<?php foreach ( $field['options'] as $key => $option ) { ?>
 			<option and <?php selected( $key, $value, true ); ?> value="<?php esc_attr_e( $key, 'wp-megamenu' ); ?>">
 				<?php esc_attr_e( $option, 'wp-megamenu' ); ?>
@@ -25,7 +27,7 @@ if ( isset( $field['layout'] ) && 'full' === $field['layout'] ) {
 			<?php esc_attr_e( $field['label'], 'wp-megamenu' ); ?>
 			</label>
 			<div>
-				<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" name="options[<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>]">
+				<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" <?php echo esc_attr( $attr_name ); ?>>
 				<?php foreach ( $field['options'] as $key => $option ) { ?>
 						<option <?php selected( $key, $value, true ); ?> value="<?php esc_attr_e( $key, 'wp-megamenu' ); ?>">
 							<?php esc_attr_e( $option, 'wp-megamenu' ); ?>
@@ -36,7 +38,7 @@ if ( isset( $field['layout'] ) && 'full' === $field['layout'] ) {
 		</div>
 	</div>
 <?php } else { ?>
-	<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" name="options[<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>]">
+	<select class="form-select" id="field_id_<?php esc_attr_e( $field_key, 'wp-megamenu' ); ?>" <?php echo esc_attr( $attr_name ); ?>>
 		<?php foreach ( $field['options'] as $key => $option ) { ?>
 			<option false <?php selected( $key, $value, true ); ?> value="<?php esc_attr_e( $key, 'wp-megamenu' ); ?>">
 				<?php esc_attr_e( $option, 'wp-megamenu' ); ?>

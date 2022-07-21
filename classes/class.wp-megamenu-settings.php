@@ -14,7 +14,7 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'save_wpmm_settings' ) );
-			add_filter( 'wpmm/pro_fields', array( $this, 'pro_fields' ), 10, 1 );
+			// add_filter( 'wpmm/pro_fields', array( $this, 'pro_fields' ), 10, 1 );
 		}
 
 		public function pro_fields() {
@@ -124,6 +124,35 @@ if ( ! class_exists( 'WP_MegaMenu_Settings' ) ) {
 						'wpmm-strees-default'         => 'Default',
 						'wpmm-strees-row'             => 'Row',
 						'wpmm-strees-row-and-content' => 'Row and Content',
+					),
+				),
+				array(
+					'key'         => 'strees_row_width',
+					'label'      => 'Menu Width',
+					'child_type' => 'input_group_inline_combine',
+					'has_child'  => true,
+					'fields'     => array(
+						array(
+							'key'         => 'wpmm_stress_row_width',
+							'label'       => false,
+							'type'        => 'number',
+							'default'     => '100',
+							'min'         => '100',
+							'max'         => '5000',
+							'placeholder' => '',
+						),
+						array(
+							'key'     => 'wpmm_stress_row_width_type',
+							'label'   => false,
+							'type'    => 'select',
+							'default' => '%',
+							'options' => array(
+								'px'  => 'PX',
+								'em'  => 'EM',
+								'rem' => 'REM',
+								'%'   => '%',
+							),
+						),
 					),
 				),
 				array(

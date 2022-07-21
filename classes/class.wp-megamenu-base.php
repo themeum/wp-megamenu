@@ -399,6 +399,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 		 * Show settings menu
 		 */
 		public function wpmm_item_row_load() {
+
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
@@ -423,6 +424,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 				$new_menu_item_id = array();
 				$unique_items     = array();
 				foreach ( $array_menu as $m ) {
+					
 					if ( $m->menu_item_parent && ( $m->menu_item_parent == $menu_item_id ) ) {
 						$unique_items[ $m->ID ] = array(
 							'item_type'   => 'menu_item',
@@ -1127,7 +1129,8 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					}
 				}
 				$style .= '</style>';
-				echo wpmm_sanitize_inline_css_output( $style );
+				echo $style;
+				// echo wpmm_sanitize_inline_css_output( $style );
 			}
 		}
 	}
