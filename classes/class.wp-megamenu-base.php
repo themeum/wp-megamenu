@@ -424,7 +424,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 				$new_menu_item_id = array();
 				$unique_items     = array();
 				foreach ( $array_menu as $m ) {
-					
+
 					if ( $m->menu_item_parent && ( $m->menu_item_parent == $menu_item_id ) ) {
 						$unique_items[ $m->ID ] = array(
 							'item_type'   => 'menu_item',
@@ -543,7 +543,8 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 									);
 
 									foreach ( $row['row'] as $col_id => $col ) {
-										/* if ( ! empty( $col['col'] ) ) {
+										/*
+										 if ( ! empty( $col['col'] ) ) {
 											$col_class = 'wpmm-col-' . $col['col'];
 										} else {
 											$col_class = 'wpmm-col-';
@@ -988,6 +989,14 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			// wp_die(print_row($wpmm_layouts_option));
 			if ( count( $wpmm_layouts_option ) ) {
 				$style = '<style type="text/css">';
+
+				/*
+				 $style     .= '.wp-megamenu-wrap ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
+				> ul.wp-megamenu-sub-menu { ';
+					$style .= 'width: 100% !important;';
+				$style     .= '}'; */
+				// return;
+
 				foreach ( $wpmm_layouts_option as $key => $value ) {
 					$options = maybe_unserialize( $value->meta_value );
 
@@ -1005,25 +1014,22 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					}
 
 					if ( ! empty( $options['options']['strees_row_width'] ) ) {
-						$style .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
+
+						$style .= '.wp-megamenu-wrap ul.wp-megamenu > li.wpmm_mega_menu > #wpmm-strees-row-' . $value->post_id . '.wpmm-strees-row-container
                         > ul.wp-megamenu-sub-menu { ';
-						$style .= "width: {$options['options']['strees_row_width']}px !important;";
+						$style .= "width: {$options['options']['strees_row_width']} !important;";
 						$style .= '}';
 
 						$style .= ".wp-megamenu > li.wp-megamenu-item-{$value->post_id}.wpmm-item-fixed-width  > ul.wp-megamenu-sub-menu { ";
-						$style .= "width: {$options['options']['strees_row_width']}px !important;";
+						$style .= "width: {$options['options']['strees_row_width']} !important;";
 						// $style .= "margin-left: -".($options['options']['strees_row_width'])."px !important;";
-						$style .= 'left: calc(100% - ' . ( intval( $options['options']['strees_row_width'] ) / 2 ) . 'px - 20px) !important';
+						// $style .= 'left: calc(100% - ' . ( intval( $options['options']['strees_row_width'] ) / 2 ) . 'px - 20px) !important';
 						$style .= '}';
-					} else {
-						$style     .= '.wp-megamenu-wrap > ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
-                        > ul.wp-megamenu-sub-menu { ';
-							$style .= 'width: 100% !important;';
-						$style     .= '}';
 
-						$style     .= ".wp-megamenu > li.wp-megamenu-item-{$value->post_id}.wpmm-item-fixed-width  > ul.wp-megamenu-sub-menu { ";
-							$style .= 'width: 100% !important;';
-						$style     .= '}';
+					} else {
+						$style .= ".wp-megamenu > li.wp-megamenu-item-{$value->post_id}.wpmm-item-fixed-width  > ul.wp-megamenu-sub-menu { ";
+							// $style .= 'width: 100% !important;';
+						$style .= '}';
 					}
 
 					// .wp-megamenu > li.wpmm-item-fixed-width
@@ -1039,7 +1045,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					$style .= ".wpmm-nav-wrap ul.wp-megamenu>li ul.wp-megamenu-sub-menu #wp-megamenu-item-{$value->post_id}>a { ";
 						// Single menu font size.
 					if ( ! empty( $options['options']['single_menu_font_size'] ) ) {
-						$style .= "font-size: {$options['options']['single_menu_font_size']}px !important;";
+						$style .= "font-size: {$options['options']['single_menu_font_size']} !important;";
 					}
 						// Single menu color.
 					if ( ! empty( $options['options']['single_item_text_color'] ) ) {
@@ -1052,7 +1058,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 
 						// Single menu font color.
 					if ( ! empty( $options['options']['single_menu_line_height'] ) ) {
-						$style .= "line-height: {$options['options']['single_menu_line_height']}px !important;";
+						$style .= "line-height: {$options['options']['single_menu_line_height']} !important;";
 					}
 
 						// Single menu font color.
@@ -1063,7 +1069,7 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 
 					$style .= ".wpmm-nav-wrap .wp-megamenu>li>ul.wp-megamenu-sub-menu li#wp-megamenu-item-{$value->post_id}>a { ";
 					if ( ! empty( $options['options']['single_menu_item_border_separator_width'] ) && ! empty( $options['options']['single_menu_item_border_separator_type'] ) && ! empty( $options['options']['single_menu_item_border_separator_color'] ) ) {
-						$style .= "border-bottom: {$options['options']['single_menu_item_border_separator_width']}px {$options['options']['single_menu_item_border_separator_type']}
+						$style .= "border-bottom: {$options['options']['single_menu_item_border_separator_width']} {$options['options']['single_menu_item_border_separator_type']}
 							{$options['options']['single_menu_item_border_separator_color']} !important;";
 					}
 					$style .= '}';
@@ -1071,49 +1077,48 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 					// Margin  - Submenu item menu margin.
 					$style .= "li#wp-megamenu-item-{$value->post_id}> ul ul ul> li { ";
 					if ( ! empty( $options['options']['single_menu_margin_top'] ) ) {
-						$style .= "margin-top: {$options['options']['single_menu_margin_top']}px !important;";
+						$style .= "margin-top: {$options['options']['single_menu_margin_top']} !important;";
 					}
 					if ( ! empty( $options['options']['single_menu_margin_right'] ) ) {
-						$style .= "margin-right: {$options['options']['single_menu_margin_right']}px !important;";
+						$style .= "margin-right: {$options['options']['single_menu_margin_right']} !important;";
 					}
 					if ( ! empty( $options['options']['single_menu_margin_bottom'] ) ) {
-						$style .= "margin-bottom: {$options['options']['single_menu_margin_bottom']}px !important;";
+						$style .= "margin-bottom: {$options['options']['single_menu_margin_bottom']} !important;";
 					}
 					if ( isset( $options['options']['single_menu_margin_left'] ) ) {
-						$style .= "margin-left: {$options['options']['single_menu_margin_left']}px !important;";
+						$style .= "margin-left: {$options['options']['single_menu_margin_left']} !important;";
 					}
-
 						$style .= 'width: 100%; display: inline-block;';
 					$style     .= '}';
 
 					$style .= " li#wp-megamenu-item-{$value->post_id} a { ";
 					if ( ! empty( $options['options']['single_menu_padding_top'] ) ) {
-						$style .= "padding-top: {$options['options']['single_menu_padding_top']}px !important;";
+						$style .= "padding-top: {$options['options']['single_menu_padding_top']} !important;";
 					}
 					if ( ! empty( $options['options']['single_menu_padding_right'] ) ) {
-						$style .= "padding-right: {$options['options']['single_menu_padding_right']}px !important;";
+						$style .= "padding-right: {$options['options']['single_menu_padding_right']} !important;";
 					}
 					if ( ! empty( $options['options']['single_menu_padding_bottom'] ) ) {
-						$style .= "padding-bottom: {$options['options']['single_menu_padding_bottom']}px !important;";
+						$style .= "padding-bottom: {$options['options']['single_menu_padding_bottom']} !important;";
 					}
 					if ( isset( $options['options']['single_menu_padding_left'] ) ) {
-						$style .= "padding-left: {$options['options']['single_menu_padding_left']}px !important;";
+						$style .= "padding-left: {$options['options']['single_menu_padding_left']} !important;";
 					}
 					$style .= '}';
 
 					$style .= "#wp-megamenu-item-{$value->post_id}> .wp-megamenu-sub-menu { ";
 
 					if ( ! empty( $options['options']['wp_megamenu_submenu_menu_padding_top'] ) ) {
-						$style .= "padding-top: {$options['options']['wp_megamenu_submenu_menu_padding_top']}px !important;";
+						$style .= "padding-top: {$options['options']['wp_megamenu_submenu_menu_padding_top']} !important;";
 					}
 					if ( ! empty( $options['options']['wp_megamenu_submenu_menu_padding_right'] ) ) {
-						$style .= "padding-right: {$options['options']['wp_megamenu_submenu_menu_padding_right']}px !important;";
+						$style .= "padding-right: {$options['options']['wp_megamenu_submenu_menu_padding_right']} !important;";
 					}
 					if ( ! empty( $options['options']['wp_megamenu_submenu_menu_padding_bottom'] ) ) {
-						$style .= "padding-bottom: {$options['options']['wp_megamenu_submenu_menu_padding_bottom']}px !important;";
+						$style .= "padding-bottom: {$options['options']['wp_megamenu_submenu_menu_padding_bottom']} !important;";
 					}
 					if ( isset( $options['options']['wp_megamenu_submenu_menu_padding_left'] ) ) {
-						$style .= "padding-left: {$options['options']['wp_megamenu_submenu_menu_padding_left']}px !important;";
+						$style .= "padding-left: {$options['options']['wp_megamenu_submenu_menu_padding_left']} !important;";
 					}
 
 					$style .= '}';

@@ -139,7 +139,7 @@ function add_new_column(button) {
         layout && layout.insertAdjacentHTML('beforeend', column_layout);
         // wpmm_toast('success', 'Column added to Row: ' + row_index + ', Column: ' + new_col_index);
     } else {
-        wpmm_toast('warning', 'Sum of column can\'t be more than 100%.');
+        wpmm_toast('warning', 'Sum of column can not exceed 100%.');
     }
     toggle_dropdown();
 
@@ -498,7 +498,7 @@ function initiate_actions_on_layout_modal(menu_item_id) {
             initiate_sortable();
 
             rowLayout = layout.querySelectorAll('.wpmm-layout-row')[new_row_id];
-            rowLayout.scrollIntoView({behavior: "smooth"});
+            rowLayout.scrollIntoView({ behavior: "smooth" });
 
             item.closest('.wpmm-add-slots').classList.remove('show');
 
@@ -593,6 +593,23 @@ function _actions_after_open_settings_panel() {
     toggle_dropdown();
 
 
+    let combine_group = document.querySelectorAll('.combine_group');
+    combine_group.forEach(item => {
+        let value_elem, input_elems = item.querySelectorAll('input:not([type=hidden]) , select');
+        set_hidden_field_value(item, input_elems);
+
+        input_elems.forEach(elem => {
+            elem.addEventListener('change', (e) => {
+                set_hidden_field_value(item, input_elems);
+            })
+        })
+    })
+}
+
+function set_hidden_field_value(wrap_elem, input_elems) {
+    let hidden_input = wrap_elem.querySelector('input[type=hidden]');
+    let value_elem = Array.from(input_elems).reduce((combine, elem) => combine + elem.value, '');
+    hidden_input.value = value_elem;
 }
 
 // Toast JS function for wpmm.
@@ -902,7 +919,6 @@ const wpmmSaveNavItemFunction = (form, event) => {
     xhttp.send(formData);
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            console.log(xhttp.status);
             saveBtn.classList.remove('wpmm-btn-spinner');
             submitForm = false;
             wpmm_toast('success', 'Layout Successfully Saved.');
