@@ -98,7 +98,7 @@ $if_new = isset( $wpmm_layout['data_type'] ) && 'new' === $wpmm_layout['data_typ
 																		<div class="dropdown_buttons">
 																			<div class="btn-col">
 																				<div class="col_item">
-																					<input type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
+																					<input class="col_width" type="number" min="20" max="100" value="<?php echo esc_attr( $layout_width ); ?>">
 																				</div>
 																				<div class="col_item">
 																					<button class="fa fa-plus increment"></button>

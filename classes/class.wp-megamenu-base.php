@@ -989,13 +989,10 @@ if ( ! class_exists( 'wp_megamenu_base' ) ) {
 			// wp_die(print_row($wpmm_layouts_option));
 			if ( count( $wpmm_layouts_option ) ) {
 				$style = '<style type="text/css">';
-
-				/*
-				 $style     .= '.wp-megamenu-wrap ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
+				$style     .= '.wp-megamenu-wrap ul.wp-megamenu > li.wpmm_mega_menu > .wpmm-strees-row-container
 				> ul.wp-megamenu-sub-menu { ';
 					$style .= 'width: 100% !important;';
-				$style     .= '}'; */
-				// return;
+				$style     .= '}';
 
 				foreach ( $wpmm_layouts_option as $key => $value ) {
 					$options = maybe_unserialize( $value->meta_value );

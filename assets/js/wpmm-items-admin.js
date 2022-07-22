@@ -595,15 +595,16 @@ function _actions_after_open_settings_panel() {
 
     let combine_group = document.querySelectorAll('.combine_group');
     combine_group.forEach(item => {
-        let value_elem, input_elems = item.querySelectorAll('input:not([type=hidden]) , select');
+        let input_elems = item.querySelectorAll('input:not([type=hidden]) , select');
         set_hidden_field_value(item, input_elems);
 
-        input_elems.forEach(elem => {
+        input_elems.forEach( elem => {
             elem.addEventListener('change', (e) => {
                 set_hidden_field_value(item, input_elems);
             })
         })
     })
+
 }
 
 function set_hidden_field_value(wrap_elem, input_elems) {
@@ -662,6 +663,13 @@ function wpmm_colum_resizer() {
             this_row = this_col && this_col.closest('.wpmm-columns-container'),
             col_width = this_col && this_col.dataset.width;
 
+            let col_width_input = item && item.querySelector('input.col_width');
+            col_width_input && col_width_input.addEventListener('change', (e) => {
+                // console.log(col_width_input);
+            })
+        console.log(col_width_input);
+
+
         function continuosIncerment() {
             inc_dec_btn_action(++col_width, this_col, this_row, item);
             timer = setTimeout(continuosIncerment, 200);
@@ -686,7 +694,10 @@ function wpmm_colum_resizer() {
             change_value.addEventListener('mousedown', change_type);
             change_value.addEventListener('mouseup', timeoutClear);
             change_value.addEventListener('mouseleave', timeoutClear);
+
             inc_dec_event_control(col_total_width(this_row));
+
+
         }
 
         function inc_dec_btn_action(value, this_col, this_row, item) {
@@ -700,6 +711,7 @@ function wpmm_colum_resizer() {
         function inc_dec_event_control(fullWidth) {
             if (100 > fullWidth) {
                 inc_dec_row_buttons(this_row, 'increment', 'auto');
+                console.log(col_width);
                 if (20 >= col_width) {
                     decrement.style.pointerEvents = 'none';
                 } else {
