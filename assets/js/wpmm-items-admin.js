@@ -598,7 +598,7 @@ function _actions_after_open_settings_panel() {
         let input_elems = item.querySelectorAll('input:not([type=hidden]) , select');
         set_hidden_field_value(item, input_elems);
 
-        input_elems.forEach( elem => {
+        input_elems.forEach(elem => {
             elem.addEventListener('change', (e) => {
                 set_hidden_field_value(item, input_elems);
             })
@@ -614,7 +614,7 @@ function set_hidden_field_value(wrap_elem, input_elems) {
 }
 
 // Toast JS function for wpmm.
-window.wpmm_toast = (type = 'success', message = 'Successfully applied!', time = 5000) => {
+window.wpmm_toast = (type = 'success', message = 'Successfully applied!', time = 3000) => {
 
     let toast_element = document.querySelector('.wpmm-toast'),
         toast_message = toast_element && toast_element.querySelector('.toast_message'),
@@ -655,49 +655,96 @@ function wpmm_colum_resizer() {
     let wpmm_settings_modal = document.querySelector('.wpmm-item-settings-content');
     let colum_resizers = wpmm_settings_modal && wpmm_settings_modal.querySelectorAll('.colum_resizer');
     colum_resizers.forEach(item => {
-        let timer,
+        let timer, col_width,
             increment = item && item.querySelector('button.increment'),
             decrement = item && item.querySelector('button.decrement'),
             remove = item && item.querySelector('button.remove'),
             this_col = item && item.closest('.wpmm-item-col'),
             this_row = this_col && this_col.closest('.wpmm-columns-container'),
+            // col_width = this_col && this_col.dataset.width,
+            col_width_input = item && item.querySelector('input.col_width'),
+            old_val = this_col && this_col.dataset.width;
+
+        col_width_input && col_width_input.addEventListener('change', (e) => {
+            let new_val = col_width_input.value;
+            let change_amount = parseFloat(new_val) - parseFloat(old_val);
+            let total_width = col_total_width(this_row);
+            let changed_width = parseFloat(total_width) + parseFloat(change_amount);
+
+            if (new_val < 20) {
+                wpmm_toast('warning', 'Column can not be less than 20%.', 2000);
+                col_width_input.value = old_val;
+                return;
+            }
+
+            if (changed_width > 100) {
+                wpmm_toast('warning', 'Sum of column can not exceed 100%.');
+                col_width_input.value = old_val;
+                return;
+            }
+
+            if (new_val > old_val && 100 > total_width) {
+                continuosIncerment(new_val);
+            } else {
+                col_width_input.value = old_val;
+            }
+
+            if (new_val < old_val && 20 < total_width) {
+                continuosDecrement(new_val);
+            }
+
+            old_val = col_width_input.value;
+
+            timeoutClear();
+        })
+
+
+        inc_dec_event_control(col_total_width(this_row));
+
+        increment.addEventListener('mousedown', (e) => {
+            continuosIncerment();
+            inc_dec_event_control(col_total_width(this_row));
+        })
+
+        decrement.addEventListener('mousedown', (e) => {
+            continuosDecrement();
+            inc_dec_event_control(col_total_width(this_row));
+        })
+
+        const mouseEvents = ["mouseup", "mouseleave"];
+        mouseEvents.forEach(evt => {
+            increment.addEventListener(evt, timeoutClear, false);
+            decrement.addEventListener(evt, timeoutClear, false);
+        });
+
+        function continuosIncerment(amount = '') {
             col_width = this_col && this_col.dataset.width;
-
-            let col_width_input = item && item.querySelector('input.col_width');
-            col_width_input && col_width_input.addEventListener('change', (e) => {
-                // console.log(col_width_input);
-            })
-        console.log(col_width_input);
-
-
-        function continuosIncerment() {
-            inc_dec_btn_action(++col_width, this_col, this_row, item);
+            if (col_total_width(this_row) > 100) {
+                wpmm_toast('warning', 'Sum of column can not exceed 100%.');
+                col_width_input.value = col_width;
+                return;
+            }
+            change_amount = '' !== amount ? amount : ++col_width;
+            inc_dec_btn_action(change_amount, this_col, this_row, item);
             timer = setTimeout(continuosIncerment, 200);
         }
 
-        function continuosDecrement() {
-            inc_dec_btn_action(--col_width, this_col, this_row, item);
+        function continuosDecrement(amount = '') {
+            col_width = this_col && this_col.dataset.width;
+            change_amount = '' !== amount ? amount : --col_width;
+            if (20 > change_amount) {
+                wpmm_toast('warning', 'Column can not be less than 20%.', 2000);
+                col_width_input.value = old_val;
+                return;
+            }
+            inc_dec_btn_action(change_amount, this_col, this_row, item);
             timer = setTimeout(continuosDecrement, 200);
+
+
         }
-
-
 
         function timeoutClear() {
             clearTimeout(timer);
-        }
-
-
-        function column_btn_event(event_type) {
-            let change_type = 'increment' === event_type ? continuosIncerment : continuosDecrement;
-            let change_value = 'increment' === event_type ? increment : decrement;
-
-            change_value.addEventListener('mousedown', change_type);
-            change_value.addEventListener('mouseup', timeoutClear);
-            change_value.addEventListener('mouseleave', timeoutClear);
-
-            inc_dec_event_control(col_total_width(this_row));
-
-
         }
 
         function inc_dec_btn_action(value, this_col, this_row, item) {
@@ -707,11 +754,11 @@ function wpmm_colum_resizer() {
             inc_dec_event_control(col_total_width(this_row));
         }
 
-
         function inc_dec_event_control(fullWidth) {
+            col_width = this_col && this_col.dataset.width;
             if (100 > fullWidth) {
                 inc_dec_row_buttons(this_row, 'increment', 'auto');
-                console.log(col_width);
+
                 if (20 >= col_width) {
                     decrement.style.pointerEvents = 'none';
                 } else {
@@ -720,11 +767,8 @@ function wpmm_colum_resizer() {
             } else {
                 inc_dec_row_buttons(this_row, 'increment', 'none');
             }
-
         }
 
-        column_btn_event('increment');
-        column_btn_event('decrement');
         remove && remove.addEventListener('click', (e) => {
             this_col && this_col.remove();
             reset_col_index(this_row);
