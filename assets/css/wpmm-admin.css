@@ -3,7 +3,7 @@ img{
 }
 .widget.open .widget-inner {
     display: block;
-    padding: 10px;
+    padding: 10px 16px;
 }
 .clearfix::after {
     display: block;
@@ -13,11 +13,11 @@ img{
 :focus {
     outline: 0;
 }
-.wpmm-item-settings-content input:focus, 
-.wpmm-item-settings-content textarea:focus, 
+.wpmm-item-settings-content input:focus,
+.wpmm-item-settings-content textarea:focus,
 .wpmm-item-settings-content select:focus,
-.wpmm-theme-settings input:focus, 
-.wpmm-theme-settings textarea:focus, 
+.wpmm-theme-settings input:focus,
+.wpmm-theme-settings textarea:focus,
 .wpmm-theme-settings select:focus {
     outline-offset: 0;
     outline: 0;
@@ -31,14 +31,13 @@ img{
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-.wpmm-item-settings-content input[type=radio], 
+.wpmm-item-settings-content input[type=radio],
 .wpmm-item-settings-content input[type=checkbox],
-.wpmm-theme-settings input[type=radio], 
+.wpmm-theme-settings input[type=radio],
 .wpmm-theme-settings input[type=checkbox] {
-    border: 1px solid #E5E5E5;
+    border: 1px solid #BFBFC1;
     box-shadow: none;
     border-radius: 2px;
-    margin: 0 4px 0 0;
     padding: 0;
     width: 20px;
     height: 20px;
@@ -86,7 +85,7 @@ img{
     width: 200px;*/
 
     box-shadow: none;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #BFBFC1;
     border-radius: 2px;
     padding: 2px 15px;
    /* width: 164px;
@@ -125,7 +124,7 @@ img{
     line-height: 16px;
     height: 34px;
     box-shadow: none;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #BFBFC1;
     border-radius: 2px;
     margin-right: 10px;
     width: 200px;
@@ -460,6 +459,7 @@ ul.wpmm-widget-lists li:first-child{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
 }
 
 .wpmm-item-settings-title{
@@ -468,9 +468,9 @@ ul.wpmm-widget-lists li:first-child{
     width: 240px;
     float: left;
 }
-.wpmm-item-settings-content{
-    position: relative;
-    height: 100%;
+.wpmm-item-settings-content {
+    flex-grow: 1;
+    min-height: 100%;
 }
 .wpmm-item-settings-top-bar h1 {
     color: #ffffff;
@@ -750,6 +750,7 @@ Choose layout
 .wpmm-row-right {
     float: right;
 }
+
 .wpmmRowDeleteIcon{
     cursor: pointer;
     color: #D0011B;
@@ -782,7 +783,7 @@ div[class*="wpmm-col-"] .wpmm-item-wrap {
     border: 1px solid #eee;
     margin: 5px;
     padding: 10px;
-    
+
 }
 .wpmm-col-12{
     width: 100%;
@@ -901,7 +902,7 @@ input.wpmm_theme_title{
     width: 60px;
     line-height: 60px;
     display: inline-block;
-    text-align: center;   
+    text-align: center;
 }
 .wpmm-main-setting-panel ul li a{
     color: #fff;
@@ -923,7 +924,7 @@ input.wpmm_theme_title{
 .wpmm-main-setting-table th {
     width: 330px;
 }
-.wpmm-main-setting-table td, 
+.wpmm-main-setting-table td,
 .wpmm-main-setting-table th {
     padding: 22px 25px;
     vertical-align: middle;
@@ -989,13 +990,13 @@ input.wpmm_theme_title{
     color: #d07474;
 }
 .wpmm-theme-list-tr .text-right a.btn-close:hover {
-   background: #d07474; 
-   color: #fff; 
+   background: #d07474;
+   color: #fff;
 }
 .wpmm-theme-list-tr a {
     text-decoration: none;
 }
-.wpmm-theme-list-tr td, 
+.wpmm-theme-list-tr td,
 .wpmm-theme-list-tr th {
     padding: 20px 25px;
     vertical-align: middle;
@@ -1088,7 +1089,7 @@ input.wpmm_theme_title{
 .wpmm-settings-wrap .wpmm-settings-tabs-menu ul li a:hover {
     color: #fff;
 }
-.wpmm-tabs-menu ul li.ui-state-active a:after, 
+.wpmm-tabs-menu ul li.ui-state-active a:after,
 .wpmm-settings-wrap .wpmm-settings-tabs-menu ul li.ui-state-active a:after{
     position: absolute;
     content: "";
@@ -1112,7 +1113,7 @@ input.wpmm_theme_title{
 .btn-theme-setting-wrap p.submit{
     text-align: right;
 }
-.btn-theme-setting-wrap p.submit .button-primary, 
+.btn-theme-setting-wrap p.submit .button-primary,
 .wpmm-theme-settings-head  p.submit .button-primary{
     background: #0073aa;
     box-shadow: none;
@@ -1196,7 +1197,7 @@ input.wpmm_theme_title{
     text-decoration: none;
     color: #C7C7C7;
     font-weight: 400;
-    position: relative;   
+    position: relative;
 }
 .wpmm-tabs-menu-builder ul li a i {
     margin-right: 5px;
@@ -1211,17 +1212,6 @@ input.wpmm_theme_title{
 }
 .menu-layout-list > li a {
     text-decoration: none;
-}
-.wpmm-modal {
-    background: #4a90e2;
-    width: 620px;
-    border-radius: 5px;
-    margin: 10px auto;
-    position: relative;
-}
-.wpmm-modal-dialog {
-    margin: 100px auto;
-    width: 600px;
 }
 .menu-layout-list {
     margin: 25px 0 10px;
@@ -1260,10 +1250,10 @@ input.wpmm_theme_title{
     border-radius: 3px 0 0 3px;
 }
 .last-grid {
-   border-radius: 0 3px 3px 0; 
+   border-radius: 0 3px 3px 0;
 }
 .first-grid.last-grid {
-    border-radius: 3px; 
+    border-radius: 3px;
 }
 .grid-design444 {
    width: 30%;
@@ -1322,7 +1312,7 @@ input.wpmm_theme_title{
 }
 
 @media only screen and (max-width: 500px) {
-    
+
 }
 
 
@@ -1439,7 +1429,7 @@ input.wpmm_theme_title{
 .wpmm-theme-settings .wpmm_img_delete:hover,
 .wpmm-menu-builder-settings-panel .wpmm_img_delete:hover {
     background: #c51c1c;
-    color: #fff;  
+    color: #fff;
 }
 
 .wpmm_img_delete:hover{
@@ -1520,7 +1510,7 @@ input.wpmm_theme_title{
         background: none;
     }
     .wpmm-theme-settings-head .left h3 {
-       color: #4592E8; 
+       color: #4592E8;
     }
 }
 
@@ -1572,7 +1562,7 @@ input.wpmm_theme_title{
     .wpmm-theme-head .left {
         font-size: 13px;
     }
-    .wpmm-theme-list-tr td, 
+    .wpmm-theme-list-tr td,
     .wpmm-theme-list-tr th{
         display: table-cell;
         vertical-align: inherit;
@@ -1585,7 +1575,7 @@ input.wpmm_theme_title{
     .wpmm-settings-wrap .wpmm-settings-tabs-menu {
         width: 100%;
     }
-    .wpmm-tabs-menu ul li.ui-state-active a:after, 
+    .wpmm-tabs-menu ul li.ui-state-active a:after,
     .wpmm-settings-wrap .wpmm-settings-tabs-menu ul li.ui-state-active a:after {
         display: none;
     }
@@ -1605,7 +1595,7 @@ input.wpmm_theme_title{
 .order_data_column_container .select2-container {
     z-index: 999 !important;
 }
-span.dashicons.dashicons-arrow-right-alt2.wpmm-right.wpmm-gridcontrol-right.disablebtn, 
+span.dashicons.dashicons-arrow-right-alt2.wpmm-right.wpmm-gridcontrol-right.disablebtn,
 span.dashicons.dashicons-arrow-left-alt2.wpmm-left.wpmm-gridcontrol-left.disablebtn,
 span.dashicons.dashicons-arrow-right-alt2.wpmm-right.wpmm-gridcontrol-right {
     width: 36px;
@@ -1653,12 +1643,6 @@ Manual Integration Code
     padding: 0px 4px;
     margin-right: 6px;
     width: 90px;
-}
-
-
-.wp-core-ui select {
-    color: #32373c;
-    border-color: #f2f2f2;
 }
 
 .badge_text_style input[type="text"] {

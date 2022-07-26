@@ -1,0 +1,39 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wpmm_menu_block_admin {
+	background-color:rgb(8, 96, 122);
+	padding: 10px;
+
+	ul.wpmm_list_menu {
+		list-style: none;
+		padding: 0;
+		display: flex;
+
+		li {
+			position: relative;
+
+			a {
+				padding-inline: 20px;
+				padding-block: 5px;
+			}
+
+
+		}
+
+		li.is_wpmm {
+			padding-inline: 20px;
+			padding-block: 5px;
+		}
+
+		li.is_wpmm:after {
+			position: absolute;
+			content: '›';
+			transform: rotate(90deg);
+			right: 0;
+		}
+	}
+}
